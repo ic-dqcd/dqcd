@@ -1,0 +1,279 @@
+lumifilter:
+    name: lumiFilterRDF
+    path: Base.Modules.lumiFilter
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+puweight:
+    name: puWeightRDF
+    path: Corrections.LUM.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+# # UL only
+# # puweightCor:
+    # # name: puWeightRDF
+    # # path: Corrections.LUM.puWeightCor
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+        # # year: self.config.year
+        # # isUL: self.dataset.has_tag('ul')
+
+2:
+    name: MetFilterRDF
+    path: Base.Modules.METfilters
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+
+tauSF:
+    name: tauSFRDF
+    path: Corrections.TAU.tauCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+hhlepton:
+    name: HHLeptonRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        isV10: self.dataset.has_tag("nanoV10")
+        year: self.config.year
+        runPeriod: self.dataset.runPeriod
+        vvvl_vsjet: self.config.deeptau.vsjet.VVVLoose
+        vl_vse: self.config.deeptau.vse.VLoose
+        vvl_vse: self.config.deeptau.vse.VVLoose
+        t_vsmu: self.config.deeptau.vsmu.Tight
+        vl_vsmu: self.config.deeptau.vsmu.VLoose
+        filter: True
+
+hhleptonVar:
+    name: HHLeptonVarRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+
+
+hhleptonVarTESup:
+    name: HHLeptonVarRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        tau_syst: corr_up
+
+
+hhleptonVarTESdown:
+    name: HHLeptonVarRDF
+    path: Tools.Tools.HHLepton
+    parameters:
+        isMC: self.dataset.process.isMC
+        tau_syst: corr_down
+
+
+jet_smearing:
+    name: jetSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        jerTag: self.config.year
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+
+
+jet_smear_val:
+    name: jetVarRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+
+met_smearing:
+    name: metSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+jec:
+    name: jecProviderRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+        # jec_sources: [FlavorQCD, RelativeBal, HF, BBEC1, EC2, Absolute, BBEC1_2018,
+            # EC2_2018, Absolute_2018, HF_2018, RelativeSample_2018, Total]
+
+hhjets:
+    name: HHJetsRDF
+    path: Tools.Tools.HHJets
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        met_smear_tag: smeared
+        filter: True
+
+bjet1var:
+    name: VarFromVectorRDF
+    path: Base.Modules.baseModules
+    parameters:
+        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        index: bjet1_JetIdx
+        input_prefix: Jet
+        output_prefix: bjet1
+        condition: self.dataset.process.isMC
+
+bjet2var:
+    name: VarFromVectorRDF
+    path: Base.Modules.baseModules
+    parameters:
+        variables: [Jet_pt_nom, Jet_eta, Jet_mass_nom]
+        index: bjet2_JetIdx
+        input_prefix: Jet
+        output_prefix: bjet2
+        condition: self.dataset.process.isMC
+
+jecb1:
+    name: jecProviderRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        pt: bjet1_pt_nom
+        eta: bjet1_eta
+        mass: bjet1_mass_nom
+
+jecb2:
+    name: jecProviderRDF
+    path: Corrections.JME.jec
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        pt: bjet2_pt_nom
+        eta: bjet2_eta
+        mass: bjet2_mass_nom
+
+dyscaling:
+    name: DYscalingRDF
+    path: Tools.Tools.dyreweighting
+    parameters:
+        year: self.config.year
+        isDY: self.dataset.process.get_aux('isDY', False)
+
+
+svfit:
+    name: SVFitRDF
+    path: Tools.Tools.svfit
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+
+
+hh:
+    name: HHKinFitRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+
+
+hhvar:
+    name: HHVarRDF
+    path: Tools.Tools.hh
+    parameters:
+        isMC: self.dataset.process.isMC
+        met_smear_tag: smeared
+
+
+hhdnn:
+    name: HHDNNRDF
+    path: Tools.Tools.HHDNN
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+hhmulticlass:
+    name: HHMulticlassRDF
+    path: Tools.Tools.HHMulticlass
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        model_specs: ((v5, kl1_c2v1_c31_vbf))
+
+trigSF:
+    name: Htt_trigSFRDF
+    path: Tools.Tools.Htt_trigSF
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+
+
+HHPUjetID_SF:
+    name: HHPUjetID_SFRDF
+    path: Tools.Tools.HH_SF
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+
+3_w2:
+    name: prescaleWeightRDF
+    path: Tools.Tools.weight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
+
+4_w2:
+    name: prefiringWeightRDF
+    path: Base.Modules.prefiringWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+
+
+muSF:
+    name: muSFRDF
+    path: Corrections.MUO.muCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+eleSD:
+    name: eleSFRDF
+    path: Corrections.EGM.eleCorrections
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+
+idAndIsoSF:
+    name: dauIdIsoSFRDF
+    path: Tools.Tools.dauIdIso
+    parameters:
+        isMC: self.dataset.process.isMC
+
+
+btag:
+    name: HHbtag_SFRDF
+    path: Tools.Tools.HH_SF
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+        uncertainties: ["central", "down_hfstats2"]
+

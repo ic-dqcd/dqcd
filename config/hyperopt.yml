@@ -1,0 +1,130 @@
+---
+
+training_workflow:
+  # which branches define the workflow requirements
+  require_branches: []
+
+  # default values of training parameters
+  defaults:
+    training_category_name: vbf_common_os_even
+    training_config_name: default
+    feature_tag: lbn_light
+    architecture: lbn_dense:30:default:128_128_128_128:tanh
+    loss_name: wsgce
+    l2_norm: 2.e-3
+    event_weights: True
+    learning_rate: 5.e-5
+    dropout_rate: 0.1
+    batch_norm: True
+    batch_size: 1024
+    random_seed: 1
+    # config_name: base_2018
+    # data_config_names: ["base_2016", "base_2017"]
+    # skip_dataset_tags: ["other", "bsm"]
+    # do_qcd: True
+    # hide_data: True
+    # region_name: os_iso
+
+  # training "branches", each one extending the defaults above
+  branches:
+    0: {}
+    1: {random_seed: 2}
+    2: {random_seed: 3}
+    3: {event_weights: False}
+    4: {batch_norm: False}
+    5: {feature_tag: lbn}
+    6: {architecture: dense:128_128_128_128:tanh}
+    7: {architecture: lbn_dense:30:extended:128_128_128_128:tanh}
+    8: {architecture: lbn_dense:30:extended:128_128_128_128:relu}
+    9: {architecture: lbn_dense:30:extended:256_256_256_256:tanh}
+    10: {architecture: lbn_dense:30:extended:256_256_256_256:relu}
+    # scan1: educated guesses
+    11-298: {
+        architecture: [lbn_dense:30:default:128_128_128_128:tanh, lbn_dense:30:extended:128_128_128_128:tanh, lbn_dense:30:extended:256_256_256_256:tanh],
+        feature_tag: [lbn_light, lbn],
+        l2_norm: [6.e-4, 2.e-3, 6.e-3, 2.e-2],
+        learning_rate: [1.e-5, 5.e-5, 1.e-4, 5.e-4],
+        dropout_rate: [0.0, 0.05, 0.1],
+    }
+    # scan2: good points from scan1 with multiple seeds
+    299-308: {ref: 12, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    309-318: {ref: 39, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    319-328: {ref: 43, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    329-338: {ref: 51, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    339-348: {ref: 131, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    349-358: {ref: 203, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    359-368: {ref: 240, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    369-378: {ref: 280, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    379-388: {ref: 51, training_category_name: vbf_loose_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    389-398: {ref: 51, loss_name: gce, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    399-408: {ref: 51, training_category_name: vr_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    409-428: {ref: 51, loss_name: gce, training_category_name: [vbf_loose_os_even, vbf_loose_os_odd], random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    429-1196: {
+        ref: 51,
+        training_category_name: [vbf_loose_os_even, vbf_loose_os_odd],
+        architecture: [
+            lbn_dense:30:default:256_128_64_32:tanh,
+            lbn_dense:30:default:128_128_128_128:tanh,
+            lbn_dense:40:default:128_128_128_128:tanh,
+            lbn_dense:30:extended:128_128_128_128:tanh,
+        ],
+        loss_name: [ce, gce, sce, sgce, wsgce, gfl],
+        l2_norm: [1.e-3, 3.e-3, 6.e-3, 1.e-2],
+        learning_rate: [5.e-6, 1.e-5, 2.e-5, 5.e-5],
+        event_weights: False,
+    }
+    1197-1964: {
+        ref: 51,
+        training_category_name: [vr_os_even, vr_os_odd],
+        architecture: [
+            lbn_dense:30:default:256_128_64_32:tanh,
+            lbn_dense:30:default:128_128_128_128:tanh,
+            lbn_dense:40:default:128_128_128_128:tanh,
+            lbn_dense:30:extended:128_128_128_128:tanh,
+        ],
+        loss_name: [ce, gce, sce, sgce, wsgce, gfl],
+        l2_norm: [1.e-3, 3.e-3, 6.e-3, 1.e-2],
+        learning_rate: [5.e-6, 1.e-5, 2.e-5, 5.e-5],
+        event_weights: False,
+    }
+    1965-1974: {ref: 749, training_category_name: vbf_loose_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v3_vbf
+    1975-1984: {ref: 1039, training_category_name: vbf_loose_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    1985-1994: {ref: 1191, training_category_name: vbf_loose_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    1995-2004: {ref: 789, training_category_name: vbf_loose_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    2005-2014: {ref: 945, training_category_name: vbf_loose_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    2015-2024: {ref: 1100, training_category_name: vbf_loose_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    2025-2034: {ref: 744, training_category_name: vbf_loose_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    2035-2044: {ref: 508, training_category_name: vbf_loose_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v3_vbf
+    2045-2054: {ref: 1098, training_category_name: vbf_loose_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    2055-2064: {ref: 668, training_category_name: vbf_loose_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    2065-2074: {ref: 1547, training_category_name: vr_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v3_vr, v3b_vr
+    2075-2084: {ref: 1230, training_category_name: vr_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v3_vr, v3b_vr
+    2085-2094: {ref: 749, training_category_name: vbf_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v3b_vbf
+    2095-2104: {ref: 508, training_category_name: vbf_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v3b_vbf
+    2105-3640: {
+        ref: 51,
+        training_category_name: [vbf_os_even, vbf_os_odd, vr_os_even, vr_os_odd],
+        architecture: [
+            lbn_dense:30:default:256_128_64_32:tanh,
+            lbn_dense:30:default:128_128_128_128:tanh,
+            lbn_dense:40:default:128_128_128_128:tanh,
+            lbn_dense:30:extended:128_128_128_128:tanh,
+        ],
+        loss_name: [ce, gce, sce, sgce, wsgce, gfl],
+        l2_norm: [1.e-3, 3.e-3, 6.e-3, 1.e-2],
+        learning_rate: [5.e-6, 1.e-5, 2.e-5, 5.e-5],
+        event_weights: False,
+    }
+    # hyperopt5
+    3641-3650: {ref: 2745, training_category_name: vbf_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v4_vbf
+    3651-3660: {ref: 2581, training_category_name: vbf_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3661-3670: {ref: 3058, training_category_name: vbf_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3671-3680: {ref: 2966, training_category_name: vbf_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v4_vbf
+    3681-3690: {ref: 2147, training_category_name: vr_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v4_vr
+    3691-3700: {ref: 2747, training_category_name: vr_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3701-3710: {ref: 2700, training_category_name: vr_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3711-3720: {ref: 3420, training_category_name: vr_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3721-3730: {ref: 3034, training_category_name: vbf_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3731-3740: {ref: 2839, training_category_name: vr_os_even, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3741-3750: {ref: 3400, training_category_name: vr_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+    3751-3760: {ref: 3324, training_category_name: vr_os_odd, random_seed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}  # best v4_vr

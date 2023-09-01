@@ -1,0 +1,3 @@
+[submodule "nanoaod_base_analysis"]
+	path = nanoaod_base_analysis
+	url = https://gitlab.cern.ch/cms-phys-ciemat/nanoaod_base_analysis.git
