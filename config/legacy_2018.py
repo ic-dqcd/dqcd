@@ -14,7 +14,6 @@ class Config(cmt_config):
     def add_categories(self, **kwargs):
         categories = [
             Category("base", "base category", selection="event >= 0"),
-            Category("baseline", "Baseline", selection="pairType >= 0 && pairType <= 2"),
             Category("base_selection", "base category",
                 nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
                     " && ((Sum$(Muon_pt->fElements > 17) > 0"
@@ -36,7 +35,9 @@ class Config(cmt_config):
             Process("Background", Label("Background"), color=(255, 153, 0)),
             Process("QCD", Label("QCD"), color=(255, 153, 0), parent_process="background"),
 
-            Process("data", Label("Data"), color=(0, 0, 0), isData=True)
+            Process("data", Label("Data"), color=(0, 0, 0), isData=True),
+
+            Process("dum", Label("dum"), color=(0, 0, 0)),
         ]
 
         process_group_names = {
@@ -48,17 +49,70 @@ class Config(cmt_config):
                 "data",
                 "background",
             ],
-
-        process_training_names = {
-            "default": [
-
-            ]
         }
+
+        process_training_names = {}
+            # "default": []
+        # }
 
         return ObjectCollection(processes), process_group_names, process_training_names
 
+    def add_datasets(self):
+        sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p0/"
+        bdt_path = ("/vols/cms/mmieskol/icenet/output/dqcd/deploy/modeltag__vector_all/"
+            "vols/cms/mc3909/bparkProductionAll_V1p0/")
+        
+        datasets = [
+            Dataset("qcd_80to120",
+                folder=[
+                    sample_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
+                        "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1"
+                        "_MINIAODSIM_v1p0_generationSync",
+                    sample_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
+                        "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext1-v2"
+                        "_MINIAODSIM_v1p0_generationSync",
+                ],
+                process=self.processes.get("QCD"),
+                xs=0.03105,),
+                # friend_datasets="qcd_80to120_friend"),
+            # Dataset("qcd_80to120_friend",
+                # folder=[
+                    # bdt_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
+                        # "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1"
+                        # "_MINIAODSIM_v1p0_generationSync",
+                    # bdt_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
+                        # "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext1-v2"
+                        # "_MINIAODSIM_v1p0_generationSync",
+                # ],
+                # process=self.processes.get("dum"),
+                # xs=0.03105,
+                # tags=["friend"]),
+            
+            Dataset("qcd_800to1000",
+                folder=[
+                    sample_path + "QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8_"
+                        "RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext3-v2_"
+                        "MINIAODSIM_v1p0_generationSync",
+                ],
+                process=self.processes.get("QCD"),
+                xs=0.03105,),
+                # friend_datasets="qcd_800to1000_friend"),
+            # Dataset("qcd_800to1000_friend",
+                # folder=[
+                    # bdt_path + "QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8_"
+                        # "RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext3-v2_"
+                        # "MINIAODSIM_v1p0_generationSync",
+                # ],
+                # process=self.processes.get("dum"),
+                # xs=0.03105,
+                # tags=["friend"]),
+        ]
+        return ObjectCollection(datasets)
+
     def add_features(self):
         features = [
+            Feature("njet", "nJet", binning=(10, -0.5, 9.5),
+                x_title=Label("nJet")),
             Feature("jet_pt", "Jet_pt", binning=(10, 50, 150),
                 x_title=Label("jet p_{T}"),
                 units="GeV"),
@@ -332,8 +386,8 @@ class Config(cmt_config):
         # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
         weights.total_events_weights = ["genWeight", "puWeight"]
 
-        weights.base = ["genWeight", "puWeight"]  # others needed
-        weights.baseline = weights.base
+        # weights.base = ["genWeight", "puWeight"]  # others needed
+        weights.base = ["1"]  # others needed
         weights.base_selection = weights.base
 
         return weights
