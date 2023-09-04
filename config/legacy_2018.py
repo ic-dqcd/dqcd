@@ -61,51 +61,66 @@ class Config(cmt_config):
         sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p0/"
         bdt_path = ("/vols/cms/mmieskol/icenet/output/dqcd/deploy/modeltag__vector_all/"
             "vols/cms/mc3909/bparkProductionAll_V1p0/")
-        
+
+        samples = {
+            "qcd_80to120": ("QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
+                "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1"
+                "_MINIAODSIM_v1p0_generationSync"),
+            "qcd_80to120_ext1": ("QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
+                "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext1-v2"
+                "_MINIAODSIM_v1p0_generationSync"),
+            "qcd_800to1000": ("QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8_"
+                "RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext3-v2_"
+                "MINIAODSIM_v1p0_generationSync"),
+        }
+
         datasets = [
             Dataset("qcd_80to120",
                 folder=[
-                    sample_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
-                        "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1"
-                        "_MINIAODSIM_v1p0_generationSync",
-                    sample_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
-                        "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext1-v2"
-                        "_MINIAODSIM_v1p0_generationSync",
+                    sample_path + samples["qcd_80to120"],
+                    sample_path + samples["qcd_80to120_ext1"],
                 ],
+                skipFiles=["{}/output_{}.root".format(sample_path + samples["qcd_80to120"], i)
+                        for i in range(1, 11)] +
+                    ["{}/output_{}.root".format(sample_path + samples["qcd_80to120_ext1"], i)
+                        for i in range(1, 11)],
                 process=self.processes.get("QCD"),
-                xs=0.03105,),
-                # friend_datasets="qcd_80to120_friend"),
-            # Dataset("qcd_80to120_friend",
-                # folder=[
-                    # bdt_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
-                        # "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1"
-                        # "_MINIAODSIM_v1p0_generationSync",
-                    # bdt_path + "QCD_Pt-80to120_MuEnrichedPt5_TuneCP5_13TeV_pythia8"
-                        # "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext1-v2"
-                        # "_MINIAODSIM_v1p0_generationSync",
-                # ],
-                # process=self.processes.get("dum"),
-                # xs=0.03105,
-                # tags=["friend"]),
-            
+                xs=0.03105, #FIXME
+                friend_datasets="qcd_80to120_friend"),
+            Dataset("qcd_80to120_friend",
+                folder=[
+                    bdt_path + samples["qcd_80to120"],
+                    bdt_path + samples["qcd_80to120_ext1"],
+                ],
+                process=self.processes.get("dum"),
+                xs=0.03105, # FIXME
+                tags=["friend"]),
+
             Dataset("qcd_800to1000",
                 folder=[
-                    sample_path + "QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8_"
-                        "RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext3-v2_"
-                        "MINIAODSIM_v1p0_generationSync",
+                    sample_path + samples["qcd_800to1000"],
                 ],
+                skipFiles=["{}/output_{}.root".format(sample_path + samples["qcd_800to1000"], i)
+                    for i in range(1, 11)],
                 process=self.processes.get("QCD"),
-                xs=0.03105,),
-                # friend_datasets="qcd_800to1000_friend"),
-            # Dataset("qcd_800to1000_friend",
-                # folder=[
-                    # bdt_path + "QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8_"
-                        # "RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext3-v2_"
-                        # "MINIAODSIM_v1p0_generationSync",
-                # ],
-                # process=self.processes.get("dum"),
-                # xs=0.03105,
-                # tags=["friend"]),
+                xs=0.03105, # FIXME
+                friend_datasets="qcd_800to1000_friend"),
+            Dataset("qcd_800to1000_friend",
+                folder=[
+                    bdt_path + samples["qcd_800to1000"],
+                ],
+                process=self.processes.get("dum"),
+                xs=0.03105, # FIXME
+                tags=["friend"]),
+
+            ## data
+            Dataset("data_2018b",
+                folder=sample_path + "ParkingBPH1_Run2018B-05May2019-v2_MINIAOD_v1p0_generationSync/",
+                process=self.processes.get("data"),
+                friend_datasets="data_2018b_friend"),
+            Dataset("data_2018b_friend",
+                folder=bdt_path + "ParkingBPH1_Run2018B-05May2019-v2_MINIAOD_v1p0_generationSync/",
+                process=self.processes.get("dum"),),
         ]
         return ObjectCollection(datasets)
 
@@ -117,264 +132,9 @@ class Config(cmt_config):
                 x_title=Label("jet p_{T}"),
                 units="GeV"),
 
-            # bjet features
-            Feature("bjet1_pt", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{1} p_{T}"),
-                units="GeV",
-                central="jet_smearing"),
-            Feature("bjet1_pt_eta2p1", "Jet_pt.at(bjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{1} p_{T}"),
-                units="GeV",
-                selection="abs({{bjet1_eta}}) < 2.1",
-                central="jet_smearing"),
-            Feature("bjet1_eta", "Jet_eta.at(bjet1_JetIdx)", binning=(20, -5., 5.),
-                x_title=Label("b_{1} #eta")),
-            Feature("bjet1_phi", "Jet_phi.at(bjet1_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("b_{1} #phi")),
-            Feature("bjet1_mass", "Jet_mass.at(bjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{1} m"),
-                units="GeV",
-                central="jet_smearing"),
-            Feature("bjet2_pt", "Jet_pt.at(bjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{2} p_{T}"),
-                units="GeV",
-                central="jet_smearing"),
-            Feature("bjet2_eta", "Jet_eta.at(bjet2_JetIdx)", binning=(20, -5., 5.),
-                x_title=Label("b_{2} #eta")),
-            Feature("bjet2_phi", "Jet_phi.at(bjet2_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("b_{2} #phi")),
-            Feature("bjet2_mass", "Jet_mass.at(bjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("b_{2} m"),
-                units="GeV",
-                central="jet_smearing"),
-
-            Feature("ctjet1_pt", "Jet_pt.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. central jet 1 p_{t}"),
-                units="GeV",
-                central="jet_smearing",
-                selection="ctjet_indexes.size() > 0"),
-            Feature("ctjet1_eta", "Jet_eta.at(ctjet_indexes.at(0))", binning=(20, -5., 5.),
-                x_title=Label("add. central jet 1 #eta"),
-                selection="ctjet_indexes.size() > 0"),
-            Feature("ctjet1_phi", "Jet_phi.at(ctjet_indexes.at(0))", binning=(20, -3.2, 3.2),
-                x_title=Label("add. central jet 1 #phi"),
-                selection="ctjet_indexes.size() > 0"),
-            Feature("ctjet1_mass", "Jet_mass.at(ctjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. central jet 1 m"),
-                units="GeV",
-                central="jet_smearing",
-                selection="ctjet_indexes.size() > 0"),
-            Feature("fwjet1_pt", "Jet_pt.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. forward jet 1 p_t"),
-                units="GeV",
-                central="jet_smearing",
-                selection="fwjet_indexes.size() > 0"),
-            Feature("fwjet1_eta", "Jet_eta.at(fwjet_indexes.at(0))", binning=(20, -5., 5.),
-                x_title=Label("add. forward jet 1 #eta"),
-                selection="fwjet_indexes.size() > 0"),
-            Feature("fwjet1_phi", "Jet_phi.at(fwjet_indexes.at(0))", binning=(20, -3.2, 3.2),
-                x_title=Label("add. forward jet 1  #phi"),
-                selection="fwjet_indexes.size() > 0"),
-            Feature("fwjet1_mass", "Jet_mass.at(fwjet_indexes.at(0))", binning=(10, 50, 150),
-                x_title=Label("add. forward jet 1  m"),
-                units="GeV",
-                central="jet_smearing",
-                selection="fwjet_indexes.size() > 0"),
-
-            Feature("bjet_difpt", "abs({{bjet1_pt}} - {{bjet2_pt}})", binning=(10, 50, 150),
-                x_title=Label("bb #Delta p_t"),
-                units="GeV",
-                central="jet_smearing"),
-
-            # lepton features
-             Feature("tau_pt", "Tau_pt", binning=(75, 0, 150),
-                x_title=Label("#tau p_{t}"),
-                units="GeV"),
-            Feature("tau_pt_tes", "Tau_pt_corr", binning=(75, 0, 150),
-                x_title=Label("#tau p_{t}"),
-                units="GeV"),
-            Feature("tau_mass", "Tau_mass", binning=(52, 0.2, 1.5),
-                x_title=Label("#tau m"),
-                units="GeV"),
-            Feature("tau_mass_tes", "Tau_mass_corr", binning=(52, 0.2, 1.5),
-                x_title=Label("#tau m"),
-                units="GeV"),
-
-            Feature("lep1_pt", "dau1_pt", binning=(10, 50, 150),
-                x_title=Label("#tau_{1} p_{t}"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("lep1_eta", "dau1_eta", binning=(20, -5., 5.),
-                x_title=Label("#tau_{1} #eta")),
-            Feature("lep1_phi", "dau1_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("#tau_{1} #phi")),
-            Feature("lep1_mass", "dau1_mass", binning=(10, 50, 150),
-                x_title=Label("#tau_{1} m"),
-                units="GeV",
-                systematics=["tes"]),
-
-            Feature("lep2_pt", "dau2_pt", binning=(10, 50, 150),
-                x_title=Label("#tau_{2} p_{t}"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("lep2_eta", "dau2_eta", binning=(20, -5., 5.),
-                x_title=Label("#tau_{2} #eta")),
-            Feature("lep2_phi", "dau2_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("#tau_{2} #phi")),
-            Feature("lep2_mass", "dau2_mass", binning=(10, 50, 150),
-                x_title=Label("#tau_{2} m"),
-                units="GeV",
-                systematics=["tes"]),
-
-            # MET
-            Feature("met_pt", "MET_pt", binning=(10, 50, 150),
-                x_title=Label("MET p_t"),
-                units="GeV",
-                central="met_smearing"),
-            Feature("met_phi", "MET_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("MET #phi"),
-                central="met_smearing"),
-
-            # Hbb
-            Feature("Hbb_pt", "Hbb_pt", binning=(10, 50, 150),
-                x_title=Label("H(b #bar{b}) p_t"),
-                units="GeV"),
-            Feature("Hbb_eta", "Hbb_eta", binning=(20, -5., 5.),
-                x_title=Label("H(b #bar{b}) #eta")),
-            Feature("Hbb_phi", "Hbb_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(b #bar{b}) #phi")),
-            Feature("Hbb_mass", "Hbb_mass", binning=(30, 0, 300),
-                x_title=Label("H(b #bar{b}) m"),
-                units="GeV"),
-
-            # Htt
-            Feature("Htt_pt", "Htt_pt", binning=(10, 50, 150),
-                x_title=Label("H(#tau^{+} #tau^{-}) p_t"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("Htt_eta", "Htt_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+} #tau^{-}) #eta"),
-                systematics=["tes"]),
-            Feature("Htt_phi", "Htt_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(#tau^{+} #tau^{-}) #phi"),
-                systematics=["tes"]),
-            Feature("Htt_mass", "Htt_mass", binning=(30, 0, 300),
-                x_title=Label("H(#tau^{+} #tau^{-}) m"),
-                units="GeV"),
-                #systematics=["tes"]),
-
-            # Htt (SVFit)
-            Feature("Htt_svfit_pt", "Htt_svfit_pt", binning=(10, 50, 150),
-                x_title=Label("H(#tau^{+} #tau^{-}) p_t (SVFit)"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("Htt_svfit_eta", "Htt_svfit_eta", binning=(20, -5., 5.),
-                x_title=Label("H(#tau^{+} #tau^{-}) #eta (SVFit)"),
-                systematics=["tes"]),
-            Feature("Htt_svfit_phi", "Htt_svfit_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("H(#tau^{+} #tau^{-}) #phi (SVFit)"),
-                systematics=["tes"]),
-            Feature("Htt_svfit_mass", "Htt_svfit_mass", binning=(30, 0, 300),
-                x_title=Label("H(#tau^{+} #tau^{-}) m (SVFit)"),
-                units="GeV",
-                systematics=["tes"]),
-
-            # HH
-            Feature("HH_pt", "HH_pt", binning=(10, 50, 150),
-                x_title=Label("HH p_t"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("HH_eta", "HH_eta", binning=(20, -5., 5.),
-                x_title=Label("HH #eta"),
-                systematics=["tes"]),
-            Feature("HH_phi", "HH_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("HH #phi"),
-                systematics=["tes"]),
-            Feature("HH_mass", "HH_mass", binning=(50, 0, 1000),
-                x_title=Label("HH m"),
-                units="GeV",
-                systematics=["tes"]),
-
-            # HH (SVFit)
-            Feature("HH_svfit_pt", "HH_svfit_pt", binning=(10, 50, 150),
-                x_title=Label("HH p_t (SVFit)"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("HH_svfit_eta", "HH_svfit_eta", binning=(20, -5., 5.),
-                x_title=Label("HH #eta (SVFit)")),
-                #systematics=["tes"]),
-            Feature("HH_svfit_phi", "HH_svfit_phi", binning=(20, -3.2, 3.2),
-                x_title=Label("HH #phi (SVFit)")),
-                #systematics=["tes"]),
-            Feature("HH_svfit_mass", "HH_svfit_mass", binning=(50, 0, 1000),
-                x_title=Label("HH m (SVFit)"),
-                units="GeV"),
-                #systematics=["tes"]),
-
-            # HH KinFit
-            Feature("HHKinFit_mass", "HHKinFit_mass", binning=(50, 0, 1000),
-                x_title=Label("HH m (Kin. Fit)"),
-                units="GeV",
-                systematics=["tes"]),
-            Feature("HHKinFit_chi2", "HHKinFit_chi2", binning=(30, 0, 10),
-                x_title=Label("HH #chi^2 (Kin. Fit)"),
-                systematics=["tes"]),
-
-            # VBFjet features
-            Feature("vbfjet1_pt", "Jet_pt.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet1 p_{t}"),
-                units="GeV",
-                central="jet_smearing"),
-            Feature("vbfjet1_eta", "Jet_eta.at(VBFjet1_JetIdx)", binning=(20, -5., 5.),
-                x_title=Label("VBFjet1 #eta")),
-            Feature("vbfjet1_phi", "Jet_phi.at(VBFjet1_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("VBFjet1 #phi")),
-            Feature("vbfjet1_mass", "Jet_mass.at(VBFjet1_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet1 m"),
-                units="GeV",
-                central="jet_smearing"),
-            Feature("vbfjet2_pt", "Jet_pt.at(VBFjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet2 p_t"),
-                units="GeV",
-                central="jet_smearing"),
-            Feature("vbfjet2_eta", "Jet_eta.at(VBFjet2_JetIdx)", binning=(20, -5., 5.),
-                x_title=Label("VBFjet2 #eta")),
-            Feature("vbfjet2_phi", "Jet_phi.at(VBFjet2_JetIdx)", binning=(20, -3.2, 3.2),
-                x_title=Label("VBFjet2 #phi")),
-            Feature("vbfjet2_mass", "Jet_mass.at(VBFjet2_JetIdx)", binning=(10, 50, 150),
-                x_title=Label("VBFjet2 m"),
-                units="GeV",
-                central="jet_smearing"),
-
-            # VBFjj
-            Feature("VBFjj_mass", "VBFjj_mass", binning=(40, 0, 1000),
-                x_title=Label("VBFjj mass"),
-                units="GeV"),
-            Feature("VBFjj_deltaEta", "VBFjj_deltaEta", binning=(40, -8, 8),
-                x_title=Label("#Delta#eta(VBFjj)")),
-            Feature("VBFjj_deltaPhi", "VBFjj_deltaPhi", binning=(40, -6.4, 6.4),
-                x_title=Label("#Delta#phi(VBFjj)")),
-
-            # Weights
-            Feature("genWeight", "genWeight", binning=(20, 0, 2),
-                x_title=Label("genWeight")),
-            Feature("puWeight", "puWeight", binning=(20, 0, 2),
-                x_title=Label("puWeight"),
-                systematics=["pu"]),
-            Feature("prescaleWeight", "prescaleWeight", binning=(20, 0, 2),
-                x_title=Label("prescaleWeight")),
-            Feature("trigSF", "trigSF", binning=(20, 0, 2),
-                x_title=Label("trigSF")),
-            Feature("L1PreFiringWeight", "L1PreFiringWeight", binning=(20, 0, 2),
-                x_title=Label("L1PreFiringWeight"),
-                central="prefiring",
-                systematics=["prefiring_syst"]),
-            Feature("PUjetID_SF", "PUjetID_SF", binning=(20, 0, 2),
-                x_title=Label("PUjetID_SF")),
-
-            Feature("genHH_mass", "genHH_mass", binning=(100, 0, 2500),
-                x_title=Label("generator HH mass"),
-                units="GeV"),
+            # BDT features
+            Feature("bdt", "xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0", binning=(20, 0, 1),
+                x_title=Label("BDT score")),
 
         ]
         return ObjectCollection(features)
@@ -383,8 +143,8 @@ class Config(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
-        # weights.total_events_weights = ["genWeight", "puWeight", "DYstitchWeight"]
-        weights.total_events_weights = ["genWeight", "puWeight"]
+        # weights.total_events_weights = ["genWeight", "puWeight"]
+        weights.total_events_weights = ["genWeight"]
 
         # weights.base = ["genWeight", "puWeight"]  # others needed
         weights.base = ["1"]  # others needed
