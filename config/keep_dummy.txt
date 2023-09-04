@@ -1,0 +1,4 @@
+drop .*
+keep nJet
+keep Jet_pt
+keep xgb0.*
