@@ -1,4 +1,4 @@
-drop .*
-keep nJet
-keep Jet_pt
-keep xgb0.*
+drop HLT.*
+drop friend.*
+drop xgb0.
+keep xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0

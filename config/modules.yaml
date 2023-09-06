@@ -1,0 +1,20 @@
+muon:
+    name: DQCDMuonSelectionRDF
+    path: modules.muon_selection
+    parameters:
+        year: self.config.year
+
+
+jet:
+    name: DQCDJetSelectionRDF
+    path: modules.jet_selection
+    parameters:
+        year: self.config.year
+        jet_id: loose
+
+
+bdt:
+    name: DQCDBDTSelectionRDF
+    path: modules.bdt_selection
+    parameters:
+        bdt_name: xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0

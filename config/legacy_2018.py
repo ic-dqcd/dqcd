@@ -26,7 +26,7 @@ class Config(cmt_config):
                     "|| Tau_pt[Tau_pt > 10].size() > 1)"
                     "&& Jet_pt[Jet_pt > 17].size() > 0"),
             # Category("dum", "dummy category", selection="event == 220524669"),
-            Category("dum", "dummy category", selection="event == 74472670"),
+            Category("dum", "dummy category", selection="event == 3"),
         ]
         return ObjectCollection(categories)
 
@@ -34,6 +34,8 @@ class Config(cmt_config):
         processes = [
             Process("Background", Label("Background"), color=(255, 153, 0)),
             Process("QCD", Label("QCD"), color=(255, 153, 0), parent_process="background"),
+
+            Process("signal", Label("Signal"), color=(0, 0, 0), isSignal=True),
 
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
 
@@ -72,6 +74,8 @@ class Config(cmt_config):
             "qcd_800to1000": ("QCD_Pt-800to1000_MuEnrichedPt5_TuneCP5_13TeV_pythia8_"
                 "RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15_ext3-v2_"
                 "MINIAODSIM_v1p0_generationSync"),
+            "m_2_ctau_10_xiO_1_xiL_1": ("HiddenValley_vector_m_2_ctau_10_xiO_1_xiL_1"
+                "_privateMC_11X_NANOAODSIM_v1p0_generationSync"),
         }
 
         datasets = [
@@ -80,9 +84,11 @@ class Config(cmt_config):
                     sample_path + samples["qcd_80to120"],
                     sample_path + samples["qcd_80to120_ext1"],
                 ],
-                skipFiles=["{}/output_{}.root".format(sample_path + samples["qcd_80to120"], i)
+                skipFiles=["{}/output_{}.root".format(
+                        sample_path + samples["qcd_80to120"], i)
                         for i in range(1, 11)] +
-                    ["{}/output_{}.root".format(sample_path + samples["qcd_80to120_ext1"], i)
+                    ["{}/output_{}.root".format(
+                        sample_path + samples["qcd_80to120_ext1"], i)
                         for i in range(1, 11)],
                 process=self.processes.get("QCD"),
                 xs=0.03105, #FIXME
@@ -100,7 +106,8 @@ class Config(cmt_config):
                 folder=[
                     sample_path + samples["qcd_800to1000"],
                 ],
-                skipFiles=["{}/output_{}.root".format(sample_path + samples["qcd_800to1000"], i)
+                skipFiles=["{}/output_{}.root".format(
+                    sample_path + samples["qcd_800to1000"], i)
                     for i in range(1, 11)],
                 process=self.processes.get("QCD"),
                 xs=0.03105, # FIXME
@@ -111,6 +118,21 @@ class Config(cmt_config):
                 ],
                 process=self.processes.get("dum"),
                 xs=0.03105, # FIXME
+                tags=["friend"]),
+
+            ## signal
+            Dataset("m_2_ctau_10_xiO_1_xiL_1",
+                folder=sample_path + samples["m_2_ctau_10_xiO_1_xiL_1"],
+                skipFiles=["{}/output_{}.root".format(
+                    sample_path + samples["m_2_ctau_10_xiO_1_xiL_1"], i)
+                    for i in range(1, 6)],
+                process=self.processes.get("signal"),
+                xs=1.,# FIXME
+                friend_datasets="m_2_ctau_10_xiO_1_xiL_1_friend"),
+            Dataset("m_2_ctau_10_xiO_1_xiL_1_friend",
+                folder=bdt_path + samples["m_2_ctau_10_xiO_1_xiL_1"],
+                process=self.processes.get("dum"),
+                xs=1., # FIXME
                 tags=["friend"]),
 
             ## data
