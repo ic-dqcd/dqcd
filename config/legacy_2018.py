@@ -12,21 +12,64 @@ class Config(cmt_config):
         super(Config, self).__init__(*args, **kwargs)
 
     def add_categories(self, **kwargs):
+        single_sel = """cat_index == 0 &&
+                muonSV_mu1eta.at(min_chi2_index) != 0 && muonSV_mu2eta.at(min_chi2_index) != 0"""
         categories = [
             Category("base", "base category", selection="event >= 0"),
-            Category("base_selection", "base category",
-                nt_selection="(Sum$(Tau_pt->fElements > 17) > 0"
-                    " && ((Sum$(Muon_pt->fElements > 17) > 0"
-                    " || Sum$(Electron_pt->fElements > 17) > 0)"
-                    " || Sum$(Tau_pt->fElements > 17) > 1)"
-                    " && Sum$(Jet_pt->fElements > 17) > 1)",
-                selection="Tau_pt[Tau_pt > 10].size() > 0 "
-                    "&& ((Muon_pt[Muon_pt > 17].size() > 0"
-                    "|| Electron_pt[Electron_pt > 17].size() > 0)"
-                    "|| Tau_pt[Tau_pt > 10].size() > 1)"
-                    "&& Jet_pt[Jet_pt > 17].size() > 0"),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 3"),
+
+            # analysis categories
+            # multi-vertex
+            Category("multiv", "Multivertices", selection="cat_index != 0"),
+            Category("multiv_cat1", "Multivertices, cat. 1",
+                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) < 1 &&
+                    muonSV_pAngle.at(min_chi2_index) < 0.2"""),
+            Category("multiv_cat2", "Multivertices, cat. 2",
+                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) < 1 &&
+                    muonSV_pAngle.at(min_chi2_index) > 0.2"""),
+            Category("multiv_cat3", "Multivertices, cat. 3",
+                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 1 &&
+                    muonSV_dxy.at(min_chi2_index) < 10 && muonSV_pAngle.at(min_chi2_index) < 0.2"""),
+            Category("multiv_cat4", "Multivertices, cat. 4",
+                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 1 &&
+                    muonSV_dxy.at(min_chi2_index) < 10 && muonSV_pAngle.at(min_chi2_index) > 0.2"""),
+            Category("multiv_cat5", "Multivertices, cat. 5",
+                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 10 &&
+                    muonSV_pAngle.at(min_chi2_index) < 0.2"""),
+            Category("multiv_cat6", "Multivertices, cat. 6",
+                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 10 &&
+                    muonSV_pAngle.at(min_chi2_index) > 0.2"""),
+            Category("multiv_new1", "Multivertices, new cat. 1",
+                selection="cat_index == 0 && muonSV_dxy.at(min_chi2_index) < 1"),
+            Category("multiv_new2", "Multivertices, new cat. 2",
+                selection="cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 1"),
+
+            # single-vertex
+            Category("singlev", "Single vertex", selection=single_sel),
+            Category("singlev_cat1", "Single vertex, cat. 1",
+                selection=single_sel + """ && muonSV_dxy.at(min_chi2_index) < 1 &&
+                    muonSV_pAngle.at(min_chi2_index) < 0.2"""),
+            Category("singlev_cat2", "Single vertex, cat. 2",
+                selection=single_sel + """ && muonSV_dxy.at(min_chi2_index) < 1 &&
+                    muonSV_pAngle.at(min_chi2_index) > 0.2"""),
+            Category("singlev_cat3", "Single vertex, cat. 3",
+                selection=single_sel + """ && muonSV_dxy.at(min_chi2_index) > 1 &&
+                    muonSV_dxy.at(min_chi2_index) < 10 && muonSV_pAngle.at(min_chi2_index) < 0.2"""),
+            Category("singlev_cat4", "Single vertex, cat. 4",
+                selection=single_sel + """ && muonSV_dxy.at(min_chi2_index) > 1 &&
+                    muonSV_dxy.at(min_chi2_index) < 10 && muonSV_pAngle.at(min_chi2_index) > 0.2"""),
+            Category("singlev_cat5", "Single vertex, cat. 5",
+                selection=single_sel + """ && muonSV_dxy.at(min_chi2_index) > 10 &&
+                    muonSV_pAngle.at(min_chi2_index) < 0.2"""),
+            Category("singlev_cat6", "Single vertex, cat. 6",
+                selection=single_sel + """ && muonSV_dxy.at(min_chi2_index) > 10 &&
+                    muonSV_pAngle.at(min_chi2_index) > 0.2"""),
+            Category("singlev_new1", "Single vertex, new cat. 1",
+                selection=single_sel + " && muonSV_dxy.at(min_chi2_index) < 1"),
+            Category("singlev_new2", "Single vertex, new cat. 2",
+                selection=single_sel + " && muonSV_dxy.at(min_chi2_index) > 1"),
+
         ]
         return ObjectCollection(categories)
 
@@ -158,6 +201,12 @@ class Config(cmt_config):
             Feature("bdt", "xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0", binning=(20, 0, 1),
                 x_title=Label("BDT score")),
 
+            Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2}"),
+                units="GeV"),
+            Feature("nmuonSV_3sigma", "nmuonSV_3sigma", binning=(11, -0.5, 10.5),
+                x_title=Label("BDT score")),
+
         ]
         return ObjectCollection(features)
 
@@ -169,8 +218,9 @@ class Config(cmt_config):
         weights.total_events_weights = ["genWeight"]
 
         # weights.base = ["genWeight", "puWeight"]  # others needed
-        weights.base = ["1"]  # others needed
-        weights.base_selection = weights.base
+
+        for category in self.categories:
+            weights[category.name] = ["1"]
 
         return weights
 

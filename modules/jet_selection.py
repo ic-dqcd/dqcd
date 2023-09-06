@@ -13,7 +13,6 @@ class DQCDJetSelectionRDFProducer():
         assert self.jet_id in ["loose", "tight", "tightleptonveto"]
 
         ROOT.gInterpreter.Declare("""
-            #include "DataFormats/Math/interface/deltaR.h"
             using Vint = const ROOT::RVec<int>&;
             ROOT::RVec<int> globaljet_indexes(int nJet, Vint global_jetIdx) {
                 ROOT::RVec<int> indexes(nJet, -1);

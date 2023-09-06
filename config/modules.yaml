@@ -18,3 +18,12 @@ bdt:
     path: modules.bdt_selection
     parameters:
         bdt_name: xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0
+        bdt_cut_value: 0.9994
+        # bdt_cut_value: 0.0
+
+
+muonsv:
+    name: DQCDMuonSVSelectionRDF
+    path: modules.muonsv_selection
+    parameters:
+        gen_mass: 2
