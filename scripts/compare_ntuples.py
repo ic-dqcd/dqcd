@@ -1,12 +1,12 @@
 from analysis_tools.utils import import_root
 ROOT = import_root()
 
-pathk = "/vols/cms/khl216/nano_out/nanotron_v3_bdt_0_fixed/bparkProductionAll_V1p0/HiddenValley_vector_m_2_ctau_10_xiO_1_xiL_1_privateMC_11X_NANOAODSIM_v1p0_generationSync/"
+pathk = "/vols/cms/khl216/nano_out/nanotron_v3_bdt_0p9994_fixed_with_gen_match/bparkProductionAll_V1p0/HiddenValley_vector_m_2_ctau_10_xiO_1_xiL_1_privateMC_11X_NANOAODSIM_v1p0_generationSync/"
 import os
 filesk = os.listdir(pathk)
 filesk.sort()
 
-fj = "/vols/cms/jleonhol/cmt/PreprocessRDF/legacy_2018/m_2_ctau_10_xiO_1_xiL_1/cat_base/prod_0609/data_{}.root"
+fj = "/vols/cms/jleonhol/cmt/PreprocessRDF/legacy_2018/m_2_ctau_10_xiO_1_xiL_1/cat_base/prod_0609_b/data_{}.root"
 
 
 for ifk, fk in enumerate(filesk):
@@ -27,7 +27,7 @@ for ifk, fk in enumerate(filesk):
         i += 1
 
     for ev in jetsj:
-        print(ev)
+        # print(ev)
         if ev not in jetsk:
             print(ev)
             break
