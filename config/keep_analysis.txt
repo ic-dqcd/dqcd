@@ -1,0 +1,22 @@
+drop HLT.*
+drop nMuon
+drop Muon_.*
+drop .*FsrPhoton.*
+drop .*IsoTrack.*
+drop .*Photon.*
+drop Tau_.*
+drop nTau
+drop TrigObj_.*
+drop nTrigObj
+drop electron_.*
+drop nelectron
+drop njetorigin
+drop jetorigin_.*
+drop ncpf
+drop cpf_.*
+drop ncsv
+drop csv_.*
+drop nglobal
+drop global_.*
+drop friend_.*
+
