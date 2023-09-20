@@ -692,11 +692,12 @@ class Config(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
-        weights.total_events_weights = ["genWeight", "puWeight"]
+        #weights.total_events_weights = ["genWeight", "puWeight"]
         # weights.total_events_weights = ["genWeight"]
-        # weights.total_events_weights = ["1"]
+        weights.total_events_weights = ["1"]
 
-        weights.base = ["genWeight", "puWeight"]  # others needed
+        #weights.base = ["genWeight", "puWeight"]  # others needed
+        weights.base = ["1"]  # others needed
 
         for category in self.categories:
             weights[category.name] = weights.base
