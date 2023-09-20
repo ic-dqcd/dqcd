@@ -1,4 +1,5 @@
 from config.legacy_2018 import config
+import os
 
 for d in config.datasets:
     # if not d.name.startswith("qcd") or d.has_tag("friend"):
@@ -11,8 +12,10 @@ for d in config.datasets:
     def get_num(elem, end="."):
         return elem[elem.find("_") + 1 : elem.find(end)]
 
-    nd = [get_num(elem.split("/")[-1]) for elem in d.get_files(check_empty=True)]
-    ndf = [get_num(elem.split("/")[-1], end="-icenet") for elem in df.get_files(check_empty=True)]
+    nd = [get_num(elem.split("/")[-1]) for elem in d.get_files(check_empty=True, path_to_look=os.path.expandvars("$CMT_TMP_DIR/%s/" % "legacy_2018"))]
+    ndf = [get_num(elem.split("/")[-1], end="-icenet") for elem in df.get_files(check_empty=True, path_to_look=os.path.expandvars("$CMT_TMP_DIR/%s/" % "legacy_2018"))]
+
+    print(len(nd), len(ndf))
 
     for f in nd:
         if f not in ndf:

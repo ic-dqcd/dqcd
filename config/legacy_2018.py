@@ -486,14 +486,14 @@ class Config(cmt_config):
                 tags=["friend"]),
 
             Dataset("data_2018d",
-                folder=sample_path + "ParkingBPH1_Run2018D-05May2019promptD-v1_MINIAOD_v1p0_generationSync",
+                folder=sample_path + "tmp",
                 process=self.processes.get("data"),
                 friend_datasets="data_2018d_friend",
                 merging={
                     "base": 20,
                 },),
             Dataset("data_2018d_friend",
-                folder=bdt_path + "ParkingBPH1_Run2018D-05May2019promptD-v1_MINIAOD_v1p0_generationSync",
+                folder=bdt_path + "tmp",
                 process=self.processes.get("dum"),
                 tags=["friend"]),
         ]
@@ -692,11 +692,11 @@ class Config(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
-        #weights.total_events_weights = ["genWeight", "puWeight"]
+        # weights.total_events_weights = ["genWeight", "puWeight"]
         # weights.total_events_weights = ["genWeight"]
         weights.total_events_weights = ["1"]
 
-        #weights.base = ["genWeight", "puWeight"]  # others needed
+        # weights.base = ["genWeight", "puWeight"]  # others needed
         weights.base = ["1"]  # others needed
 
         for category in self.categories:
