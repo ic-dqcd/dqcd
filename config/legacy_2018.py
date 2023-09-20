@@ -476,7 +476,7 @@ class Config(cmt_config):
             Dataset("data_2018c",
                 folder=sample_path + "ParkingBPH1_Run2018C-05May2019-v1_MINIAOD_v1p0_generationSync/",
                 process=self.processes.get("data"),
-                friend_datasets="data_2018b_friend",
+                friend_datasets="data_2018c_friend",
                 merging={
                     "base": 20,
                 },),
@@ -488,7 +488,7 @@ class Config(cmt_config):
             Dataset("data_2018d",
                 folder=sample_path + "ParkingBPH1_Run2018D-05May2019promptD-v1_MINIAOD_v1p0_generationSync",
                 process=self.processes.get("data"),
-                friend_datasets="data_2018b_friend",
+                friend_datasets="data_2018d_friend",
                 merging={
                     "base": 20,
                 },),
@@ -692,14 +692,14 @@ class Config(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
-        # weights.total_events_weights = ["genWeight", "puWeight"]
+        weights.total_events_weights = ["genWeight", "puWeight"]
         # weights.total_events_weights = ["genWeight"]
-        weights.total_events_weights = ["1"]
+        # weights.total_events_weights = ["1"]
 
-        # weights.base = ["genWeight", "puWeight"]  # others needed
+        weights.base = ["genWeight", "puWeight"]  # others needed
 
         for category in self.categories:
-            weights[category.name] = ["1"]
+            weights[category.name] = weights.base
 
         return weights
 
