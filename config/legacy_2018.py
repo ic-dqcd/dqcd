@@ -15,7 +15,8 @@ class Config(cmt_config):
     def add_regions(self, **kwargs):
         regions = [
             Category("signal", "Signal region", selection="{{bdt}} > 0.85"),
-            Category("background", "Background region", selection="{{bdt}} < 0.85"),
+            Category("background", "Background region",
+                selection="{{bdt}} > 0.3 && {{bdt}} < 0.85"),
         ]
         return ObjectCollection(regions)
 
@@ -194,18 +195,18 @@ class Config(cmt_config):
         }
 
         xs = {
-            "qcd_15to20": 2799,
-            "qcd_20to30": 2526,
-            "qcd_30to50": 1362,
-            "qcd_50to80": 376.6,
-            "qcd_80to120": 88.93,
-            "qcd_120to170": 21.23,
-            "qcd_170to300": 7.055,
-            "qcd_300to470": 0.619,
-            "qcd_470to600": 0.05924,
-            "qcd_600to800": 0.01821,
-            "qcd_800to1000": 0.003275,
-            "qcd_1000toInf": 0.001078,
+            "qcd_15to20": 2799000,
+            "qcd_20to30": 2526000,
+            "qcd_30to50": 1362000,
+            "qcd_50to80": 376600,
+            "qcd_80to120": 88930,
+            "qcd_120to170": 21230,
+            "qcd_170to300": 7055,
+            "qcd_300to470": 619,
+            "qcd_470to600": 59.24,
+            "qcd_600to800": 18.21,
+            "qcd_800to1000": 3.275,
+            "qcd_1000toInf": 1.078,
         }
 
 
@@ -631,7 +632,9 @@ class Config(cmt_config):
                 x_title=Label("SV #phi"),),
             Feature("sv_mass", "SV_mass", binning=(120, 0, 4),
                 x_title=Label("SV mass"),
-                units="GeV"),
+                units="GeV",
+                blinded_range=[1.5, 2.5]),
+                # blinded_range=[[0.2, 0.4], [1.5, 2.5]]),
             Feature("sv_x", "SV_x", binning=(50, -4, 4),
                 x_title=Label("muonSV x"),),
             Feature("sv_y", "SV_y", binning=(50, -4, 4),
@@ -676,12 +679,14 @@ class Config(cmt_config):
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
             Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 4),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
-                units="GeV"),
+                units="GeV",
+                blinded_range=[1.5, 2.5]),
             # Feature("muonSV_mass_min_chi2_bdt", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
             Feature("muonSV_mass_min_chi2_maxbdt", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 4),
                 x_title=Label("muonSV mass (Min. #chi^{2}), BDT < 0.85"),
                 selection="xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0 < 0.85",
-                units="GeV"),
+                units="GeV",
+                blinded_range=[1.5, 2.5]),
             Feature("nmuonSV_3sigma", "nmuonSV_3sigma", binning=(11, -0.5, 10.5),
                 x_title=Label("nmuonSV_3sigma")),
 
