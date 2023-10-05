@@ -97,3 +97,94 @@ class DQCDMuonSVSelectionRDFProducer():
 
 def DQCDMuonSVSelectionRDF(*args, **kwargs):
     return lambda: DQCDMuonSVSelectionRDFProducer(*args, **kwargs)
+
+
+class DQCDMuonSVRDFProducer():
+    def __init__(self, *args, **kwargs):
+        ROOT.gInterpreter.Declare("""
+            #include <TLorentzVector.h>
+            const float muon_mass = 0.1057;
+            using Vfloat = const ROOT::RVec<float>&;
+            using Vint = const ROOT::RVec<int>&;
+            ROOT::RVec<float> get_muonsv_mass(
+                int nmuonSV, int nMuon, Vfloat Muon_pt, Vfloat Muon_phi, Vfloat Muon_eta,
+                Vint muonSV_mu1index, Vint muonSV_mu2index)
+            {
+                ROOT::RVec<float> muonSV_m;
+                if (nmuonSV == 0)
+                    return muonSV_m;
+                    for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
+                    auto muon1 = TLorentzVector();
+                    auto muon2 = TLorentzVector();
+                    // std::cout << nMuon << " " << muonSV_mu1index[imuonSV] << " " << muonSV_mu2index[imuonSV] << std::endl;
+                    muon1.SetPtEtaPhiM(
+                        Muon_pt[muonSV_mu1index[imuonSV]],
+                        Muon_eta[muonSV_mu1index[imuonSV]],
+                        Muon_phi[muonSV_mu1index[imuonSV]],
+                        muon_mass
+                    );
+                    muon2.SetPtEtaPhiM(
+                        Muon_pt[muonSV_mu2index[imuonSV]],
+                        Muon_eta[muonSV_mu2index[imuonSV]],
+                        Muon_phi[muonSV_mu2index[imuonSV]],
+                        muon_mass
+                    );
+                    auto muonSV = muon1 + muon2;
+                    muonSV_m.push_back(muonSV.M());
+                }
+                return muonSV_m;
+            }
+        """)
+
+    def run(self, df):
+        df = df.Define("muonSV_m", """get_muonsv_mass(
+            nmuonSV, nMuon, Muon_pt, Muon_phi, Muon_eta,
+            muonSV_mu1index, muonSV_mu2index)""")
+        return df, ["muonSV_m"]
+
+
+def DQCDMuonSVRDF(*args, **kwargs):
+    return lambda: DQCDMuonSVRDFProducer(*args, **kwargs)
+
+
+class DummyMinChi2RDFProducer():
+
+    def run(self, df):
+        branches = [
+            "muon1_sv_bestchi2_pt",
+            "muon1_sv_bestchi2_eta",
+            "muon1_sv_bestchi2_phi",
+            "muon1_sv_bestchi2_mass",
+            "muon2_sv_bestchi2_pt",
+            "muon2_sv_bestchi2_eta",
+            "muon2_sv_bestchi2_phi",
+            "muon2_sv_bestchi2_mass",
+            "muonSV_bestchi2_chi2",
+            "muonSV_bestchi2_pAngle",
+            "muonSV_bestchi2_dlen",
+            "muonSV_bestchi2_dlenSig",
+            "muonSV_bestchi2_dxy",
+            "muonSV_bestchi2_dxySig",
+            "muonSV_bestchi2_x",
+            "muonSV_bestchi2_y",
+            "muonSV_bestchi2_z",
+            "muonSV_bestchi2_mass"
+        ]
+        df = df.Define("muon1_sv_bestchi2_pt", "muonSV_mu1pt.at(min_chi2_index)")
+        df = df.Define("muon1_sv_bestchi2_eta", "muonSV_mu1eta.at(min_chi2_index)")
+        df = df.Define("muon1_sv_bestchi2_phi", "muonSV_mu1phi.at(min_chi2_index)")
+        df = df.Define("muon1_sv_bestchi2_mass", "0.1057")
+        df = df.Define("muon2_sv_bestchi2_pt", "muonSV_mu2pt.at(min_chi2_index)")
+        df = df.Define("muon2_sv_bestchi2_eta", "muonSV_mu2eta.at(min_chi2_index)")
+        df = df.Define("muon2_sv_bestchi2_phi", "muonSV_mu2phi.at(min_chi2_index)")
+        df = df.Define("muon2_sv_bestchi2_mass", "0.1057")
+
+        for v in ["chi2", "pAngle", "dlen", "dlenSig", "dxy", "dxySig", "x", "y", "z", "mass"]:
+            df = df.Define("muonSV_bestchi2_%s" % v, "muonSV_%s.at(min_chi2_index)" % v)
+            branches.append("muonSV_bestchi2_%s" % v)
+
+        return df, branches
+
+
+def DummyMinChi2RDF(*args, **kwargs):
+    return lambda: DummyMinChi2RDFProducer()

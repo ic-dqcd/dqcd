@@ -85,8 +85,20 @@ class Config(cmt_config):
     def add_processes(self):
         processes = [
             Process("background", Label("Background"), color=(255, 153, 0)),
+
             Process("qcd", Label("QCD"), color=(255, 153, 0), parent_process="background"),
-            Process("ww", Label("WW"), color=(131, 38, 10), parent_process="background"),
+            Process("qcd_1000toInf", Label("QCD (1000-)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_120to170", Label("QCD (120-170)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_15to20", Label("QCD (15-20)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_170to300", Label("QCD (170-300)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_20to30", Label("QCD (20-30)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_300to470", Label("QCD (300-470)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_30to50", Label("QCD (30-50)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_470to600", Label("QCD (470-600)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_50to80", Label("QCD (50-80)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_600to800", Label("QCD (600-800)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_80to120", Label("QCD (80-120)"), color=(255, 153, 0), parent_process="qcd"),
+            Process("qcd_800to1000", Label("QCD (800-1000)"), color=(255, 153, 0), parent_process="qcd"),
 
             Process("signal", Label("Signal"), color=(0, 0, 0), isSignal=True),
 
@@ -125,9 +137,18 @@ class Config(cmt_config):
             ],
         }
 
-        process_training_names = {}
-            # "default": []
-        # }
+        process_training_names = {
+            "default": DotDict(
+                processes=[
+                    "qcd_1000toInf",
+                    "signal"
+                ],
+                process_group_ids=(
+                    (1.0, (0,)),
+                    (2.0, (1,)),
+                )
+            )
+        }
 
         return ObjectCollection(processes), process_group_names, process_training_names
 
@@ -216,7 +237,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_1000toInf"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_1000toInf"),
                 xs=xs["qcd_1000toInf"],
                 friend_datasets="qcd_1000toInf_friend",
                 merging={
@@ -238,7 +259,7 @@ class Config(cmt_config):
                     ["{}/output_{}.root".format(
                         sample_path + samples["qcd_120to170_ext"], i)
                         for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_120to170"),
                 xs=xs["qcd_120to170"],
                 friend_datasets="qcd_120to170_friend",
                 merging={
@@ -257,7 +278,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_15to20"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_15to20"),
                 xs=xs["qcd_15to20"],
                 friend_datasets="qcd_15to20_friend"),
             Dataset("qcd_15to20_friend",
@@ -270,7 +291,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_170to300"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_170to300"),
                 xs=xs["qcd_170to300"],
                 friend_datasets="qcd_170to300_friend",
                 merging={
@@ -286,7 +307,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_20to30"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_20to30"),
                 xs=xs["qcd_20to30"],
                 friend_datasets="qcd_20to30_friend"),
             Dataset("qcd_20to30_friend",
@@ -319,7 +340,7 @@ class Config(cmt_config):
                     ["{}/output_{}.root".format(
                         sample_path + samples["qcd_300to470_ext"], i)
                         for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_300to470"),
                 xs=xs["qcd_300to470"],
                 friend_datasets="qcd_300to470_friend",
                 merging={
@@ -338,7 +359,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_30to50"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_30to50"),
                 xs=xs["qcd_30to50"],
                 friend_datasets="qcd_30to50_friend"),
             Dataset("qcd_30to50_friend",
@@ -376,7 +397,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_50to80"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_50to80"),
                 xs=xs["qcd_50to80"],
                 friend_datasets="qcd_50to80_friend"),
             Dataset("qcd_50to80_friend",
@@ -389,7 +410,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_600to800"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_600to800"),
                 xs=xs["qcd_600to800"],
                 friend_datasets="qcd_600to800_friend",
                 merging={
@@ -411,7 +432,7 @@ class Config(cmt_config):
                     ["{}/output_{}.root".format(
                         sample_path + samples["qcd_80to120_ext"], i)
                         for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_80to120"),
                 xs=xs["qcd_80to120"],
                 friend_datasets="qcd_80to120_friend",
                 merging={
@@ -430,7 +451,7 @@ class Config(cmt_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_800to1000"], i)
                     for i in range(1, 11)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_800to1000"),
                 xs=xs["qcd_800to1000"],
                 friend_datasets="qcd_800to1000_friend",
                 merging={
@@ -453,12 +474,11 @@ class Config(cmt_config):
                     sample_path + samples["m_2_ctau_10_xiO_1_xiL_1"], i)
                     for i in range(1, 6)],
                 process=self.processes.get("signal"),
-                xs=1.,# FIXME
+                xs=43.9 * 0.01,# FIXME
                 friend_datasets="m_2_ctau_10_xiO_1_xiL_1_friend"),
             Dataset("m_2_ctau_10_xiO_1_xiL_1_friend",
                 folder=bdt_path + samples["m_2_ctau_10_xiO_1_xiL_1"],
                 process=self.processes.get("dum"),
-                xs=1., # FIXME
                 tags=["friend"]),
 
             ## data
@@ -502,6 +522,9 @@ class Config(cmt_config):
 
     def add_features(self):
         features = [
+            Feature("event", "event", binning=(100, -0.5, 10000),
+                x_title=Label("nJet")),
+
             Feature("njet", "nJet", binning=(10, -0.5, 9.5),
                 x_title=Label("nJet")),
             Feature("jet_pt", "Jet_pt", binning=(30, 0, 150),
@@ -586,6 +609,8 @@ class Config(cmt_config):
                 # x_title=Label("muon miniPFRelIso_all")),
             # MuonBPark_jetIdx not available
 
+            Feature("min_chi2_index", "min_chi2_index", binning=(10, -0.5, 9.5),
+                x_title=Label("min_chi2_index")),
             Feature("muonSV_chi2", "muonSV_chi2", binning=(50, 0, 1500),
                 x_title=Label("muonSV chi2")),
             Feature("muonSV_pAngle", "muonSV_pAngle", binning=(70, 0, 3.5),
@@ -616,12 +641,75 @@ class Config(cmt_config):
             # Feature("muonSV_deltaR", "muonSV_deltaR", binning=(48, -6, -6),
                 # x_title=Label("muonSV #DeltaR"),),
 
+            # Feature("muon1_sv_bestchi2_pt", "muonSV_mu1pt.at(min_chi2_index)",
+            Feature("muon1_sv_bestchi2_pt", "muon1_sv_bestchi2_pt",
+                binning=(30, 0, 150), x_title=Label("muonSV muon1 #p_{T} (min #chi^2)"),
+                units="GeV", tags=["lbn", "lbn_pt"]),
+            # Feature("muon1_sv_bestchi2_eta", "muonSV_mu1eta.at(min_chi2_index)",
+            Feature("muon1_sv_bestchi2_eta", "muon1_sv_bestchi2_eta",
+                binning=(50, -5, 5), x_title=Label("muonSV muon1 #eta (min #chi^2)"),
+                tags=["lbn", "lbn_eta"]),
+            # Feature("muon1_sv_bestchi2_phi", "muonSV_mu1phi.at(min_chi2_index)",
+            Feature("muon1_sv_bestchi2_phi", "muon1_sv_bestchi2_phi",
+                binning=(48, -6, 6), x_title=Label("muonSV muon1 #phi (min #chi^2)"),
+                tags=["lbn", "lbn_phi"]),
+            # Feature("muon1_sv_bestchi2_mass", "0.1057", binning=(50, 0, 0.2),
+            Feature("muon1_sv_bestchi2_mass", "muon1_sv_bestchi2_mass", binning=(50, 0, 0.2),
+                x_title=Label("muonSV muon1 mass (min #chi^2)"),
+                tags=["lbn", "lbn_m"]),
+
+            # Feature("muon2_sv_bestchi2_pt", "muonSV_mu2pt.at(min_chi2_index)",
+            Feature("muon2_sv_bestchi2_pt", "muon2_sv_bestchi2_pt",
+                binning=(30, 0, 150), x_title=Label("muonSV muon2 #p_{T} (min #chi^2)"),
+                units="GeV", tags=["lbn", "lbn_pt"]),
+            # Feature("muon2_sv_bestchi2_eta", "muonSV_mu2eta.at(min_chi2_index)",
+            Feature("muon2_sv_bestchi2_eta", "muon2_sv_bestchi2_eta",
+                binning=(50, -5, 5), x_title=Label("muonSV muon2 #eta (min #chi^2)"),
+                tags=["lbn", "lbn_eta"]),
+            # Feature("muon2_sv_bestchi2_phi", "muonSV_mu2phi.at(min_chi2_index)",
+            Feature("muon2_sv_bestchi2_phi", "muon2_sv_bestchi2_phi",
+                binning=(48, -6, 6), x_title=Label("muonSV muon2 #phi (min #chi^2)"),
+                tags=["lbn", "lbn_phi"]),
+            # Feature("muon2_sv_bestchi2_mass", "0.1057", binning=(50, 0, 0.2),
+            Feature("muon2_sv_bestchi2_mass", "muon2_sv_bestchi2_mass", binning=(50, 0, 0.2),
+                x_title=Label("muonSV muon2 mass (min #chi^2)"),
+                tags=["lbn", "lbn_m"]),
+
+            # Feature("muonSV_chi2_bestchi2", "muonSV_chi2.at(min_chi2_index)", binning=(50, 0, 1500),
+            Feature("muonSV_bestchi2_chi2", "muonSV_bestchi2_chi2", binning=(50, 0, 1500),
+                x_title=Label("muonSV chi2 (min #chi^2)"), tags=["lbn"]),
+            # Feature("muonSV_pAngle_bestchi2", "muonSV_pAngle.at(min_chi2_index)", binning=(70, 0, 3.5),
+            Feature("muonSV_bestchi2_pAngle", "muonSV_bestchi2_pAngle", binning=(70, 0, 3.5),
+                x_title=Label("muonSV pAngle (min #chi^2)"), tags=["lbn"]),
+            # Feature("muonSV_dlen_bestchi2", "muonSV_dlen.at(min_chi2_index)", binning=(80, 0, 20),
+            Feature("muonSV_bestchi2_dlen", "muonSV_bestchi2_dlen", binning=(80, 0, 20),
+                x_title=Label("muonSV dlen"), tags=["lbn"]),
+            # Feature("muonSV_dlenSig_bestchi2", "muonSV_dlenSig.at(min_chi2_index)", binning=(100, 0, 1500),
+            Feature("muonSV_bestchi2_dlenSig", "muonSV_bestchi2_dlenSig", binning=(100, 0, 1500),
+                x_title=Label("muonSV dlenSig (min #chi^2)"), tags=["lbn"]),
+            # Feature("muonSV_dxy_bestchi2", "muonSV_dxy.at(min_chi2_index)", binning=(40, 0, 20),
+            Feature("muonSV_bestchi2_dxy", "muonSV_bestchi2_dxy", binning=(40, 0, 20),
+                x_title=Label("muonSV dxy"), tags=["lbn"]),
+            # Feature("muonSV_dxySig_bestchi2", "muonSV_dxySig.at(min_chi2_index)", binning=(100, 0, 2500),
+            Feature("muonSV_bestchi2_dxySig", "muonSV_bestchi2_dxySig", binning=(100, 0, 2500),
+                x_title=Label("muonSV dxySig (min #chi^2)"), tags=["lbn"]),
+
             Feature("muonSV_x", "muonSV_x", binning=(50, -10, 10),
-                x_title=Label("muonSV x"),),
+                x_title=Label("muonSV x")),
             Feature("muonSV_y", "muonSV_y", binning=(50, -10, 10),
-                x_title=Label("muonSV y"),),
+                x_title=Label("muonSV y")),
             Feature("muonSV_z", "muonSV_z", binning=(100, -20, 20),
-                x_title=Label("muonSV z"),),
+                x_title=Label("muonSV z")),
+
+            # Feature("muonSV_x_bestchi2", "muonSV_x.at(min_chi2_index)", binning=(50, -10, 10),
+            Feature("muonSV_bestchi2_x", "muonSV_bestchi2_x", binning=(50, -10, 10),
+                x_title=Label("muonSV x (min #chi^2)"), tags=["lbn"]),
+            # Feature("muonSV_y_bestchi2", "muonSV_y.at(min_chi2_index)", binning=(50, -10, 10),
+            Feature("muonSV_bestchi2_y", "muonSV_bestchi2_y", binning=(50, -10, 10),
+                x_title=Label("muonSV y (min #chi^2)"), tags=["lbn"]),
+            # Feature("muonSV_z_bestchi2", "muonSV_z.at(min_chi2_index)", binning=(100, -20, 20),
+            Feature("muonSV_bestchi2_z", "muonSV_bestchi2_z", binning=(100, -20, 20),
+                x_title=Label("muonSV z (min #chi^2)"), tags=["lbn"]),
 
             Feature("sv_pt", "SV_pt", binning=(30, 0, 150),
                 x_title=Label("SV p_{T}"),
@@ -668,16 +756,16 @@ class Config(cmt_config):
             Feature("jet_btag", "Jet_btagDeepFlavB", binning=(20, 0, 1),
                 x_title=Label("Jet btag (DeepFlavour b)")),
             Feature("max_jet_btag", "Max(Jet_btagDeepFlavB)", binning=(20, 0, 1),
-                x_title=Label("Max Jet btag (DeepFlavour b)")),
+                x_title=Label("Max Jet btag (DeepFlavour b)"), tags=["skip_shards"]),
             Feature("nbjets", "Jet_btagDeepFlavB[Jet_btagDeepFlavB > 0.2770].size()", binning=(6, -0.5, 5.5),
-                x_title=Label("nbjets")),
+                x_title=Label("nbjets"), tags=["skip_shards"]),
 
             # BDT features
             Feature("bdt", "xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0", binning=(20, 0, 1),
-                x_title=Label("BDT score")),
+                x_title=Label("BDT score"), tags=["eval_observer"]),
 
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
-            Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 4),
+            Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(100, 0, 4),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV",
                 blinded_range=[1.5, 2.5]),
@@ -688,7 +776,7 @@ class Config(cmt_config):
                 units="GeV",
                 blinded_range=[1.5, 2.5]),
             Feature("nmuonSV_3sigma", "nmuonSV_3sigma", binning=(11, -0.5, 10.5),
-                x_title=Label("nmuonSV_3sigma")),
+                x_title=Label("nmuonSV_3sigma"), tags=["lbn"]),
 
         ]
         return ObjectCollection(features)
@@ -697,12 +785,12 @@ class Config(cmt_config):
         weights = DotDict()
         weights.default = "1"
 
-        # weights.total_events_weights = ["genWeight", "puWeight"]
+        weights.total_events_weights = ["genWeight", "puWeight"]
         # weights.total_events_weights = ["genWeight"]
-        weights.total_events_weights = ["1"]
+        # weights.total_events_weights = ["1"]
 
-        # weights.base = ["genWeight", "puWeight"]  # others needed
-        weights.base = ["1"]  # others needed
+        weights.base = ["genWeight", "puWeight"]  # others needed
+        # weights.base = ["1"]  # others needed
 
         for category in self.categories:
             weights[category.name] = weights.base
@@ -732,4 +820,4 @@ class Config(cmt_config):
     # other methods
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
-config = Config("base", year=2018, ecm=13, lumi_pb=33600)
+config = Config("legacy_2018", year=2018, ecm=13, lumi_pb=33600)
