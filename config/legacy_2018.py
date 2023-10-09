@@ -140,12 +140,13 @@ class Config(cmt_config):
         process_training_names = {
             "default": DotDict(
                 processes=[
+                    "qcd_15to20",
                     "qcd_1000toInf",
                     "signal"
                 ],
                 process_group_ids=(
-                    (1.0, (0,)),
-                    (2.0, (1,)),
+                    (1.0, (0, 1)),
+                    (1.0, (2,)),
                 )
             )
         }
@@ -677,22 +678,22 @@ class Config(cmt_config):
 
             # Feature("muonSV_chi2_bestchi2", "muonSV_chi2.at(min_chi2_index)", binning=(50, 0, 1500),
             Feature("muonSV_bestchi2_chi2", "muonSV_bestchi2_chi2", binning=(50, 0, 1500),
-                x_title=Label("muonSV chi2 (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV chi2 (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_pAngle_bestchi2", "muonSV_pAngle.at(min_chi2_index)", binning=(70, 0, 3.5),
             Feature("muonSV_bestchi2_pAngle", "muonSV_bestchi2_pAngle", binning=(70, 0, 3.5),
-                x_title=Label("muonSV pAngle (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV pAngle (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dlen_bestchi2", "muonSV_dlen.at(min_chi2_index)", binning=(80, 0, 20),
             Feature("muonSV_bestchi2_dlen", "muonSV_bestchi2_dlen", binning=(80, 0, 20),
-                x_title=Label("muonSV dlen"), tags=["lbn"]),
+                x_title=Label("muonSV dlen"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dlenSig_bestchi2", "muonSV_dlenSig.at(min_chi2_index)", binning=(100, 0, 1500),
             Feature("muonSV_bestchi2_dlenSig", "muonSV_bestchi2_dlenSig", binning=(100, 0, 1500),
-                x_title=Label("muonSV dlenSig (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV dlenSig (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dxy_bestchi2", "muonSV_dxy.at(min_chi2_index)", binning=(40, 0, 20),
             Feature("muonSV_bestchi2_dxy", "muonSV_bestchi2_dxy", binning=(40, 0, 20),
-                x_title=Label("muonSV dxy"), tags=["lbn"]),
+                x_title=Label("muonSV dxy"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dxySig_bestchi2", "muonSV_dxySig.at(min_chi2_index)", binning=(100, 0, 2500),
             Feature("muonSV_bestchi2_dxySig", "muonSV_bestchi2_dxySig", binning=(100, 0, 2500),
-                x_title=Label("muonSV dxySig (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV dxySig (min #chi^2)"), tags=["lbn_light", "lbn"]),
 
             Feature("muonSV_x", "muonSV_x", binning=(50, -10, 10),
                 x_title=Label("muonSV x")),
@@ -703,13 +704,13 @@ class Config(cmt_config):
 
             # Feature("muonSV_x_bestchi2", "muonSV_x.at(min_chi2_index)", binning=(50, -10, 10),
             Feature("muonSV_bestchi2_x", "muonSV_bestchi2_x", binning=(50, -10, 10),
-                x_title=Label("muonSV x (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV x (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_y_bestchi2", "muonSV_y.at(min_chi2_index)", binning=(50, -10, 10),
             Feature("muonSV_bestchi2_y", "muonSV_bestchi2_y", binning=(50, -10, 10),
-                x_title=Label("muonSV y (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV y (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_z_bestchi2", "muonSV_z.at(min_chi2_index)", binning=(100, -20, 20),
             Feature("muonSV_bestchi2_z", "muonSV_bestchi2_z", binning=(100, -20, 20),
-                x_title=Label("muonSV z (min #chi^2)"), tags=["lbn"]),
+                x_title=Label("muonSV z (min #chi^2)"), tags=["lbn_light", "lbn"]),
 
             Feature("sv_pt", "SV_pt", binning=(30, 0, 150),
                 x_title=Label("SV p_{T}"),
