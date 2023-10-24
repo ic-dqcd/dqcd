@@ -187,9 +187,9 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
 
             df = df.Filter("nmuonSV > 0")
 
-            df = df.Filter("nMuonBPark > 0").Define("triggered_mass", "triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_vx, MuonBPark_vy, MuonBPark_vz, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("triggered_muon1_dxy", "triggered_mass.at(0)").Define("triggered_muon1_pt", "triggered_mass.at(1)").Define("triggered_JPsi_mass1", "triggered_mass.at(2)").Define("triggered_muon2_dxy", "triggered_mass.at(3)").Define("triggered_muon2_pt", "triggered_mass.at(4)").Define("triggered_JPsi_mass2", "triggered_mass.at(5)")
+            df_pass = df.Filter("nMuonBPark > 0").Define("triggered_mass", "triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_vx, MuonBPark_vy, MuonBPark_vz, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("triggered_muon1_dxy", "triggered_mass.at(0)").Define("triggered_muon1_pt", "triggered_mass.at(1)").Define("triggered_JPsi_mass1", "triggered_mass.at(2)").Define("triggered_muon2_dxy", "triggered_mass.at(3)").Define("triggered_muon2_pt", "triggered_mass.at(4)").Define("triggered_JPsi_mass2", "triggered_mass.at(5)")
 
-            df = df.Define("not_triggered_mass", "not_triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_vx, MuonBPark_vy, MuonBPark_vz, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("not_triggered_muon1_dxy", "not_triggered_mass.at(0)").Define("not_triggered_muon1_pt", "not_triggered_mass.at(1)").Define("not_triggered_JPsi_mass1", "not_triggered_mass.at(2)").Define("not_triggered_muon2_dxy", "not_triggered_mass.at(3)").Define("not_triggered_muon2_pt", "not_triggered_mass.at(4)").Define("not_triggered_JPsi_mass2", "not_triggered_mass.at(5)")
+            df_total = df.Define("not_triggered_mass", "not_triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_vx, MuonBPark_vy, MuonBPark_vz, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("not_triggered_muon1_dxy", "not_triggered_mass.at(0)").Define("not_triggered_muon1_pt", "not_triggered_mass.at(1)").Define("not_triggered_JPsi_mass1", "not_triggered_mass.at(2)").Define("not_triggered_muon2_dxy", "not_triggered_mass.at(3)").Define("not_triggered_muon2_pt", "not_triggered_mass.at(4)").Define("not_triggered_JPsi_mass2", "not_triggered_mass.at(5)")
             
 
             #df = df.Filter("HLT_Photon20 == 1")
@@ -242,8 +242,8 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
                     a = muon2_dxy_bins[dxy_index]
                     b = muon2_pt_bins[pt_index]
         
-                    h_dxy_pT_pass_muon1 = df.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_Pass_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "triggered_JPsi_mass1")
-                    h_dxy_pT_pass_muon2 = df.Filter(a).Filter(b).Histo1D(("h_dxy_%s_pT_%s_Pass_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "triggered_JPsi_mass2")
+                    h_dxy_pT_pass_muon1 = df_pass.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_Pass_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "triggered_JPsi_mass1")
+                    h_dxy_pT_pass_muon2 = df_pass.Filter(a).Filter(b).Histo1D(("h_dxy_%s_pT_%s_Pass_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "triggered_JPsi_mass2")
 
                     
                     h_dxy_pT_pass = h_dxy_pT_pass_muon1.GetPtr() + h_dxy_pT_pass_muon2.GetPtr()
@@ -294,8 +294,8 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
                     a = muon2_dxy_bins[dxy_index]
                     b = muon2_pt_bins[pt_index]      
 
-                    h_dxy_pT_fail_muon1 = df.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_fail_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass1")
-                    h_dxy_pT_fail_muon2 = df.Filter(a).Filter(b).Histo1D(("h_dxy_%s_pT_%s_fail_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass2")
+                    h_dxy_pT_fail_muon1 = df_total.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_fail_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass1")
+                    h_dxy_pT_fail_muon2 = df_total.Filter(a).Filter(b).Histo1D(("h_dxy_%s_pT_%s_fail_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass2")
 
                     
                     h_dxy_pT_fail = h_dxy_pT_fail_muon1.GetPtr() + h_dxy_pT_fail_muon2.GetPtr()
