@@ -105,6 +105,9 @@ class Config(cmt_config):
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
 
             Process("dum", Label("dum"), color=(0, 0, 0)),
+
+            Process("egamma", Label("Data"), color=(0, 0, 0), isData=True, parent_process="data"),
+            Process("LambdaBToJpsiLambda", Label("LambdaBToJpsiLambda"), color=(0, 0, 0), parent_process="background"),
         ]
 
         process_group_names = {
