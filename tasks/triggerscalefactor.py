@@ -42,10 +42,10 @@ class TriggerSF(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkflow, SG
 
             df = df.Define("min_dxy", "Min(abs(Muon_dxy))").Define("min_pt", "Min(Muon_pt)")
 
-            #dxy_bin_1 = "min_dxy > 0.00001 && min_dxy < 0.001"
-            dxy_bin_1 = "min_dxy > 0.001 && min_dxy < 0.1"
-            dxy_bin_2 = "min_dxy > 0.1 && min_dxy < 1.0" 
-            dxy_bin_3 = "min_dxy > 1.0 && min_dxy < 10.0"
+            dxy_bin_1 = "min_dxy > 0.00001 && min_dxy < 0.001"
+            dxy_bin_2 = "min_dxy > 0.001 && min_dxy < 0.1"
+            dxy_bin_3 = "min_dxy > 0.1 && min_dxy < 1.0" 
+            dxy_bin_4 = "min_dxy > 1.0 && min_dxy < 10.0"
 
             pt_bin_1 = "min_pt > 3.0 && min_pt < 4.0"
             pt_bin_2 = "min_pt > 4.0 && min_pt < 6.0"
@@ -53,7 +53,7 @@ class TriggerSF(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkflow, SG
             pt_bin_4 = "min_pt > 10.0 && min_pt < 16.0"
             pt_bin_5 = "min_pt > 16.0 && min_pt < 30.0"
 
-            dxy_bins = [dxy_bin_1, dxy_bin_2, dxy_bin_3]
+            dxy_bins = [dxy_bin_1, dxy_bin_2, dxy_bin_3, dxy_bin_4]
             pt_bins = [pt_bin_1, pt_bin_2, pt_bin_3, pt_bin_4, pt_bin_5]
 
             histos = {}   
@@ -96,6 +96,8 @@ class TriggerSFnew(TriggerSF):
     def add_to_root(self, root):
         root.gInterpreter.Declare("""
             #include <utility>
+            #include "DataFormats/Math/interface/deltaR.h"
+
             bool chi2sort (const std::pair<int, float>& a, const std::pair<int, float>& b)
             {
               return (a.second < b.second);
@@ -123,6 +125,18 @@ class TriggerSFnew(TriggerSF):
                     return -1;
                 }
             }
+
+            bool muon_pass(float muon_eta, float muon_phi, int nMuonBPark, Vfloat MuonBPark_eta,
+                Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6)
+            {
+                for (int i = 0; i < nMuonBPark; i++) {
+                    if (!MuonBPark_fired_HLT_Mu9_IP6[i])
+                        continue;
+                    if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.3)
+                        return true;
+                }
+                return false;
+            }
         
         """)
     def run(self):
@@ -137,11 +151,18 @@ class TriggerSFnew(TriggerSF):
                 muonSV_mass, Muon_looseId, muonSV_mu1eta, muonSV_mu2eta,
                 muonSV_mu1index, muonSV_mu2index)
         """).Filter("muonSV_min_chi2_index != -1")
-        df = df.Define("muon1_dxy", "Muon_dxy.at(muonSV_mu1index.at(muonSV_min_chi2_index))")
-        df = df.Define("muon2_dxy", "Muon_dxy.at(muonSV_mu2index.at(muonSV_min_chi2_index))")
-        df = df.Define("muon1_pt", "Muon_pt.at(muonSV_mu1index.at(muonSV_min_chi2_index))")
-        df = df.Define("muon2_pt", "Muon_pt.at(muonSV_mu2index.at(muonSV_min_chi2_index))")
+
+        df = df.Define("muon1_index", "muonSV_mu1index.at(muonSV_min_chi2_index)")
+        df = df.Define("muon2_index", "muonSV_mu2index.at(muonSV_min_chi2_index)")
+        for var in ["dxy", "pt", "eta", "phi"]:
+            df = df.Define(f"muon1_{var}", f"Muon_{var}.at(muon1_index)")
+            df = df.Define(f"muon2_{var}", f"Muon_{var}.at(muon2_index)")
         df = df.Define("muonSV_mass_minchi2", "muonSV_mass.at(muonSV_min_chi2_index)")
+
+        df_pass1 = df.Filter("muon_pass(muon1_eta, muon1_phi, nMuonBPark, "
+            "MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6)")
+        df_pass2 = df.Filter("muon_pass(muon2_eta, muon2_phi, nMuonBPark, "
+            "MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6)")
 
         muon1_dxy_bins = [
             "muon1_dxy > 0.001 && muon1_dxy < 0.1",
@@ -173,6 +194,15 @@ class TriggerSFnew(TriggerSF):
                     ("h_dxy_%s_pT_%s_muon2" % (dxy_index, pt_index),
                     "   ; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4),
                     "muonSV_mass_minchi2")
+                hist_tmp[f"h_dxy_pT_muon1_{dxy_index}_{pt_index}_pass"] = df_pass1.Filter(i).Filter(j).Histo1D(
+                    ("h_dxy_%s_pT_%s_muon1" % (dxy_index, pt_index),
+                        "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4),
+                    "muonSV_mass_minchi2")
+                hist_tmp[f"h_dxy_pT_muon2_{dxy_index}_{pt_index}_pass"] = df_pass2.Filter(a).Filter(b).Histo1D(
+                    ("h_dxy_%s_pT_%s_muon2" % (dxy_index, pt_index),
+                    "   ; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4),
+                    "muonSV_mass_minchi2")
+
 
         histos = {}
         for dxy_index, i in enumerate(muon1_dxy_bins):
@@ -182,6 +212,12 @@ class TriggerSFnew(TriggerSF):
                         f"h_dxy_pT_{dxy_index}_{pt_index}")
                 histos[f"h_dxy_pT_{dxy_index}_{pt_index}"].Add(
                     hist_tmp[f"h_dxy_pT_muon2_{dxy_index}_{pt_index}"].Clone())
+
+                histos[f"h_dxy_pT_{dxy_index}_{pt_index}_pass"] =\
+                    hist_tmp[f"h_dxy_pT_muon1_{dxy_index}_{pt_index}_pass"].Clone(
+                        f"h_dxy_pT_{dxy_index}_{pt_index}_pass")
+                histos[f"h_dxy_pT_{dxy_index}_{pt_index}_pass"].Add(
+                    hist_tmp[f"h_dxy_pT_muon2_{dxy_index}_{pt_index}_pass"].Clone())
 
         histo_file = ROOT.TFile.Open(create_file_dir(self.output().path), "RECREATE")
         for histo in histos.values():
