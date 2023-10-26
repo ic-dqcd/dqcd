@@ -42,10 +42,10 @@ class TriggerSF(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkflow, SG
 
             df = df.Define("min_dxy", "Min(abs(Muon_dxy))").Define("min_pt", "Min(Muon_pt)")
 
-            dxy_bin_1 = "min_dxy > 0.00001 && min_dxy < 0.001"
-            dxy_bin_2 = "min_dxy > 0.001 && min_dxy < 0.1"
-            dxy_bin_3 = "min_dxy > 0.1 && min_dxy < 1.0" 
-            dxy_bin_4 = "min_dxy > 1.0 && min_dxy < 10.0"
+            #dxy_bin_1 = "min_dxy > 0.00001 && min_dxy < 0.001"
+            dxy_bin_1 = "min_dxy > 0.001 && min_dxy < 0.1"
+            dxy_bin_2 = "min_dxy > 0.1 && min_dxy < 1.0" 
+            dxy_bin_3 = "min_dxy > 1.0 && min_dxy < 10.0"
 
             pt_bin_1 = "min_pt > 3.0 && min_pt < 4.0"
             pt_bin_2 = "min_pt > 4.0 && min_pt < 6.0"
@@ -53,7 +53,7 @@ class TriggerSF(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkflow, SG
             pt_bin_4 = "min_pt > 10.0 && min_pt < 16.0"
             pt_bin_5 = "min_pt > 16.0 && min_pt < 30.0"
 
-            dxy_bins = [dxy_bin_1, dxy_bin_2, dxy_bin_3, dxy_bin_4]
+            dxy_bins = [dxy_bin_1, dxy_bin_2, dxy_bin_3]
             pt_bins = [pt_bin_1, pt_bin_2, pt_bin_3, pt_bin_4, pt_bin_5]
 
             histos = {}   

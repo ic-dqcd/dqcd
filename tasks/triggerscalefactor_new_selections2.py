@@ -260,45 +260,53 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
                     histos["h_dxy_%s_pt_%s_Fail" % (dxy_index, pt_index)] = df.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_Fail" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass")    
 
                     '''
-            muon1_dxy_bin_1 = "not_triggered_muon1_dxy > 0.001 &&  not_triggered_muon1_dxy < 0.1"
-            muon1_dxy_bin_2 = "not_triggered_muon1_dxy > 0.1 && not_triggered_muon1_dxy < 1.0" 
-            muon1_dxy_bin_3 = "not_triggered_muon1_dxy > 1.0 && not_triggered_muon1_dxy < 10.0"
+            not_triggered_muon1_dxy_bin_1 = "not_triggered_muon1_dxy > 0.001 && not_triggered_muon1_dxy < 0.1"
+            not_triggered_muon1_dxy_bin_2 = "not_triggered_muon1_dxy > 0.1 && not_triggered_muon1_dxy < 1.0" 
+            not_triggered_muon1_dxy_bin_3 = "not_triggered_muon1_dxy > 1.0 && not_triggered_muon1_dxy < 10.0"
 
-            muon1_pt_bin_1 = "not_triggered_muon1_pt > 3.0 && not_triggered_muon1_pt < 4.0"
-            muon1_pt_bin_2 = "not_triggered_muon1_pt > 4.0 && not_triggered_muon1_pt < 6.0"
-            muon1_pt_bin_3 = "not_triggered_muon1_pt > 6.0 && not_triggered_muon1_pt < 10.0"
-            muon1_pt_bin_4 = "not_triggered_muon1_pt > 10.0 && not_triggered_muon1_pt < 16.0"
-            muon1_pt_bin_5 = "not_triggered_muon1_pt > 16.0 && not_triggered_muon1_pt < 30.0"
+            not_triggered_muon1_pt_bin_1 = "not_triggered_muon1_pt > 3.0 && not_triggered_muon1_pt < 4.0"
+            not_triggered_muon1_pt_bin_2 = "not_triggered_muon1_pt > 4.0 && not_triggered_muon1_pt < 6.0"
+            not_triggered_muon1_pt_bin_3 = "not_triggered_muon1_pt > 6.0 && not_triggered_muon1_pt < 10.0"
+            not_triggered_muon1_pt_bin_4 = "not_triggered_muon1_pt > 10.0 && not_triggered_muon1_pt < 16.0"
+            not_triggered_muon1_pt_bin_5 = "not_triggered_muon1_pt > 16.0 && not_triggered_muon1_pt < 30.0"
 
-            muon1_dxy_bins = [muon1_dxy_bin_1, muon1_dxy_bin_2, muon1_dxy_bin_3]
-            muon1_pt_bins = [muon1_pt_bin_1, muon1_pt_bin_2, muon1_pt_bin_3, muon1_pt_bin_4, muon1_pt_bin_5]
+            not_triggered_muon1_dxy_bins = [not_triggered_muon1_dxy_bin_1, not_triggered_muon1_dxy_bin_2, not_triggered_muon1_dxy_bin_3]
+            not_triggered_muon1_pt_bins = [not_triggered_muon1_pt_bin_1, not_triggered_muon1_pt_bin_2, not_triggered_muon1_pt_bin_3, not_triggered_muon1_pt_bin_4, not_triggered_muon1_pt_bin_5]
 
-            muon2_dxy_bin_1 = "not_triggered_muon2_dxy > 0.001 && not_triggered_muon2_dxy < 0.1"
-            muon2_dxy_bin_2 = "not_triggered_muon2_dxy > 0.1 && not_triggered_muon2_dxy < 1.0" 
-            muon2_dxy_bin_3 = "not_triggered_muon2_dxy > 1.0 && not_triggered_muon2_dxy < 10.0"
+            not_triggered_muon2_dxy_bin_1 = "not_triggered_muon2_dxy > 0.001 && not_triggered_muon2_dxy < 0.1"
+            not_triggered_muon2_dxy_bin_2 = "not_triggered_muon2_dxy > 0.1 && not_triggered_muon2_dxy < 1.0" 
+            not_triggered_muon2_dxy_bin_3 = "not_triggered_muon2_dxy > 1.0 && not_triggered_muon2_dxy < 10.0"
 
-            muon2_pt_bin_1 = "not_triggered_muon2_pt > 3.0 && not_triggered_muon2_pt < 4.0"
-            muon2_pt_bin_2 = "not_triggered_muon2_pt > 4.0 && not_triggered_muon2_pt < 6.0"
-            muon2_pt_bin_3 = "not_triggered_muon2_pt > 6.0 && not_triggered_muon2_pt < 10.0"
-            muon2_pt_bin_4 = "not_triggered_muon2_pt > 10.0 && not_triggered_muon2_pt < 16.0"
-            muon2_pt_bin_5 = "not_triggered_muon2_pt > 16.0 && not_triggered_muon2_pt < 30.0"
+            not_triggered_muon2_pt_bin_1 = "not_triggered_muon2_pt > 3.0 && not_triggered_muon2_pt < 4.0"
+            not_triggered_muon2_pt_bin_2 = "not_triggered_muon2_pt > 4.0 && not_triggered_muon2_pt < 6.0"
+            not_triggered_muon2_pt_bin_3 = "not_triggered_muon2_pt > 6.0 && not_triggered_muon2_pt < 10.0"
+            not_triggered_muon2_pt_bin_4 = "not_triggered_muon2_pt > 10.0 && not_triggered_muon2_pt < 16.0"
+            not_triggered_muon2_pt_bin_5 = "not_triggered_muon2_pt > 16.0 && not_triggered_muon2_pt < 30.0"
 
-            muon2_dxy_bins = [muon2_dxy_bin_1, muon2_dxy_bin_2, muon2_dxy_bin_3]
-            muon2_pt_bins = [muon2_pt_bin_1, muon2_pt_bin_2, muon2_pt_bin_3, muon2_pt_bin_4, muon2_pt_bin_5]
+            not_triggered_muon2_dxy_bins = [not_triggered_muon2_dxy_bin_1, not_triggered_muon2_dxy_bin_2, not_triggered_muon2_dxy_bin_3]
+            not_triggered_muon2_pt_bins = [not_triggered_muon2_pt_bin_1, not_triggered_muon2_pt_bin_2, not_triggered_muon2_pt_bin_3, not_triggered_muon2_pt_bin_4, not_triggered_muon2_pt_bin_5]
             
-            for i in muon1_dxy_bins:
-                for j in muon1_pt_bins:
-                    dxy_index = muon1_dxy_bins.index(i)
-                    pt_index = muon1_pt_bins.index(j)
+            for i in not_triggered_muon1_dxy_bins:
+                for j in not_triggered_muon1_pt_bins:
+                    dxy_index = not_triggered_muon1_dxy_bins.index(i)
+                    pt_index = not_triggered_muon1_pt_bins.index(j)
 
-                    a = muon2_dxy_bins[dxy_index]
-                    b = muon2_pt_bins[pt_index]      
+                    a = not_triggered_muon2_dxy_bins[dxy_index]
+                    b = not_triggered_muon2_pt_bins[pt_index]  
 
-                    h_dxy_pT_fail_muon1 = df_total.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_fail_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass1")
-                    h_dxy_pT_fail_muon2 = df_total.Filter(a).Filter(b).Histo1D(("h_dxy_%s_pT_%s_fail_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass2")
+                    k = muon1_dxy_bins[dxy_index]
+                    l = muon1_pt_bins[pt_index]
+
+                    c = muon2_dxy_bins[dxy_index]
+                    d = muon2_pt_bins[pt_index]
+
+                    h_dxy_pT_total_muon1 = df_total.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_fail_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass1")
+                    h_dxy_pT_pass_muon1 = df_pass.Filter(k).Filter(l).Histo1D(("h_dxy_%s_pT_%s_Pass_muon1" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "triggered_JPsi_mass1") 
+                    h_dxy_pT_total_muon2 = df_total.Filter(a).Filter(b).Histo1D(("h_dxy_%s_pT_%s_fail_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "not_triggered_JPsi_mass2") 
+                    h_dxy_pT_pass_muon2 = df_pass.Filter(c).Filter(d).Histo1D(("h_dxy_%s_pT_%s_Pass_muon2" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "triggered_JPsi_mass2") 
 
                     
-                    h_dxy_pT_fail = h_dxy_pT_fail_muon1.GetPtr() + h_dxy_pT_fail_muon2.GetPtr()
+                    h_dxy_pT_fail = h_dxy_pT_total_muon1.GetPtr() - h_dxy_pT_pass_muon1.GetPtr() + h_dxy_pT_total_muon2.GetPtr() - h_dxy_pT_pass_muon2.GetPtr()
                     h_dxy_pT_fail.SetName("h_dxy_%s_pT_%s_Fail" % (dxy_index, pt_index))
 
                     #histos["h_dxy_%s_pt_%s_Fail_muon1" % (dxy_index, pt_index)] = h_dxy_pT_fail_muon1
