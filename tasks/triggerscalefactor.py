@@ -92,3 +92,122 @@ class TriggerSF(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkflow, SG
 '''
      
  
+class TriggerSFnew(TriggerSF):
+    def add_to_root(self, root):
+        root.gInterpreter.Declare("""
+            #include <utility>
+            bool chi2sort (const std::pair<int, float>& a, const std::pair<int, float>& b)
+            {
+              return (a.second < b.second);
+            }
+
+            using Vfloat = const ROOT::RVec<float>&;
+            using Vint = const ROOT::RVec<int>&;
+            int get_muonsv_index(int nmuonSV, Vfloat muonSV_dxySig, Vfloat muonSV_chi2,
+                Vfloat muonSV_mass, Vint Muon_looseId, Vfloat muonSV_mu1eta, Vfloat muonSV_mu2eta,
+                Vint muonSV_mu1index, Vint muonSV_mu2index)
+            {
+                std::vector<std::pair<int, float>> index_chi2;
+                for (int i = 0; i < nmuonSV; i++) {
+                    if(muonSV_dxySig[i] < 2.0 || muonSV_chi2[i] > 5.0 || muonSV_mass[i] < 2.9 || muonSV_mass[i] > 3.3) continue;
+                    int index1 = muonSV_mu1index[i];
+                    int index2 = muonSV_mu2index[i];
+                    if(abs(muonSV_mu1eta[i]) > 2.4 || abs(muonSV_mu2eta[i]) > 2.4 ||
+                        Muon_looseId[index1] == 0 || Muon_looseId[index2] == 0) continue;
+                    index_chi2.push_back(std::make_pair(i, muonSV_chi2[i]));
+                }
+                if (index_chi2.size() > 0) {
+                    std::stable_sort(index_chi2.begin(), index_chi2.end(), chi2sort);
+                    return index_chi2[0].first;
+                } else {
+                    return -1;
+                }
+            }
+        
+        """)
+    def run(self):
+        ROOT = import_root()
+        self.add_to_root(ROOT)
+
+        df = ROOT.RDataFrame("Events", self.input()["data"][0].path)
+
+        df = df.Filter("nmuonSV > 0")
+        df = df.Define("muonSV_min_chi2_index", """
+            get_muonsv_index(nmuonSV, muonSV_dxySig, muonSV_chi2,
+                muonSV_mass, Muon_looseId, muonSV_mu1eta, muonSV_mu2eta,
+                muonSV_mu1index, muonSV_mu2index)
+        """).Filter("muonSV_min_chi2_index != -1")
+        df = df.Define("muon1_dxy", "Muon_dxy.at(muonSV_mu1index.at(muonSV_min_chi2_index))")
+        df = df.Define("muon2_dxy", "Muon_dxy.at(muonSV_mu2index.at(muonSV_min_chi2_index))")
+        df = df.Define("muon1_pt", "Muon_pt.at(muonSV_mu1index.at(muonSV_min_chi2_index))")
+        df = df.Define("muon2_pt", "Muon_pt.at(muonSV_mu2index.at(muonSV_min_chi2_index))")
+        df = df.Define("muonSV_mass_minchi2", "muonSV_mass.at(muonSV_min_chi2_index)")
+
+        muon1_dxy_bins = [
+            "muon1_dxy > 0.001 && muon1_dxy < 0.1",
+            "muon1_dxy > 0.1 && muon1_dxy < 1.0",
+            "muon1_dxy > 1.0 && muon1_dxy < 10.0"
+        ]
+
+        muon1_pt_bins = [
+            "muon1_pt > 3.0 && muon1_pt < 4.0",
+            "muon1_pt > 4.0 && muon1_pt < 6.0",
+            "muon1_pt > 6.0 && muon1_pt < 10.0",
+            "muon1_pt > 10.0 && muon1_pt < 16.0",
+            "muon1_pt > 16.0 && muon1_pt < 30.0"
+        ]
+
+        muon2_dxy_bins = [elem.replace("muon1", "muon2") for elem in muon1_dxy_bins]
+        muon2_pt_bins = [elem.replace("muon1", "muon2") for elem in muon1_pt_bins]
+
+        hist_tmp = {}
+        for dxy_index, i in enumerate(muon1_dxy_bins):
+            for pt_index, j in enumerate(muon1_pt_bins):
+                a = muon2_dxy_bins[dxy_index]
+                b = muon2_pt_bins[pt_index]
+                hist_tmp[f"h_dxy_pT_muon1_{dxy_index}_{pt_index}"] = df.Filter(i).Filter(j).Histo1D(
+                    ("h_dxy_%s_pT_%s_muon1" % (dxy_index, pt_index),
+                        "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4),
+                    "muonSV_mass_minchi2")
+                hist_tmp[f"h_dxy_pT_muon2_{dxy_index}_{pt_index}"] = df.Filter(a).Filter(b).Histo1D(
+                    ("h_dxy_%s_pT_%s_muon2" % (dxy_index, pt_index),
+                    "   ; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4),
+                    "muonSV_mass_minchi2")
+
+        histos = {}
+        for dxy_index, i in enumerate(muon1_dxy_bins):
+            for pt_index, j in enumerate(muon1_pt_bins):
+                histos[f"h_dxy_pT_{dxy_index}_{pt_index}"] =\
+                    hist_tmp[f"h_dxy_pT_muon1_{dxy_index}_{pt_index}"].Clone(
+                        f"h_dxy_pT_{dxy_index}_{pt_index}")
+                histos[f"h_dxy_pT_{dxy_index}_{pt_index}"].Add(
+                    hist_tmp[f"h_dxy_pT_muon2_{dxy_index}_{pt_index}"].Clone())
+
+        histo_file = ROOT.TFile.Open(create_file_dir(self.output().path), "RECREATE")
+        for histo in histos.values():
+            histo.Write()
+        histo_file.Close()
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
