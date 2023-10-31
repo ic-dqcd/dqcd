@@ -29,13 +29,14 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
         #include <iostream>
         #include <vector>
         #include <cmath>
+        #include "DataFormats/Math/interface/deltaR.h"
 
 
         using Vfloat = const ROOT::RVec<float>&;
-        ROOT::RVec<float> triggered_muonSV_mass(Vfloat muonSV_mu1eta, Vfloat muonSV_mu2eta, ROOT::RVec<int> muonSV_mu1index, ROOT::RVec<int> muonSV_mu2index, ROOT::RVec<int> Muon_looseId, Vfloat Muon_dxy, Vfloat Muon_pt, ROOT::RVec<int> MuonBPark_fired_HLT_Mu9_IP6, Vfloat MuonBPark_vx, Vfloat MuonBPark_vy, Vfloat MuonBPark_vz, Vfloat muonSV_x, Vfloat muonSV_y, Vfloat muonSV_z, Vfloat muonSV_mass, Vfloat muonSV_dxySig, Vfloat muonSV_chi2)
+        ROOT::RVec<float> triggered_muonSV_mass(Vfloat muonSV_mu1eta, Vfloat muonSV_mu2eta, Vfloat muonSV_mu1phi, Vfloat muonSV_mu2phi, ROOT::RVec<int> muonSV_mu1index, ROOT::RVec<int> muonSV_mu2index, ROOT::RVec<int> Muon_looseId, Vfloat Muon_dxy, Vfloat Muon_pt, ROOT::RVec<int> MuonBPark_fired_HLT_Mu9_IP6, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi, Vfloat muonSV_x, Vfloat muonSV_y, Vfloat muonSV_z, Vfloat muonSV_mass, Vfloat muonSV_dxySig, Vfloat muonSV_chi2)
         {
         const auto muonSV_size = muonSV_x.size();
-        const auto MuonBPark_size = MuonBPark_vx.size();
+        const auto MuonBPark_size = MuonBPark_eta.size();
         ROOT::RVec<float> dxy1_pt1_dxy2_pt2_muonSVmass(6);
 
         std::cout << "muonSV_size = " << muonSV_size << std::endl;
@@ -63,28 +64,37 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
 
             if(abs(muonSV_mu1eta[i]) > 2.4 || abs(muonSV_mu2eta[i]) > 2.4 || Muon_looseId[index1] == 0 || Muon_looseId[index2] == 0) continue;
             
-            int trigger_match = 0;
+            int trigger_match1 = 0;
+            int trigger_match2 = 0;
 
             for(auto k = 0; k < MuonBPark_size; k++){
                 
                 if(MuonBPark_fired_HLT_Mu9_IP6[k] == 0) continue;
 
-                ROOT::Math::XYZVector MuonBPark_vertex(MuonBPark_vx[k], MuonBPark_vy[k], MuonBPark_vz[k]);
-                
-                if((MuonBPark_vertex-muonSV_vertex).Rho() < 1.0) trigger_match += 1; 
+                if(reco::deltaR(muonSV_mu1eta[i], muonSV_mu1phi[i], MuonBPark_eta[k], MuonBPark_phi[k]) < 0.3) trigger_match1 += 1; 
+ 
+                if(reco::deltaR(muonSV_mu2eta[i], muonSV_mu2phi[i], MuonBPark_eta[k], MuonBPark_phi[k]) < 0.3) trigger_match2 += 1;
                 
             }
 
-            if(trigger_match == 0) continue;
-
-            dxy1.push_back(Muon_dxy[index1]);
-            pt1.push_back(Muon_pt[index1]);
-            dxy2.push_back(Muon_dxy[index2]);
-            pt2.push_back(Muon_pt[index2]);
-            mass1.push_back(muonSV_mass[i]);
-            mass2.push_back(muonSV_mass[i]);
-            chi2.push_back(muonSV_chi2[i]);
-            
+            if(trigger_match1 == 1){
+                dxy1.push_back(Muon_dxy[index1]);
+                pt1.push_back(Muon_pt[index1]);
+                dxy2.push_back(-1.0);
+                pt2.push_back(-1.0);
+                mass1.push_back(muonSV_mass[i]);
+                mass2.push_back(-1.0);
+                chi2.push_back(muonSV_chi2[i]);
+            } 
+            if(trigger_match2 == 1){
+                dxy1.push_back(-1.0);
+                pt1.push_back(-1.0);
+                dxy2.push_back(Muon_dxy[index2]);
+                pt2.push_back(Muon_pt[index2]);
+                mass1.push_back(-1.0);
+                mass2.push_back(muonSV_mass[i]);
+                chi2.push_back(muonSV_chi2[i]);
+            }
         }
         if(mass1.size() > 0){
             auto result = std::min_element(chi2.begin(), chi2.end()); 
@@ -187,7 +197,7 @@ class TriggerSFnewselections2(DatasetTaskWithCategory, law.LocalWorkflow, HTCond
 
             df = df.Filter("nmuonSV > 0")
 
-            df_pass = df.Filter("nMuonBPark > 0").Define("triggered_mass", "triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_vx, MuonBPark_vy, MuonBPark_vz, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("triggered_muon1_dxy", "triggered_mass.at(0)").Define("triggered_muon1_pt", "triggered_mass.at(1)").Define("triggered_JPsi_mass1", "triggered_mass.at(2)").Define("triggered_muon2_dxy", "triggered_mass.at(3)").Define("triggered_muon2_pt", "triggered_mass.at(4)").Define("triggered_JPsi_mass2", "triggered_mass.at(5)")
+            df_pass = df.Filter("nMuonBPark > 0").Define("triggered_mass", "triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1phi, muonSV_mu2phi, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_eta, MuonBPark_phi, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("triggered_muon1_dxy", "triggered_mass.at(0)").Define("triggered_muon1_pt", "triggered_mass.at(1)").Define("triggered_JPsi_mass1", "triggered_mass.at(2)").Define("triggered_muon2_dxy", "triggered_mass.at(3)").Define("triggered_muon2_pt", "triggered_mass.at(4)").Define("triggered_JPsi_mass2", "triggered_mass.at(5)")
 
             df_total = df.Define("not_triggered_mass", "not_triggered_muonSV_mass(muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1index, muonSV_mu2index, Muon_looseId, Muon_dxy, Muon_pt, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_vx, MuonBPark_vy, MuonBPark_vz, muonSV_x, muonSV_y, muonSV_z, muonSV_mass, muonSV_dxySig, muonSV_chi2)").Define("not_triggered_muon1_dxy", "not_triggered_mass.at(0)").Define("not_triggered_muon1_pt", "not_triggered_mass.at(1)").Define("not_triggered_JPsi_mass1", "not_triggered_mass.at(2)").Define("not_triggered_muon2_dxy", "not_triggered_mass.at(3)").Define("not_triggered_muon2_pt", "not_triggered_mass.at(4)").Define("not_triggered_JPsi_mass2", "not_triggered_mass.at(5)")
             

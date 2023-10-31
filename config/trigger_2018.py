@@ -37,7 +37,11 @@ class Config(legacy_config):
                 process=self.processes.get("egamma"),
                 check_empty=False,
             ),
-
+            Dataset("SingleMuon",
+                dataset = "/SingleMuon/jleonhol-SingleMuon-9e237a9f56e9d058139fa37ffdb183f0/USER" ,
+                process=self.processes.get("SingleMuon"),
+                check_empty=False,
+            ),
         ]
         return ObjectCollection(datasets)
 
