@@ -240,17 +240,14 @@ class TriggerSFtnp(TriggerSF):
 
             using Vfloat = const ROOT::RVec<float>&;
             using Vint = const ROOT::RVec<int>&;
-            int get_muonsv_index(int nmuonSV, Vfloat muonSV_dxySig, Vfloat muonSV_chi2,
-                Vfloat muonSV_mass, Vint Muon_looseId, Vfloat muonSV_mu1eta, Vfloat muonSV_mu2eta,
-                Vint muonSV_mu1index, Vint muonSV_mu2index)
+            int get_muonsv_index(int nmuonSV, Vfloat muonSV_dxySig, Vfloat muonSV_chi2, Vfloat muonSV_mass, Vint Muon_looseId, Vfloat Muon_sip3d, Vfloat muonSV_mu1pt, Vfloat muonSV_mu2pt, Vfloat muonSV_mu1eta, Vfloat muonSV_mu2eta, Vfloat muonSV_mu1phi, Vfloat muonSV_mu2phi, Vint muonSV_mu1index, Vint muonSV_mu2index)
             {
                 std::vector<std::pair<int, float>> index_chi2;
                 for (int i = 0; i < nmuonSV; i++) {
-                    if(muonSV_dxySig[i] < 2.0 || muonSV_chi2[i] > 5.0 || muonSV_mass[i] < 2.9 || muonSV_mass[i] > 3.3) continue;
+                    if(reco::deltaR(muonSV_mu1eta[i], muonSV_mu1phi[i], muonSV_mu2eta[i], muonSV_mu2phi[i]) > 1.2 || muonSV_mass[i] < 2.9 || muonSV_mass[i] > 3.3) continue;
                     int index1 = muonSV_mu1index[i];
                     int index2 = muonSV_mu2index[i];
-                    if(abs(muonSV_mu1eta[i]) > 2.4 || abs(muonSV_mu2eta[i]) > 2.4 ||
-                        Muon_looseId[index1] == 0 || Muon_looseId[index2] == 0) continue;
+                    if(muonSV_mu1pt[i] < 9.0 || muonSV_mu2pt[i] < 9.0 || abs(muonSV_mu1eta[i]) > 1.5 || abs(muonSV_mu2eta[i]) > 1.5 || Muon_sip3d[index1] < 6.0 || Muon_sip3d[index2] < 6.0 || Muon_looseId[index1] == 0 || Muon_looseId[index2] == 0) continue;
                     index_chi2.push_back(std::make_pair(i, muonSV_chi2[i]));
                 }
                 if (index_chi2.size() > 0) {
@@ -313,9 +310,7 @@ class TriggerSFtnp(TriggerSF):
 
         df = df.Filter("nmuonSV > 0")
         df = df.Define("muonSV_min_chi2_index", """
-            get_muonsv_index(nmuonSV, muonSV_dxySig, muonSV_chi2,
-                muonSV_mass, Muon_looseId, muonSV_mu1eta, muonSV_mu2eta,
-                muonSV_mu1index, muonSV_mu2index)
+            get_muonsv_index(nmuonSV, muonSV_dxySig, muonSV_chi2, muonSV_mass, Muon_looseId, Muon_sip3d, muonSV_mu1pt, muonSV_mu2pt, muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1phi, muonSV_mu2phi, muonSV_mu1index, muonSV_mu2index)
         """).Filter("muonSV_min_chi2_index != -1")
 
         df = df.Define("muon1_index", "muonSV_mu1index.at(muonSV_min_chi2_index)")
@@ -325,11 +320,11 @@ class TriggerSFtnp(TriggerSF):
             df = df.Define(f"muon2_{var}", f"Muon_{var}.at(muon2_index)")
         df = df.Define("muonSV_mass_minchi2", "muonSV_mass.at(muonSV_min_chi2_index)")
 
-        df.Filter("muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20) || muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20)")
+        df = df.Filter("muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20) || muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20)")
 
-        df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_pt, muon2_eta, muon2_phi, muon2_dxy, muon2_pt, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu20)")
+        df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_pt, muon2_eta, muon2_phi, muon2_dxy, muon2_pt, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu20)")
 
-        df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_qunatities.at(2)")
+        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)")
 
         df_pass = df.Filter("probe_HLT == 1")
 
