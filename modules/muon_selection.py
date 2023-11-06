@@ -7,7 +7,7 @@ class DQCDMuonSelectionRDFProducer():
 
         ROOT.gInterpreter.Declare("""
             #include "DataFormats/Math/interface/deltaR.h"
-            using Vint= const ROOT::RVec<int>&;
+            using Vint = const ROOT::RVec<int>&;
             using Vfloat = const ROOT::RVec<float>&;
             ROOT::RVec<int> match_col1_col2(Vfloat pt1, Vfloat eta1, Vfloat phi1,
                     Vfloat pt2, Vfloat eta2, Vfloat phi2, float max_dpt, float max_dr) {
@@ -93,8 +93,6 @@ class DQCDMuonSelectionRDFProducer():
             "MuonBPark_isLeading", "leading[0]").Define("MuonBPark_isSubleading", "leading[1]")
 
         # match to trigger muons
-
-
         # trigger matched
         df = df.Define("MuonBPark_trigger_matched", """(MuonBPark_isTriggeringMuon > 0) &&
             (MuonBPark_isTriggering > 0) && (MuonBPark_fired_HLT_Mu9_IP6 > 0)""")

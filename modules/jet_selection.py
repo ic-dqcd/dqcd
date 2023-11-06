@@ -37,7 +37,7 @@ class DQCDJetSelectionRDFProducer():
         if self.year in [2017, 2018] and self.jet_id == "loose":
             self.jet_id = "tight"
         sel.append("Jet_jetId >= %s" % eval(self.jet_id.upper()))
-        
+
         df = df.Define("Jet_globalIndexes", "globaljet_indexes(nJet, global_jetIdx)")       
         df = df.Define("Jet_numberCpf", "get_global_int_element(global_numberCpf, Jet_globalIndexes)")
         df = df.Define("Jet_numberMuon", "get_global_int_element(global_numberMuon, Jet_globalIndexes)")
