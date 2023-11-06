@@ -13,7 +13,7 @@ class Config(legacy_config):
 
         datasets = [
             Dataset("LambdaBToJpsiLambda",
-                dataset = "/LambdaBToJpsiLambda_JpsiToMuMu_TuneCP5_13TeV-pythia8-evtgen/jleonhol-JPsiMC-5b19687ea081767d75d2860ff4c16949/USER", 
+                dataset = "/LambdaBToJpsiLambda_JpsiToMuMu_TuneCP5_13TeV-pythia8-evtgen/jleonhol-JPsiMC-f7d89a2f103706ffd8ab9007e324774d/USER",
                 process=self.processes.get("LambdaBToJpsiLambda"),
                 check_empty=False,
             ),

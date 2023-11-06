@@ -29,6 +29,7 @@ muonsv:
         gen_mass: 2
 
 
+
 #puweight:
     #name: puWeightParkingRDF
     #path: modules.puWeight
@@ -36,3 +37,10 @@ muonsv:
         #isMC: self.dataset.process.isMC
         #year: self.config.year
         #isUL: self.dataset.has_tag('ul')
+
+
+trig:
+    name: DQCDTriggerSelectionRDF
+    path: modules.muonsv_selection
+    parameters:
+        gen_mass: 2
