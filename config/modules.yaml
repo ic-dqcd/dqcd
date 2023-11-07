@@ -5,6 +5,38 @@ muon:
         year: self.config.year
 
 
+muonsv:
+    name: DQCDMuonSVSelectionRDF
+    path: modules.muonsv_selection
+    parameters:
+        gen_mass: 2
+
+
+jet_smearing:
+    name: jetSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        jerTag: self.config.year
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux('ispreVFP', False)
+
+
+jet_smear_val:
+    name: jetVarRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+
+met_smearing:
+    name: metSmearerRDF
+    path: Corrections.JME.smearing
+    parameters:
+        isMC: self.dataset.process.isMC
+
+
 jet:
     name: DQCDJetSelectionRDF
     path: modules.jet_selection
@@ -22,12 +54,11 @@ bdt:
         bdt_cut_value: 0.0
 
 
-muonsv:
-    name: DQCDMuonSVSelectionRDF
+trig:
+    name: DQCDTriggerSelectionRDF
     path: modules.muonsv_selection
     parameters:
         gen_mass: 2
-
 
 
 #puweight:
@@ -38,9 +69,11 @@ muonsv:
         #year: self.config.year
         #isUL: self.dataset.has_tag('ul')
 
-
-trig:
-    name: DQCDTriggerSelectionRDF
-    path: modules.muonsv_selection
-    parameters:
-        gen_mass: 2
+#pujetid:
+    #name: DQCDPUjetID_SFRDF
+    #path: modules.DQCD_SF
+    #parameters:
+        #year: self.config.year
+        #isMC: self.dataset.process.isMC
+        #isUL: self.dataset.has_tag('ul')
+        #ispreVFP: self.config.get_aux("isPreVFP", False)

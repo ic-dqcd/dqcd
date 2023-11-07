@@ -19,6 +19,13 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
+                tags=["ul"]
+            ),
+            Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
+                folder="/vols/cms/jleonhol/samples/ul_pu_v0/scenarioA_mpi_4_mA_1p33_ctau_10/",
+                process=self.processes.get("signal"),
+                file_pattern="nano_.*root",
+                tags=["ul"]
             ),
         ]
         return ObjectCollection(datasets)

@@ -123,8 +123,7 @@ class DQCDMuonSVSelectionRDFProducer():
 
         return df, ["nmuonSV_3sigma",
             "mass_multivertices", "chi2_multivertices", "indexes_multivertices",
-            "min_chi2", "min_chi2_index",
-            "cat_index", "muonSV_dR"]
+            "min_chi2", "min_chi2_index", "cat_index", "muonSV_dR"]
 
 
 def DQCDMuonSVSelectionRDF(*args, **kwargs):
@@ -285,6 +284,9 @@ class DQCDTriggerSelectionRDFProducer():
         """)
         for ib, branch in enumerate(branches):
             df = df.Define(branch, f"muonsv_indexes.at({ib})")
+
+        df = df.Filter("muonSV_chi2_trig_index >= 0")
+
         return df, branches
 
 
