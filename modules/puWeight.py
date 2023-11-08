@@ -2,12 +2,17 @@ import os
 from Corrections.LUM.puWeight import puWeightRDFProducer, puWeightDummyRDFProducer
 
 # pufile_dataParking2018 = "%s/../modules/dataParkingPileupHistogram.root" % os.environ['CMT_BASE']
-pufile_dataParking2018 = "%s/../modules/parking_pu2018.root" % os.environ['CMT_BASE']
+# pufile_dataParking2018 = "%s/../modules/parking_pu2018.root" % os.environ['CMT_BASE']
+pufile_dataParking2018 = "%s/../modules/data_parking18_with_var.root" % os.environ['CMT_BASE']
 pufile_mc2018 = "%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/mcPileup2018.root" % os.environ[
     'CMSSW_BASE']
-
 puWeight_parking2018RDF = lambda: puWeightRDFProducer(
-    pufile_mc2018, pufile_dataParking2018, "pu_mc", "pileup", verbose=False, doSysVar=False)
+    pufile_mc2018, pufile_dataParking2018, "pu_mc", "pileup", verbose=False, doSysVar=True)
+
+pufile_mcUL2018 = "%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/mcPileupUL2018.root" % os.environ[
+    'CMSSW_BASE']
+puWeight_parkingUL2018RDF = lambda: puWeightRDFProducer(
+    pufile_mcUL2018, pufile_dataParking2018, "pu_mc", "pileup", verbose=False, doSysVar=True)
 
 
 def puWeightParkingRDF(**kwargs):
