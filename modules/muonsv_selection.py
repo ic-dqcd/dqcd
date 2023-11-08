@@ -223,16 +223,23 @@ class DQCDTriggerSelectionRDFProducer():
                     auto muonsv = muonsv_struct({imuonSV, muonSV_chi2[imuonSV], -999, -999});
                     // matching muonSV's muons with MuonBPark muons firing HLT_Mu9_Ip6 and other
                     // kinematic requirements
+                    float mindeltaR1 = 999.;
+                    float mindeltaR2 = 999.;
                     for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
                         if (!MuonBPark_trigger_matched[iMuonBPark] ||
                                 !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark])
                             continue;
-                        if (reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]) < 0.1) {
+                        auto dr1 = reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                            MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
+                        auto dr2 = reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
+                            MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
+                        if (dr1 < 0.05 && dr1 < mindeltaR1) {
                             muonsv.muonBPark_trigger_index_1 = iMuonBPark;
-                        } else if (reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
-                                MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]) < 0.1) {
+                            mindeltaR1 = dr1;
+                        }
+                        if (dr2 < 0.05 && dr2 < mindeltaR2) {
                             muonsv.muonBPark_trigger_index_2 = iMuonBPark;
+                            mindeltaR2 = dr2;
                         }
                     }
                     // Requires one muon from the SV to be matched to a trigger muon
@@ -260,7 +267,8 @@ class DQCDTriggerSelectionRDFProducer():
                         if (dr1 < 0.05 && dr1 < mindeltaR1) {
                             indexes[3] = iMuon;
                             mindeltaR1 = dr1;
-                        } else if (dr2 < 0.05 && dr2 < mindeltaR2) {
+                        }
+                        if (dr2 < 0.05 && dr2 < mindeltaR2) {
                             indexes[4] = iMuon;
                             mindeltaR2 = dr2;
                         }
