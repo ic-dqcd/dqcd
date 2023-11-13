@@ -1,0 +1,5 @@
+pnet:
+    name: PNetVarRDF
+    path: modules.pnet
+    parameters:
+        isMC: self.dataset.process.isMC

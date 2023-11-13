@@ -45,13 +45,27 @@ jet:
         jet_id: loose
 
 
+#bdt:
+    #name: DQCDBDTSelectionRDF
+    #path: modules.bdt_selection
+    #parameters:
+        #bdt_name: xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0
+        ## bdt_cut_value: 0.9994
+        #bdt_cut_value: 0.0
+
+
 bdt:
-    name: DQCDBDTSelectionRDF
-    path: modules.bdt_selection
+    name: DQCDBDT
+    path: DQCD.Modules.BDTinference
     parameters:
-        bdt_name: xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0
-        # bdt_cut_value: 0.9994
-        bdt_cut_value: 0.0
+        isMC: self.dataset.process.isMC
+        jet_syst: ""
+        met_smear_tag: ""
+        #model_m: 0
+        #model_ctau: 0
+        #model_xi0: 0
+        #model_xiL: 0
+
 
 
 trig:
@@ -61,19 +75,19 @@ trig:
         gen_mass: 2
 
 
-#puweight:
-    #name: puWeightParkingRDF
-    #path: modules.puWeight
-    #parameters:
-        #isMC: self.dataset.process.isMC
-        #year: self.config.year
-        #isUL: self.dataset.has_tag('ul')
+puweight:
+    name: puWeightParkingRDF
+    path: modules.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
 
-#pujetid:
-    #name: DQCDPUjetID_SFRDF
-    #path: modules.DQCD_SF
-    #parameters:
-        #year: self.config.year
-        #isMC: self.dataset.process.isMC
-        #isUL: self.dataset.has_tag('ul')
-        #ispreVFP: self.config.get_aux("isPreVFP", False)
+pujetid:
+    name: DQCDPUjetID_SFRDF
+    path: modules.DQCD_SF
+    parameters:
+        year: self.config.year
+        isMC: self.dataset.process.isMC
+        isUL: self.dataset.has_tag('ul')
+        ispreVFP: self.config.get_aux("isPreVFP", False)

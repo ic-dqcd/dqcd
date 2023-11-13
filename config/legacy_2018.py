@@ -17,7 +17,7 @@ class Config(cmt_config):
             Category("signal", "Signal region", selection="{{bdt}} > 0.85"),
             Category("background", "Background region",
                 selection="{{bdt}} > 0.3 && {{bdt}} < 0.85"),
-        ]
+                ]
         return ObjectCollection(regions)
 
     def add_categories(self, **kwargs):
@@ -109,6 +109,7 @@ class Config(cmt_config):
             Process("egamma", Label("Data"), color=(0, 0, 0), isData=True, parent_process="data"),
             Process("SingleMuon", Label("Data"), color=(0, 0, 0), isData=True, parent_process="data"),
             Process("LambdaBToJpsiLambda", Label("LambdaBToJpsiLambda"), color=(0, 0, 0), parent_process="background"),
+            Process("BToJpsi", Label("BToJpsi"), color=(0, 0, 0), parent_process="background"),
         ]
 
         process_group_names = {
@@ -770,7 +771,8 @@ class Config(cmt_config):
                 x_title=Label("BDT score"), tags=["eval_observer"]),
 
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
-            Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(100, 0, 4),
+            # Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(1000, 0, 4),
+            Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(100, 1.2, 1.5),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV",
                 blinded_range=[1.5, 2.5]),
@@ -794,7 +796,7 @@ class Config(cmt_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["genWeight", "puWeight"]  # others needed
+        weights.base = ["genWeight", "puWeight", "PUjetID_SF"]  # others needed
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:

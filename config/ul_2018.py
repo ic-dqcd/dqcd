@@ -22,13 +22,29 @@ class Config(legacy_config):
                 tags=["ul"]
             ),
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
-                folder="/vols/cms/jleonhol/samples/ul_pu_v0/scenarioA_mpi_4_mA_1p33_ctau_10/",
+                folder="/vols/cms/jleonhol/samples/ul_pu_v1/scenarioA_mpi_4_mA_1p33_ctau_10/",
                 process=self.processes.get("signal"),
                 file_pattern="nano_.*root",
                 tags=["ul"]
             ),
         ]
         return ObjectCollection(datasets)
+
+    def add_weights(self):
+        weights = DotDict()
+        weights.default = "1"
+
+        weights.total_events_weights = ["puWeight"]
+        # weights.total_events_weights = ["genWeight"]
+        # weights.total_events_weights = ["1"]
+
+        weights.base = ["puWeight", "PUjetID_SF"]  # others needed
+        # weights.base = ["1"]  # others needed
+
+        for category in self.categories:
+            weights[category.name] = weights.base
+
+        return weights
 
     # other methods
 
