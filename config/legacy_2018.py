@@ -109,7 +109,8 @@ class Config(cmt_config):
             Process("egamma", Label("Data"), color=(0, 0, 0), isData=True, parent_process="data"),
             Process("SingleMuon", Label("Data"), color=(0, 0, 0), isData=True, parent_process="data"),
             Process("LambdaBToJpsiLambda", Label("LambdaBToJpsiLambda"), color=(0, 0, 0), parent_process="background"),
-            Process("BToJpsi", Label("BToJpsi"), color=(0, 0, 0), parent_process="background"),
+            Process("BToJpsiJPsiToMuMu", Label("BToJpsiJPsiToMuMu"), color=(0, 0, 0), parent_process="background"),
+            Process("BuToJpsiK", Label("BuToJpsiK"), color=(0, 0, 0), parent_process="background"),
         ]
 
         process_group_names = {
