@@ -52,6 +52,16 @@ class Config(legacy_config):
                 process=self.processes.get("SingleMuon"),
                 check_empty=False,
             ),
+            Dataset("BToJpsiJPsiToMuMu",
+                dataset = "/BToJpsi_JPsiToMuMu_BMuonFilter_HardQCD_TuneCP5_13TeV-pythia8-evtgen/jleonhol-BJPsiMC-f7d89a2f103706ffd8ab9007e324774d/USER",
+                process=self.processes.get("BToJpsiJPsiToMuMu"),
+                check_empty=False,
+            ),
+            Dataset("BuToJpsiK",
+                dataset = "/BuToJpsiK_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/jleonhol-BuToKJPsiMC-f7d89a2f103706ffd8ab9007e324774d/USER",
+                process=self.processes.get("BuToJpsiK"),
+                check_empty=False,
+            ),
         ]
         return ObjectCollection(datasets)
 
