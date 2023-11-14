@@ -1,0 +1,5 @@
+chi2:
+    name: DummyMinChi2RDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
