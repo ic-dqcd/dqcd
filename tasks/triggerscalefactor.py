@@ -11,12 +11,14 @@ class TriggerSF(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkflow, SG
             os.path.expandvars("$CMT_TMP_DIR/%s/" % self.config_name), add_prefix=False,
             check_empty=True))
 
+    def workflow_requires(self):
+        return {"data": InputData.req(self)}
 
     def requires(self):
         return {"data": InputData.req(self, file_index=self.branch)}
 
-    def workflow_requires(self):
-        return {"data": InputData.req(self)}
+    def output(self):
+        return self.local_target(f"data_{self.addendum}{self.branch}.root")
 
     def output(self):
         return self.local_target("histos_%s.root" % self.branch)
@@ -305,6 +307,8 @@ class TriggerSFtnp(TriggerSF):
     def run(self):
         ROOT = import_root()
         self.add_to_root(ROOT)
+
+        print(self.input()["data"])
 
         df = ROOT.RDataFrame("Events", self.input()["data"][0].path)
 
