@@ -1,10 +1,6 @@
 import os
 import law
 import luigi
-import pandas
-import numpy as np
-import awkward as ak
-import uproot as up
 
 from cmt.base_tasks.base import DatasetTaskWithCategory, HTCondorWorkflow, SGEWorkflow, InputData
 from cmt.base_tasks.preprocessing import PreprocessRDF
@@ -17,7 +13,7 @@ class PNetDataProducer(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkf
     base_category_name = luigi.Parameter(default="base", description="the name of the "
         "base category with the initial selection, default: base")
     
-    keys = ["deta", "dphi", "logpt", "logE", "logptrel", "logerel",
+    keys = ["px", "py", "pz", "e", "deta", "dphi", "logpt", "loge", "logptrel", "logerel",
         "dr", "q", "isElectron", "isMuon", "isChargedHadron",
         "isNeutralHadron", "isPhoton", "tanhdxy", "tanhdz", "dxyerror",
         "dzerror"]
@@ -38,12 +34,17 @@ class PNetDataProducer(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkf
         return self.local_target(f"data_{self.branch}.root")
 
     def get_pnet_input_data(self, filename):
+        import pandas
+        import numpy as np
+        import awkward as ak
+        import uproot as up
         df = ROOT.RDataFrame("Events", filename)
         npy = df.AsNumpy()
         df = pandas.DataFrame(npy)
         
         d = {col: [] for col in self.keys if str(col) != "Jet_withMatchedMuon"}
         d["signal"] = []
+        d["background"] = []
 
         for iev, ev in df.iterrows():
             for ijet, (matched, dark) in enumerate(
@@ -53,6 +54,8 @@ class PNetDataProducer(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkf
                     for ip, cpf_jetidx in enumerate(ev["cpf_jetIdx_sel"]):
                         if cpf_jetidx == ijet:
                             jet.append([
+                                ev["cpf_px_sel"][ip], ev["cpf_py_sel"][ip],
+                                ev["cpf_pz_sel"][ip], ev["cpf_e_sel"][ip],
                                 ev["cpf_deta_sel"][ip], ev["cpf_dphi_sel"][ip],
                                 ev["cpf_logpt_sel"][ip], ev["cpf_loge_sel"][ip],
                                 ev["cpf_logptrel_sel"][ip], ev["cpf_logerel_sel"][ip],
@@ -66,6 +69,8 @@ class PNetDataProducer(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkf
                     for ip, npf_jetidx in enumerate(ev["npf_jetIdx_sel"]):
                         if cpf_jetidx == ijet:
                             jet.append([
+                                ev["npf_px_sel"][ip], ev["npf_py_sel"][ip],
+                                ev["npf_pz_sel"][ip], ev["npf_e_sel"][ip],
                                 ev["npf_deta_sel"][ip], ev["npf_dphi_sel"][ip],
                                 ev["npf_logpt_sel"][ip], ev["npf_loge_sel"][ip],
                                 ev["npf_logptrel_sel"][ip], ev["npf_logerel_sel"][ip],
@@ -80,6 +85,7 @@ class PNetDataProducer(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkf
                         continue
 
                     d["signal"].append(dark)
+                    d["background"].append(1 - dark)
                     # d.append({"signal": dark})
                     jet.sort(key=lambda x: x[3], reverse=True)
                     for ikey, key in enumerate(self.keys):
@@ -92,4 +98,5 @@ class PNetDataProducer(DatasetTaskWithCategory, law.LocalWorkflow, HTCondorWorkf
     def run(self):
         d = self.get_pnet_input_data(self.input().path)
         f = up.recreate(create_file_dir(self.output().path))
-        f["Events"] = {"signal": d["signal"], "Part": ak.zip({key: d[key] for key in self.keys})}
+        f["Events"] = {"signal": d["signal"], "background": d["background"],
+            "Part": ak.zip({key: d[key] for key in self.keys})}
