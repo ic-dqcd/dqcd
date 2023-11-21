@@ -105,13 +105,15 @@ class PNetVarRDFProducer():
 
             branches = ["Jet_withMatchedMuon", "Jet_fromDarkShower", "cpf_matchedToMatchedJet",
                 "npf_matchedToMatchedJet"]
-            for var in ["cpf_deta", "cpf_dphi", "cpf_logpt", "cpf_logpt_sel", "cpf_loge",
+            for var in ["cpf_px", "cpf_py", "cpf_pz", "cpf_e",
+                    "cpf_deta", "cpf_dphi", "cpf_logpt", "cpf_logpt_sel", "cpf_loge",
                     "cpf_logptrel", "cpf_logerel", "cpf_deltaR", "cpf_charge", "cpf_isElectron",
                     "cpf_isMuon", "cpf_isChargedHadron", "cpf_tanhdxy", "cpf_dxyError", "cpf_tanhdz",
                     "cpf_dzError", "cpf_jetIdx"]:
                 df = df.Define(f"{var}_sel", f"{var}[cpf_matchedToMatchedJet == 1]")
                 branches += [f"{var}_sel"]
-            for var in ["npf_deta", "npf_dphi", "npf_logpt", "npf_loge", "npf_logptrel",
+            for var in ["npf_px", "npf_py", "npf_pz", "npf_e",
+                    "npf_deta", "npf_dphi", "npf_logpt", "npf_loge", "npf_logptrel",
                     "npf_logerel", "npf_deltaR", "npf_isNeutralHadron", "npf_isGamma", "npf_jetIdx"]:
                 df = df.Define(f"{var}_sel", f"{var}[npf_matchedToMatchedJet == 1]")
                 branches += [f"{var}_sel"]

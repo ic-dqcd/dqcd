@@ -1,3 +1,4 @@
+import os
 from analysis_tools.utils import import_root
 ROOT = import_root()
 
@@ -179,104 +180,106 @@ def DQCDMuonSVRDF(*args, **kwargs):
 
 class DQCDTriggerSelectionRDFProducer():
     def __init__(self, *args, **kwargs):
-        ROOT.gInterpreter.Declare("""
-            #include <algorithm>    // std::find
-            #include <vector>       // std::vector
-            #include "DataFormats/Math/interface/deltaR.h"
-            struct muonsv_struct {
-                size_t i;
-                float chi2;
-                int muonBPark_trigger_index_1;
-                int muonBPark_trigger_index_2;
-            };
+        if not os.getenv("_DQCDTriggerSelection"):
+            os.environ["_DQCDTriggerSelection"] = "DQCDTriggerSelection"
+            ROOT.gInterpreter.Declare("""
+                #include <algorithm>    // std::find
+                #include <vector>       // std::vector
+                #include "DataFormats/Math/interface/deltaR.h"
+                struct muonsv_struct {
+                    size_t i;
+                    float chi2;
+                    int muonBPark_trigger_index_1;
+                    int muonBPark_trigger_index_2;
+                };
 
-            bool muonSVChi2Sort (const muonsv_struct& a, const muonsv_struct& b)
-            {
-              return (a.chi2 < b.chi2);
-            }
+                bool muonSVChi2Sort (const muonsv_struct& a, const muonsv_struct& b)
+                {
+                  return (a.chi2 < b.chi2);
+                }
 
-            using Vfloat = const ROOT::RVec<float>&;
-            using Vint = const ROOT::RVec<int>&;
-            using Vbool = const ROOT::RVec<bool>&;
-            std::vector<int> get_triggering_muonsv_and_muon_indexes(
-                int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
-                Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
-                Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
-                int nMuonBPark, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi,
-                Vbool MuonBPark_trigger_matched, Vbool MuonBPark_isMuonWithTighterEtaAndPtReq,
-                int nMuon, Vfloat Muon_eta, Vfloat Muon_phi,
-                Vint indexes_multivertices
-            )
-            {
-                std::vector<int> indexes(5, -999);
-                std::vector<muonsv_struct> muonsvs;
-                for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                    if (muonSV_dR[imuonSV] > 1.2)
-                        continue;
-                    if (indexes_multivertices.size() > 0) {
-                        // index has to be selected by the DQCDMuonSVSelectionRDF module
-                        if (std::find(indexes_multivertices.begin(), indexes_multivertices.end(),
-                                imuonSV) == indexes_multivertices.end())
-                            // imuonSV not in the ones selected from the multivertices
+                using Vfloat = const ROOT::RVec<float>&;
+                using Vint = const ROOT::RVec<int>&;
+                using Vbool = const ROOT::RVec<bool>&;
+                std::vector<int> get_triggering_muonsv_and_muon_indexes(
+                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
+                    Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
+                    Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
+                    int nMuonBPark, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi,
+                    Vbool MuonBPark_trigger_matched, Vbool MuonBPark_isMuonWithTighterEtaAndPtReq,
+                    int nMuon, Vfloat Muon_eta, Vfloat Muon_phi,
+                    Vint indexes_multivertices
+                )
+                {
+                    std::vector<int> indexes(5, -999);
+                    std::vector<muonsv_struct> muonsvs;
+                    for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
+                        if (muonSV_dR[imuonSV] > 1.2)
                             continue;
-                    }
-                    auto muonsv = muonsv_struct({imuonSV, muonSV_chi2[imuonSV], -999, -999});
-                    // matching muonSV's muons with MuonBPark muons firing HLT_Mu9_Ip6 and other
-                    // kinematic requirements
-                    float mindeltaR1 = 999.;
-                    float mindeltaR2 = 999.;
-                    for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
-                        if (!MuonBPark_trigger_matched[iMuonBPark] ||
-                                !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark])
-                            continue;
-                        auto dr1 = reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                            MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
-                        auto dr2 = reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
-                            MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
-                        if (dr1 < 0.05 && dr1 < mindeltaR1) {
-                            muonsv.muonBPark_trigger_index_1 = iMuonBPark;
-                            mindeltaR1 = dr1;
+                        if (indexes_multivertices.size() > 0) {
+                            // index has to be selected by the DQCDMuonSVSelectionRDF module
+                            if (std::find(indexes_multivertices.begin(), indexes_multivertices.end(),
+                                    imuonSV) == indexes_multivertices.end())
+                                // imuonSV not in the ones selected from the multivertices
+                                continue;
                         }
-                        if (dr2 < 0.05 && dr2 < mindeltaR2) {
-                            muonsv.muonBPark_trigger_index_2 = iMuonBPark;
-                            mindeltaR2 = dr2;
+                        auto muonsv = muonsv_struct({imuonSV, muonSV_chi2[imuonSV], -999, -999});
+                        // matching muonSV's muons with MuonBPark muons firing HLT_Mu9_Ip6 and other
+                        // kinematic requirements
+                        float mindeltaR1 = 999.;
+                        float mindeltaR2 = 999.;
+                        for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
+                            if (!MuonBPark_trigger_matched[iMuonBPark] ||
+                                    !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark])
+                                continue;
+                            auto dr1 = reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
+                            auto dr2 = reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
+                                MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
+                            if (dr1 < 0.05 && dr1 < mindeltaR1) {
+                                muonsv.muonBPark_trigger_index_1 = iMuonBPark;
+                                mindeltaR1 = dr1;
+                            }
+                            if (dr2 < 0.05 && dr2 < mindeltaR2) {
+                                muonsv.muonBPark_trigger_index_2 = iMuonBPark;
+                                mindeltaR2 = dr2;
+                            }
+                        }
+                        // Requires one muon from the SV to be matched to a trigger muon
+                        if (muonsv.muonBPark_trigger_index_1 != -999
+                                || muonsv.muonBPark_trigger_index_2 != -999)
+                            muonsvs.push_back(muonsv);
+                    }
+                    if (muonsvs.size() > 1)
+                        std::stable_sort(muonsvs.begin(), muonsvs.end(), muonSVChi2Sort);
+                    if (muonsvs.size() > 0) {
+                        indexes[0] = muonsvs[0].i;
+                        indexes[1] = muonsvs[0].muonBPark_trigger_index_1;
+                        indexes[2] = muonsvs[0].muonBPark_trigger_index_2;
+                        auto MuonBPark1_trig_eta = MuonBPark_eta[indexes[1]];
+                        auto MuonBPark1_trig_phi = MuonBPark_phi[indexes[1]];
+                        auto MuonBPark2_trig_eta = MuonBPark_eta[indexes[2]];
+                        auto MuonBPark2_trig_phi = MuonBPark_phi[indexes[2]];
+                        float mindeltaR1 = 999.;
+                        float mindeltaR2 = 999.;
+                        for (size_t iMuon = 0; iMuon < nMuon; iMuon++) {
+                            auto dr1 = reco::deltaR(MuonBPark1_trig_eta, MuonBPark1_trig_phi,
+                                Muon_eta[iMuon], Muon_phi[iMuon]);
+                            auto dr2 = reco::deltaR(MuonBPark2_trig_eta, MuonBPark2_trig_phi,
+                                Muon_eta[iMuon], Muon_phi[iMuon]);
+                            if (dr1 < 0.05 && dr1 < mindeltaR1) {
+                                indexes[3] = iMuon;
+                                mindeltaR1 = dr1;
+                            }
+                            if (dr2 < 0.05 && dr2 < mindeltaR2) {
+                                indexes[4] = iMuon;
+                                mindeltaR2 = dr2;
+                            }
                         }
                     }
-                    // Requires one muon from the SV to be matched to a trigger muon
-                    if (muonsv.muonBPark_trigger_index_1 != -999
-                            || muonsv.muonBPark_trigger_index_2 != -999)
-                        muonsvs.push_back(muonsv);
+                    return indexes;
                 }
-                if (muonsvs.size() > 1)
-                    std::stable_sort(muonsvs.begin(), muonsvs.end(), muonSVChi2Sort);
-                if (muonsvs.size() > 0) {
-                    indexes[0] = muonsvs[0].i;
-                    indexes[1] = muonsvs[0].muonBPark_trigger_index_1;
-                    indexes[2] = muonsvs[0].muonBPark_trigger_index_2;
-                    auto MuonBPark1_trig_eta = MuonBPark_eta[indexes[1]];
-                    auto MuonBPark1_trig_phi = MuonBPark_phi[indexes[1]];
-                    auto MuonBPark2_trig_eta = MuonBPark_eta[indexes[2]];
-                    auto MuonBPark2_trig_phi = MuonBPark_phi[indexes[2]];
-                    float mindeltaR1 = 999.;
-                    float mindeltaR2 = 999.;
-                    for (size_t iMuon = 0; iMuon < nMuon; iMuon++) {
-                        auto dr1 = reco::deltaR(MuonBPark1_trig_eta, MuonBPark1_trig_phi,
-                            Muon_eta[iMuon], Muon_phi[iMuon]);
-                        auto dr2 = reco::deltaR(MuonBPark2_trig_eta, MuonBPark2_trig_phi,
-                            Muon_eta[iMuon], Muon_phi[iMuon]);
-                        if (dr1 < 0.05 && dr1 < mindeltaR1) {
-                            indexes[3] = iMuon;
-                            mindeltaR1 = dr1;
-                        }
-                        if (dr2 < 0.05 && dr2 < mindeltaR2) {
-                            indexes[4] = iMuon;
-                            mindeltaR2 = dr2;
-                        }
-                    }
-                }
-                return indexes;
-            }
-        """)
+            """)
 
     def run(self, df):
         branches = ["muonSV_chi2_trig_index", "muonSV_muonBPark1_index", "muonSV_muonBPark2_index",

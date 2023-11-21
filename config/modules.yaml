@@ -19,7 +19,7 @@ jet_smearing:
         year: self.config.year
         isMC: self.dataset.process.isMC
         jerTag: self.config.year
-        isUL: self.dataset.has_tag('ul')
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
         ispreVFP: self.config.get_aux('ispreVFP', False)
 
 
@@ -54,17 +54,17 @@ jet:
         #bdt_cut_value: 0.0
 
 
-bdt:
-    name: DQCDBDT
-    path: DQCD.Modules.BDTinference
-    parameters:
-        isMC: self.dataset.process.isMC
-        jet_syst: ""
-        met_smear_tag: ""
-        #model_m: 0
-        #model_ctau: 0
-        #model_xi0: 0
-        #model_xiL: 0
+##bdt:
+    ##name: DQCDBDT
+    ##path: DQCD.Modules.BDTinference
+    ##parameters:
+        ##isMC: self.dataset.process.isMC
+        ##jet_syst: ""
+        ##met_smear_tag: ""
+        ###model_m: 0
+        ###model_ctau: 0
+        ###model_xi0: 0
+        ##model_xiL: 0
 
 
 
@@ -81,7 +81,7 @@ puweight:
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
-        isUL: self.dataset.has_tag('ul')
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
 
 pujetid:
     name: DQCDPUjetID_SFRDF
@@ -89,5 +89,5 @@ pujetid:
     parameters:
         year: self.config.year
         isMC: self.dataset.process.isMC
-        isUL: self.dataset.has_tag('ul')
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
         ispreVFP: self.config.get_aux("isPreVFP", False)

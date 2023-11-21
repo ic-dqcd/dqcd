@@ -79,15 +79,15 @@ class DQCDMuonSelectionRDFProducer():
         df = df.Filter("DisplacedMuonTrigger_flag > 0")
 
         # cpf candidates
-        df = df.Define("cpf_pt", "sqrt(cpf_px * cpf_px + cpf_py * cpf_py)")
+        #df = df.Define("cpf_pt", "sqrt(cpf_px * cpf_px + cpf_py * cpf_py)")
         df = df.Define("cpf_p", "sqrt(cpf_px * cpf_px + cpf_py * cpf_py + cpf_pz * cpf_pz)")
         df = df.Define("cpf_eta", "atanh(cpf_pz/cpf_p)")
         df = df.Define("cpf_phi", "atan2(cpf_py, cpf_px)")
         df = df.Define("cpf_mu_dR", "atan2(cpf_py, cpf_px)")
-        df = df.Define("MuonBPark_cpf_match", """match_col1_col2(
-            MuonBPark_pt, MuonBPark_eta, MuonBPark_phi,
-            cpf_pt, cpf_eta, cpf_phi,
-            0.1, 0.02)""")
+        # df = df.Define("MuonBPark_cpf_match", """match_col1_col2(
+        #     MuonBPark_pt, MuonBPark_eta, MuonBPark_phi,
+        #     cpf_pt, cpf_eta, cpf_phi,
+        #     0.1, 0.02)""")
 
         df = df.Define("leading", "get_leading_elems(MuonBPark_pt)").Define(
             "MuonBPark_isLeading", "leading[0]").Define("MuonBPark_isSubleading", "leading[1]")
@@ -103,7 +103,8 @@ class DQCDMuonSelectionRDFProducer():
             MuonBPark_pt > 10. && abs(MuonBPark_eta) < 1.5""")
 
         return df, ["MuonBPark_isLooseMuon", "MuonBPark_isTriggeringMuon",
-            "MuonBPark_isMuonWithEtaAndPtReq", "MuonBPark_cpf_match",
+            "MuonBPark_isMuonWithEtaAndPtReq",
+            #"MuonBPark_isMuonWithEtaAndPtReq", "MuonBPark_cpf_match",
             "MuonBPark_isLeading", "MuonBPark_isSubleading",
             "MuonBPark_trigger_matched", "MuonBPark_isMuonWithTighterEtaAndPtReq"]
 
