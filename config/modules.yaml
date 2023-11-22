@@ -41,6 +41,7 @@ jet:
     name: DQCDJetSelectionRDF
     path: modules.jet_selection
     parameters:
+        isMC: self.dataset.process.isMC
         year: self.config.year
         jet_id: loose
 
