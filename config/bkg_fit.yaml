@@ -1,0 +1,5 @@
+process_name: background
+method: polynomial
+fit_parameters:
+    order: 1
+    p0: 0, -1, 1
