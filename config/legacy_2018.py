@@ -773,7 +773,7 @@ class Config(cmt_config):
 
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
             # Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(1000, 0, 4),
-            Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(100, 1.2, 1.5),
+            Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV",
                 blinded_range=[1.5, 2.5]),

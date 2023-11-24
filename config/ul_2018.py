@@ -238,6 +238,30 @@ class Config(legacy_config):
                 file_pattern="nano_.*root",
                 tags=["ul"]
             ),
+            Dataset("scenarioB1_mpi_4_mA_1p33_ctau_10",
+                folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioB1_mpi_4_mA_1p33_ctau_10/",
+                process=self.processes.get("signal"),
+                file_pattern="nano_.*root",
+                tags=["ul"]
+            ),
+            Dataset("scenarioB2_mpi_4_mA_2p10_ctau_10",
+                folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioB2_mpi_4_mA_2p10_ctau_10/",
+                process=self.processes.get("signal"),
+                file_pattern="nano_.*root",
+                tags=["ul"]
+            ),
+            Dataset("scenarioC_mpi_10_mA_8p00_ctau_10",
+                folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioC_mpi_10_mA_8p00_ctau_10/",
+                process=self.processes.get("signal"),
+                file_pattern="nano_.*root",
+                tags=["ul"]
+            ),
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_new",
+                folder="/vols/cms/jleonhol/samples/ul_pu/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/",
+                process=self.processes.get("signal"),
+                file_pattern="nano.root",
+                tags=["ul"]
+            ),
         ]
         return ObjectCollection(datasets)
 
