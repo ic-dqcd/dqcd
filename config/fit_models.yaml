@@ -1,0 +1,19 @@
+background:
+    process_name: data
+    x_range: 1.4, 1.45
+    method: polynomial
+    fit_parameters:
+        order: 1
+        p0: 0, -1, 1
+
+signal:
+    process_name: signal
+    method: voigtian
+
+
+# process_name: background
+# method: exponential
+
+
+# process_name: background
+# method: powerlaw

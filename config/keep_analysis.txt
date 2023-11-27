@@ -1,4 +1,6 @@
 drop HLT.*
+drop L1.*
+drop Flag.*
 drop nMuon
 drop Muon_.*
 drop .*FsrPhoton.*
@@ -10,6 +12,10 @@ drop TrigObj_.*
 drop nTrigObj
 drop electron_.*
 drop nelectron
+drop Electron_.*
+drop nElectron
+drop LowPtElectron_.*
+drop nLowPtElectron
 drop njetorigin
 drop jetorigin_.*
 drop ncpf
@@ -19,4 +25,20 @@ drop csv_.*
 drop nglobal
 drop global_.*
 drop friend_.*
+drop nsvAdapted
+drop svAdapted_.*
+drop nProton_.*
+drop Proton_.*
+drop nPV
+drop PV_.*
+drop nTriggerMuon
+drop TriggerMuon_.*
+drop nlength
+drop length_.*
+drop ChsMET_.*
+drop CorrT1MET_.*
+drop DeepMET_.*
+drop RawMET_.*
+drop RawPuppiMET_.*
+drop PPSLocalTrack_.*
 

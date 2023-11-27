@@ -5,6 +5,7 @@ from plotting_tools import Label
 from collections import OrderedDict
 
 from cmt.config.base_config import Config as cmt_config
+from cmt.base_tasks.base import Task
 
 
 class Config(cmt_config):
@@ -139,6 +140,14 @@ class Config(cmt_config):
                 # "tt_dl",
                 "signal",
                 "background",
+                "data"
+            ],
+            "sigdata": [
+                # "ggf_sm",
+                # "data_tau",
+                # "dy_high",
+                # "tt_dl",
+                "signal",
                 "data"
             ],
         }
@@ -826,6 +835,54 @@ class Config(cmt_config):
         return defaults
 
     # other methods
+    def get_norm_systematics(self, processes_datasets, region):
+        """
+        Method to extract all normalization systematics from the KLUB files.
+        It considers the processes given by the process_group_name and their parents.
+        """
+        # systematics
+        systematics = {}
+        all_signal_names = []
+        all_background_names = []
+        for p in self.processes:
+            if p.isSignal:
+                all_signal_names.append(p.get_aux("llr_name")
+                    if p.get_aux("llr_name", None) else p.name)
+            elif not p.isData:
+                all_background_names.append(p.get_aux("llr_name")
+                    if p.get_aux("llr_name", None) else p.name)
+
+        from cmt.analysis.systReader import systReader
+        syst_folder = "config/systematics/"
+        filename = f"systematics_{self.year}.cfg"
+        if self.get_aux("isUL", False):
+            filename = f"systematics_UL{str(self.year)[2:]}.cfg"
+        syst = systReader(Task.retrieve_file(self, syst_folder + filename),
+            all_signal_names, all_background_names, None)
+        syst.writeOutput(False)
+        syst.verbose(False)
+        syst.writeSystematics()
+        for isy, syst_name in enumerate(syst.SystNames):
+            if "CMS_scale_t" in syst.SystNames[isy] or "CMS_scale_j" in syst.SystNames[isy]:
+                continue
+            for process in processes_datasets:
+                original_process = process
+                while True:
+                    process_name = (process.get_aux("llr_name")
+                        if process.get_aux("llr_name", None) else process.name)
+                    if process_name in syst.SystProcesses[isy]:
+                        iproc = syst.SystProcesses[isy].index(process_name)
+                        systVal = syst.SystValues[isy][iproc]
+                        if syst_name not in systematics:
+                            systematics[syst_name] = {}
+                        systematics[syst_name][original_process.name] = eval(systVal)
+                        break
+                    elif process.parent_process:
+                        process=self.processes.get(process.parent_process)
+                    else:
+                        break
+        return systematics
+
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
 config = Config("legacy_2018", year=2018, ecm=13, lumi_pb=33600)
