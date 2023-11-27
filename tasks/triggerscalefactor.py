@@ -283,17 +283,18 @@ class TriggerSFtnp(TriggerSF):
                 return false;
             }
 
-            ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_pt, 
-                float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_pt, int nMuonBPark, Vfloat MuonBPark_eta,
+            ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_pt, float muon1_sip3d,
+                float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_pt, float muon2_sip3d, int nMuonBPark, Vfloat MuonBPark_eta,
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6, Vfloat MuonBPark_fired_HLT_Mu20, Vfloat MuonBPark_fired_HLT_Mu27, Vfloat MuonBPark_fired_HLT_Mu50, Vfloat MuonBPark_fired_HLT_Mu55) 
             {
-                ROOT::RVec<float> probe_dxy_pt_HLT(3);
+                ROOT::RVec<float> probe_dxy_pt_HLT(4);
 
                 if (muon_pass_tag(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55], MuonBPark_phi[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55]) && muon_pass_tag(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55], MuonBPark_phi[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55])){
                     bool HLT = muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
                     probe_dxy_pt_HLT.at(0) = muon2_dxy;
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
+                    probe_dxy_pt_HLT.at(3) = muon2_sip3d;
                 }
                 
                 //if both muons are matched to the HLT_Mu20 trigger muon, choose the muon with highest pT (muon1) as the tag
@@ -303,12 +304,14 @@ class TriggerSFtnp(TriggerSF):
                     probe_dxy_pt_HLT.at(0) = muon2_dxy;
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
+                    probe_dxy_pt_HLT.at(3) = muon2_sip3d;
                 }
                 else{ 
                     bool HLT = muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
                     probe_dxy_pt_HLT.at(0) = muon1_dxy;
                     probe_dxy_pt_HLT.at(1) = muon1_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
+                    probe_dxy_pt_HLT.at(3) = muon1_sip3d;
                 }
                 return probe_dxy_pt_HLT;
             }
@@ -330,7 +333,7 @@ class TriggerSFtnp(TriggerSF):
 
         df = df.Define("muon1_index", "muonSV_mu1index.at(muonSV_min_chi2_index)")
         df = df.Define("muon2_index", "muonSV_mu2index.at(muonSV_min_chi2_index)")
-        for var in ["dxy", "pt", "eta", "phi"]:
+        for var in ["dxy", "pt", "sip3d", "eta", "phi"]:
             df = df.Define(f"muon1_{var}", f"Muon_{var}.at(muon1_index)")
             df = df.Define(f"muon2_{var}", f"Muon_{var}.at(muon2_index)")
         df = df.Define("muonSV_mass_minchi2", "muonSV_mass.at(muonSV_min_chi2_index)")
@@ -338,7 +341,7 @@ class TriggerSFtnp(TriggerSF):
         #for tag using HLT_Mu20
         
         df = df.Filter("muon_pass_tag(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55], MuonBPark_phi[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55]) && muon_pass_tag(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55], MuonBPark_phi[MuonBPark_fired_HLT_Mu20 || MuonBPark_fired_HLT_Mu27 || MuonBPark_fired_HLT_Mu50 || MuonBPark_fired_HLT_Mu55])")
-        df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_pt, muon2_eta, muon2_phi, muon2_dxy, muon2_pt, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu20, MuonBPark_fired_HLT_Mu27, MuonBPark_fired_HLT_Mu50, MuonBPark_fired_HLT_Mu55)")
+        df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_pt, muon1_sip3d, muon2_eta, muon2_phi, muon2_dxy, muon2_pt, muon2_sip3d, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu20, MuonBPark_fired_HLT_Mu27, MuonBPark_fired_HLT_Mu50, MuonBPark_fired_HLT_Mu55)")
         
  
         #for tag using HLT_Mu12_IP6
@@ -347,7 +350,7 @@ class TriggerSFtnp(TriggerSF):
         df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_pt, muon2_eta, muon2_phi, muon2_dxy, muon2_pt, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu12_IP6)")
         '''
 
-        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)")
+        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)").Define("probe_sip3d", "probe_quantities.at(3)")
 
         df_pass = df.Filter("probe_HLT == 1")
 
@@ -393,6 +396,31 @@ class TriggerSFtnp(TriggerSF):
             "abs(probe_dxy) > 1.0 && abs(probe_dxy) < 10.0"
         ]
 
+        pt_bins2 = [
+            "probe_pt > 3.0 && probe_pt < 4.0",
+            "probe_pt > 4.0 && probe_pt < 5.0",
+            "probe_pt > 5.0 && probe_pt < 6.0",
+            "probe_pt > 6.0 && probe_pt < 7.0",
+            "probe_pt > 7.0 && probe_pt < 8.0",
+            "probe_pt > 8.0 && probe_pt < 9.0",
+            "probe_pt > 9.0 && probe_pt < 10.0",
+            "probe_pt > 10.0 && probe_pt < 16.0",
+            "probe_pt > 16.0 && probe_pt < 30.0"
+        ]
+
+        IPsig_bins2 = [
+            "probe_sip3d > 0.0 && probe_sip3d < 1.0",
+            "probe_sip3d > 1.0 && probe_sip3d < 2.0",
+            "probe_sip3d > 2.0 && probe_sip3d < 3.0",
+            "probe_sip3d > 3.0 && probe_sip3d < 4.0",
+            "probe_sip3d > 4.0 && probe_sip3d < 5.0",
+            "probe_sip3d > 5.0 && probe_sip3d < 6.0",
+            "probe_sip3d > 6.0 && probe_sip3d < 7.0",
+            "probe_sip3d > 7.0 && probe_sip3d < 15.0",
+            "probe_sip3d > 15.0 && probe_sip3d < 30.0"
+        ]
+ 
+
         for dxy_index, i in enumerate(dxy_bins2):
             h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_%s_pT_100_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_%s_pT_100_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -403,7 +431,7 @@ class TriggerSFtnp(TriggerSF):
             histos["h_dxy_%s_pt_100_Pass" % (dxy_index)] = h_dxy_pT_pass
             histos["h_dxy_%s_pt_100_Fail" % (dxy_index)] = h_dxy_pT_fail
 
-        for pt_index, i in enumerate(pt_bins):
+        for pt_index, i in enumerate(pt_bins2):
             h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_100_pT_%s_total" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_100_pT_%s_Pass" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -412,7 +440,16 @@ class TriggerSFtnp(TriggerSF):
 
             histos["h_dxy_100_pt_%s_Pass" % (pt_index)] = h_dxy_pT_pass
             histos["h_dxy_100_pt_%s_Fail" % (pt_index)] = h_dxy_pT_fail
+        
+        for dxy_index, i in enumerate(IPsig_bins2):
+            h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_%s_pT_1000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_%s_pT_1000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                
+            h_dxy_pT_fail = h_dxy_pT_total.GetPtr() - h_dxy_pT_pass.GetPtr()
+            h_dxy_pT_fail.SetName("h_dxy_%s_pT_1000_Fail"% (dxy_index)) 
 
+            histos["h_dxy_%s_pt_1000_Pass" % (dxy_index)] = h_dxy_pT_pass
+            histos["h_dxy_%s_pt_1000_Fail" % (dxy_index)] = h_dxy_pT_fail
 
         histo_file = ROOT.TFile.Open(create_file_dir(self.output().path), "RECREATE")
         for histo in histos.values():
@@ -453,7 +490,19 @@ class TriggerSFtnpbparking(TriggerSF):
                 }
             }
 
-            bool muon_pass(float muon_eta, float muon_phi, int nMuonBPark, Vfloat MuonBPark_eta,
+            bool muon_pass(float muon_pt, float muon_dxy, float muon_dxyErr, float muon_eta, float muon_phi, int nMuonBPark, Vfloat MuonBPark_eta,
+                Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6)
+            {
+                for (int i = 0; i < nMuonBPark; i++) {
+                    if (!MuonBPark_fired_HLT_Mu9_IP6[i])
+                        continue;
+                    if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.3 && muon_pt > 10.0 && abs(muon_dxy)/muon_dxyErr > 8.0)
+                        return true;
+                }
+                return false;
+            }
+
+            bool muon_pass_probe(float muon_pt, float muon_dxy, float muon_dxyErr, float muon_eta, float muon_phi, int nMuonBPark, Vfloat MuonBPark_eta,
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6)
             {
                 for (int i = 0; i < nMuonBPark; i++) {
@@ -475,32 +524,35 @@ class TriggerSFtnpbparking(TriggerSF):
                 return false;
             }
 
-            ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_pt, 
-                float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_pt, int nMuonBPark, Vfloat MuonBPark_eta,
+            ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_dxyErr, float muon1_pt, float muon1_sip3d,
+                float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_dxyErr, float muon2_pt, float muon2_sip3d, int nMuonBPark, Vfloat MuonBPark_eta,
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6, Vfloat MuonBPark_fired_HLT_Mu20) 
             {
-                ROOT::RVec<float> probe_dxy_pt_HLT(3);
+                ROOT::RVec<float> probe_dxy_pt_HLT(4);
 
-                if (muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20) && muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20)){
-                    bool HLT = muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
+                if (muon_pass(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20) && muon_pass(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20)){
+                    bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
                     probe_dxy_pt_HLT.at(0) = muon2_dxy;
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
+                    probe_dxy_pt_HLT.at(3) = muon2_sip3d;
                 }
                 
                 //if both muons are matched to the HLT_Mu20 trigger muon, choose the muon with highest pT (muon1) as the tag
 
-                else if (muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20)){
-                    bool HLT = muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
+                else if (muon_pass(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu20)){
+                    bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
                     probe_dxy_pt_HLT.at(0) = muon2_dxy;
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
+                    probe_dxy_pt_HLT.at(3) = muon2_sip3d;
                 }
                 else{ 
-                    bool HLT = muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
+                    bool HLT = muon_pass_probe(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
                     probe_dxy_pt_HLT.at(0) = muon1_dxy;
                     probe_dxy_pt_HLT.at(1) = muon1_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
+                    probe_dxy_pt_HLT.at(3) = muon1_sip3d;
                 }
                 return probe_dxy_pt_HLT;
             }
@@ -520,7 +572,7 @@ class TriggerSFtnpbparking(TriggerSF):
 
         df = df.Define("muon1_index", "muonSV_mu1index.at(muonSV_min_chi2_index)")
         df = df.Define("muon2_index", "muonSV_mu2index.at(muonSV_min_chi2_index)")
-        for var in ["dxy", "pt", "eta", "phi"]:
+        for var in ["dxy", "dxyErr", "pt", "sip3d", "eta", "phi"]:
             df = df.Define(f"muon1_{var}", f"Muon_{var}.at(muon1_index)")
             df = df.Define(f"muon2_{var}", f"Muon_{var}.at(muon2_index)")
         df = df.Define("muonSV_mass_minchi2", "muonSV_mass.at(muonSV_min_chi2_index)")
@@ -528,11 +580,11 @@ class TriggerSFtnpbparking(TriggerSF):
         
         #for tag using HLT_Mu12_IP6
         
-        df = df.Filter("muon_pass(muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu12_IP6) || muon_pass(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu12_IP6)")
-        df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_pt, muon2_eta, muon2_phi, muon2_dxy, muon2_pt, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu12_IP6)")
+        df = df.Filter("muon_pass(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu12_IP6) || muon_pass(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu12_IP6)")
+        df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_dxyErr, muon1_pt, muon1_sip3d, muon2_eta, muon2_phi, muon2_dxy, muon2_dxyErr, muon2_pt, muon2_sip3d, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, MuonBPark_fired_HLT_Mu12_IP6)")
         
 
-        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)")
+        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)").Define("probe_sip3d", "probe_quantities.at(3)")
 
         df_pass = df.Filter("probe_HLT == 1")
 
@@ -577,6 +629,30 @@ class TriggerSFtnpbparking(TriggerSF):
             "abs(probe_dxy) > 1.0 && abs(probe_dxy) < 10.0"
         ]
 
+        pt_bins2 = [
+            "probe_pt > 3.0 && probe_pt < 4.0",
+            "probe_pt > 4.0 && probe_pt < 5.0",
+            "probe_pt > 5.0 && probe_pt < 6.0",
+            "probe_pt > 6.0 && probe_pt < 7.0",
+            "probe_pt > 7.0 && probe_pt < 8.0",
+            "probe_pt > 8.0 && probe_pt < 9.0",
+            "probe_pt > 9.0 && probe_pt < 10.0",
+            "probe_pt > 10.0 && probe_pt < 16.0",
+            "probe_pt > 16.0 && probe_pt < 30.0"
+        ]
+
+        IPsig_bins2 = [
+            "probe_sip3d > 0.0 && probe_sip3d < 1.0",
+            "probe_sip3d > 1.0 && probe_sip3d < 2.0",
+            "probe_sip3d > 2.0 && probe_sip3d < 3.0",
+            "probe_sip3d > 3.0 && probe_sip3d < 4.0",
+            "probe_sip3d > 4.0 && probe_sip3d < 5.0",
+            "probe_sip3d > 5.0 && probe_sip3d < 6.0",
+            "probe_sip3d > 6.0 && probe_sip3d < 7.0",
+            "probe_sip3d > 7.0 && probe_sip3d < 15.0",
+            "probe_sip3d > 15.0 && probe_sip3d < 30.0"
+        ]       
+
         for dxy_index, i in enumerate(dxy_bins2):
             h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_%s_pT_100_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_%s_pT_100_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -596,6 +672,16 @@ class TriggerSFtnpbparking(TriggerSF):
 
             histos["h_dxy_100_pt_%s_Pass" % (pt_index)] = h_dxy_pT_pass
             histos["h_dxy_100_pt_%s_Fail" % (pt_index)] = h_dxy_pT_fail
+
+        for dxy_index, i in enumerate(IPsig_bins2):
+            h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_%s_pT_1000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_%s_pT_1000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                
+            h_dxy_pT_fail = h_dxy_pT_total.GetPtr() - h_dxy_pT_pass.GetPtr()
+            h_dxy_pT_fail.SetName("h_dxy_%s_pT_1000_Fail"% (dxy_index)) 
+
+            histos["h_dxy_%s_pt_1000_Pass" % (dxy_index)] = h_dxy_pT_pass
+            histos["h_dxy_%s_pt_1000_Fail" % (dxy_index)] = h_dxy_pT_fail
 
         histo_file = ROOT.TFile.Open(create_file_dir(self.output().path), "RECREATE")
         for histo in histos.values():
