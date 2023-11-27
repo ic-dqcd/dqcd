@@ -496,7 +496,8 @@ class TriggerSFtnpbparking(TriggerSF):
                 for (int i = 0; i < nMuonBPark; i++) {
                     if (!MuonBPark_fired_HLT_Mu9_IP6[i])
                         continue;
-                    if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.3 && muon_pt > 10.0 && abs(muon_dxy)/muon_dxyErr > 8.0)
+                    //if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.3 && muon_pt > 10.0 && abs(muon_dxy)/muon_dxyErr > 8.0)
+                    if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.3)    
                         return true;
                 }
                 return false;
@@ -663,7 +664,7 @@ class TriggerSFtnpbparking(TriggerSF):
             histos["h_dxy_%s_pt_100_Pass" % (dxy_index)] = h_dxy_pT_pass
             histos["h_dxy_%s_pt_100_Fail" % (dxy_index)] = h_dxy_pT_fail
 
-        for pt_index, i in enumerate(pt_bins):
+        for pt_index, i in enumerate(pt_bins2):
             h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_100_pT_%s_total" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_100_pT_%s_Pass" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
