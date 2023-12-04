@@ -810,7 +810,7 @@ class TriggerSFtnpRk(TriggerSF):
 
             int get_muonsv_index(int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_z, float PV_z, Vfloat muonSV_mass, Vfloat muonSV_mu1eta, Vfloat muonSV_mu2eta, Vfloat muonSV_mu1phi, Vfloat muonSV_mu2phi, Vint muonSV_mu1index, Vint muonSV_mu2index)
             {
-                std::cout << "call get_muonsv_index function" << std::endl;
+                //std::cout << "call get_muonsv_index function" << std::endl;
                 std::vector<std::pair<int, float>> index_chi2;
                 for (int i = 0; i < nmuonSV; i++) {
                     if (chisqr(1, muonSV_chi2[i]) < 0.01 || abs(muonSV_z[i] - PV_z) > 0.5 || reco::deltaR(muonSV_mu1eta[i], muonSV_mu1phi[i], muonSV_mu2eta[i], muonSV_mu2phi[i]) < 0.15 || muonSV_mass[i] < 2.9 || muonSV_mass[i] > 3.3) continue;
@@ -818,12 +818,12 @@ class TriggerSFtnpRk(TriggerSF):
                     int index2 = muonSV_mu2index[i];
                     index_chi2.push_back(std::make_pair(i, muonSV_chi2[i]));
                 }
-                std::cout << "index_chi2.size = " << index_chi2.size() << std::endl;
+                //std::cout << "index_chi2.size = " << index_chi2.size() << std::endl;
                 if (index_chi2.size() > 0) {
-                    std::cout << "before sort" << std::endl;
+                    //std::cout << "before sort" << std::endl;
                     std::stable_sort(index_chi2.begin(), index_chi2.end(), chi2sort);
-                    std::cout << "after sort" << std::endl;
-                    std::cout << "index = " << index_chi2[0].first << std::endl;
+                    //std::cout << "after sort" << std::endl;
+                    //std::cout << "index = " << index_chi2[0].first << std::endl;
                     return index_chi2[0].first;
                 } else {
                     return -1;
@@ -831,29 +831,29 @@ class TriggerSFtnpRk(TriggerSF):
             }
 
             
-            bool muon_pass(float muon_pt, float muon_dxy, float muon_dxyErr, float muon_eta, float muon_phi, float muon_tightId, int nMuonBPark, Vfloat MuonBPark_eta,
+            bool muon_pass(float muon_pt, float muon_dxy, float muon_dxyErr, float muon_eta, float muon_phi, int muon_tightId, int nMuonBPark, Vfloat MuonBPark_eta,
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6, int nTrigObjBPark, Vfloat TrigObjBPark_eta, Vfloat TrigObjBPark_phi, Vfloat TrigObjBPark_l1pt)
             {
                 
-                std::cout << "call muon_pass function" << std::endl;
+                //std::cout << "call muon_pass function" << std::endl;
                 
                 for (int i = 0; i < nMuonBPark; i++) {
                     if (!MuonBPark_fired_HLT_Mu9_IP6[i])
                         continue;
-                    std::cout << "pass trigger" << std::endl;    
+                    //std::cout << "pass trigger" << std::endl;    
                     if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.3 && muon_pt > 10.0 && abs(muon_dxy)/muon_dxyErr > 8.0 && muon_tightId == 1){
-                        std::cout << "before TrigObjBPark check" << std::endl;
+                        //std::cout << "before TrigObjBPark check" << std::endl;
                         
                         for (int j = 0; j < nTrigObjBPark; j++) {
                             if (reco::deltaR(muon_eta, muon_phi, TrigObjBPark_eta[j], TrigObjBPark_phi[j]) < 0.3 && TrigObjBPark_l1pt[j] > 10.0){
-                                std::cout << "muon pass!" << std::endl;
+                                //std::cout << "muon pass!" << std::endl;
                                 return true;
                             }
                         }
                         
                     }
                 }
-                std::cout << "don't pass trigger" << std::endl;
+                //std::cout << "don't pass trigger" << std::endl;
                 
 
                 return false;
@@ -861,7 +861,7 @@ class TriggerSFtnpRk(TriggerSF):
             
 
 
-            bool muon_pass_probe(float muon_pt, float muon_dxy, float muon_dxyErr, float muon_eta, float muon_phi, float muon_mediumId, int nMuonBPark, Vfloat MuonBPark_eta,
+            bool muon_pass_probe(float muon_pt, float muon_dxy, float muon_dxyErr, float muon_eta, float muon_phi, int muon_mediumId, int nMuonBPark, Vfloat MuonBPark_eta,
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6)
             {
                 for (int i = 0; i < nMuonBPark; i++) {
@@ -883,11 +883,11 @@ class TriggerSFtnpRk(TriggerSF):
                 return false;
             }
 
-            ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_dxyErr, float muon1_pt, float muon1_sip3d, float muon1_tightId, float muon1_mediumId,
-                float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_dxyErr, float muon2_pt, float muon2_sip3d, float muon2_tightId, float muon2_mediumId, int nMuonBPark, Vfloat MuonBPark_eta,
+            ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_dxyErr, float muon1_pt, float muon1_sip3d, int muon1_tightId, int muon1_mediumId,
+                float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_dxyErr, float muon2_pt, float muon2_sip3d, int muon2_tightId, int muon2_mediumId, int nMuonBPark, Vfloat MuonBPark_eta,
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6, int nTrigObjBPark, Vfloat TrigObjBPark_eta, Vfloat TrigObjBPark_phi, Vfloat TrigObjBPark_l1pt) 
             {
-                std::cout << "call probe_values function" << std::endl;
+                //std::cout << "call probe_values function" << std::endl;
                 ROOT::RVec<float> probe_dxy_pt_HLT(5);
 
                 if (muon_pass(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, nTrigObjBPark, TrigObjBPark_eta, TrigObjBPark_phi, TrigObjBPark_l1pt) && muon_pass(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, nTrigObjBPark, TrigObjBPark_eta, TrigObjBPark_phi, TrigObjBPark_l1pt)){
@@ -935,12 +935,21 @@ class TriggerSFtnpRk(TriggerSF):
 
         df = df.Define("muon1_index", "muonSV_mu1index.at(muonSV_min_chi2_index)")
         df = df.Define("muon2_index", "muonSV_mu2index.at(muonSV_min_chi2_index)")
-        for var in ["dxy", "dxyErr", "pt", "sip3d", "eta", "phi", "tightId", "mediumId"]:
-            df = df.Define(f"muon1_{var}", f"Muon_{var}.at(muon1_index)")
-            df = df.Define(f"muon2_{var}", f"Muon_{var}.at(muon2_index)")
+        for var in ["dxy", "dxyErr", "pt", "sip3d", "eta", "phi"]:
+            df = df.Define(f"muon1_{var}", f"float var; var = Muon_{var}.at(muon1_index); return var;")
+            df = df.Define(f"muon2_{var}", f"float var; var = Muon_{var}.at(muon2_index); return var;")
+
+        for var in ["tightId", "mediumId"]:
+            df = df.Define(f"muon1_{var}", f"int var; var = Muon_{var}.at(muon1_index); return var;")
+            df = df.Define(f"muon2_{var}", f"int var; var = Muon_{var}.at(muon2_index); return var;")
+
+
         df = df.Define("muonSV_mass_minchi2", "muonSV_mass.at(muonSV_min_chi2_index)")
  
-        print("Finish defining muon qunatities")
+        
+        
+
+        #print("Finish defining muon qunatities")
         
         #for tag using HLT_Mu12_IP6
         
