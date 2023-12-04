@@ -233,7 +233,6 @@ class Config(legacy_config):
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
-                # folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioA_mpi_4_mA_1p33_ctau_10/",
                 dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
                 process=self.processes.get("signal"),
                 check_empty=False,
