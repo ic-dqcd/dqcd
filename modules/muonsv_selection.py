@@ -27,6 +27,9 @@ class DQCDMuonSVSelectionRDFProducer():
                 ROOT::RVec<float> mass_multivertices;
                 ROOT::RVec<float> chi2_multivertices;
                 ROOT::RVec<int> indexes_multivertices;
+
+                std::vector<std::pair<int, int>> index_pairs;
+
                 if (nmuonSV > 1) {
                     for (size_t imuonSV = 0; imuonSV < nmuonSV - 1; imuonSV++) {
                         if (muonSV_chi2[imuonSV] > 10 ||
@@ -46,17 +49,55 @@ class DQCDMuonSVSelectionRDFProducer():
                                         muonSV_mu1index[imuonSV] != muonSV_mu2index[imuonSV1] &&
                                         muonSV_mu2index[imuonSV] != muonSV_mu1index[imuonSV1] &&
                                         muonSV_mu2index[imuonSV] != muonSV_mu2index[imuonSV1]) {
-                                    mass_multivertices.push_back(muonSV_mass[imuonSV]);
-                                    mass_multivertices.push_back(muonSV_mass[imuonSV1]);
-                                    chi2_multivertices.push_back(muonSV_chi2[imuonSV]);
-                                    chi2_multivertices.push_back(muonSV_chi2[imuonSV1]);
-                                    indexes_multivertices.push_back(imuonSV);
-                                    indexes_multivertices.push_back(imuonSV1);
+                                    index_pairs.push_back(std::make_pair(imuonSV, imuonSV1));
                                 } // end if muon indexes
                             } // end if mass diff
                         } // end loop over imuonSV1
                     } // end loop over imuonSV
                 }
+
+                // cleaning
+                // if two pairs share one muonSV, only the one with the smallest chi2
+                // (from the other muonSV) remains
+                std::vector<bool> valid(index_pairs.size(), true);
+                if (index_pairs.size() > 1) {
+                    for (int ipair = 0; ipair < index_pairs.size() - 1; ipair++) {
+                        if (!valid[ipair])
+                            continue;
+                        for (int ipair2 = ipair + 1; ipair2 < index_pairs.size(); ipair2++) {
+                            if (!valid[ipair2])
+                                continue;
+                            if (index_pairs[ipair].first == index_pairs[ipair2].first) {
+                                if (muonSV_chi2[index_pairs[ipair].second] >
+                                        muonSV_chi2[index_pairs[ipair2].second]) {
+                                    valid[ipair] = false;
+                                    break;
+                                } else {
+                                    valid[ipair2] = false;
+                                }
+                            } else if (index_pairs[ipair].second == index_pairs[ipair2].second) {
+                                if (muonSV_chi2[index_pairs[ipair].first] >
+                                        muonSV_chi2[index_pairs[ipair2].first]) {
+                                    valid[ipair] = false;
+                                    break;
+                                } else {
+                                    valid[ipair2] = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                for (int ipair = 0; ipair < index_pairs.size(); ipair++) {
+                    if (valid[ipair]) {
+                        mass_multivertices.push_back(muonSV_mass[index_pairs[ipair].first]);
+                        mass_multivertices.push_back(muonSV_mass[index_pairs[ipair].second]);
+                        chi2_multivertices.push_back(muonSV_chi2[index_pairs[ipair].first]);
+                        chi2_multivertices.push_back(muonSV_chi2[index_pairs[ipair].second]);
+                        indexes_multivertices.push_back(index_pairs[ipair].first);
+                        indexes_multivertices.push_back(index_pairs[ipair].second);
+                    }
+                }
+
                 if (indexes_multivertices.size() == 0) {
                     // Fill with the element with the smallest chi2 (if available)
                     ROOT::RVec<float> chi2;
