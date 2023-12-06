@@ -750,6 +750,7 @@ class TriggerSFtnpRk(TriggerSF):
         root.gInterpreter.Declare("""
             #include <utility>
             #include "DataFormats/Math/interface/deltaR.h"
+            #include <cmath>
 
             static double igf(double S, double Z)
             {
@@ -888,7 +889,7 @@ class TriggerSFtnpRk(TriggerSF):
                 Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_HLT_Mu9_IP6, int nTrigObjBPark, Vfloat TrigObjBPark_eta, Vfloat TrigObjBPark_phi, Vfloat TrigObjBPark_l1pt) 
             {
                 //std::cout << "call probe_values function" << std::endl;
-                ROOT::RVec<float> probe_dxy_pt_HLT(5);
+                ROOT::RVec<float> probe_dxy_pt_HLT(6);
 
                 if (muon_pass(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, nTrigObjBPark, TrigObjBPark_eta, TrigObjBPark_phi, TrigObjBPark_l1pt) && muon_pass(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, nTrigObjBPark, TrigObjBPark_eta, TrigObjBPark_phi, TrigObjBPark_l1pt)){
                     bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
@@ -896,7 +897,8 @@ class TriggerSFtnpRk(TriggerSF):
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
                     probe_dxy_pt_HLT.at(3) = muon2_sip3d;
-                    probe_dxy_pt_HLT.at(4) = muon2_dxy/muon2_dxyErr;
+                    probe_dxy_pt_HLT.at(4) = abs(muon2_dxy)/muon2_dxyErr;
+                    probe_dxy_pt_HLT.at(5) = muon2_eta;
                 }
                 
                 //if both muons are matched to the HLT_Mu20 trigger muon, choose the muon with highest pT (muon1) as the tag
@@ -907,7 +909,8 @@ class TriggerSFtnpRk(TriggerSF):
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
                     probe_dxy_pt_HLT.at(3) = muon2_sip3d;
-                    probe_dxy_pt_HLT.at(4) = muon2_dxy/muon2_dxyErr;
+                    probe_dxy_pt_HLT.at(4) = abs(muon2_dxy)/muon2_dxyErr;
+                    probe_dxy_pt_HLT.at(5) = muon2_eta;
                 }
                 else{ 
                     bool HLT = muon_pass_probe(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6);
@@ -915,7 +918,8 @@ class TriggerSFtnpRk(TriggerSF):
                     probe_dxy_pt_HLT.at(1) = muon1_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
                     probe_dxy_pt_HLT.at(3) = muon1_sip3d;
-                    probe_dxy_pt_HLT.at(4) = muon1_dxy/muon1_dxyErr;
+                    probe_dxy_pt_HLT.at(4) = abs(muon1_dxy)/muon1_dxyErr;
+                    probe_dxy_pt_HLT.at(5) = muon1_eta;
                 }
                 return probe_dxy_pt_HLT;
             }
@@ -957,7 +961,7 @@ class TriggerSFtnpRk(TriggerSF):
         df = df.Define("probe_quantities", "probe_values(muon1_eta, muon1_phi, muon1_dxy, muon1_dxyErr, muon1_pt, muon1_sip3d, muon1_tightId, muon1_mediumId, muon2_eta, muon2_phi, muon2_dxy, muon2_dxyErr, muon2_pt, muon2_sip3d, muon2_tightId, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_HLT_Mu9_IP6, nTrigObjBPark, TrigObjBPark_eta, TrigObjBPark_phi, TrigObjBPark_l1pt)")
         
 
-        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)").Define("probe_sip3d", "probe_quantities.at(3)").Define("probe_dxysig", "probe_quantities.at(4)")
+        df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)").Define("probe_sip3d", "probe_quantities.at(3)").Define("probe_dxysig", "probe_quantities.at(4)").Define("probe_eta", "probe_quantities.at(5)")
 
         df_pass = df.Filter("probe_HLT == 1")
 
@@ -975,6 +979,8 @@ class TriggerSFtnpRk(TriggerSF):
             "probe_pt > 16.0 && probe_pt < 30.0"
         ]
         
+        eta_bins_bparking = "abs(probe_eta) < 1.5"
+
         '''
         pt_bins = [
             "probe_pt > 9.0 && probe_pt < 10.0",
@@ -985,14 +991,52 @@ class TriggerSFtnpRk(TriggerSF):
         histos = {}
         for dxy_index, i in enumerate(dxy_bins):
             for pt_index, j in enumerate(pt_bins):
-                h_dxy_pT_total = df.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
-                h_dxy_pT_pass = df_pass.Filter(i).Filter(j).Histo1D(("h_dxy_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                h_dxy_pT_total = df.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                h_dxy_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
                 h_dxy_pT_fail = h_dxy_pT_total.GetPtr() - h_dxy_pT_pass.GetPtr()
                 h_dxy_pT_fail.SetName("h_dxy_%s_pT_%s_Fail"% (dxy_index, pt_index)) 
 
                 histos["h_dxy_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_dxy_pT_pass
                 histos["h_dxy_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_dxy_pT_fail
+        
+        
+        dxysig_bins3 = [
+            "probe_dxysig > 4.5 && probe_dxysig < 5.5",
+            "probe_dxysig > 5.5 && probe_dxysig < 6.5",
+            "probe_dxysig > 6.5 && probe_dxysig < 7.5",
+            "probe_dxysig > 7.5 && probe_dxysig < 8.5",
+            "probe_dxysig > 8.5 && probe_dxysig < 10.0",
+            "probe_dxysig > 10.0 && probe_dxysig < 15.0",
+            "probe_dxysig > 15.0 && probe_dxysig < 20.0",
+            "probe_dxysig > 20.0 && probe_dxysig < 50.0"
+        ]
+        
+        pt_bins3 = [
+            "probe_pt > 8.0 && probe_pt < 9.0",
+            "probe_pt > 9.0 && probe_pt < 10.0",
+            "probe_pt > 10.0 && probe_pt < 12.0",
+            "probe_pt > 12.0 && probe_pt < 16.0",
+            "probe_pt > 16.0 && probe_pt < 20.0",
+            "probe_pt > 20.0 && probe_pt < 30.0"
+        ]
+
+        eta_bins3 = "abs(probe_eta) < 0.4"
+        #eta_bins3 = "abs(probe_eta) > 0.4 && abs(probe_eta) < 0.8"
+        #eta_bins3 = "abs(probe_eta) > 0.8 && abs(probe_eta) < 1.5"
+
+
+        for dxy_index, i in enumerate(dxysig_bins3):
+            for pt_index, j in enumerate(pt_bins3):
+                h_dxysig_pT_total = df.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysig_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                h_dxysig_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysig_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                
+                h_dxysig_pT_fail = h_dxysig_pT_total.GetPtr() - h_dxysig_pT_pass.GetPtr()
+                h_dxysig_pT_fail.SetName("h_dxysig_%s_pT_%s_Fail"% (dxy_index, pt_index)) 
+
+                histos["h_dxysig_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_dxysig_pT_pass
+                histos["h_dxysig_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_dxysig_pT_fail
+        
         
         #for 1D efficiency
         dxy_bins2 = [
@@ -1027,8 +1071,8 @@ class TriggerSFtnpRk(TriggerSF):
         ]       
 
         for dxy_index, i in enumerate(dxy_bins2):
-            h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_%s_pT_100_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
-            h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_%s_pT_100_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_100_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_100_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
             h_dxy_pT_fail = h_dxy_pT_total.GetPtr() - h_dxy_pT_pass.GetPtr()
             h_dxy_pT_fail.SetName("h_dxy_%s_pT_100_Fail"% (dxy_index)) 
@@ -1037,8 +1081,8 @@ class TriggerSFtnpRk(TriggerSF):
             histos["h_dxy_%s_pt_100_Fail" % (dxy_index)] = h_dxy_pT_fail
 
         for pt_index, i in enumerate(pt_bins2):
-            h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_100_pT_%s_total" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
-            h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_100_pT_%s_Pass" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_100_pT_%s_total" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_100_pT_%s_Pass" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
             h_dxy_pT_fail = h_dxy_pT_total.GetPtr() - h_dxy_pT_pass.GetPtr()
             h_dxy_pT_fail.SetName("h_dxy_100_pT_%s_Fail"% (pt_index)) 
@@ -1047,8 +1091,8 @@ class TriggerSFtnpRk(TriggerSF):
             histos["h_dxy_100_pt_%s_Fail" % (pt_index)] = h_dxy_pT_fail
 
         for dxy_index, i in enumerate(IPsig_bins2):
-            h_dxy_pT_total = df.Filter(i).Histo1D(("h_dxy_%s_pT_1000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
-            h_dxy_pT_pass = df_pass.Filter(i).Histo1D(("h_dxy_%s_pT_1000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_1000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+            h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_1000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
             h_dxy_pT_fail = h_dxy_pT_total.GetPtr() - h_dxy_pT_pass.GetPtr()
             h_dxy_pT_fail.SetName("h_dxy_%s_pT_1000_Fail"% (dxy_index)) 
