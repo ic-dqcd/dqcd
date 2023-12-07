@@ -2,7 +2,10 @@ import os
 
 from Corrections.JME.PUjetID_SF import PUjetID_SFRDFProducer
 from analysis_tools.utils import import_root
+import correctionlib
+
 ROOT = import_root()
+correctionlib.register_pyroot_binding()
 
 class DQCDPUjetID_SFRDFProducer(PUjetID_SFRDFProducer):
     def __init__(self, year, *args, **kwargs):
@@ -81,3 +84,73 @@ def DQCDPUjetID_SFRDF(**kwargs):
     """
     year = kwargs.pop("year")
     return lambda: DQCDPUjetID_SFRDFProducer(year, **kwargs)
+
+
+class DQCDIdSF_RDFProducer():
+    def __init__(self, *args, **kwargs):
+        # self.year = int(kwargs.pop("year"))
+        self.isMC = kwargs.pop("isMC")
+        self.isUL = kwargs.pop("isUL")
+
+        filename = "${CMT_BASE}/../data/scale_factor2D_NUM_LooseID_DEN_SAMuons_absdxy_pt_TnP_2018_syst.json"
+
+        if self.isMC and not self.isUL:
+            raise ValueError("DQCDIdSF_RDF module only available for UL samples")
+
+        if self.isMC:
+            if "/libCorrectionsWrapper.so" not in ROOT.gSystem.GetLibraries():
+                ROOT.gInterpreter.Load("libCorrectionsWrapper.so")
+            ROOT.gInterpreter.Declare(os.path.expandvars(
+                '#include "$CMSSW_BASE/src/Corrections/Wrapper/interface/custom_sf.h"'))
+            ROOT.gInterpreter.ProcessLine(
+                f'auto corr_dqcdid = MyCorrections("{os.path.expandvars(filename)}", '
+                    '"NUM_LooseID_DEN_SAMuons_absdxy_pt_TnP_2018_syst");'
+            )
+
+            if not os.getenv("_DQCDIdSF"):
+                os.environ["_DQCDIdSF"] = "DQCDIdSF"
+                ROOT.gInterpreter.Declare("""
+                    using Vfloat = const ROOT::RVec<float>&;
+                    using Vint = const ROOT::RVec<int>&;
+                    using Vbool = const ROOT::RVec<bool>&;
+                    float get_dqcd_id_sf(Vint indexes_multivertices,
+                        Vint muonSV_mu1index, Vint muonSV_mu2index,
+                        Vfloat Muon_pt, Vfloat Muon_dxy, std::string syst)
+                    {
+                        float sf = 1.;
+                        for (auto &index: indexes_multivertices) {
+                            auto mu1_index = muonSV_mu1index[index];
+                            auto mu2_index = muonSV_mu2index[index];
+                            sf *= corr_dqcdid.eval({fabs(Muon_dxy[mu1_index]), Muon_pt[mu1_index], syst});
+                            sf *= corr_dqcdid.eval({fabs(Muon_dxy[mu2_index]), Muon_pt[mu2_index], syst});
+                        }
+                        return sf;
+                    }
+                """)
+
+    def run(self, df):
+        if self.isMC:
+            branches = ['idWeight', 'idWeight_up', 'idWeight_down']
+            for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
+                df = df.Define(branch_name, """get_dqcd_id_sf(indexes_multivertices,
+                    muonSV_mu1index, muonSV_mu2index, Muon_pt, Muon_dxy, "%s")""" % syst)
+        else:
+            branches = []
+        return df, branches
+
+
+def DQCDIdSF_RDF(**kwargs):
+    """
+    Module to compute muon Id scale factors for the DQCD analysis.
+    YAML sintaxis:
+
+    .. code-block:: yaml
+
+        codename:
+            name: DQCDIdSF_RDF
+            path: modules.DQCD_SF
+            parameters:
+                isMC: self.dataset.process.isMC
+                isUL: self.dataset.has_tag('ul')
+    """
+    return lambda: DQCDIdSF_RDFProducer(**kwargs)
