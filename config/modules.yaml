@@ -55,17 +55,17 @@ jet:
         #bdt_cut_value: 0.0
 
 
-##bdt:
-    ##name: DQCDBDT
-    ##path: DQCD.Modules.BDTinference
-    ##parameters:
-        ##isMC: self.dataset.process.isMC
-        ##jet_syst: ""
-        ##met_smear_tag: ""
-        ###model_m: 0
-        ###model_ctau: 0
-        ###model_xi0: 0
-        ##model_xiL: 0
+bdt:
+    name: DQCDULBDT
+    path: DQCD.Modules.BDTULinference
+    parameters:
+        isMC: self.dataset.process.isMC
+        #jet_syst: ""
+        #met_smear_tag: ""
+        #model_m: 0
+        #model_ctau: 0
+        #model_xi0: 0
+        #model_xiL: 0
 
 
 
