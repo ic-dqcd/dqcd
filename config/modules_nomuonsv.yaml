@@ -1,0 +1,103 @@
+muon:
+    name: DQCDMuonSelectionRDF
+    path: modules.muon_selection
+    parameters:
+        year: self.config.year
+
+
+# # muonsv:
+    # # name: DQCDMuonSVSelectionRDF
+    # # path: modules.muonsv_selection
+    # # parameters:
+        # # gen_mass: 2
+
+
+# # jet_smearing:
+    # # name: jetSmearerRDF
+    # # path: Corrections.JME.smearing
+    # # parameters:
+        # # year: self.config.year
+        # # isMC: self.dataset.process.isMC
+        # # jerTag: self.config.year
+        # # isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+        # # ispreVFP: self.config.get_aux('ispreVFP', False)
+
+
+# # jet_smear_val:
+    # # name: jetVarRDF
+    # # path: Corrections.JME.smearing
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+
+
+# # met_smearing:
+    # # name: metSmearerRDF
+    # # path: Corrections.JME.smearing
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+
+
+jet:
+    name: DQCDJetSelectionRDF
+    path: modules.jet_selection
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        jet_id: loose
+        jet_syst: ''
+        met_syst: ''
+
+
+#bdt:
+    #name: DQCDBDTSelectionRDF
+    #path: modules.bdt_selection
+    #parameters:
+        #bdt_name: xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0
+        ## bdt_cut_value: 0.9994
+        #bdt_cut_value: 0.0
+
+
+# # bdt:
+    # # name: DQCDULBDT
+    # # path: DQCD.Modules.BDTULinference
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+        # # #jet_syst: ""
+        # # #met_smear_tag: ""
+        # # #model_m: 0
+        # # #model_ctau: 0
+        # # #model_xi0: 0
+        # # #model_xiL: 0
+
+
+
+# # trig:
+    # # name: DQCDTriggerSelectionRDF
+    # # path: modules.muonsv_selection
+    # # parameters:
+        # # gen_mass: 2
+
+
+# # puweight:
+    # # name: puWeightParkingRDF
+    # # path: modules.puWeight
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+        # # year: self.config.year
+        # # isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+
+# # pujetid:
+    # # name: DQCDPUjetID_SFRDF
+    # # path: modules.DQCD_SF
+    # # parameters:
+        # # year: self.config.year
+        # # isMC: self.dataset.process.isMC
+        # # isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+        # # ispreVFP: self.config.get_aux("isPreVFP", False)
+
+# # idsf:
+    # # name: DQCDIdSF_RDF
+    # # path: modules.DQCD_SF
+    # # parameters:
+        # # isMC: self.dataset.process.isMC
+        # # isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
