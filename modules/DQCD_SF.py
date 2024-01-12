@@ -154,3 +154,82 @@ def DQCDIdSF_RDF(**kwargs):
                 isUL: self.dataset.has_tag('ul')
     """
     return lambda: DQCDIdSF_RDFProducer(**kwargs)
+
+
+class DQCDTrigSF_RDFProducer():
+    def __init__(self, *args, **kwargs):
+        # self.year = int(kwargs.pop("year"))
+        self.isMC = kwargs.pop("isMC")
+        self.isUL = kwargs.pop("isUL")
+
+        filename = "${CMT_BASE}/../data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.json"
+
+        if self.isMC and not self.isUL:
+            raise ValueError("DQCDTrigSF_RDF module only available for UL samples")
+
+        if self.isMC:
+            if "/libCorrectionsWrapper.so" not in ROOT.gSystem.GetLibraries():
+                ROOT.gInterpreter.Load("libCorrectionsWrapper.so")
+            ROOT.gInterpreter.Declare(os.path.expandvars(
+                '#include "$CMSSW_BASE/src/Corrections/Wrapper/interface/custom_sf.h"'))
+            ROOT.gInterpreter.ProcessLine(
+                f'auto corr_dqcdtrig = MyCorrections("{os.path.expandvars(filename)}", '
+                    '"scale_factor2D_trigger_absdxy_pt_TnP_2018_syst");'
+            )
+
+            if not os.getenv("_DQCDTrigSF"):
+                os.environ["_DQCDTrigSF"] = "DQCDTrigSF"
+                ROOT.gInterpreter.Declare("""
+                    using Vfloat = const ROOT::RVec<float>&;
+                    using Vint = const ROOT::RVec<int>&;
+                    using Vbool = const ROOT::RVec<bool>&;
+                    float get_dqcd_trig_sf(
+                        int muonSV_chi2_trig_muon1_index,
+                        int muonSV_chi2_trig_muon2_index,
+                        Vfloat Muon_pt, Vfloat Muon_dxy, std::string syst)
+                    {
+                        auto mu1_pt = -1., mu2_pt = -1., mu1_dxy = -1., mu2_dxy = -1.;
+                        if (muonSV_chi2_trig_muon1_index >= 0) {
+                            mu1_pt = Muon_pt[muonSV_chi2_trig_muon1_index];
+                            mu1_dxy = Muon_dxy[muonSV_chi2_trig_muon1_index];
+                        }
+                        if (muonSV_chi2_trig_muon2_index >= 0) {
+                            mu2_pt = Muon_pt[muonSV_chi2_trig_muon2_index];
+                            mu2_dxy = Muon_dxy[muonSV_chi2_trig_muon2_index];
+                        }
+                        // this check should not be needed, as there is a filter in the trigger module to prevent this
+                        if (mu1_pt == -1 && mu2_pt == -1)
+                            return 1;
+                        if (mu1_pt > mu2_pt)
+                            return corr_dqcdtrig.eval({fabs(mu1_dxy), mu1_pt, syst});
+                        return corr_dqcdtrig.eval({fabs(mu2_dxy), mu2_pt, syst});
+                    }
+                """)
+
+    def run(self, df):
+        if self.isMC:
+            branches = ['trigSF', 'trigSF_up', 'trigSF_down']
+            for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
+                df = df.Define(branch_name, """get_dqcd_trig_sf(
+                    muonSV_chi2_trig_muon1_index, muonSV_chi2_trig_muon2_index,
+                    Muon_pt, Muon_dxy, "%s")""" % syst)
+        else:
+            branches = []
+        return df, branches
+
+
+def DQCDTrigSF_RDF(**kwargs):
+    """
+    Module to compute muon Id scale factors for the DQCD analysis.
+    YAML sintaxis:
+
+    .. code-block:: yaml
+
+        codename:
+            name: DQCDIdSF_RDF
+            path: modules.DQCD_SF
+            parameters:
+                isMC: self.dataset.process.isMC
+                isUL: self.dataset.has_tag('ul')
+    """
+    return lambda: DQCDTrigSF_RDFProducer(**kwargs)

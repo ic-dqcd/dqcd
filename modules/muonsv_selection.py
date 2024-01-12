@@ -323,8 +323,9 @@ class DQCDTriggerSelectionRDFProducer():
             """)
 
     def run(self, df):
-        branches = ["muonSV_chi2_trig_index", "muonSV_muonBPark1_index", "muonSV_muonBPark2_index",
-            "muonSV_muon1_index", "muonSV_muon2_index"]
+        branches = ["muonSV_chi2_trig_index",
+            "muonSV_chi2_trig_muonBPark1_index", "muonSV_chi2_trig_muonBPark2_index",
+            "muonSV_chi2_trig_muon1_index", "muonSV_chi2_trig_muon2_index"]
         df = df.Define("muonsv_indexes", """get_triggering_muonsv_and_muon_indexes(
             nmuonSV, muonSV_chi2, muonSV_dR,
             muonSV_mu1eta, muonSV_mu1phi,

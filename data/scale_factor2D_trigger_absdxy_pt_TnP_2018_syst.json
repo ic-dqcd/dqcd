@@ -2,8 +2,8 @@
     "schema_version": 2,
     "corrections": [
         {
-            "name": "NUM_LooseID_DEN_SAMuons_absdxy_pt_TnP_2018_syst",
-            "description": "NUM_LooseID_DEN_SAMuons_absdxy_pt_TnP_2018_syst",
+            "name": "scale_factor2D_trigger_absdxy_pt_TnP_2018_syst",
+            "description": "scale_factor2D_trigger_absdxy_pt_TnP_2018_syst",
             "version": 1,
             "inputs": [
                 {
@@ -55,15 +55,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 0.9113384791003059
+                                        "value": 1.069525827149889
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.008612818067122
+                                        "value": 1.256149963335836
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.8140641401334896
+                                        "value": 0.8829016909639423
                                     }
                                 ]
                             },
@@ -73,15 +73,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 0.9966107749919499
+                                        "value": 0.9915458877591736
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0274526999626221
+                                        "value": 1.0836289291100625
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.9657688500212778
+                                        "value": 0.8994628464082848
                                     }
                                 ]
                             },
@@ -91,15 +91,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 0.9931816836597833
+                                        "value": 0.9828932956183856
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0261084206448754
+                                        "value": 0.9923446287733773
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.9602549466746914
+                                        "value": 0.9734419624633939
                                     }
                                 ]
                             },
@@ -109,15 +109,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 1.0064286129640634
+                                        "value": 0.9888145423333489
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0067744083731587
+                                        "value": 0.9930245420993804
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 1.006082817554968
+                                        "value": 0.9846045425673173
                                     }
                                 ]
                             },
@@ -127,15 +127,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 1.0059777817627984
+                                        "value": 0.9629121216609918
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0063845450893325
+                                        "value": 0.9798507924506874
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 1.0055710184362643
+                                        "value": 0.9459734508712963
                                     }
                                 ]
                             }
@@ -160,15 +160,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 0.9681678133114573
+                                        "value": 0.5824390765313946
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0014746172043283
+                                        "value": 0.8567821979084598
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.9348610094185863
+                                        "value": 0.30809595515432936
                                     }
                                 ]
                             },
@@ -178,15 +178,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 0.9965541858421162
+                                        "value": 1.0281102255806065
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0119778618010922
+                                        "value": 1.106053892049253
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.9811305098831402
+                                        "value": 0.95016655911196
                                     }
                                 ]
                             },
@@ -196,15 +196,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 0.9998700988746154
+                                        "value": 1.0015842435256321
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0108448573893918
+                                        "value": 1.057290279808413
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.988895340359839
+                                        "value": 0.9458782072428512
                                     }
                                 ]
                             },
@@ -214,15 +214,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 1.0
+                                        "value": 0.9753111655703985
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0000044442297675
+                                        "value": 0.9924823386774624
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 0.9999955557702324
+                                        "value": 0.9581399924633347
                                     }
                                 ]
                             },
@@ -232,15 +232,15 @@
                                 "content": [
                                     {
                                         "key": "sf",
-                                        "value": 1.0041354649089538
+                                        "value": 0.9548269519610659
                                     },
                                     {
                                         "key": "systup",
-                                        "value": 1.0043141679924845
+                                        "value": 1.0081155278606664
                                     },
                                     {
                                         "key": "systdown",
-                                        "value": 1.003956761825423
+                                        "value": 0.9015383760614654
                                     }
                                 ]
                             }

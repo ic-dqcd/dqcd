@@ -99,3 +99,11 @@ idsf:
     parameters:
         isMC: self.dataset.process.isMC
         isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+
+
+trigsf:
+    name: DQCDTrigSF_RDF
+    path: modules.DQCD_SF
+    parameters:
+        isMC: self.dataset.process.isMC
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
