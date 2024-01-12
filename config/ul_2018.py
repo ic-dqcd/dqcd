@@ -9,6 +9,13 @@ from config.legacy_2018 import Config as legacy_config
 
 class Config(legacy_config):
 
+    def add_regions(self, **kwargs):
+        regions = [
+            Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
+            Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
+                ]
+        return ObjectCollection(regions)
+
     def add_datasets(self):
         sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p3/tmp/"
 

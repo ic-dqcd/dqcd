@@ -45,17 +45,7 @@ jet:
         year: self.config.year
         jet_id: loose
 
-
-#bdt:
-    #name: DQCDBDTSelectionRDF
-    #path: modules.bdt_selection
-    #parameters:
-        #bdt_name: xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0
-        ## bdt_cut_value: 0.9994
-        #bdt_cut_value: 0.0
-
-
-bdt:
+bdt_inference:
     name: DQCDULBDT
     path: DQCD.Modules.BDTULinference
     parameters:
@@ -66,6 +56,15 @@ bdt:
         #model_ctau: 0
         #model_xi0: 0
         #model_xiL: 0
+
+
+bdt:
+    name: DQCDBDTSelectionRDF
+    path: modules.bdt_selection
+    parameters:
+        bdt_name: bdt
+        bdt_cut_value: 0.99
+        #bdt_cut_value: 0.0
 
 
 
