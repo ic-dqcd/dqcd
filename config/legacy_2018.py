@@ -801,6 +801,9 @@ class Config(cmt_config):
             Feature("idWeight", "idWeight", binning=(20, 0, 2),
                 x_title=Label("idWeight"),
                 systematics=["id"]),
+            Feature("trigSF", "trigSF", binning=(20, 0, 2),
+                x_title=Label("trigSF"),
+                systematics=["trig"]),
         ]
         return ObjectCollection(features)
 
@@ -812,7 +815,7 @@ class Config(cmt_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["genWeight", "puWeight", "PUjetID_SF"]  # others needed
+        weights.base = ["genWeight", "puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:
@@ -828,6 +831,7 @@ class Config(cmt_config):
             # Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
             Systematic("pu", "", up="Up", down="Down"),
             Systematic("id", ""),
+            Systematic("trig", ""),
             # Systematic("tes", "_corr",
                 # affected_categories=self.categories.names(),
                 # module_syst_type="tau_syst"),

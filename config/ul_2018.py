@@ -511,7 +511,7 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["puWeight", "PUjetID_SF", "idWeight"]  # others needed
+        weights.base = ["puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:
