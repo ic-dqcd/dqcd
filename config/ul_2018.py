@@ -480,27 +480,358 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
             ),
 
+            Dataset("scenarioB1_mpi_1_mA_0p33_ctau_0p1",
+                dataset = "/scenarioB1_mpi_1_mA_0p33_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_1_mA_0p33_ctau_10",
+                dataset = "/scenarioB1_mpi_1_mA_0p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_1_mA_0p33_ctau_100",
+                dataset = "/scenarioB1_mpi_1_mA_0p33_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_1_mA_0p33_ctau_1p0",
+                dataset = "/scenarioB1_mpi_1_mA_0p33_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+            
+            Dataset("scenarioB1_mpi_2_mA_0p40_ctau_0p1",
+                dataset = "/scenarioB1_mpi_2_mA_0p40_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p40_ctau_10",
+                dataset = "/scenarioB1_mpi_2_mA_0p40_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p40_ctau_100",
+                dataset = "/scenarioB1_mpi_2_mA_0p40_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p40_ctau_1p0",
+                dataset = "/scenarioB1_mpi_2_mA_0p40_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p67_ctau_0p1",
+                dataset = "/scenarioB1_mpi_2_mA_0p67_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p67_ctau_10",
+                dataset = "/scenarioB1_mpi_2_mA_0p67_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p67_ctau_100",
+                dataset = "/scenarioB1_mpi_2_mA_0p67_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_2_mA_0p67_ctau_1p0",
+                dataset = "/scenarioB1_mpi_2_mA_0p67_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_4_mA_0p80_ctau_0p1",
+                dataset = "/scenarioB1_mpi_4_mA_0p80_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_4_mA_0p80_ctau_10",
+                dataset = "/scenarioB1_mpi_4_mA_0p80_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_4_mA_0p80_ctau_100",
+                dataset = "/scenarioB1_mpi_4_mA_0p80_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_4_mA_0p80_ctau_1p0",
+                dataset = "/scenarioB1_mpi_4_mA_0p80_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_4_mA_1p33_ctau_0p1",
+                dataset = "/scenarioB1_mpi_4_mA_1p33_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
             Dataset("scenarioB1_mpi_4_mA_1p33_ctau_10",
-                folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioB1_mpi_4_mA_1p33_ctau_10/",
+                dataset = "/scenarioB1_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
                 process=self.processes.get("signal"),
-                file_pattern="nano_.*root",
-                tags=["ul"],
+                check_empty=False,
+                skipFiles=[],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
             ),
+
+            Dataset("scenarioB1_mpi_4_mA_1p33_ctau_100",
+                dataset = "/scenarioB1_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB1_mpi_4_mA_1p33_ctau_1p0",
+                dataset = "/scenarioB1_mpi_4_mA_1p33_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_1_mA_0p60_ctau_0p1",
+                dataset = "/scenarioB2_mpi_1_mA_0p60_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_1_mA_0p60_ctau_10",
+                dataset = "/scenarioB2_mpi_1_mA_0p60_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_1_mA_0p60_ctau_100",
+                dataset = "/scenarioB2_mpi_1_mA_0p60_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_1_mA_0p60_ctau_1p0",
+                dataset = "/scenarioB2_mpi_1_mA_0p60_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_2_mA_1p10_ctau_0p1",
+                dataset = "/scenarioB2_mpi_2_mA_1p10_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_2_mA_1p10_ctau_10",
+                dataset = "/scenarioB2_mpi_2_mA_1p10_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_2_mA_1p10_ctau_100",
+                dataset = "/scenarioB2_mpi_2_mA_1p10_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_2_mA_1p10_ctau_1p0",
+                dataset = "/scenarioB2_mpi_2_mA_1p10_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_4_mA_2p10_ctau_0p1",
+                dataset = "/scenarioB2_mpi_4_mA_2p10_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
             Dataset("scenarioB2_mpi_4_mA_2p10_ctau_10",
-                folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioB2_mpi_4_mA_2p10_ctau_10/",
+                dataset = "/scenarioB2_mpi_4_mA_2p10_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
                 process=self.processes.get("signal"),
-                file_pattern="nano_.*root",
-                tags=["ul"],
+                check_empty=False,
+                skipFiles=[],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
             ),
+
+            Dataset("scenarioB2_mpi_4_mA_2p10_ctau_100",
+                dataset = "/scenarioB2_mpi_4_mA_2p10_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioB2_mpi_4_mA_2p10_ctau_1p0",
+                dataset = "/scenarioB2_mpi_4_mA_2p10_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+    
+            Dataset("scenarioC_mpi_10_mA_8p00_ctau_0p1",
+                dataset = "/scenarioC_mpi_10_mA_8p00_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+            
             Dataset("scenarioC_mpi_10_mA_8p00_ctau_10",
-                folder="/vols/cms/jleonhol/samples/ul_pu_v3/scenarioC_mpi_10_mA_8p00_ctau_10/",
+                dataset = "/scenarioC_mpi_10_mA_8p00_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
                 process=self.processes.get("signal"),
-                file_pattern="nano_.*root",
-                tags=["ul"],
+                check_empty=False,
+                skipFiles=[],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
             ),
+           
+            Dataset("scenarioC_mpi_10_mA_8p00_ctau_100",
+                dataset = "/scenarioC_mpi_10_mA_8p00_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_10_mA_8p00_ctau_1p0",
+                dataset = "/scenarioC_mpi_10_mA_8p00_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_2_mA_1p60_ctau_0p1",
+                dataset = "/scenarioC_mpi_2_mA_1p60_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_2_mA_1p60_ctau_10",
+                dataset = "/scenarioC_mpi_2_mA_1p60_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_2_mA_1p60_ctau_100",
+                dataset = "/scenarioC_mpi_2_mA_1p60_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_2_mA_1p60_ctau_1p0",
+                dataset = "/scenarioC_mpi_2_mA_1p60_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_4_mA_3p20_ctau_0p1",
+                dataset = "/scenarioC_mpi_4_mA_3p20_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_4_mA_3p20_ctau_10",
+                dataset = "/scenarioC_mpi_4_mA_3p20_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_4_mA_3p20_ctau_100",
+                dataset = "/scenarioC_mpi_4_mA_3p20_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
+            Dataset("scenarioC_mpi_4_mA_3p20_ctau_1p0",
+                dataset = "/scenarioC_mpi_4_mA_3p20_ctau_1p0/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+            ),
+
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_new",
                 folder="/vols/cms/jleonhol/samples/ul_pu/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/",
                 process=self.processes.get("signal"),
