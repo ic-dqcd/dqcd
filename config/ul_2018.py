@@ -13,7 +13,7 @@ class Config(legacy_config):
         regions = [
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
             Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
-                ]
+        ]
         return ObjectCollection(regions)
 
     def add_datasets(self):
@@ -272,7 +272,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_10/nanotron/231124_165003/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=0.439,
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_0p1",

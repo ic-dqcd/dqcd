@@ -777,8 +777,10 @@ class Config(cmt_config):
                 x_title=Label("nbjets"), tags=["skip_shards"]),
 
             # BDT features
-            Feature("bdt", "xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0", binning=(20, 0, 1),
-                x_title=Label("BDT score"), tags=["eval_observer"]),
+            Feature("bdt", "bdt", binning=(20, 0, 1),
+                x_title=Label("BDT score"), tags=["eval_observer"],
+                ),
+                #systematics=["jer"]),
 
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
             # Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(1000, 0, 4),
@@ -827,11 +829,14 @@ class Config(cmt_config):
         systematics = [
             # Systematic("jet_smearing", "_nom"),
             # Systematic("met_smearing", ("MET", "MET_smeared")),
-            # Systematic("prefiring", "_Nom"),
-            # Systematic("prefiring_syst", "", up="_Up", down="_Dn"),
             Systematic("pu", "", up="Up", down="Down"),
             Systematic("id", ""),
             Systematic("trig", ""),
+            Systematic("jer", "_smeared", affected_categories=self.categories.names(),
+                module_syst_type={
+                    "jet_syst": {"up": "smeared_up", "down": "smeared_down"},
+                    "met_syst": {"up": "up", "down": "down"},  # smearing included in the met_smear_tag
+                }),
             # Systematic("tes", "_corr",
                 # affected_categories=self.categories.names(),
                 # module_syst_type="tau_syst"),
