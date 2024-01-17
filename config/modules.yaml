@@ -45,26 +45,27 @@ jet:
         year: self.config.year
         jet_id: loose
 
-bdt_inference:
+bdt_inference_a:
     name: DQCDULBDT
     path: DQCD.Modules.BDTULinference
     parameters:
         isMC: self.dataset.process.isMC
-        #jet_syst: ""
-        #met_smear_tag: ""
-        #model_m: 0
-        #model_ctau: 0
-        #model_xi0: 0
-        #model_xiL: 0
+        scenario: A
 
-
-bdt:
-    name: DQCDBDTSelectionRDF
-    path: modules.bdt_selection
+bdt_inference_b1:
+    name: DQCDULBDT
+    path: DQCD.Modules.BDTULinference
     parameters:
-        bdt_name: bdt
-        bdt_cut_value: 0.99
-        #bdt_cut_value: 0.0
+        isMC: self.dataset.process.isMC
+        scenario: B1
+
+######bdt:
+    ######name: DQCDBDTSelectionRDF
+    ######path: modules.bdt_selection
+    ######parameters:
+        ######bdt_name: bdt
+        ######bdt_cut_value: 0.99
+        #######bdt_cut_value: 0.0
 
 
 
