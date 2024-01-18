@@ -15,11 +15,11 @@ class CreateDatacardsDQCD(CreateDatacards):
 
     def requires(self):
         reqs = CreateDatacards.requires(self)
-        for process in reqs:
+        for process in reqs["fits"]:
             if process == "background":
-                reqs[process].region_name = self.loose_region
+                reqs["fits"][process].region_name = self.loose_region
             else:
-                reqs[process].region_name = self.tight_region
+                reqs["fits"][process].region_name = self.tight_region
 
         import yaml
         from cmt.utils.yaml_utils import ordered_load
@@ -34,15 +34,16 @@ class CreateDatacardsDQCD(CreateDatacards):
                     for param, value in fit_params["fit_parameters"].items()]) + "}"
 
                     reqs["tight"] =  eval(f"Fit.vreq(self, {params}, _exclude=['include_fit'], "
-                        "region_name=self.tight_region, feature_names=self.feature_names)")
+                        "region_name=self.tight_region, feature_names=self.feature_names, "
+                        "category_name='base')")
                     reqs["loose"] =  eval(f"Fit.vreq(self, {params}, _exclude=['include_fit'], "
-                        "region_name=self.loose_region, feature_names=self.feature_names)")
+                        "region_name=self.loose_region, feature_names=self.feature_names,"
+                        "category_name='base')")
         return reqs
 
     def run(self):
         inputs = self.input()
         assert self.feature_names == ("muonSV_bestchi2_mass",)
-        print(inputs["tight"])
         with open(inputs["tight"]["muonSV_bestchi2_mass"]["json"].path) as f:
             d_tight = json.load(f)
         with open(inputs["loose"]["muonSV_bestchi2_mass"]["json"].path) as f:
