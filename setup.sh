@@ -223,6 +223,12 @@ action() {
           compile="1"
         fi
 
+        export COMBINE_PATH="HiggsAnalysis/CombinedLimit"
+        if [ ! -d "$COMBINE_PATH" ]; then
+          git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git -b v9.1.0 HiggsAnalysis/CombinedLimit
+          compile="1"
+        fi
+
         if [ "$compile" == "1" ]
         then
             scram b
