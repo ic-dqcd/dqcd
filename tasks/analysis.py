@@ -1,7 +1,7 @@
 import json
 import luigi
 
-from cmt.base_tasks.analysis import Fit, CreateDatacards
+from cmt.base_tasks.analysis import Fit, CreateDatacards, CombineDatacards
 
 
 class CreateDatacardsDQCD(CreateDatacards):
@@ -12,14 +12,16 @@ class CreateDatacardsDQCD(CreateDatacards):
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
+        assert "tight" in self.region_name
 
     def requires(self):
         reqs = CreateDatacards.requires(self)
+        loose_region = self.region.name.replace("tight", "loose")
         for process in reqs["fits"]:
             if process == "background":
-                reqs["fits"][process].region_name = self.loose_region
+                reqs["fits"][process].region_name = loose_region
             else:
-                reqs["fits"][process].region_name = self.tight_region
+                reqs["fits"][process].region_name = self.region_name
 
         import yaml
         from cmt.utils.yaml_utils import ordered_load
@@ -53,3 +55,18 @@ class CreateDatacardsDQCD(CreateDatacards):
             d_loose[""]["integral"]}
 
         super(CreateDatacardsDQCD, self).run()
+
+
+class CombineDatacardsDQCD(CombineDatacards):
+    fit_config_file = luigi.Parameter(default="fit_config", description="file including "
+        "fit configuration, default: fit_config.yaml")
+
+    def requires(self):
+        d = self.config.get_fit_config(self.fit_config_file)
+        category_names = d[self.process_group_name].keys()
+        return {
+            category_name: CreateDatacardsDQCD.vreq(self, category_name=category_name,
+                counting=d[self.process_group_name][category_name],
+                _exclude=["category_names", "log_file"])
+            for category_name in self.category_names
+        }

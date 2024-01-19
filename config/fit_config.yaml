@@ -1,0 +1,11 @@
+sigbkg:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
