@@ -33,27 +33,27 @@ class Config(cmt_config):
             # multi-vertex
             Category("multiv", "Multivertices", selection="cat_index != 0"),
             Category("multiv_cat1", "Multivertices, cat. 1",
-                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) < 1 &&
+                selection="""cat_index > 0 && muonSV_dxy.at(min_chi2_index) < 1 &&
                     muonSV_pAngle.at(min_chi2_index) < 0.2"""),
             Category("multiv_cat2", "Multivertices, cat. 2",
-                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) < 1 &&
+                selection="""cat_index > 0 && muonSV_dxy.at(min_chi2_index) < 1 &&
                     muonSV_pAngle.at(min_chi2_index) > 0.2"""),
             Category("multiv_cat3", "Multivertices, cat. 3",
-                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 1 &&
+                selection="""cat_index > 0 && muonSV_dxy.at(min_chi2_index) > 1 &&
                     muonSV_dxy.at(min_chi2_index) < 10 && muonSV_pAngle.at(min_chi2_index) < 0.2"""),
             Category("multiv_cat4", "Multivertices, cat. 4",
-                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 1 &&
+                selection="""cat_index > 0 && muonSV_dxy.at(min_chi2_index) > 1 &&
                     muonSV_dxy.at(min_chi2_index) < 10 && muonSV_pAngle.at(min_chi2_index) > 0.2"""),
             Category("multiv_cat5", "Multivertices, cat. 5",
-                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 10 &&
+                selection="""cat_index > 0 && muonSV_dxy.at(min_chi2_index) > 10 &&
                     muonSV_pAngle.at(min_chi2_index) < 0.2"""),
             Category("multiv_cat6", "Multivertices, cat. 6",
-                selection="""cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 10 &&
+                selection="""cat_index > 0 && muonSV_dxy.at(min_chi2_index) > 10 &&
                     muonSV_pAngle.at(min_chi2_index) > 0.2"""),
             Category("multiv_new1", "Multivertices, new cat. 1",
-                selection="cat_index == 0 && muonSV_dxy.at(min_chi2_index) < 1"),
+                selection="cat_index > 0 && muonSV_dxy.at(min_chi2_index) < 1"),
             Category("multiv_new2", "Multivertices, new cat. 2",
-                selection="cat_index == 0 && muonSV_dxy.at(min_chi2_index) > 1"),
+                selection="cat_index > 0 && muonSV_dxy.at(min_chi2_index) > 1"),
 
             # single-vertex
             Category("singlev", "Single vertex", selection=single_sel),
@@ -102,6 +102,82 @@ class Config(cmt_config):
             Process("qcd_800to1000", Label("QCD (800-1000)"), color=(255, 153, 0), parent_process="qcd"),
 
             Process("signal", Label("Signal"), color=(0, 0, 0), isSignal=True),
+
+            Process("scenarioA", Label("scenarioA"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
+            Process("scenarioA_mpi_1_mA_0p33_ctau_0p1", Label("scenarioA_mpi_1_mA_0p33_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_1_mA_0p33_ctau_10", Label("scenarioA_mpi_1_mA_0p33_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_1_mA_0p33_ctau_100", Label("scenarioA_mpi_1_mA_0p33_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_1_mA_0p33_ctau_1p0", Label("scenarioA_mpi_1_mA_0p33_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_2_mA_0p67_ctau_0p1", Label("scenarioA_mpi_2_mA_0p67_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_2_mA_0p67_ctau_10", Label("scenarioA_mpi_2_mA_0p67_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_2_mA_0p67_ctau_100", Label("scenarioA_mpi_2_mA_0p67_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_2_mA_0p67_ctau_1p0", Label("scenarioA_mpi_2_mA_0p67_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_0p40_ctau_0p1", Label("scenarioA_mpi_4_mA_0p40_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_0p40_ctau_10", Label("scenarioA_mpi_4_mA_0p40_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_0p40_ctau_100", Label("scenarioA_mpi_4_mA_0p40_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_0p40_ctau_1p0", Label("scenarioA_mpi_4_mA_0p40_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_0p1", Label("scenarioA_mpi_4_mA_1p33_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_10", Label("scenarioA_mpi_4_mA_1p33_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_100", Label("scenarioA_mpi_4_mA_1p33_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_1p0", Label("scenarioA_mpi_4_mA_1p33_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_1p00_ctau_0p1", Label("scenarioA_mpi_10_mA_1p00_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_1p00_ctau_10", Label("scenarioA_mpi_10_mA_1p00_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_1p00_ctau_100", Label("scenarioA_mpi_10_mA_1p00_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_1p00_ctau_1p0", Label("scenarioA_mpi_10_mA_1p00_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_3p33_ctau_0p1", Label("scenarioA_mpi_10_mA_3p33_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_3p33_ctau_10", Label("scenarioA_mpi_10_mA_3p33_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_3p33_ctau_100", Label("scenarioA_mpi_10_mA_3p33_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_10_mA_3p33_ctau_1p0", Label("scenarioA_mpi_10_mA_3p33_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
+
+            Process("scenarioB1", Label("scenarioB1"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
+            Process("scenarioB1_mpi_1_mA_0p33_ctau_0p1", Label("scenarioB1_mpi_1_mA_0p33_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_1_mA_0p33_ctau_10", Label("scenarioB1_mpi_1_mA_0p33_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_1_mA_0p33_ctau_100", Label("scenarioB1_mpi_1_mA_0p33_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_1_mA_0p33_ctau_1p0", Label("scenarioB1_mpi_1_mA_0p33_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p40_ctau_0p1", Label("scenarioB1_mpi_2_mA_0p40_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p40_ctau_10", Label("scenarioB1_mpi_2_mA_0p40_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p40_ctau_100", Label("scenarioB1_mpi_2_mA_0p40_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p40_ctau_1p0", Label("scenarioB1_mpi_2_mA_0p40_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p67_ctau_0p1", Label("scenarioB1_mpi_2_mA_0p67_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p67_ctau_10", Label("scenarioB1_mpi_2_mA_0p67_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p67_ctau_100", Label("scenarioB1_mpi_2_mA_0p67_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_2_mA_0p67_ctau_1p0", Label("scenarioB1_mpi_2_mA_0p67_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_0p80_ctau_0p1", Label("scenarioB1_mpi_4_mA_0p80_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_0p80_ctau_10", Label("scenarioB1_mpi_4_mA_0p80_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_0p80_ctau_100", Label("scenarioB1_mpi_4_mA_0p80_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_0p80_ctau_1p0", Label("scenarioB1_mpi_4_mA_0p80_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_1p33_ctau_0p1", Label("scenarioB1_mpi_4_mA_1p33_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_1p33_ctau_10", Label("scenarioB1_mpi_4_mA_1p33_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_1p33_ctau_100", Label("scenarioB1_mpi_4_mA_1p33_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+            Process("scenarioB1_mpi_4_mA_1p33_ctau_1p0", Label("scenarioB1_mpi_4_mA_1p33_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB1"),
+
+            Process("scenarioB2", Label("scenarioB2"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
+            Process("scenarioB2_mpi_1_mA_0p60_ctau_0p1", Label("scenarioB2_mpi_1_mA_0p60_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_1_mA_0p60_ctau_10", Label("scenarioB2_mpi_1_mA_0p60_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_1_mA_0p60_ctau_100", Label("scenarioB2_mpi_1_mA_0p60_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_1_mA_0p60_ctau_1p0", Label("scenarioB2_mpi_1_mA_0p60_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_2_mA_1p10_ctau_0p1", Label("scenarioB2_mpi_2_mA_1p10_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_2_mA_1p10_ctau_10", Label("scenarioB2_mpi_2_mA_1p10_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_2_mA_1p10_ctau_100", Label("scenarioB2_mpi_2_mA_1p10_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_2_mA_1p10_ctau_1p0", Label("scenarioB2_mpi_2_mA_1p10_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_4_mA_2p10_ctau_0p1", Label("scenarioB2_mpi_4_mA_2p10_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_4_mA_2p10_ctau_10", Label("scenarioB2_mpi_4_mA_2p10_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_4_mA_2p10_ctau_100", Label("scenarioB2_mpi_4_mA_2p10_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+            Process("scenarioB2_mpi_4_mA_2p10_ctau_1p0", Label("scenarioB2_mpi_4_mA_2p10_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioB2"),
+
+            Process("scenarioC", Label("scenarioC"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
+            Process("scenarioC_mpi_10_mA_8p00_ctau_0p1", Label("scenarioC_mpi_10_mA_8p00_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_10_mA_8p00_ctau_10", Label("scenarioC_mpi_10_mA_8p00_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_10_mA_8p00_ctau_100", Label("scenarioC_mpi_10_mA_8p00_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_10_mA_8p00_ctau_1p0", Label("scenarioC_mpi_10_mA_8p00_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_2_mA_1p60_ctau_0p1", Label("scenarioC_mpi_2_mA_1p60_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_2_mA_1p60_ctau_10", Label("scenarioC_mpi_2_mA_1p60_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_2_mA_1p60_ctau_100", Label("scenarioC_mpi_2_mA_1p60_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_2_mA_1p60_ctau_1p0", Label("scenarioC_mpi_2_mA_1p60_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_4_mA_3p20_ctau_0p1", Label("scenarioC_mpi_4_mA_3p20_ctau_0p1"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_4_mA_3p20_ctau_10", Label("scenarioC_mpi_4_mA_3p20_ctau_10"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_4_mA_3p20_ctau_100", Label("scenarioC_mpi_4_mA_3p20_ctau_100"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+            Process("scenarioC_mpi_4_mA_3p20_ctau_1p0", Label("scenarioC_mpi_4_mA_3p20_ctau_1p0"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
 
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
 
