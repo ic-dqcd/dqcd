@@ -853,7 +853,7 @@ class Config(cmt_config):
                 x_title=Label("nbjets"), tags=["skip_shards"]),
 
             # BDT features
-            Feature("bdt", "bdt", binning=(20, 0, 1),
+            Feature("bdt", "bdt_scenarioA", binning=(20, 0, 1),
                 x_title=Label("BDT score"), tags=["eval_observer"],
                 ),
                 #systematics=["jer"]),
@@ -959,6 +959,7 @@ class Config(cmt_config):
                 continue
             for process in processes_datasets:
                 original_process = process
+                found = False
                 while True:
                     process_name = (process.get_aux("llr_name")
                         if process.get_aux("llr_name", None) else process.name)
@@ -968,13 +969,27 @@ class Config(cmt_config):
                         if syst_name not in systematics:
                             systematics[syst_name] = {}
                         systematics[syst_name][original_process.name] = eval(systVal)
+                        found = True
                         break
                     elif process.parent_process:
                         process=self.processes.get(process.parent_process)
                     else:
                         break
+                if not found:
+                    for children_process in self.get_children_from_process(process.name):
+                        if children_process.name in syst.SystProcesses[isy]:
+                            if syst_name not in systematics:
+                                systematics[syst_name] = {}
+                            systematics[syst_name][original_process.name] = eval(systVal)
+                            break
         return systematics
 
+    def get_fit_config(self, filename):
+        import yaml
+        import os
+        from cmt.utils.yaml_utils import ordered_load
+        with open(os.path.expandvars("$CMT_BASE/../config/{}.yaml".format(filename))) as f:
+            return ordered_load(f, yaml.SafeLoader)
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
 config = Config("legacy_2018", year=2018, ecm=13, lumi_pb=33600)

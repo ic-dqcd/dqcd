@@ -63,7 +63,7 @@ class CombineDatacardsDQCD(CombineDatacards):
 
     def requires(self):
         d = self.config.get_fit_config(self.fit_config_file)
-        category_names = d[self.process_group_name].keys()
+        self.category_names = d[self.process_group_name].keys()
         return {
             category_name: CreateDatacardsDQCD.vreq(self, category_name=category_name,
                 counting=d[self.process_group_name][category_name],
