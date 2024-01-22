@@ -1,6 +1,7 @@
 background:
     process_name: background
-    x_range: 1.2635, 1.3965
+    x_range: 0, 100
+    #x_range: 1.2635, 1.3965
     method: polynomial
     fit_parameters:
         order: 1

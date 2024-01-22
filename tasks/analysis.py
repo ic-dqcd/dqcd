@@ -11,6 +11,8 @@ class CreateDatacardsDQCD(CreateDatacards):
         "tighter bdt cut, default: tight_bdt")
     loose_region = luigi.Parameter(default="loose_bdt", description="region_name with the "
         "looser bdt cut, default: loose_bdt")
+    mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
+        "define the fit ranges and blinded regions")
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
@@ -18,44 +20,62 @@ class CreateDatacardsDQCD(CreateDatacards):
 
     def requires(self):
         reqs = CreateDatacards.requires(self)
-        loose_region = self.region.name.replace("tight", "loose")
-        for process in reqs["fits"]:
-            if process == "background":
-                reqs["fits"][process].region_name = loose_region
-            else:
-                reqs["fits"][process].region_name = self.region_name
+        sigma = self.mass_point * 0.01
+        fit_range = (self.mass_point - 5 * sigma, self.mass_point + 5 * sigma)
 
-        import yaml
-        from cmt.utils.yaml_utils import ordered_load
-        with open(self.retrieve_file("config/{}.yaml".format(self.fit_models))) as f:
-            self.models = ordered_load(f, yaml.SafeLoader)
-        for model, fit_params in self.models.items():
-            if fit_params["process_name"] == "background":
-                params = ", ".join([f"{param}='{value}'"
-                    for param, value in fit_params.items() if param != "fit_parameters"])
-                if "fit_parameters" in fit_params:
-                    params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
-                    for param, value in fit_params["fit_parameters"].items()]) + "}"
+        if not self.counting:
+            loose_region = self.region.name.replace("tight", "loose")
+            for process in reqs["fits"]:
+                reqs["fits"][process].x_range = fit_range
+                if process == "background":
+                    reqs["fits"][process].region_name = loose_region
+                else:
+                    reqs["fits"][process].region_name = self.region_name
 
-                    reqs["tight"] =  eval(f"Fit.vreq(self, {params}, _exclude=['include_fit'], "
-                        "region_name=self.tight_region, feature_names=self.feature_names, "
-                        "category_name='base')")
-                    reqs["loose"] =  eval(f"Fit.vreq(self, {params}, _exclude=['include_fit'], "
-                        "region_name=self.loose_region, feature_names=self.feature_names,"
-                        "category_name='base')")
+                import yaml
+                from cmt.utils.yaml_utils import ordered_load
+                with open(self.retrieve_file("config/{}.yaml".format(self.fit_models))) as f:
+                    self.models = ordered_load(f, yaml.SafeLoader)
+                for model, fit_params in self.models.items():
+                    fit_params["x_range"] = str(fit_range)[1:-1]
+                    if fit_params["process_name"] == "background":
+                        params = ", ".join([f"{param}='{value}'"
+                            for param, value in fit_params.items() if param != "fit_parameters"])
+                        if "fit_parameters" in fit_params:
+                            params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
+                            for param, value in fit_params["fit_parameters"].items()]) + "}"
+
+                            reqs["tight"] =  eval(f"Fit.vreq(self, {params}, _exclude=['include_fit'], "
+                                "region_name=self.tight_region, feature_names=self.feature_names, "
+                                "category_name='base')")
+                            reqs["loose"] =  eval(f"Fit.vreq(self, {params}, _exclude=['include_fit'], "
+                                "region_name=self.loose_region, feature_names=self.feature_names,"
+                                "category_name='base')")
+        else:  # counting
+            blind_range = (str(self.mass_point - 2 * sigma), str(self.mass_point + 2 * sigma))
+            for process in reqs["fits"]:
+                if process == "background":
+                    reqs["fits"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                    reqs["fits"][process].blind_range = blind_range
+                else:
+                    reqs["fits"][process].x_range = blind_range
         return reqs
 
     def run(self):
         inputs = self.input()
         assert self.feature_names[0].startswith("muonSV_bestchi2_mass") and \
-            len(self.feature_names) == 0
-        with open(inputs["tight"]["muonSV_bestchi2_mass"]["json"].path) as f:
-            d_tight = json.load(f)
-        with open(inputs["loose"]["muonSV_bestchi2_mass"]["json"].path) as f:
-            d_loose = json.load(f)
+            len(self.feature_names) == 1
 
-        self.additional_scaling = {"background": d_tight[""]["integral"] /\
-            d_loose[""]["integral"]}
+        if not self.counting:
+            with open(inputs["tight"]["muonSV_bestchi2_mass"]["json"].path) as f:
+                d_tight = json.load(f)
+            with open(inputs["loose"]["muonSV_bestchi2_mass"]["json"].path) as f:
+                d_loose = json.load(f)
+
+            self.additional_scaling = {"background": d_tight[""]["integral"] /\
+                d_loose[""]["integral"]}
+        else:
+            self.additional_scaling = {"background": 2/3}
 
         super(CreateDatacardsDQCD, self).run()
 
