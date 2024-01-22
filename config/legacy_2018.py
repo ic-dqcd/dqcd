@@ -12,6 +12,13 @@ class Config(cmt_config):
     def __init__(self, *args, **kwargs):
         super(Config, self).__init__(*args, **kwargs)
         self.regions = self.add_regions()
+        for process in self.processes:
+            if process.name.startswith("scenario") and "_" in process.name:
+                self.process_group_names[process.name] = [
+                    "data",
+                    "background",
+                    process.name
+                ]
 
     def add_regions(self, **kwargs):
         regions = [
