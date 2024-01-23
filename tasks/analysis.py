@@ -135,15 +135,7 @@ class ScanCombineDQCD(RunCombineDQCD):
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
         if not self.process_group_names:
-            process_group_names = [group for group in self.config.process_group_names
-                if group.startswith("scenario")]
-            self.process_group_names = []
-            for process_group_name in process_group_names:
-                if not process_group_name in self.fit_config:
-                    print(f"{process_group_name} will be skipped since it is not in the fit config "
-                        "provided" )
-                    continue
-                self.process_group_names.append(process_group_name)
+            self.process_group_names = self.fit_config.keys()
 
     def requires(self):
         reqs = {}

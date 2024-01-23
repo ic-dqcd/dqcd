@@ -1,8 +1,14 @@
 import json
 import luigi
+from collections import OrderedDict
+
+from analysis_tools.utils import create_file_dir
 
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import Fit
+from tasks.analysis import ScanCombineDQCD
+# import mplhep as hep
+# hep.style.use("CMS")
 
 class FeaturePlotDQCD(FeaturePlot):
     tight_region = luigi.Parameter(default="tight_bdt", description="region_name with the "
@@ -43,3 +49,57 @@ class FeaturePlotDQCD(FeaturePlot):
             d_loose["background"]["Total yield"]}
 
         super(FeaturePlotDQCD, self).run()
+
+
+class PlotCombineDQCD(ScanCombineDQCD):
+    def requires(self):
+        return ScanCombineDQCD.vreq(self)
+
+    def output(self):
+        return {
+            feature.name: self.local_target("plot__{}__{}.pdf".format(
+                feature.name, self.fit_config_file))
+            for feature in self.features
+        }
+
+    def plot(self, results, output_file):
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+        plt.rcParams['text.usetex'] = True
+        ax = plt.subplot()
+
+        for ival, values in enumerate(results.values()):
+            plt.fill_between((ival - 0.25, ival + 0.25), values["16.0"], values["84.0"],
+                # color="g", alpha=.5)
+                color="g")
+            plt.fill_between((ival - 0.25, ival + 0.25), values["84.0"], values["97.5"],
+                # color="y", alpha=.5)
+                color="y")
+            plt.fill_between((ival - 0.25, ival + 0.25), values["16.0"], values["2.5"],
+                # color="y", alpha=.5)
+                color="y")
+
+            plt.plot([ival - 0.25, ival + 0.25], [values["50.0"], values["50.0"]], color="k")
+
+        labels = ["%s" % self.config.processes.get(key).label for key in results]
+        plt.xticks(range(len(labels)), labels)
+
+        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
+        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
+            self.config.year, self.config.lumi_fb),
+            transform=ax.transAxes, ha="right")
+        if True:
+            plt.yscale('log')
+        plt.savefig(output_file)
+        plt.close('all')
+
+    def run(self):
+        inputs = self.input()
+        for feature in self.features:
+            results = OrderedDict()
+            for process_group_name in self.process_group_names:
+                with open(inputs[process_group_name][feature.name].path) as f:
+                    results[process_group_name] = json.load(f)
+            self.plot(results, create_file_dir(self.output()[feature.name].path))
+            
