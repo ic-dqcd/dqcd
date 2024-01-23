@@ -3,6 +3,8 @@ import luigi
 import law
 from copy import deepcopy as copy
 
+from analysis_tools.utils import create_file_dir
+
 from cmt.base_tasks.analysis import (
     Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine
 )
@@ -153,8 +155,32 @@ class ScanCombineDQCD(RunCombineDQCD):
                 process_group_name=process_group_name)
         return reqs
 
-    def complete(self):
-        return False
+    def output(self):
+        return {
+            process_group_name: {
+                feature.name: self.local_target("results_{}{}.json".format(
+                    feature.name, self.get_output_postfix(process_group_name=process_group_name)))
+                for feature in self.features
+            } for process_group_name in self.process_group_names
+        }
+
+    def combine_parser(self, filename):
+        import os
+        res = {}
+        with open(os.path.expandvars(filename), "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                if "Observed" in line:
+                    res["observed"] = float(line.split(" ")[-1][0:-1])
+                elif "Expected" in line:
+                    index = line.find("%")
+                    res[float(line[index - 4: index])] = float(line.split(" ")[-1][0:-1])
+        return res
 
     def run(self):
-        pass
+        inputs = self.input()
+        for pgn in self.process_group_names:
+            for feature in self.features:
+                res = self.combine_parser(inputs[pgn][feature.name]["txt"].path)
+                with open(create_file_dir(self.output()[pgn][feature.name].path), "w+") as f:
+                    json.dump(res, f, indent=4)
