@@ -30,19 +30,23 @@ class FeaturePlotDQCD(FeaturePlot):
 
         # FeaturePlots used for scaling the background, base category name, regions can be
         # added by the user
-        reqs["tight"] = FeaturePlot.req(self, category_name="base", region_name=self.tight_region,
-            save_yields=True, save_pdf=False, _exclude=['include_fit', 'counting'])
-        reqs["loose"] = FeaturePlot.req(self, category_name="base", region_name=self.loose_region,
-            save_yields=True, save_pdf=False, _exclude=['include_fit', 'counting'])
+        reqs["tight"] = FeaturePlot.req(self, version="muonsv_calibration", category_name="base",
+            region_name=self.tight_region, save_yields=True, save_pdf=False,
+            feature_names=("muonSV_bestchi2_mass_fullrange",),
+            _exclude=['include_fit', 'counting'])
+        reqs["loose"] = FeaturePlot.req(self, version="muonsv_calibration", category_name="base",
+            region_name=self.loose_region, save_yields=True, save_pdf=False,
+            feature_names=("muonSV_bestchi2_mass_fullrange",),
+            _exclude=['include_fit', 'counting'])
 
         return reqs
 
     def run(self):
         inputs = self.input()
-        assert self.feature_names == ("muonSV_bestchi2_mass",)
-        with open(inputs["tight"]["yields"].targets["muonSV_bestchi2_mass"].path) as f:
+        assert self.feature_names[0].startswith("muonSV_bestchi2_mass")
+        with open(inputs["tight"]["yields"].targets["muonSV_bestchi2_mass_fullrange"].path) as f:
             d_tight = json.load(f)
-        with open(inputs["loose"]["yields"].targets["muonSV_bestchi2_mass"].path) as f:
+        with open(inputs["loose"]["yields"].targets["muonSV_bestchi2_mass_fullrange"].path) as f:
             d_loose = json.load(f)
 
         self.additional_scaling = {"background": d_tight["background"]["Total yield"] /\
@@ -69,22 +73,30 @@ class PlotCombineDQCD(ScanCombineDQCD):
         plt.rcParams['text.usetex'] = True
         ax = plt.subplot()
 
+        def scale(val):
+            return val * 0.01
+
         for ival, values in enumerate(results.values()):
-            plt.fill_between((ival - 0.25, ival + 0.25), values["16.0"], values["84.0"],
+            plt.fill_between((ival - 0.25, ival + 0.25),
+                scale(values["16.0"]), scale(values["84.0"]),
                 # color="g", alpha=.5)
                 color="g")
-            plt.fill_between((ival - 0.25, ival + 0.25), values["84.0"], values["97.5"],
+            plt.fill_between((ival - 0.25, ival + 0.25),
+                scale(values["84.0"]), scale(values["97.5"]),
                 # color="y", alpha=.5)
                 color="y")
-            plt.fill_between((ival - 0.25, ival + 0.25), values["16.0"], values["2.5"],
+            plt.fill_between((ival - 0.25, ival + 0.25),
+                scale(values["16.0"]), scale(values["2.5"]),
                 # color="y", alpha=.5)
                 color="y")
 
-            plt.plot([ival - 0.25, ival + 0.25], [values["50.0"], values["50.0"]], color="k")
+            plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
+                color="k")
 
         labels = ["%s" % self.config.processes.get(key).label for key in results]
         plt.xticks(range(len(labels)), labels)
 
+        plt.ylabel(r"95$\%$ CL on BR(H$\to\Psi\Psi$)")
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
         plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
             self.config.year, self.config.lumi_fb),

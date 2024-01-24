@@ -13,6 +13,10 @@ class Config(legacy_config):
         regions = [
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
             Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
+            Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.45"),
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.99"),
+            Category("loose_bdt_scenarioB1", "Loose bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.45"),
+            Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.99"),
         ]
         return ObjectCollection(regions)
 

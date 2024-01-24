@@ -22,8 +22,8 @@ class CreateDatacardsDQCD(CreateDatacards):
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
-        assert "tight" in self.region_name
-        assert len(self.config.process_group_names[self.process_group_name]) == 3
+
+    def requires(self):
         for process in self.config.process_group_names[self.process_group_name]:
             if self.config.processes.get(process).isSignal:
                 signal_process = process
@@ -35,7 +35,6 @@ class CreateDatacardsDQCD(CreateDatacards):
                 self.models[signal_process] = copy(self.models[model])
                 del self.models[model]
 
-    def requires(self):
         reqs = CreateDatacards.requires(self)
         sigma = self.mass_point * 0.01
         fit_range = (self.mass_point - 5 * sigma, self.mass_point + 5 * sigma)
@@ -80,6 +79,8 @@ class CreateDatacardsDQCD(CreateDatacards):
         return reqs
 
     def run(self):
+        assert "tight" in self.region_name
+        assert len(self.config.process_group_names[self.process_group_name]) == 3
         inputs = self.input()
         with open(inputs["tight"][self.calibration_feature_name]["json"].path) as f:
             d_tight = json.load(f)
@@ -98,13 +99,21 @@ class CreateDatacardsDQCD(CreateDatacards):
 class CombineDatacardsDQCD(CombineDatacards, CreateDatacardsDQCD):
     fit_config_file = luigi.Parameter(default="fit_config", description="file including "
         "fit configuration, default: fit_config.yaml")
-    category_name = "base"
-    category_names = ("base",)
+    category_name = "base"  # placeholder
+    category_names = ("singlev", "multiv")  # placeholder
 
     def __init__(self, *args, **kwargs):
         super(CombineDatacardsDQCD, self).__init__(*args, **kwargs)
-        self.fit_config = self.config.get_fit_config(self.fit_config_file)
-        self.category_names = self.fit_config[self.process_group_name].keys()
+        self.fit_config = self.get_fit_config(self.fit_config_file)
+        if self.fit_config.get(self.process_group_name, False):
+            self.category_names = self.fit_config[self.process_group_name].keys()
+
+    def get_fit_config(self, filename):
+        import yaml
+        import os
+        from cmt.utils.yaml_utils import ordered_load
+        with open(os.path.expandvars("$CMT_BASE/../config/{}.yaml".format(filename))) as f:
+            return ordered_load(f, yaml.SafeLoader)
 
     def requires(self):
         return {
@@ -130,12 +139,13 @@ class RunCombineDQCD(RunCombine, CreateWorkspaceDQCD):
 class ScanCombineDQCD(RunCombineDQCD):
     process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
         "empty means all scenarios, default: empty")
-    process_group_name = "scenarioA_mpi_4_mA_1p33_ctau_10"  # placeholder
+    process_group_name = "default"  # placeholder
 
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
         if not self.process_group_names:
             self.process_group_names = self.fit_config.keys()
+        self.process_group_name = list(self.process_group_names)[0]
 
     def requires(self):
         reqs = {}
@@ -143,9 +153,15 @@ class ScanCombineDQCD(RunCombineDQCD):
             i = process_group_name.find("mA_")
             f = process_group_name.find("_ctau")
             mass_point = float(process_group_name[i + 3:f].replace("p", "."))
+            scenario = process_group_name[len("scenario"):process_group_name.find("_")]
             reqs[process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name)
+                process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}")
         return reqs
+
+    def store_parts(self):
+        parts = super(ScanCombineDQCD, self).store_parts()
+        del parts["category_name"]
+        return parts
 
     def output(self):
         return {
@@ -174,5 +190,14 @@ class ScanCombineDQCD(RunCombineDQCD):
         for pgn in self.process_group_names:
             for feature in self.features:
                 res = self.combine_parser(inputs[pgn][feature.name]["txt"].path)
+                if not res:
+                    print("Fit for %s did not converge. Filling with dummy values." % pgn)
+                    res = {
+                        "2.5": 1.,
+                        "16.0": 1.,
+                        "50.0": 1.,
+                        "84.0": 1.,
+                        "97.5": 1.
+                    }
                 with open(create_file_dir(self.output()[pgn][feature.name].path), "w+") as f:
                     json.dump(res, f, indent=4)
