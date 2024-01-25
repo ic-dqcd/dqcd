@@ -206,6 +206,9 @@ class Config(cmt_config):
                 "data",
                 "background",
             ],
+            "background": [
+                "background",
+            ],
             "full": [
                 # "ggf_sm",
                 # "data_tau",
@@ -995,6 +998,8 @@ class Config(cmt_config):
                         if children_process.name in syst.SystProcesses[isy]:
                             if syst_name not in systematics:
                                 systematics[syst_name] = {}
+                            iproc = syst.SystProcesses[isy].index(children_process.name)
+                            systVal = syst.SystValues[isy][iproc]
                             systematics[syst_name][original_process.name] = eval(systVal)
                             break
         return systematics

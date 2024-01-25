@@ -56,14 +56,16 @@ class CreateDatacardsDQCD(CreateDatacards):
                         params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
                         for param, value in fit_params["fit_parameters"].items()]) + "}"
 
-                        reqs["tight"] =  eval("Fit.vreq(self,version=self.version + '_calib', "
+                        reqs["tight"] =  eval("Fit.vreq(self, version='muonsv_calibration', "
                             f"{params}, _exclude=['include_fit'], "
                             "region_name=self.tight_region, "
+                            "process_group_name='background', "
                             f"feature_names=('{self.calibration_feature_name}',), "
                             "category_name='base')")
-                        reqs["loose"] =  eval(f"Fit.vreq(self, version=self.version + '_calib', "
+                        reqs["loose"] =  eval(f"Fit.vreq(self, version='muonsv_calibration', "
                             f"{params}, _exclude=['include_fit'], "
                             "region_name=self.loose_region, "
+                            "process_group_name='background', "
                             f"feature_names=('{self.calibration_feature_name}',), "
                             "category_name='base')")
 

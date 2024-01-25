@@ -33,10 +33,12 @@ class FeaturePlotDQCD(FeaturePlot):
         reqs["tight"] = FeaturePlot.req(self, version="muonsv_calibration", category_name="base",
             region_name=self.tight_region, save_yields=True, save_pdf=False,
             feature_names=("muonSV_bestchi2_mass_fullrange",),
+            process_group_name="background",
             _exclude=['include_fit', 'counting'])
         reqs["loose"] = FeaturePlot.req(self, version="muonsv_calibration", category_name="base",
             region_name=self.loose_region, save_yields=True, save_pdf=False,
             feature_names=("muonSV_bestchi2_mass_fullrange",),
+            process_group_name="background",
             _exclude=['include_fit', 'counting'])
 
         return reqs
