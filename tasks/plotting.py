@@ -4,11 +4,11 @@ from collections import OrderedDict
 
 from analysis_tools.utils import create_file_dir
 
+from cmt.base_tasks.base import CategoryWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import Fit
 from tasks.analysis import ScanCombineDQCD
-# import mplhep as hep
-# hep.style.use("CMS")
+
 
 class FeaturePlotDQCD(FeaturePlot):
     tight_region = luigi.Parameter(default="tight_bdt", description="region_name with the "
@@ -55,6 +55,11 @@ class FeaturePlotDQCD(FeaturePlot):
             d_loose["background"]["Total yield"]}
 
         super(FeaturePlotDQCD, self).run()
+
+
+class FeaturePlotDQCDWrapper(CategoryWrapperTask):
+    def atomic_requires(self, category_name):
+        return FeaturePlotDQCD.req(self, category_name=category_name)
 
 
 class PlotCombineDQCD(ScanCombineDQCD):
@@ -116,4 +121,3 @@ class PlotCombineDQCD(ScanCombineDQCD):
                 with open(inputs[process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
             self.plot(results, create_file_dir(self.output()[feature.name].path))
-            
