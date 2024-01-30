@@ -144,7 +144,6 @@ class ParamPlotDQCD(PlotCombineDQCD):
             results = OrderedDict()
             table = []
             for process_group_name in self.process_group_names:
-                print(inputs[process_group_name][feature.name])
                 with open(inputs[process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
                 params = process_group_name.split("_")
@@ -152,7 +151,6 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     "mass": params[4].replace("p", "."),
                     "lifetime": params[6].replace("p", "."),
                 }
-                print(results)
                 table.append([
                     params["mass"], params["lifetime"],
                     results[process_group_name]["2.5"], results[process_group_name]["16.0"],
