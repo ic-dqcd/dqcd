@@ -12,6 +12,8 @@ class Config(cmt_config):
     def __init__(self, *args, **kwargs):
         super(Config, self).__init__(*args, **kwargs)
         self.regions = self.add_regions()
+
+        # add new process_group_name for each signal sample
         for process in self.processes:
             if process.name.startswith("scenario") and "_" in process.name:
                 self.process_group_names[process.name] = [
@@ -235,6 +237,13 @@ class Config(cmt_config):
                 # "tt_dl",
                 "signal",
                 "data"
+            ],
+            "bkgscenario": [
+                "background",
+                "scenarioA_mpi_4_mA_1p33_ctau_10",
+                "scenarioB1_mpi_2_mA_0p40_ctau_1p0",
+                # "scenarioB2_mpi_2_mA_1p10_ctau_100",
+                # "scenarioC_mpi_4_mA_3p20_ctau_0p1"
             ],
         }
 
@@ -631,7 +640,8 @@ class Config(cmt_config):
                 x_title=Label("nJet")),
             Feature("jet_pt", "Jet_pt", binning=(30, 0, 150),
                 x_title=Label("jet p_{T}"),
-                units="GeV"),
+                units="GeV",
+                central="jet_smearing"),
             Feature("jet_eta", "Jet_eta", binning=(50, -5, 5),
                 x_title=Label("jet #eta"),),
             Feature("jet_phi", "Jet_phi", binning=(48, -6, 6),
@@ -672,6 +682,9 @@ class Config(cmt_config):
                 x_title=Label("jet muonIdx1")),
             Feature("jet_muonIdx2", "Jet_muonIdx2", binning=(10, -0.5, 9.5),
                 x_title=Label("jet muonIdx2")),
+
+            Feature("jet_selected", "{{jet_pt}}[Jet_selected > 0].size()", binning=(6, -0.5, 5.5),
+                x_title=Label("Number of selected jets")),
 
             Feature("nmuon", "nMuonBPark", binning=(10, -0.5, 9.5),
                 x_title=Label("nMuon")),
@@ -843,7 +856,7 @@ class Config(cmt_config):
                 x_title=Label("SV chi2")),
             Feature("sv_pAngle", "SV_pAngle", binning=(70, 0, 3.5),
                 x_title=Label("SV pAngle")),
-             Feature("sv_ndof", "SV_ndof", binning=(15, -0.5, 14.5),
+            Feature("sv_ndof", "SV_ndof", binning=(15, -0.5, 14.5),
                 x_title=Label("SV ndof")),
 
             Feature("nsv", "nsv", binning=(10, -0.5, 9.5),
@@ -866,11 +879,18 @@ class Config(cmt_config):
             Feature("bdt", "bdt_scenarioA", binning=(20, 0, 1),
                 x_title=Label("BDT score"),
             ),
-            Feature("bdt_scenarioA", "bdt_scenarioA", binning=(20, 0, 1),
+            # Feature("bdt_scenarioA", "bdt_scenarioA", binning=(20, 0, 1),
+            Feature("bdt_scenarioA", "bdt_new_scenarioA", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario A)"),
             ),
             Feature("bdt_scenarioB1", "bdt_scenarioB1", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario B1)"),
+            ),
+            Feature("bdt_scenarioB2", "bdt_new_scenarioB2", binning=(20, 0, 1),
+                x_title=Label("BDT score (scenario B2)"),
+            ),
+            Feature("bdt_scenarioC", "bdt_new_scenarioC", binning=(20, 0, 1),
+                x_title=Label("BDT score (scenario C)"),
             ),
 
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
@@ -921,7 +941,7 @@ class Config(cmt_config):
 
     def add_systematics(self):
         systematics = [
-            # Systematic("jet_smearing", "_nom"),
+            Systematic("jet_smearing", "_nom"),
             # Systematic("met_smearing", ("MET", "MET_smeared")),
             Systematic("pu", "", up="Up", down="Down"),
             Systematic("id", ""),
