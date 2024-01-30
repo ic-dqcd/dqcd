@@ -3,8 +3,9 @@ import luigi
 import law
 from copy import deepcopy as copy
 
-from analysis_tools.utils import create_file_dir
+from analysis_tools.utils import create_file_dir, import_root
 
+from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
     Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine
 )
@@ -56,13 +57,13 @@ class CreateDatacardsDQCD(CreateDatacards):
                         params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
                         for param, value in fit_params["fit_parameters"].items()]) + "}"
 
-                        reqs["tight"] =  eval("Fit.vreq(self, version='muonsv_calibration', "
+                        reqs["tight"] =  eval("Fit.vreq(self, version='muonsv_calibration_v2', "
                             f"{params}, _exclude=['include_fit'], "
                             "region_name=self.tight_region, "
                             "process_group_name='background', "
                             f"feature_names=('{self.calibration_feature_name}',), "
                             "category_name='base')")
-                        reqs["loose"] =  eval(f"Fit.vreq(self, version='muonsv_calibration', "
+                        reqs["loose"] =  eval(f"Fit.vreq(self, version='muonsv_calibration_v2', "
                             f"{params}, _exclude=['include_fit'], "
                             "region_name=self.loose_region, "
                             "process_group_name='background', "
@@ -203,3 +204,62 @@ class ScanCombineDQCD(RunCombineDQCD):
                     }
                 with open(create_file_dir(self.output()[pgn][feature.name].path), "w+") as f:
                     json.dump(res, f, indent=4)
+
+
+class InspectPlotDQCD(ScanCombineDQCD):
+    def requires(self):
+        reqs = {}
+        for process_group_name in self.process_group_names:
+            scenario = process_group_name[len("scenario"):process_group_name.find("_")]
+            tight_region = f"tight_bdt_scenario{scenario}"
+            loose_region = f"loose_bdt_scenario{scenario}"
+
+            reqs[process_group_name] = {}
+            for category_name in self.fit_config[process_group_name].keys():
+                reqs[process_group_name][category_name] = {
+                    "signal": FeaturePlot.vreq(
+                        self, save_root=True, stack=True, hide_data=False, normalize_signals=False,
+                        process_group_name=process_group_name, region_name=tight_region,
+                        category_name=category_name),
+                    "background": FeaturePlot.vreq(
+                        self, save_root=True, stack=True, hide_data=False, normalize_signals=False,
+                        process_group_name=process_group_name, region_name=loose_region,
+                        category_name=category_name)
+                    }
+        return reqs
+
+    def output(self):
+        return {
+            process_group_name: {
+                feature.name: self.local_target("results_{}{}.root".format(
+                    feature.name, self.get_output_postfix(process_group_name=process_group_name)))
+                for feature in self.features
+            } for process_group_name in self.process_group_names
+        }
+
+    def run(self):
+        ROOT = import_root()
+        inputs = self.input()
+        for pgn in self.process_group_names:
+            for feature in self.features:
+                out_tf = ROOT.TFile.Open(create_file_dir(self.output()[pgn][feature.name].path),
+                    "RECREATE")
+                for cat in self.fit_config[pgn].keys():
+                    signal_tf = ROOT.TFile.Open(
+                        inputs[pgn][cat]["signal"]["root"].targets[feature.name].path)
+                    bkg_tf = ROOT.TFile.Open(
+                        inputs[pgn][cat]["background"]["root"].targets[feature.name].path)
+                    for process in self.config.process_group_names[pgn]:
+                        if self.config.processes.get(process).isSignal:
+                            signal_tf.cd()
+                            signal_histo = copy(signal_tf.Get("histograms/" + process))
+                            out_tf.cd()
+                            signal_histo.Write(f"{process}__{cat}")
+                        elif process == "background":
+                            bkg_tf.cd()
+                            bkg_histo = copy(bkg_tf.Get("histograms/" + process))
+                            out_tf.cd()
+                            bkg_histo.Write(f"{process}__{cat}")
+                    signal_tf.Close()
+                    bkg_tf.Close()
+                out_tf.Close()
