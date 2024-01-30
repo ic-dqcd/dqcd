@@ -2,6 +2,7 @@ import json
 import luigi
 from collections import OrderedDict
 import numpy as np
+import tabulate
 
 from analysis_tools.utils import create_file_dir
 
@@ -124,3 +125,43 @@ class PlotCombineDQCD(ScanCombineDQCD):
                 with open(inputs[process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
             self.plot(results, create_file_dir(self.output()[feature.name].path))
+
+
+class ParamPlotDQCD(PlotCombineDQCD):
+    def output(self):
+        return {
+            feature.name: 
+                {
+                    "txt": self.local_target("limits__{}__{}.csv".format(
+                        feature.name, self.fit_config_file))
+                }
+            for feature in self.features
+        }
+
+    def run(self):
+        inputs = self.input()
+        for feature in self.features:
+            results = OrderedDict()
+            table = []
+            for process_group_name in self.process_group_names:
+                print(inputs[process_group_name][feature.name])
+                with open(inputs[process_group_name][feature.name].path) as f:
+                    results[process_group_name] = json.load(f)
+                params = process_group_name.split("_")
+                params = {
+                    "mass": params[4].replace("p", "."),
+                    "lifetime": params[6].replace("p", "."),
+                }
+                print(results)
+                table.append([
+                    params["mass"], params["lifetime"],
+                    results[process_group_name]["2.5"], results[process_group_name]["16.0"],
+                    results[process_group_name]["50.0"], results[process_group_name]["84.0"],
+                    results[process_group_name]["97.5"], 
+                ])
+            content = tabulate.tabulate(table, tablefmt="csv", headers=[
+                "mass", "lifetime", "Expected 2.5%", "Expected 16.0%",
+                "Expected 50%", "Expected 84.0%", "Expected 97.5%",
+            ])
+            with open(create_file_dir(self.output()[feature.name]["txt"].path), "w") as fout:
+                fout.write(content)
