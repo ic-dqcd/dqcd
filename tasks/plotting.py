@@ -1,6 +1,7 @@
 import json
 import luigi
 from collections import OrderedDict
+import numpy as np
 
 from analysis_tools.utils import create_file_dir
 
@@ -78,6 +79,7 @@ class PlotCombineDQCD(ScanCombineDQCD):
         matplotlib.use("Agg")
         from matplotlib import pyplot as plt
         plt.rcParams['text.usetex'] = True
+
         ax = plt.subplot()
 
         def scale(val):
@@ -100,8 +102,9 @@ class PlotCombineDQCD(ScanCombineDQCD):
             plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
                 color="k")
 
-        labels = ["%s" % self.config.processes.get(key).label for key in results]
-        plt.xticks(range(len(labels)), labels)
+        labels = ["%s" % self.config.processes.get(key).label.latex for key in results]
+        ax.set_xticks(list(range(len(labels))))
+        ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
         plt.ylabel(r"95$\%$ CL on BR(H$\to\Psi\Psi$)")
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
@@ -110,7 +113,7 @@ class PlotCombineDQCD(ScanCombineDQCD):
             transform=ax.transAxes, ha="right")
         if True:
             plt.yscale('log')
-        plt.savefig(output_file)
+        plt.savefig(output_file, bbox_inches='tight')
         plt.close('all')
 
     def run(self):
