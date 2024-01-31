@@ -2,7 +2,6 @@ import json
 import luigi
 from collections import OrderedDict
 import numpy as np
-import tabulate
 
 from analysis_tools.utils import create_file_dir
 
@@ -142,7 +141,10 @@ class ParamPlotDQCD(PlotCombineDQCD):
         inputs = self.input()
         for feature in self.features:
             results = OrderedDict()
-            table = []
+            table = [[
+                "mass", "lifetime", "Expected 2.5%", "Expected 16.0%",
+                "Expected 50%", "Expected 84.0%", "Expected 97.5%",
+            ]]
             for process_group_name in self.process_group_names:
                 with open(inputs[process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
@@ -157,9 +159,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     results[process_group_name]["50.0"], results[process_group_name]["84.0"],
                     results[process_group_name]["97.5"], 
                 ])
-            content = tabulate.tabulate(table, tablefmt="csv", headers=[
-                "mass", "lifetime", "Expected 2.5%", "Expected 16.0%",
-                "Expected 50%", "Expected 84.0%", "Expected 97.5%",
-            ])
-            with open(create_file_dir(self.output()[feature.name]["txt"].path), "w") as fout:
-                fout.write(content)
+            with open(create_file_dir(self.output()[feature.name]["txt"].path), "w+") as fout:
+                for line in table:
+                    print(line)
+                    fout.write(",".join([str(elem) for elem in line]) + "\n")

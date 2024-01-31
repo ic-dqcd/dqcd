@@ -156,6 +156,10 @@ class ScanCombineDQCD(RunCombineDQCD):
             i = process_group_name.find("mA_")
             f = process_group_name.find("_ctau")
             mass_point = float(process_group_name[i + 3:f].replace("p", "."))
+            if mass_point == 0.33:
+                mass_point = 0.333
+            elif mass_point == 0.67:
+                mass_point = 0.667
             scenario = process_group_name[len("scenario"):process_group_name.find("_")]
             reqs[process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
                 process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}")
