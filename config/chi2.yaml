@@ -3,3 +3,27 @@ chi2:
     path: modules.muonsv_selection
     parameters:
         year: self.config.year
+
+bdt_inference_a:
+    name: DQCDULBDT
+    path: DQCD.Modules.BDTULinference
+    parameters:
+        isMC: self.dataset.process.isMC
+        scenario: A
+        bdt_name: bdt_new_scenarioA
+
+bdt_inference_b2:
+    name: DQCDULBDT
+    path: DQCD.Modules.BDTULinference
+    parameters:
+        isMC: self.dataset.process.isMC
+        scenario: B2
+        bdt_name: bdt_new_scenarioB2
+
+bdt_inference_c:
+    name: DQCDULBDT
+    path: DQCD.Modules.BDTULinference
+    parameters:
+        isMC: self.dataset.process.isMC
+        scenario: C
+        bdt_name: bdt_new_scenarioC

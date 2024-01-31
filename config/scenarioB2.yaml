@@ -1,0 +1,144 @@
+scenarioB2_mpi_1_mA_0p60_ctau_0p1:
+    singlev_cat3: True
+    singlev_cat4: True
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_1_mA_0p60_ctau_10:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_1_mA_0p60_ctau_100:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_1_mA_0p60_ctau_1p0:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_2_mA_1p10_ctau_0p1:
+    singlev_cat3: True
+    singlev_cat4: True
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_2_mA_1p10_ctau_10:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_2_mA_1p10_ctau_100:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_2_mA_1p10_ctau_1p0:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_4_mA_2p10_ctau_0p1:
+    singlev_cat3: True
+    singlev_cat4: True
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_4_mA_2p10_ctau_10:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_4_mA_2p10_ctau_100:
+    singlev_cat3: True
+    singlev_cat4: True
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+
+scenarioB2_mpi_4_mA_2p10_ctau_1p0:
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: True
+    singlev_cat6: True
+    multiv_cat1: True
+    multiv_cat2: True
+    multiv_cat3: True
+    multiv_cat4: True
+    multiv_cat5: True
+    multiv_cat6: True
+

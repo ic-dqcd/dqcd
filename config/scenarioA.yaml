@@ -71,8 +71,8 @@ scenarioA_mpi_2_mA_0p67_ctau_10:
     multiv_cat6: True
 
 scenarioA_mpi_2_mA_0p67_ctau_100:
-    singlev_cat3: False
-    singlev_cat4: False
+    singlev_cat3: True
+    singlev_cat4: True
     singlev_cat5: True
     singlev_cat6: True
     multiv_cat1: True
@@ -84,7 +84,7 @@ scenarioA_mpi_2_mA_0p67_ctau_100:
 
 scenarioA_mpi_2_mA_0p67_ctau_1p0:
     singlev_cat3: False
-    singlev_cat4: False
+    singlev_cat4: True
     singlev_cat5: True
     singlev_cat6: True
     multiv_cat1: True
@@ -203,8 +203,8 @@ scenarioA_mpi_10_mA_1p00_ctau_0p1:
     multiv_cat6: True
 
 scenarioA_mpi_10_mA_1p00_ctau_10:
-    singlev_cat3: False
-    singlev_cat4: False
+    singlev_cat3: True
+    singlev_cat4: True
     singlev_cat5: True
     singlev_cat6: True
     multiv_cat1: True
