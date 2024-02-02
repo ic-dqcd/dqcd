@@ -190,7 +190,7 @@ class Config(legacy_config):
                 skipFiles=["{}/output_{}.root".format(
                     sample_path + samples["qcd_470to600"], i)
                     for i in range(1, 51)],
-                process=self.processes.get("qcd"),
+                process=self.processes.get("qcd_470to600"),
                 xs=xs["qcd_470to600"],
                 merging={
                     "base": 10,
@@ -243,6 +243,7 @@ class Config(legacy_config):
                 xs=xs["qcd_800to1000"],
                 merging={
                     "base": 10,
+                    "singlev_cat3": 10
                 },
                 skipped_files_must_be_in_dataset=False,
             ),

@@ -23,8 +23,11 @@ class CreateDatacardsDQCD(CreateDatacards):
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
+        if self.process_group_name != "default":
+            self.models = self.modify_models()
 
-    def requires(self):
+    def modify_models(self):
+        new_models = {}
         for process in self.config.process_group_names[self.process_group_name]:
             if self.config.processes.get(process).isSignal:
                 signal_process = process
@@ -32,10 +35,22 @@ class CreateDatacardsDQCD(CreateDatacards):
         for model in self.models:
             process_name = self.models[model]["process_name"]
             if process_name != signal_process and self.config.processes.get(process_name).isSignal:
-                self.models[model]["process_name"] = signal_process
-                self.models[signal_process] = copy(self.models[model])
-                del self.models[model]
+                # swap signal appearing in the model with the signal of this process_group_name
+                new_models[signal_process] = copy(self.models[model])
+                new_models[signal_process]["process_name"] = signal_process
+            elif not self.config.processes.get(process_name).isSignal and \
+                    not self.config.processes.get(process_name).isData and self.counting:
+                # swap background appearing in the model with all separate qcd samples
+                for process in self.config.process_group_names[self.process_group_name]:
+                    if not self.config.processes.get(process).isSignal and \
+                            not self.config.processes.get(process).isData:
+                        new_models[process] = copy(self.models[model])
+                        new_models[process]["process_name"] = process
+            else:
+                new_models[model] = copy(self.models[model])
+        return new_models
 
+    def requires(self):
         reqs = CreateDatacards.requires(self)
         sigma = self.mass_point * 0.01
         fit_range = (self.mass_point - 5 * sigma, self.mass_point + 5 * sigma)
@@ -43,47 +58,67 @@ class CreateDatacardsDQCD(CreateDatacards):
         loose_region = self.region.name.replace("tight", "loose")
         for process in reqs["fits"]:
             reqs["fits"][process].x_range = fit_range
-            if process == "background":
+            if process == "data_obs":
+                continue  # FIXME
+            if not self.config.processes.get(process).isSignal and \
+                    not self.config.processes.get(process).isData:
                 reqs["fits"][process].region_name = loose_region
             else:
                 reqs["fits"][process].region_name = self.region_name  # probably redundant
 
-            for model, fit_params in self.models.items():
-                fit_params["x_range"] = str(fit_range)[1:-1]
-                if fit_params["process_name"] == "background":
-                    params = ", ".join([f"{param}='{value}'"
-                        for param, value in fit_params.items() if param != "fit_parameters"])
-                    if "fit_parameters" in fit_params:
-                        params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
-                        for param, value in fit_params["fit_parameters"].items()]) + "}"
+        # get models for background scaling
+        background_model_found = False
+        for model, fit_params in self.models.items():
+            fit_params["x_range"] = str(fit_range)[1:-1]
+            # look for background or qcd_*
+            if model == "data_obs": # FIXME
+                continue
+            process = fit_params["process_name"]
+            if not self.config.processes.get(process).isSignal and \
+                    not self.config.processes.get(process).isData and not background_model_found:
+                background_model_found = True  # avoid looping over all qcd processes
+                new_fit_params = copy(fit_params)
+                new_fit_params["process_name"] = "background"
+                params = ", ".join([f"{param}='{value}'"
+                    for param, value in new_fit_params.items() if param != "fit_parameters"])
+                if "fit_parameters" in new_fit_params:
+                    params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
+                    for param, value in new_fit_params["fit_parameters"].items()]) + "}"
 
-                        reqs["tight"] =  eval("Fit.vreq(self, version='muonsv_calibration_v2', "
-                            f"{params}, _exclude=['include_fit'], "
-                            "region_name=self.tight_region, "
-                            "process_group_name='background', "
-                            f"feature_names=('{self.calibration_feature_name}',), "
-                            "category_name='base')")
-                        reqs["loose"] =  eval(f"Fit.vreq(self, version='muonsv_calibration_v2', "
-                            f"{params}, _exclude=['include_fit'], "
-                            "region_name=self.loose_region, "
-                            "process_group_name='background', "
-                            f"feature_names=('{self.calibration_feature_name}',), "
-                            "category_name='base')")
+                reqs["tight"] =  eval("Fit.vreq(self, version='muonsv_calibration_v2', "
+                    f"{params}, _exclude=['include_fit'], "
+                    "region_name=self.tight_region, "
+                    "process_group_name='background', "
+                    f"feature_names=('{self.calibration_feature_name}',), "
+                    "category_name='base')")
+                reqs["loose"] =  eval(f"Fit.vreq(self, version='muonsv_calibration_v2', "
+                    f"{params}, _exclude=['include_fit'], "
+                    "region_name=self.loose_region, "
+                    "process_group_name='background', "
+                    f"feature_names=('{self.calibration_feature_name}',), "
+                    "category_name='base')")
 
         if self.counting:  # counting
             blind_range = (str(self.mass_point - 2 * sigma), str(self.mass_point + 2 * sigma))
             for process in reqs["fits"]:
-                if process == "background":
+                if process == "data_obs": # FIXME
+                    reqs["fits"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                elif not self.config.processes.get(process).isSignal and \
+                        not self.config.processes.get(process).isData:
                     reqs["fits"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
                     reqs["fits"][process].blind_range = blind_range
+                    reqs["inspections"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                    reqs["inspections"][process].blind_range = blind_range
+                    reqs["inspections"][process].process_name = "background"
+                    reqs["inspections"][process].process_group_name = self.process_group_name[len("qcd_"):]
                 else:
                     reqs["fits"][process].x_range = blind_range
+                    reqs["inspections"][process].x_range = blind_range
 
         return reqs
 
     def run(self):
         assert "tight" in self.region_name
-        assert len(self.config.process_group_names[self.process_group_name]) == 3
         inputs = self.input()
         with open(inputs["tight"][self.calibration_feature_name]["json"].path) as f:
             d_tight = json.load(f)
@@ -94,7 +129,11 @@ class CreateDatacardsDQCD(CreateDatacards):
         if not self.counting:
             self.additional_scaling = {"background": additional_scaling}
         else:
-            self.additional_scaling = {"background": additional_scaling * 2/3}
+            self.additional_scaling = {}
+            for process in self.config.process_group_names[self.process_group_name]:
+                if not self.config.processes.get(process).isSignal and \
+                        not self.config.processes.get(process).isData:
+                    self.additional_scaling[process] = additional_scaling * 2/3
 
         super(CreateDatacardsDQCD, self).run()
 
@@ -119,12 +158,16 @@ class CombineDatacardsDQCD(CombineDatacards, CreateDatacardsDQCD):
             return ordered_load(f, yaml.SafeLoader)
 
     def requires(self):
-        return {
-            category_name: CreateDatacardsDQCD.vreq(self, category_name=category_name,
-                counting=self.fit_config[self.process_group_name][category_name],
+        reqs = {}
+        for category_name in self.category_names:
+            counting = self.fit_config[self.process_group_name][category_name]
+            process_group_name = (self.process_group_name if not counting
+                else "qcd_" + self.process_group_name)
+            reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
+                counting=counting, process_group_name=process_group_name,
                 _exclude=["category_names"])
-            for category_name in self.category_names
-        }
+
+        return reqs
 
 
 class CreateWorkspaceDQCD(CreateWorkspace, CombineDatacardsDQCD):

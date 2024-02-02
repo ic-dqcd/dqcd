@@ -105,7 +105,14 @@ class PlotCombineDQCD(ScanCombineDQCD):
 
         labels = ["%s" % self.config.processes.get(key).label.latex for key in results]
         ax.set_xticks(list(range(len(labels))))
-        ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
+
+        if len(labels) <= 4:
+            for ilabel, label in enumerate(labels):
+                index = label.find("$m_{A}")
+                labels[ilabel] = label[:label.find("$m_{A}")] + "\n" + label[label.find("$m_{A}"):]
+            ax.set_xticklabels(labels)
+        else:
+            ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
         plt.ylabel(r"95$\%$ CL on BR(H$\to\Psi\Psi$)")
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)

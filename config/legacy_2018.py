@@ -22,6 +22,25 @@ class Config(cmt_config):
                     process.name
                 ]
 
+        for process in self.processes:
+            if process.name.startswith("scenario") and "_" in process.name:
+                self.process_group_names["qcd_" + process.name] = [
+                    "data",
+                    "qcd_1000toInf",
+                    "qcd_120to170",
+                    "qcd_15to20",
+                    "qcd_170to300",
+                    "qcd_20to30",
+                    "qcd_300to470",
+                    "qcd_30to50",
+                    "qcd_470to600",
+                    "qcd_50to80",
+                    "qcd_600to800",
+                    "qcd_80to120",
+                    "qcd_800to1000",
+                    process.name
+                ]
+
     def add_regions(self, **kwargs):
         regions = [
             Category("signal", "Signal region", selection="{{bdt}} > 0.85"),
@@ -897,8 +916,11 @@ class Config(cmt_config):
             # Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(1000, 0, 4),
             Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
-                units="GeV",
-                blinded_range=[1.5, 2.5]),
+                units="GeV"),
+            Feature("muonSV_bestchi2_mass_0p33", "muonSV_bestchi2_mass",
+                binning=(50, 0.333 - 5 * 0.01 * 0.333, 0.333 + 5 * 0.01 * 0.333),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                units="GeV"),
             Feature("muonSV_bestchi2_mass_fullrange", "muonSV_bestchi2_mass", binning=(8270, 0, 22),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV"),
