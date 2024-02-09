@@ -9,7 +9,7 @@ from analysis_tools.utils import create_file_dir
 from cmt.base_tasks.base import CategoryWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import Fit
-from tasks.analysis import ScanCombineDQCD
+from tasks.analysis import CombineDatacardsDQCD, ProcessGroupNameWrapper, ScanCombineDQCD
 
 
 class FeaturePlotDQCD(FeaturePlot):
@@ -64,9 +64,9 @@ class FeaturePlotDQCDWrapper(CategoryWrapperTask):
         return FeaturePlotDQCD.req(self, category_name=category_name)
 
 
-class PlotCombineDQCD(ScanCombineDQCD):
+class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
     def requires(self):
-        return ScanCombineDQCD.vreq(self)
+        return ScanCombineDQCD.vreq(self, combine_categories=True)
 
     def output(self):
         return {
@@ -128,8 +128,8 @@ class PlotCombineDQCD(ScanCombineDQCD):
         inputs = self.input()
         for feature in self.features:
             results = OrderedDict()
-            for process_group_name in self.process_group_names:
-                with open(inputs[process_group_name][feature.name].path) as f:
+            for ip, process_group_name in enumerate(self.process_group_names):
+                with open(inputs["collection"].targets[0][process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
             self.plot(results, create_file_dir(self.output()[feature.name].path))
 
@@ -151,7 +151,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
             results = OrderedDict()
             table = []
             for process_group_name in self.process_group_names:
-                with open(inputs[process_group_name][feature.name].path) as f:
+                with open(inputs["collection"].targets[0][process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
                 params = process_group_name.split("_")
                 params = {
@@ -173,3 +173,103 @@ class ParamPlotDQCD(PlotCombineDQCD):
             with open(create_file_dir(self.output()[feature.name]["txt"].path), "w+") as fout:
                 for line in table:
                     fout.write(",".join([str(elem) for elem in line]) + "\n")
+
+
+class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
+    def requires(self):
+        return {
+            "cat": ScanCombineDQCD.vreq(self, combine_categories=False),
+            "combined": ScanCombineDQCD.vreq(self, combine_categories=True),
+        }
+
+    def output(self):
+        return {
+            process_group_name: {
+                feature.name: self.local_target("plot__{}__{}.pdf".format(
+                    feature.name, self.fit_config_file))
+                for feature in self.features
+            } for process_group_name in self.process_group_names
+        }
+
+    def plot(self, results, output_file, inner_text=None):
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+        plt.rcParams['text.usetex'] = True
+
+        ax = plt.subplot()
+
+        def scale(val):
+            return val * 0.01
+
+        vals = []
+
+        for ival, values in enumerate(results.values()):
+            plt.fill_between((ival - 0.25, ival + 0.25),
+                scale(values["16.0"]), scale(values["84.0"]),
+                # color="g", alpha=.5)
+                color="g")
+            plt.fill_between((ival - 0.25, ival + 0.25),
+                scale(values["84.0"]), scale(values["97.5"]),
+                # color="y", alpha=.5)
+                color="y")
+            plt.fill_between((ival - 0.25, ival + 0.25),
+                scale(values["16.0"]), scale(values["2.5"]),
+                # color="y", alpha=.5)
+                color="y")
+
+            plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
+                color="k")
+
+            vals += list(values.values())
+
+        min_val = scale(min(vals))
+        max_val = scale(max(vals))
+
+        labels = [f"{self.config.categories.get(key).label}"
+            for key in list(results.keys())[:-1]]
+        labels.append("Combined")
+        plt.plot([len(labels) - 1.5, len(labels) - 1.5], [0, 100], color="k")
+        ax.set_xticks(list(range(len(labels))))
+
+        ax.set_ybound(0.5 * min_val, 2 * max_val)
+        ax.set_ylim(0.5 * min_val, 2 * max_val)
+        ax.set_xbound(-0.5, len(labels) - 0.5)
+        ax.set_xlim(-0.5, len(labels) - 0.5)
+
+        if len(labels) <= 4:
+            for ilabel, label in enumerate(labels):
+                index = label.find("$m_{A}")
+                labels[ilabel] = label[:label.find("$m_{A}")] + "\n" + label[label.find("$m_{A}"):]
+            ax.set_xticklabels(labels)
+        else:
+            ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
+
+        plt.ylabel(r"95$\%$ CL on BR(H$\to\Psi\Psi$)")
+        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
+        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
+            self.config.year, self.config.lumi_fb),
+            transform=ax.transAxes, ha="right")
+        plt.text(0.5, 0.95, inner_text, transform=ax.transAxes, ha="center")
+        if True:
+            plt.yscale('log')
+        plt.savefig(output_file, bbox_inches='tight')
+
+        print(ax.get_ybound(), ax.get_ylim())
+
+        plt.close('all')
+
+    def run(self):
+        inputs = self.input()
+        for feature in self.features:
+            for process_group_name in self.process_group_names:
+                results = OrderedDict()
+                for ip, category_name in enumerate(self.fit_config[self.process_group_name].keys()):
+                    with open(inputs["cat"]["collection"].targets[ip][process_group_name][feature.name].path) as f:
+                        results[category_name] = json.load(f)
+                with open(inputs["combined"]["collection"].targets[0][process_group_name][feature.name].path) as f:
+                    results["Combined"] = json.load(f)
+
+                self.plot(results, create_file_dir(
+                    self.output()[process_group_name][feature.name].path),
+                    inner_text=self.config.processes.get(process_group_name).label.latex)

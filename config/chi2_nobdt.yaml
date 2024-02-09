@@ -1,0 +1,13 @@
+chi2:
+    name: DummyMinChi2RDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
+bdt_inference_a:
+    name: DQCDULBDTNoJet
+    path: DQCD.Modules.BDTULinferenceNoJet
+    parameters:
+        isMC: self.dataset.process.isMC
+        scenario: A
+        bdt_name: bdt_scenarioA_nojetsel

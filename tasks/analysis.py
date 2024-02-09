@@ -5,6 +5,7 @@ from copy import deepcopy as copy
 
 from analysis_tools.utils import create_file_dir, import_root
 
+from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
     Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine
@@ -172,27 +173,54 @@ class CombineDatacardsDQCD(CombineDatacards, CreateDatacardsDQCD):
 
 class CreateWorkspaceDQCD(CreateWorkspace, CombineDatacardsDQCD):
     def requires(self):
-        return CombineDatacardsDQCD.vreq(self)
+        if self.combine_categories:
+            return CombineDatacardsDQCD.vreq(self)
+        reqs = {}
+        for category_name in self.category_names:
+            counting = self.fit_config[self.process_group_name][category_name]
+            process_group_name = (self.process_group_name if not counting
+                else "qcd_" + self.process_group_name)
+            reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
+                counting=counting, process_group_name=process_group_name)
+        return reqs
+
+    def workflow_requires(self):
+        if self.combine_categories:
+            return {"data": CombineDatacardsDQCD.vreq(self)}
+        reqs = {"data": {}}
+        for category_name in self.category_names:
+            counting = self.fit_config[self.process_group_name][category_name]
+            process_group_name = (self.process_group_name if not counting
+                else "qcd_" + self.process_group_name)
+            reqs["data"][category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
+                counting=counting, process_group_name=process_group_name)
+        return reqs
 
 
 class RunCombineDQCD(RunCombine, CreateWorkspaceDQCD):
     method = "limits"
 
+    def workflow_requires(self):
+        return {"data": CreateWorkspaceDQCD.vreq(self)}
+
     def requires(self):
         return CreateWorkspaceDQCD.vreq(self)
 
 
-class ScanCombineDQCD(RunCombineDQCD):
+class ProcessGroupNameWrapper(law.Task):
     process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
         "empty means all scenarios, default: empty")
     process_group_name = "default"  # placeholder
 
     def __init__(self, *args, **kwargs):
-        super(ScanCombineDQCD, self).__init__(*args, **kwargs)
+        super(ProcessGroupNameWrapper, self).__init__(*args, **kwargs)
         if not self.process_group_names:
             self.process_group_names = self.fit_config.keys()
         self.process_group_name = list(self.process_group_names)[0]
+        self.category_names = self.fit_config[self.process_group_name].keys()
 
+
+class ScanCombineDQCD(ProcessGroupNameWrapper, RunCombineDQCD):
     def requires(self):
         reqs = {}
         for process_group_name in self.process_group_names:
@@ -205,19 +233,34 @@ class ScanCombineDQCD(RunCombineDQCD):
                 mass_point = 0.667
             scenario = process_group_name[len("scenario"):process_group_name.find("_")]
             reqs[process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}")
+                process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}",
+                category_names = self.fit_config[self.process_group_name].keys())
         return reqs
 
-    def store_parts(self):
-        parts = super(ScanCombineDQCD, self).store_parts()
-        del parts["category_name"]
-        return parts
+    def workflow_requires(self):
+        reqs = {"data": {}}
+        for process_group_name in self.process_group_names:
+            i = process_group_name.find("mA_")
+            f = process_group_name.find("_ctau")
+            mass_point = float(process_group_name[i + 3:f].replace("p", "."))
+            if mass_point == 0.33:
+                mass_point = 0.333
+            elif mass_point == 0.67:
+                mass_point = 0.667
+            scenario = process_group_name[len("scenario"):process_group_name.find("_")]
+            reqs["data"][process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
+                process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}",
+                category_names=self.fit_config[self.process_group_name].keys())
+        return reqs
 
     def output(self):
+        assert not self.combine_categories or (
+            self.combine_categories and len(self.category_names) > 1)
         return {
             process_group_name: {
                 feature.name: self.local_target("results_{}{}.json".format(
-                    feature.name, self.get_output_postfix(process_group_name=process_group_name)))
+                    feature.name, self.get_output_postfix(process_group_name=process_group_name,
+                        category_names=self.fit_config[self.process_group_name].keys())))
                 for feature in self.features
             } for process_group_name in self.process_group_names
         }
