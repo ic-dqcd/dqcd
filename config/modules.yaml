@@ -1,3 +1,11 @@
+
+met:
+    name: MetFilterRDF
+    path: Base.Modules.METfilters
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+
 muon:
     name: DQCDMuonSelectionRDF
     path: modules.muon_selection

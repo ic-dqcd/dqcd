@@ -276,6 +276,7 @@ class Config(legacy_config):
                 },
                 tags=["ul"],
                 runPeriod="D",
+                # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="output_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root"
             ),
 
@@ -863,7 +864,8 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
+        weights.base = ["puWeight", "idWeight", "trigSF"]  # others needed
+        #weights.base = ["puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:

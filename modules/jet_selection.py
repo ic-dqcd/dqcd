@@ -10,6 +10,7 @@ TIGHTLEPTONVETO = 4
 class DQCDJetSelectionRDFProducer(JetLepMetSyst):
     def __init__(self, *args, **kwargs):
         self.year = kwargs.pop("year", 2018)
+        self.df_filter = kwargs.pop("filter", True)
         self.jet_id = kwargs.pop("jet_id", "loose")
         assert self.jet_id in ["loose", "tight", "tightleptonveto"]
 
@@ -50,9 +51,10 @@ class DQCDJetSelectionRDFProducer(JetLepMetSyst):
         df = df.Define("Jet_selected", " && ".join(sel))
 
         # filter by selected number of jets
-        df = df.Filter(f"Jet_pt{self.jet_syst}[Jet_selected > 0].size() > 0")
+        if self.df_filter:
+            df = df.Filter(f"Jet_pt{self.jet_syst}[Jet_selected > 0].size() > 0")
 
-        return df, ["Jet_numberCpf", "Jet_numberMuon", "Jet_numberElectron"]
+        return df, ["Jet_numberCpf", "Jet_numberMuon", "Jet_numberElectron", "Jet_selected"]
 
 
 def DQCDJetSelectionRDF(*args, **kwargs):

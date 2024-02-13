@@ -8,7 +8,7 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine
+    Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine, PullsAndImpacts
 )
 
 
@@ -353,3 +353,19 @@ class InspectPlotDQCD(ScanCombineDQCD):
                     signal_tf.Close()
                     bkg_tf.Close()
                 out_tf.Close()
+
+
+class PullsAndImpactsDQCD(PullsAndImpacts, CreateWorkspaceDQCD):
+
+    @law.workflow_property(setter=False, empty_value=law.no_value, cache=True)
+    def workspace_parameters(self):
+        ws_input = CreateWorkspaceDQCD.vreq(self, branch=0).output()[self.features[0].name]
+        if not ws_input.exists():
+            return law.no_value
+        return self.extract_nuisance_names(ws_input.path)
+
+    def workflow_requires(self):
+        return {"data": CreateWorkspaceDQCD.vreq(self, _exclude=["branches", "branch"])}
+
+    def requires(self):
+        return CreateWorkspaceDQCD.vreq(self, _exclude=["branches", "branch"])
