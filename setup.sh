@@ -229,6 +229,19 @@ action() {
           compile="1"
         fi
 
+        export COMBINEHARVESTER_PATH="CombineHarvester"
+        if [ ! -d "$COMBINEHARVESTER_PATH" ]; then
+          git clone https://github.com/cms-analysis/CombineHarvester -b v2.1.0
+          cd CombineHarvester
+          rm -r CombinePdfs
+          rm CombineTools/bin/*
+          rm CombineTools/src/*
+          rm CombineTools/interface/*
+          rm CombineTools/macros/*
+          cd -
+          compile="1"
+        fi
+
         if [ "$compile" == "1" ]
         then
             scram b

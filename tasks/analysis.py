@@ -8,17 +8,19 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine, PullsAndImpacts
+    Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine, PullsAndImpacts,
+    MergePullsAndImpacts, PlotPullsAndImpacts
 )
 
-
-class CreateDatacardsDQCD(CreateDatacards):
+class DQCDBaseTask():
     tight_region = luigi.Parameter(default="tight_bdt", description="region_name with the "
         "tighter bdt cut, default: tight_bdt")
     loose_region = luigi.Parameter(default="loose_bdt", description="region_name with the "
         "looser bdt cut, default: loose_bdt")
     mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
         "define the fit ranges and blinded regions")
+
+class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
 
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
 
@@ -139,17 +141,16 @@ class CreateDatacardsDQCD(CreateDatacards):
         super(CreateDatacardsDQCD, self).run()
 
 
-class CombineDatacardsDQCD(CombineDatacards, CreateDatacardsDQCD):
+class FitConfigBaseTask(law.Task):
     fit_config_file = luigi.Parameter(default="fit_config", description="file including "
         "fit configuration, default: fit_config.yaml")
-    category_name = "base"  # placeholder
-    category_names = ("singlev", "multiv")  # placeholder
 
     def __init__(self, *args, **kwargs):
-        super(CombineDatacardsDQCD, self).__init__(*args, **kwargs)
+        super(FitConfigBaseTask, self).__init__(*args, **kwargs)
         self.fit_config = self.get_fit_config(self.fit_config_file)
         if self.fit_config.get(self.process_group_name, False):
             self.category_names = self.fit_config[self.process_group_name].keys()
+            self.category_name = list(self.category_names)[0]
 
     def get_fit_config(self, filename):
         import yaml
@@ -157,6 +158,11 @@ class CombineDatacardsDQCD(CombineDatacards, CreateDatacardsDQCD):
         from cmt.utils.yaml_utils import ordered_load
         with open(os.path.expandvars("$CMT_BASE/../config/{}.yaml".format(filename))) as f:
             return ordered_load(f, yaml.SafeLoader)
+
+
+class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
+    category_name = "base"  # placeholder
+    category_names = ("singlev", "multiv")  # placeholder
 
     def requires(self):
         reqs = {}
@@ -171,7 +177,7 @@ class CombineDatacardsDQCD(CombineDatacards, CreateDatacardsDQCD):
         return reqs
 
 
-class CreateWorkspaceDQCD(CreateWorkspace, CombineDatacardsDQCD):
+class CreateWorkspaceDQCD(CreateWorkspace, DQCDBaseTask, FitConfigBaseTask):
     def requires(self):
         if self.combine_categories:
             return CombineDatacardsDQCD.vreq(self)
@@ -197,7 +203,7 @@ class CreateWorkspaceDQCD(CreateWorkspace, CombineDatacardsDQCD):
         return reqs
 
 
-class RunCombineDQCD(RunCombine, CreateWorkspaceDQCD):
+class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
     method = "limits"
 
     def workflow_requires(self):
@@ -218,6 +224,7 @@ class ProcessGroupNameWrapper(law.Task):
             self.process_group_names = self.fit_config.keys()
         self.process_group_name = list(self.process_group_names)[0]
         self.category_names = self.fit_config[self.process_group_name].keys()
+        self.category_name = self.category_names[0]
 
 
 class ScanCombineDQCD(ProcessGroupNameWrapper, RunCombineDQCD):
@@ -355,7 +362,10 @@ class InspectPlotDQCD(ScanCombineDQCD):
                 out_tf.Close()
 
 
-class PullsAndImpactsDQCD(PullsAndImpacts, CreateWorkspaceDQCD):
+class PullsAndImpactsDQCD(PullsAndImpacts, FitConfigBaseTask, DQCDBaseTask):
+    def __init__(self, *args, **kwargs):
+        super(PullsAndImpactsDQCD, self).__init__(*args, **kwargs)
+
 
     @law.workflow_property(setter=False, empty_value=law.no_value, cache=True)
     def workspace_parameters(self):
@@ -369,3 +379,13 @@ class PullsAndImpactsDQCD(PullsAndImpacts, CreateWorkspaceDQCD):
 
     def requires(self):
         return CreateWorkspaceDQCD.vreq(self, _exclude=["branches", "branch"])
+
+
+class MergePullsAndImpactsDQCD(MergePullsAndImpacts, FitConfigBaseTask, DQCDBaseTask):
+    def requires(self):
+        return PullsAndImpactsDQCD.vreq(self)
+
+
+class PlotPullsAndImpactsDQCD(PlotPullsAndImpacts, FitConfigBaseTask, DQCDBaseTask):
+    def requires(self):
+        return MergePullsAndImpactsDQCD.vreq(self)
