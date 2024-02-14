@@ -88,6 +88,8 @@ class Config(legacy_config):
             "qcd_1000toInf": 1.078,
         }
 
+        signal_xs = 43.9 * 0.01
+
         datasets = [
             Dataset("qcd_1000toInf",
                 folder=sample_path + samples["qcd_1000toInf"],
@@ -287,7 +289,7 @@ class Config(legacy_config):
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_10/nanotron/231124_165003/0000/nano_{i}.root"
                     for i in range(1, 21)],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=0.439,
+                xs=signal_xs,
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_0p1",
@@ -296,7 +298,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_0p1/nanotron/231124_165316/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_1p0",
@@ -305,7 +308,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_1p0/nanotron/231124_165335/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_100",
@@ -314,7 +318,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_100/nanotron/231124_165326/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
             ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_0p1",
@@ -323,7 +328,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_0p40_ctau_0p1/nanotron/231124_165240/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
             ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_1p0",
@@ -332,7 +338,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_0p40_ctau_1p0/nanotron/231124_165307/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_100",
@@ -341,7 +348,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_0p40_ctau_100/nanotron/231124_165258/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_10",
@@ -350,7 +358,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_0p40_ctau_10/nanotron/231124_165249/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_1_mA_0p33_ctau_0p1",
@@ -359,7 +368,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_1_mA_0p33_ctau_0p1/nanotron/231124_165126/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_1_mA_0p33_ctau_1p0",
@@ -368,7 +378,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_1_mA_0p33_ctau_1p0/nanotron/231124_165154/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_1_mA_0p33_ctau_10",
@@ -377,7 +388,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_1_mA_0p33_ctau_10/nanotron/231124_165135/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
      
             Dataset("scenarioA_mpi_1_mA_0p33_ctau_100",
@@ -386,7 +398,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_1_mA_0p33_ctau_100/nanotron/231124_165144/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_2_mA_0p67_ctau_0p1",
@@ -395,7 +408,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_2_mA_0p67_ctau_0p1/nanotron/231124_165203/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_2_mA_0p67_ctau_1p0",
@@ -404,7 +418,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_2_mA_0p67_ctau_1p0/nanotron/231124_165231/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_2_mA_0p67_ctau_10",
@@ -413,7 +428,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_2_mA_0p67_ctau_10/nanotron/231124_165213/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_2_mA_0p67_ctau_100",
@@ -422,7 +438,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_2_mA_0p67_ctau_100/nanotron/231124_165222/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_10_mA_1p00_ctau_0p1",
@@ -431,7 +448,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_1p00_ctau_0p1/nanotron/231124_165012/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_10_mA_1p00_ctau_1p0",
@@ -440,7 +458,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_1p00_ctau_1p0/nanotron/231124_165040/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_10_mA_1p00_ctau_10",
@@ -449,7 +468,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_1p00_ctau_10/nanotron/231124_165021/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_10_mA_1p00_ctau_100",
@@ -458,7 +478,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_1p00_ctau_100/nanotron/231124_165030/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_10_mA_3p33_ctau_0p1",
@@ -467,7 +488,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_3p33_ctau_0p1/nanotron/231124_165049/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioA_mpi_10_mA_3p33_ctau_1p0",
@@ -476,7 +498,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_3p33_ctau_1p0/nanotron/231124_165117/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
             Dataset("scenarioA_mpi_10_mA_3p33_ctau_10",
                 dataset = "/scenarioA_mpi_10_mA_3p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
@@ -484,7 +507,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_3p33_ctau_10/nanotron/231124_165058/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
             Dataset("scenarioA_mpi_10_mA_3p33_ctau_100",
                 dataset = "/scenarioA_mpi_10_mA_3p33_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
@@ -492,7 +516,8 @@ class Config(legacy_config):
                 check_empty=False,
                 skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_10_mA_3p33_ctau_100/nanotron/231124_165108/0000/nano_{i}.root"
                     for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_1_mA_0p33_ctau_0p1",
@@ -500,7 +525,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_1_mA_0p33_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_1_mA_0p33_ctau_10",
@@ -508,7 +534,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_1_mA_0p33_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_1_mA_0p33_ctau_100",
@@ -516,7 +543,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_1_mA_0p33_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_1_mA_0p33_ctau_1p0",
@@ -524,7 +552,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_1_mA_0p33_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
             
             Dataset("scenarioB1_mpi_2_mA_0p40_ctau_0p1",
@@ -532,7 +561,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p40_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p40_ctau_10",
@@ -540,7 +570,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p40_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p40_ctau_100",
@@ -548,7 +579,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p40_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p40_ctau_1p0",
@@ -556,7 +588,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p40_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p67_ctau_0p1",
@@ -564,7 +597,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p67_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p67_ctau_10",
@@ -572,7 +606,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p67_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p67_ctau_100",
@@ -580,7 +615,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p67_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_2_mA_0p67_ctau_1p0",
@@ -588,7 +624,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_2_mA_0p67_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_0p80_ctau_0p1",
@@ -596,7 +633,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_0p80_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_0p80_ctau_10",
@@ -604,7 +642,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_0p80_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_0p80_ctau_100",
@@ -612,7 +651,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_0p80_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_0p80_ctau_1p0",
@@ -620,7 +660,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_0p80_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_1p33_ctau_0p1",
@@ -628,7 +669,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_1p33_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_1p33_ctau_10",
@@ -636,7 +678,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_1p33_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_1p33_ctau_100",
@@ -644,7 +687,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_1p33_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB1_mpi_4_mA_1p33_ctau_1p0",
@@ -652,7 +696,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB1_mpi_4_mA_1p33_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_1_mA_0p60_ctau_0p1",
@@ -660,7 +705,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_1_mA_0p60_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_1_mA_0p60_ctau_10",
@@ -668,7 +714,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_1_mA_0p60_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_1_mA_0p60_ctau_100",
@@ -676,7 +723,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_1_mA_0p60_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_1_mA_0p60_ctau_1p0",
@@ -684,7 +732,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_1_mA_0p60_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_2_mA_1p10_ctau_0p1",
@@ -692,7 +741,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_2_mA_1p10_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_2_mA_1p10_ctau_10",
@@ -700,7 +750,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_2_mA_1p10_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_2_mA_1p10_ctau_100",
@@ -708,7 +759,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_2_mA_1p10_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_2_mA_1p10_ctau_1p0",
@@ -716,7 +768,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_2_mA_1p10_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_4_mA_2p10_ctau_0p1",
@@ -724,7 +777,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_4_mA_2p10_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_4_mA_2p10_ctau_10",
@@ -732,7 +786,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_4_mA_2p10_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_4_mA_2p10_ctau_100",
@@ -740,7 +795,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_4_mA_2p10_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioB2_mpi_4_mA_2p10_ctau_1p0",
@@ -748,7 +804,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioB2_mpi_4_mA_2p10_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
     
             Dataset("scenarioC_mpi_10_mA_8p00_ctau_0p1",
@@ -756,7 +813,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_10_mA_8p00_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
             
             Dataset("scenarioC_mpi_10_mA_8p00_ctau_10",
@@ -764,7 +822,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_10_mA_8p00_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
            
             Dataset("scenarioC_mpi_10_mA_8p00_ctau_100",
@@ -772,7 +831,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_10_mA_8p00_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_10_mA_8p00_ctau_1p0",
@@ -780,7 +840,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_10_mA_8p00_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_2_mA_1p60_ctau_0p1",
@@ -788,7 +849,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_2_mA_1p60_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_2_mA_1p60_ctau_10",
@@ -796,7 +858,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_2_mA_1p60_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_2_mA_1p60_ctau_100",
@@ -804,7 +867,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_2_mA_1p60_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_2_mA_1p60_ctau_1p0",
@@ -812,7 +876,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_2_mA_1p60_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_4_mA_3p20_ctau_0p1",
@@ -820,7 +885,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_4_mA_3p20_ctau_0p1"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_4_mA_3p20_ctau_10",
@@ -828,7 +894,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_4_mA_3p20_ctau_10"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_4_mA_3p20_ctau_100",
@@ -836,7 +903,8 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_4_mA_3p20_ctau_100"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("scenarioC_mpi_4_mA_3p20_ctau_1p0",
@@ -844,14 +912,25 @@ class Config(legacy_config):
                 process=self.processes.get("scenarioC_mpi_4_mA_3p20_ctau_1p0"),
                 check_empty=False,
                 skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms"
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
 
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_new",
                 folder="/vols/cms/jleonhol/samples/ul_pu/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/",
                 process=self.processes.get("signal"),
                 file_pattern="nano.root",
-                tags=["ul"]
+                tags=["ul"],
+                xs=signal_xs
+            ),
+
+            Dataset("hzdzd_mzd_8_ctau_100",
+                dataset="/HToZdZdTo2Mu2X_MZd-8_ctau-100mm_TuneCP5_13TeV_powheg2_JHUGenV738_pythia8/jleonhol-nanotronv2-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("signal"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
             ),
         ]
         return ObjectCollection(datasets)
