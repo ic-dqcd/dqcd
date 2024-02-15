@@ -934,9 +934,9 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
             
-            Dataset("QCD_Pt-15to7000",
+            Dataset("qcd_15to7000",
                 dataset="/QCD_Pt-15to7000_TuneCP5_Flat2018_13TeV_pythia8/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("QCD_Pt-15to7000_TuneCP5_Flat2018"),
+                process=self.processes.get("qcd_15to7000"),
                 check_empty=False,
                 skipFiles=[],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
