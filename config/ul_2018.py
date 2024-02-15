@@ -25,6 +25,10 @@ class Config(legacy_config):
 
             Category("loose_bdt_scenarioC", "Loose bdt (C) region", selection="{{bdt_scenarioC}} > 0.55"),
             Category("tight_bdt_scenarioC", "Tight bdt (C) region", selection="{{bdt_scenarioC}} > 0.8"),
+
+            # for the new H->ZdZd samples, using scenario A since the signature in similar
+            Category("loose_bdt_hzdzd", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
+            Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
         ]
         return ObjectCollection(regions)
 
@@ -926,7 +930,7 @@ class Config(legacy_config):
 
             Dataset("hzdzd_mzd_8_ctau_100",
                 dataset="/HToZdZdTo2Mu2X_MZd-8_ctau-100mm_TuneCP5_13TeV_powheg2_JHUGenV738_pythia8/jleonhol-nanotronv2-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("signal"),
+                process=self.processes.get("hzdzd_mzd_8_ctau_100"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
