@@ -14,7 +14,7 @@ class Config(legacy_config):
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
             Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
 
-            Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
+            Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"),
             Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
 
             Category("loose_bdt_scenarioB1", "Loose bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.6"),
@@ -249,20 +249,17 @@ class Config(legacy_config):
                 },
                 skipped_files_must_be_in_dataset=False,
             ),
-
+            
+            
             Dataset("data_2018d_bph1",
-                folder=[
-                    sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    # sample_path + "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    # sample_path + "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    # sample_path + "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                ],
+                dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
                     "base": 20,
                 },
                 tags=["ul"],
                 runPeriod="D",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
             Dataset("data_2018d_bph1_1fb",
@@ -932,6 +929,16 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 xs=signal_xs
             ),
+            
+            Dataset("QCD_Pt-15to7000",
+                dataset="/QCD_Pt-15to7000_TuneCP5_Flat2018_13TeV_pythia8/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("QCD_Pt-15to7000_TuneCP5_Flat2018"),
+                check_empty=False,
+                skipFiles=[],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=1315000000
+            ),
+            
         ]
         return ObjectCollection(datasets)
 
@@ -955,5 +962,6 @@ class Config(legacy_config):
     # other methods
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
-config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')
