@@ -8,8 +8,8 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine, PullsAndImpacts,
-    MergePullsAndImpacts, PlotPullsAndImpacts
+    CombineBase, Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine,
+    PullsAndImpacts, MergePullsAndImpacts, PlotPullsAndImpacts
 )
 
 class DQCDBaseTask():
@@ -66,6 +66,7 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
             if not self.config.processes.get(process).isSignal and \
                     not self.config.processes.get(process).isData:
                 reqs["fits"][process].region_name = loose_region
+                reqs["inspections"][process].region_name = loose_region
             else:
                 reqs["fits"][process].region_name = self.region_name  # probably redundant
 
@@ -111,13 +112,13 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     reqs["fits"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
                     reqs["fits"][process].blind_range = blind_range
                     reqs["inspections"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                    reqs["inspections"][process].region_name = self.loose_region
                     reqs["inspections"][process].blind_range = blind_range
                     reqs["inspections"][process].process_name = "background"
                     reqs["inspections"][process].process_group_name = self.process_group_name[len("qcd_"):]
                 else:
                     reqs["fits"][process].x_range = blind_range
                     reqs["inspections"][process].x_range = blind_range
-
         return reqs
 
     def run(self):
@@ -221,43 +222,51 @@ class ProcessGroupNameWrapper(law.Task):
     def __init__(self, *args, **kwargs):
         super(ProcessGroupNameWrapper, self).__init__(*args, **kwargs)
         if not self.process_group_names:
-            self.process_group_names = self.fit_config.keys()
-        self.process_group_name = list(self.process_group_names)[0]
-        self.category_names = self.fit_config[self.process_group_name].keys()
+            self.process_group_names = list(self.fit_config.keys())
+        self.process_group_name = self.process_group_names[0]
+        self.category_names = list(self.fit_config[self.process_group_name].keys())
         self.category_name = self.category_names[0]
 
 
-class ScanCombineDQCD(ProcessGroupNameWrapper, RunCombineDQCD):
+class ScanCombineDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitConfigBaseTask):
     def requires(self):
         reqs = {}
         for process_group_name in self.process_group_names:
-            i = process_group_name.find("mA_")
+            if "scenario" in process_group_name:
+                signal_tag = "A"
+            else:
+                signal_tag = "zd"
+            i = process_group_name.find(f"m{signal_tag}_")
             f = process_group_name.find("_ctau")
-            mass_point = float(process_group_name[i + 3:f].replace("p", "."))
+            mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
             if mass_point == 0.33:
                 mass_point = 0.333
             elif mass_point == 0.67:
                 mass_point = 0.667
-            scenario = process_group_name[len("scenario"):process_group_name.find("_")]
+            signal = process_group_name[:process_group_name.find("_")]
             reqs[process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}",
+                process_group_name=process_group_name, region_name=f"tight_bdt_{signal}",
                 category_names = self.fit_config[self.process_group_name].keys())
         return reqs
 
     def workflow_requires(self):
         reqs = {"data": {}}
         for process_group_name in self.process_group_names:
-            i = process_group_name.find("mA_")
+            if "scenario" in process_group_name:
+                signal_tag = "A"
+            else:
+                signal_tag = "zd"
+            i = process_group_name.find(f"m{signal_tag}_")
             f = process_group_name.find("_ctau")
-            mass_point = float(process_group_name[i + 3:f].replace("p", "."))
+            mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
             if mass_point == 0.33:
                 mass_point = 0.333
             elif mass_point == 0.67:
                 mass_point = 0.667
-            scenario = process_group_name[len("scenario"):process_group_name.find("_")]
+            signal = process_group_name[:process_group_name.find("_")]
             reqs["data"][process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name, region_name=f"tight_bdt_scenario{scenario}",
-                category_names=self.fit_config[self.process_group_name].keys())
+                process_group_name=process_group_name, region_name=f"tight_bdt_{signal}",
+                category_names = self.fit_config[self.process_group_name].keys())
         return reqs
 
     def output(self):
@@ -303,13 +312,13 @@ class ScanCombineDQCD(ProcessGroupNameWrapper, RunCombineDQCD):
                     json.dump(res, f, indent=4)
 
 
-class InspectPlotDQCD(ScanCombineDQCD):
+class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper, FitConfigBaseTask):
     def requires(self):
         reqs = {}
         for process_group_name in self.process_group_names:
-            scenario = process_group_name[len("scenario"):process_group_name.find("_")]
-            tight_region = f"tight_bdt_scenario{scenario}"
-            loose_region = f"loose_bdt_scenario{scenario}"
+            signal = process_group_name[:process_group_name.find("_")]
+            tight_region = f"tight_bdt_{signal}"
+            loose_region = f"loose_bdt_{signal}"
 
             reqs[process_group_name] = {}
             for category_name in self.fit_config[process_group_name].keys():

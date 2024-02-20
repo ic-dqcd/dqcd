@@ -1,11 +1,12 @@
 background:
     process_name: background
-    x_range: 0, 100
-    #x_range: 1.2635, 1.3965
-    method: polynomial
+    method: envelope
+    functions: polynomial,exponential,powerlaw
+    # method: polynomial
+    x_range: 1.2635, 1.3965
     fit_parameters:
-        order: 1
-        p0: 0, -1, 1
+        polynomial_order: 1
+        p0: 0, -5, 5
 
 signal:
     process_name: signal

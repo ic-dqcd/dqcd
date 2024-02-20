@@ -934,15 +934,15 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
             
-            Dataset("qcd_15to7000",
-                dataset="/QCD_Pt-15to7000_TuneCP5_Flat2018_13TeV_pythia8/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("qcd_15to7000"),
-                check_empty=False,
-                skipFiles=[],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=1315000000
-            ),
-            
+            # Dataset("qcd_15to7000",
+                # dataset="/QCD_Pt-15to7000_TuneCP5_Flat2018_13TeV_pythia8/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("qcd_15to7000"),
+                # check_empty=False,
+                # skipFiles=[],
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=1315000000
+            # ),
+
         ]
         return ObjectCollection(datasets)
 
@@ -966,6 +966,6 @@ class Config(legacy_config):
     # other methods
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
-#config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
-config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
+config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')

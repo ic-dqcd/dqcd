@@ -1,9 +1,9 @@
 process_name: background
-method: polynomial
+method: envelope
+functions: polynomial, exponential, powerlaw
 fit_parameters:
-    order: 1
-    p0: 0, -1, 1
-
+    polynomial_order: 1
+    p0: 0, -5, 5
 
 # process_name: background
 # method: exponential
