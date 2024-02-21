@@ -943,6 +943,15 @@ class Config(legacy_config):
                 # xs=1315000000
             # ),
 
+            Dataset("zprime_mpi_2_ctau_10",
+                dataset="/testZPrime_ctau10/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("zprime_mpi_2_ctau_10"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
         ]
         return ObjectCollection(datasets)
 
