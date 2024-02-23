@@ -57,15 +57,15 @@ class DQCDMuonSelectionRDFProducer():
     def run(self, df):
         df = df.Define("MuonBPark_isLooseMuon", """(MuonBPark_looseId == 1) &&
             (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.5)""")
-        df = df.Define("MuonBPark_isTriggeringMuon", """(MuonBPark_isLooseMuon == 1) &&
-            (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)""")
         df = df.Define("MuonBPark_isMuonWithEtaAndPtReq", """(MuonBPark_isLooseMuon == 1) &&
             (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 2.4)""")
+        df = df.Define("MuonBPark_isTriggeringMuon", """(MuonBPark_isLooseMuon == 1) &&
+            (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)""")
 
         # filtering
-        df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0")
-        df = df.Filter("MuonBPark_pt[MuonBPark_isMuonWithEtaAndPtReq == 1].size() > 0")
-        df = df.Filter("MuonBPark_pt[MuonBPark_isTriggeringMuon == 1].size() > 0")
+        df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
+        df = df.Filter("MuonBPark_pt[MuonBPark_isMuonWithEtaAndPtReq == 1].size() > 0", ">= 1 muon with pt and eta req")
+        df = df.Filter("MuonBPark_pt[MuonBPark_isTriggeringMuon == 1].size() > 0", ">= 1 triggering muon")
 
         # trigger flag
         if self.year == 2018:
@@ -76,7 +76,7 @@ class DQCDMuonSelectionRDFProducer():
                 "HLT_Mu9_IP6_part3",
                 "HLT_Mu9_IP6_part4"
             ]))
-        df = df.Filter("DisplacedMuonTrigger_flag > 0")
+        df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger")
 
         # cpf candidates
         #df = df.Define("cpf_pt", "sqrt(cpf_px * cpf_px + cpf_py * cpf_py)")
@@ -96,7 +96,7 @@ class DQCDMuonSelectionRDFProducer():
         # trigger matched
         df = df.Define("MuonBPark_trigger_matched", """(MuonBPark_isTriggeringMuon > 0) &&
             (MuonBPark_isTriggering > 0) && (MuonBPark_fired_HLT_Mu9_IP6 > 0)""")
-        df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0")
+        df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0", ">= 1 trigger-matched muon")
 
         # tighter eta and pt reqs
         df = df.Define("MuonBPark_isMuonWithTighterEtaAndPtReq", """MuonBPark_isLooseMuon == 1 &&

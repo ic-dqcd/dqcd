@@ -149,7 +149,7 @@ class DQCDMuonSVSelectionRDFProducer():
         df = df.Define("indexes_multivertices", "multivertices_vars.indexes")
 
         # chi2_multivertices should have at least 1 element
-        df = df.Filter("chi2_multivertices.size() > 0")
+        df = df.Filter("chi2_multivertices.size() > 0", "muonSV selection")
 
         df = df.Define("cat_index", "int(mass_multivertices.size() / 2)")
 
@@ -159,7 +159,7 @@ class DQCDMuonSVSelectionRDFProducer():
         df = df.Define("muonSV_dR", "get_deltaR("
             "nmuonSV, muonSV_mu1eta, muonSV_mu1phi, muonSV_mu2eta, muonSV_mu2phi)")
         # df = df.Filter("muonSV_dR.at(min_chi2_index) < 1.2")
-        df = df.Filter("ROOT::VecOps::Sum(muonSV_dR[muonSV_dR < 1.2]) > 0")
+        df = df.Filter("ROOT::VecOps::Sum(muonSV_dR[muonSV_dR < 1.2]) > 0", "muonSV deltaR")
 
         # return df, []
 
@@ -338,7 +338,7 @@ class DQCDTriggerSelectionRDFProducer():
         for ib, branch in enumerate(branches):
             df = df.Define(branch, f"muonsv_indexes.at({ib})")
 
-        df = df.Filter("muonSV_chi2_trig_index >= 0")
+        df = df.Filter("muonSV_chi2_trig_index >= 0", "MuonSV has trigger-matched muon")
 
         return df, branches
 

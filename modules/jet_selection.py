@@ -52,7 +52,7 @@ class DQCDJetSelectionRDFProducer(JetLepMetSyst):
 
         # filter by selected number of jets
         if self.df_filter:
-            df = df.Filter(f"Jet_pt{self.jet_syst}[Jet_selected > 0].size() > 0")
+            df = df.Filter(f"Jet_pt{self.jet_syst}[Jet_selected > 0].size() > 0", "Jet selection")
 
         return df, ["Jet_numberCpf", "Jet_numberMuon", "Jet_numberElectron", "Jet_selected"]
 
