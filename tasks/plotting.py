@@ -75,6 +75,15 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
             for feature in self.features
         }
 
+    def get_signal_tag(self, results, ilabel):
+        process_name = self.config.processes.get(list(results.keys())[ilabel]).name
+        if process_name.startswith("scenario"):
+            return "A"
+        elif process_name.startswith("hzdzd"):
+            return "Z_d"
+        elif process_name.startswith("zprime"):
+            return "\pi"
+
     def plot(self, results, output_file):
         import matplotlib
         matplotlib.use("Agg")
@@ -108,8 +117,10 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
 
         if len(labels) <= 4:
             for ilabel, label in enumerate(labels):
-                index = label.find("$m_{A}")
-                labels[ilabel] = label[:label.find("$m_{A}")] + "\n" + label[label.find("$m_{A}"):]
+                signal_tag = self.get_signal_tag(results, ilabel)
+                index = label.find("$m_{%s}" % signal_tag)
+                print(signal_tag, index, label[:index] + "\n" + label[index:])
+                labels[ilabel] = label[:index] + "\n" + label[index:]
             ax.set_xticklabels(labels)
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
@@ -176,17 +187,23 @@ class ParamPlotDQCD(PlotCombineDQCD):
 
 
 class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
+    combine_categories = True  # for the output tag
+
     def requires(self):
         return {
-            "cat": ScanCombineDQCD.vreq(self, combine_categories=False),
-            "combined": ScanCombineDQCD.vreq(self, combine_categories=True),
+            "cat": {
+                pgn: ScanCombineDQCD.vreq(self, combine_categories=False,
+                    process_group_names=[pgn], _exclude=["branches"])
+                for pgn in self.process_group_names
+            },
+            "combined": ScanCombineDQCD.vreq(self, combine_categories=True, _exclude=["branches"]),
         }
 
     def output(self):
         return {
             process_group_name: {
                 feature.name: self.local_target("plot__{}__{}.pdf".format(
-                    feature.name, self.fit_config_file))
+                    feature.name, self.get_output_postfix(process_group_name=process_group_name)))
                 for feature in self.features
             } for process_group_name in self.process_group_names
         }
@@ -239,8 +256,9 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
 
         if len(labels) <= 4:
             for ilabel, label in enumerate(labels):
-                index = label.find("$m_{A}")
-                labels[ilabel] = label[:label.find("$m_{A}")] + "\n" + label[label.find("$m_{A}"):]
+                signal_tag = self.get_signal_tag(results, ilabel)
+                index = label.find("$m_{%s}" % signal_tag)
+                labels[ilabel] = label[:index] + "\n" + label[index:]
             ax.set_xticklabels(labels)
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
@@ -255,8 +273,6 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
             plt.yscale('log')
         plt.savefig(output_file, bbox_inches='tight')
 
-        print(ax.get_ybound(), ax.get_ylim())
-
         plt.close('all')
 
     def run(self):
@@ -264,8 +280,8 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
         for feature in self.features:
             for process_group_name in self.process_group_names:
                 results = OrderedDict()
-                for ip, category_name in enumerate(self.fit_config[self.process_group_name].keys()):
-                    with open(inputs["cat"]["collection"].targets[ip][process_group_name][feature.name].path) as f:
+                for ip, category_name in enumerate(self.fit_config[process_group_name].keys()):
+                    with open(inputs["cat"][process_group_name]["collection"].targets[ip][process_group_name][feature.name].path) as f:
                         results[category_name] = json.load(f)
                 with open(inputs["combined"]["collection"].targets[0][process_group_name][feature.name].path) as f:
                     results["Combined"] = json.load(f)

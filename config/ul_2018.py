@@ -29,6 +29,10 @@ class Config(legacy_config):
             # for the new H->ZdZd samples, using scenario A since the signature in similar
             Category("loose_bdt_hzdzd", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+
+            # for the new Z' samples, using scenario A since the signature in similar
+            Category("loose_bdt_zprime", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
+            Category("tight_bdt_zprime", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
         ]
         return ObjectCollection(regions)
 

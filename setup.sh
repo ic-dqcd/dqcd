@@ -93,6 +93,9 @@ action() {
        mkdir -p "$TMPDIR"
     fi
 
+    echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
+    export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
+
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
 

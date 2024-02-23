@@ -207,10 +207,10 @@ class Config(cmt_config):
             Process("scenarioC_mpi_4_mA_3p20_ctau_1p0", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=1.0$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
 
             Process("hzdzd", Label("$H\\to$$Z_dZ_d$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
-            Process("hzdzd_mzd_8_ctau_100", Label("$H\\to$$Z_dZ_d$, $m_{Z_d}=8$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="hzdzd"),
+            Process("hzdzd_mzd_8_ctau_100", Label("$H\\to$ $Z_dZ_d$, $m_{Z_d}=8$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="hzdzd"),
 
             Process("zprime", Label("$Z^'$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
-            Process("zprime_mpi_2_ctau_10", Label("$Z^'$, $m_{\pi}=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="zprime"),
+            Process("zprime_mpi_2_ctau_10", Label("$Z^{'}$, $m_{\pi}=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="zprime"),
 
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
 

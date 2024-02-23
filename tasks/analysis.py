@@ -8,8 +8,8 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    CombineBase, Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine,
-    PullsAndImpacts, MergePullsAndImpacts, PlotPullsAndImpacts
+    CombineBase, CombineCategoriesTask, Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine,
+    PullsAndImpacts, MergePullsAndImpacts, PlotPullsAndImpacts, ValidateDatacards
 )
 
 class DQCDBaseTask():
@@ -20,12 +20,15 @@ class DQCDBaseTask():
     mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
         "define the fit ranges and blinded regions")
 
+
 class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
 
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
+        self.sigma = self.mass_point * 0.01
+        self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
         if self.process_group_name != "default":
             self.models = self.modify_models()
 
@@ -41,6 +44,11 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                 # swap signal appearing in the model with the signal of this process_group_name
                 new_models[signal_process] = copy(self.models[model])
                 new_models[signal_process]["process_name"] = signal_process
+                new_models[signal_process]["x_range"] = str(self.fit_range)[1:-1]
+                if "fit_parameters" not in new_models[signal_process]:
+                    new_models[signal_process]["fit_parameters"] = {}
+                new_models[signal_process]["fit_parameters"]["mean"] = "{}, {}, {}".format(
+                    self.mass_point, self.mass_point - 1, self.mass_point + 1)
             elif not self.config.processes.get(process_name).isSignal and \
                     not self.config.processes.get(process_name).isData and self.counting:
                 # swap background appearing in the model with all separate qcd samples
@@ -49,18 +57,18 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                             not self.config.processes.get(process).isData:
                         new_models[process] = copy(self.models[model])
                         new_models[process]["process_name"] = process
+                        new_models[process]["x_range"] = str(self.fit_range)[1:-1]
             else:
                 new_models[model] = copy(self.models[model])
+                new_models[model]["x_range"] = str(self.fit_range)[1:-1]
         return new_models
 
     def requires(self):
         reqs = CreateDatacards.requires(self)
-        sigma = self.mass_point * 0.01
-        fit_range = (self.mass_point - 5 * sigma, self.mass_point + 5 * sigma)
 
         loose_region = self.region.name.replace("tight", "loose")
         for process in reqs["fits"]:
-            reqs["fits"][process].x_range = fit_range
+            reqs["fits"][process].x_range = self.fit_range
             if process == "data_obs":
                 continue  # FIXME
             if not self.config.processes.get(process).isSignal and \
@@ -73,7 +81,7 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
         # get models for background scaling
         background_model_found = False
         for model, fit_params in self.models.items():
-            fit_params["x_range"] = str(fit_range)[1:-1]
+            fit_params["x_range"] = str(self.fit_range)[1:-1]
             # look for background or qcd_*
             if model == "data_obs": # FIXME
                 continue
@@ -103,15 +111,15 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     "category_name='base')")
 
         if self.counting:  # counting
-            blind_range = (str(self.mass_point - 2 * sigma), str(self.mass_point + 2 * sigma))
+            blind_range = (str(self.mass_point - 2 * self.sigma), str(self.mass_point + 2 * self.sigma))
             for process in reqs["fits"]:
                 if process == "data_obs": # FIXME
-                    reqs["fits"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                    reqs["fits"][process].x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
                 elif not self.config.processes.get(process).isSignal and \
                         not self.config.processes.get(process).isData:
-                    reqs["fits"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                    reqs["fits"][process].x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
                     reqs["fits"][process].blind_range = blind_range
-                    reqs["inspections"][process].x_range = (str(fit_range[0]), str(fit_range[1]))
+                    reqs["inspections"][process].x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
                     reqs["inspections"][process].region_name = self.loose_region
                     reqs["inspections"][process].blind_range = blind_range
                     reqs["inspections"][process].process_name = "background"
@@ -149,9 +157,9 @@ class FitConfigBaseTask(law.Task):
     def __init__(self, *args, **kwargs):
         super(FitConfigBaseTask, self).__init__(*args, **kwargs)
         self.fit_config = self.get_fit_config(self.fit_config_file)
-        if self.fit_config.get(self.process_group_name, False):
-            self.category_names = self.fit_config[self.process_group_name].keys()
-            self.category_name = list(self.category_names)[0]
+        # if self.fit_config.get(self.process_group_name, False):
+            # self.category_names = self.fit_config[self.process_group_name].keys()
+            # self.category_name = list(self.category_names)[0]
 
     def get_fit_config(self, filename):
         import yaml
@@ -162,8 +170,6 @@ class FitConfigBaseTask(law.Task):
 
 
 class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
-    category_name = "base"  # placeholder
-    category_names = ("singlev", "multiv")  # placeholder
 
     def requires(self):
         reqs = {}
@@ -204,6 +210,32 @@ class CreateWorkspaceDQCD(CreateWorkspace, DQCDBaseTask, FitConfigBaseTask):
         return reqs
 
 
+class ValidateDatacardsDQCD(ValidateDatacards, DQCDBaseTask, FitConfigBaseTask):
+    def requires(self):
+        if self.combine_categories:
+            return CombineDatacardsDQCD.vreq(self)
+        reqs = {}
+        for category_name in self.category_names:
+            counting = self.fit_config[self.process_group_name][category_name]
+            process_group_name = (self.process_group_name if not counting
+                else "qcd_" + self.process_group_name)
+            reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
+                counting=counting, process_group_name=process_group_name)
+        return reqs
+
+    def workflow_requires(self):
+        if self.combine_categories:
+            return {"data": CombineDatacardsDQCD.vreq(self)}
+        reqs = {"data": {}}
+        for category_name in self.category_names:
+            counting = self.fit_config[self.process_group_name][category_name]
+            process_group_name = (self.process_group_name if not counting
+                else "qcd_" + self.process_group_name)
+            reqs["data"][category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
+                counting=counting, process_group_name=process_group_name)
+        return reqs
+
+
 class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
     method = "limits"
 
@@ -214,69 +246,97 @@ class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
         return CreateWorkspaceDQCD.vreq(self)
 
 
-class ProcessGroupNameWrapper(law.Task):
+class ProcessGroupNameWrapper(DatasetWrapperTask):
     process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
         "empty means all scenarios, default: empty")
-    process_group_name = "default"  # placeholder
 
     def __init__(self, *args, **kwargs):
         super(ProcessGroupNameWrapper, self).__init__(*args, **kwargs)
         if not self.process_group_names:
             self.process_group_names = list(self.fit_config.keys())
-        self.process_group_name = self.process_group_names[0]
-        self.category_names = list(self.fit_config[self.process_group_name].keys())
-        self.category_name = self.category_names[0]
+        # self.process_group_name = self.process_group_names[0]
+        # self.category_names = list(self.fit_config[self.process_group_name].keys())
+        # self.category_name = self.category_names[0]
 
 
-class ScanCombineDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitConfigBaseTask):
+class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
+    def __init__(self, *args, **kwargs):
+        super(ScanCombineDQCD, self).__init__(*args, **kwargs)
+        assert(
+            self.combine_categories or len(self.process_group_names)
+        )
+
+    def create_branch_map(self):
+        if self.combine_categories:
+            return len(self.process_group_names)
+        else:
+            process_group_name = self.process_group_names[0]
+            return len(list(self.fit_config[process_group_name].keys()))
+
+    def get_mass_point(self, process_group_name):
+        if "scenario" in process_group_name:
+            signal_tag = "A"
+        elif "hzdzd" in process_group_name:
+            signal_tag = "zd"
+        elif "zprime" in process_group_name:
+            signal_tag = "pi"
+        else:
+            raise ValueError(f"{process_group_name} can't be handled by ScanCombineDQCD")
+        i = process_group_name.find(f"m{signal_tag}_")
+        f = process_group_name.find("_ctau")
+        mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
+        if mass_point == 0.33:
+            mass_point = 0.333
+        elif mass_point == 0.67:
+            mass_point = 0.667
+        return mass_point
+          
     def requires(self):
-        reqs = {}
-        for process_group_name in self.process_group_names:
-            if "scenario" in process_group_name:
-                signal_tag = "A"
-            else:
-                signal_tag = "zd"
-            i = process_group_name.find(f"m{signal_tag}_")
-            f = process_group_name.find("_ctau")
-            mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
-            if mass_point == 0.33:
-                mass_point = 0.333
-            elif mass_point == 0.67:
-                mass_point = 0.667
+        if self.combine_categories:
+            process_group_name=self.process_group_names[self.branch]
+            mass_point = self.get_mass_point(process_group_name)
             signal = process_group_name[:process_group_name.find("_")]
-            reqs[process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name, region_name=f"tight_bdt_{signal}",
-                category_names = self.fit_config[self.process_group_name].keys())
-        return reqs
+            return RunCombineDQCD.vreq(self, mass_point=mass_point,
+                process_group_name=process_group_name,
+                region_name=f"tight_bdt_{signal}",
+                category_names=self.fit_config[process_group_name].keys(),
+                _exclude=["branches", "branch"])
+        else:
+            process_group_name=self.process_group_names[0]
+            mass_point = self.get_mass_point(process_group_name)
+            signal = process_group_name[:process_group_name.find("_")]
+            return RunCombineDQCD.vreq(self, mass_point=mass_point,
+                process_group_name=process_group_name,
+                region_name=f"tight_bdt_{signal}",
+                category_names=self.fit_config[process_group_name].keys(),
+                _exclude=["branches", "branch"])
 
     def workflow_requires(self):
-        reqs = {"data": {}}
-        for process_group_name in self.process_group_names:
-            if "scenario" in process_group_name:
-                signal_tag = "A"
-            else:
-                signal_tag = "zd"
-            i = process_group_name.find(f"m{signal_tag}_")
-            f = process_group_name.find("_ctau")
-            mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
-            if mass_point == 0.33:
-                mass_point = 0.333
-            elif mass_point == 0.67:
-                mass_point = 0.667
+        if self.combine_categories:
+            process_group_name=self.process_group_names[self.branch]
+            mass_point = self.get_mass_point(process_group_name)
             signal = process_group_name[:process_group_name.find("_")]
-            reqs["data"][process_group_name] = RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name, region_name=f"tight_bdt_{signal}",
-                category_names = self.fit_config[self.process_group_name].keys())
-        return reqs
+            return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
+                process_group_name=process_group_name,
+                region_name=f"tight_bdt_{signal}",
+                category_names=self.fit_config[process_group_name].keys(),
+                _exclude=["branches", "branch"])}
+        else:
+            process_group_name=self.process_group_names[0]
+            mass_point = self.get_mass_point(process_group_name)
+            signal = process_group_name[:process_group_name.find("_")]
+            return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
+                process_group_name=process_group_name,
+                region_name=f"tight_bdt_{signal}",
+                category_names=self.fit_config[process_group_name].keys(),
+                _exclude=["branches", "branch"])}
 
     def output(self):
-        assert not self.combine_categories or (
-            self.combine_categories and len(self.category_names) > 1)
         return {
             process_group_name: {
                 feature.name: self.local_target("results_{}{}.json".format(
                     feature.name, self.get_output_postfix(process_group_name=process_group_name,
-                        category_names=self.fit_config[self.process_group_name].keys())))
+                        category_names=self.fit_config[process_group_name].keys())))
                 for feature in self.features
             } for process_group_name in self.process_group_names
         }
@@ -295,10 +355,10 @@ class ScanCombineDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitConfigBaseTask):
         return res
 
     def run(self):
-        inputs = self.input()
+        inputs = self.input()["collection"].targets[self.branch]
         for pgn in self.process_group_names:
             for feature in self.features:
-                res = self.combine_parser(inputs[pgn][feature.name]["txt"].path)
+                res = self.combine_parser(inputs[feature.name]["txt"].path)
                 if not res:
                     print("Fit for %s did not converge. Filling with dummy values." % pgn)
                     res = {
@@ -374,7 +434,7 @@ class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper, FitCon
 class PullsAndImpactsDQCD(PullsAndImpacts, FitConfigBaseTask, DQCDBaseTask):
     def __init__(self, *args, **kwargs):
         super(PullsAndImpactsDQCD, self).__init__(*args, **kwargs)
-
+        self.category_names = self.fit_config[self.process_group_name].keys()
 
     @law.workflow_property(setter=False, empty_value=law.no_value, cache=True)
     def workspace_parameters(self):

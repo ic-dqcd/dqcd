@@ -1,0 +1,12 @@
+process_name: signal
+method: voigtian
+x_range: 1.2635, 1.3965
+fit_parameters:
+    mean: 1.33, 1., 2.
+
+# process_name: background
+# method: exponential
+
+
+# process_name: background
+# method: powerlaw
