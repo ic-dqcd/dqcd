@@ -8,8 +8,9 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    CombineBase, CombineCategoriesTask, Fit, CreateDatacards, CombineDatacards, CreateWorkspace, RunCombine,
-    PullsAndImpacts, MergePullsAndImpacts, PlotPullsAndImpacts, ValidateDatacards
+    CombineBase, CombineCategoriesTask, Fit, InspectFitSyst, CreateDatacards, CombineDatacards,
+    CreateWorkspace, RunCombine, PullsAndImpacts, MergePullsAndImpacts, PlotPullsAndImpacts,
+    ValidateDatacards
 )
 
 class DQCDBaseTask():
@@ -64,19 +65,59 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
         return new_models
 
     def requires(self):
-        reqs = CreateDatacards.requires(self)
+        reqs = super(CreateDatacardsDQCD, self).requires()
 
         loose_region = self.region.name.replace("tight", "loose")
-        for process in reqs["fits"]:
-            reqs["fits"][process].x_range = self.fit_range
-            if process == "data_obs":
-                continue  # FIXME
-            if not self.config.processes.get(process).isSignal and \
-                    not self.config.processes.get(process).isData:
-                reqs["fits"][process].region_name = loose_region
-                reqs["inspections"][process].region_name = loose_region
-            else:
-                reqs["fits"][process].region_name = self.region_name  # probably redundant
+        if not self.counting:
+            for process in reqs["fits"]:
+                x_range = self.fit_range
+                if process == "data_obs":
+                    reqs["fits"][process] = Fit.vreq(reqs["fits"][process],
+                        region_name=self.region_name, x_range=x_range, process_group_name="data")
+                    continue  # FIXME
+                if not self.config.processes.get(process).isSignal and \
+                        not self.config.processes.get(process).isData:
+                    region_name = loose_region
+                    process_group_name = "background"
+                else:
+                    region_name = self.region_name  # probably redundant
+                    process_group_name = "sig_" + self.process_group_name
+                reqs["fits"][process] = Fit.vreq(reqs["fits"][process], region_name=region_name,
+                    x_range=x_range, process_group_name=process_group_name)
+                reqs["inspections"][process] = InspectFitSyst.vreq(reqs["inspections"][process],
+                    region_name=region_name, x_range=x_range, process_group_name=process_group_name)
+
+        else:  # counting
+            blind_range = (str(self.mass_point - 2 * self.sigma), str(self.mass_point + 2 * self.sigma))
+            for process in reqs["fits"]:
+                if process == "data_obs": # FIXME
+                    x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
+                    process_group_name = "data"
+                    blind_range = ("-1", "-1")
+                    region_name = loose_region
+                elif not self.config.processes.get(process).isSignal and \
+                        not self.config.processes.get(process).isData:
+                    x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
+                    blind_range = blind_range
+                    process_group_name = "qcd_background"
+                    ins_process_group_name = "background"
+                    ins_process_name = "background"
+                    region_name = loose_region
+                else:
+                    x_range = blind_range
+                    blind_range = ("-1", "-1")
+                    process_group_name = "sig_" + self.process_group_name[len("qcd_"):]
+                    ins_process_group_name = "sig_" + self.process_group_name[len("qcd_"):]
+                    ins_process_name = self.process_group_name[len("qcd_"):]
+                    region_name = self.region_name
+
+                reqs["fits"][process] = Fit.vreq(reqs["fits"][process], region_name=region_name,
+                    x_range=x_range, process_group_name=process_group_name, blind_range=blind_range)
+                if process != "data_obs":
+                    reqs["inspections"][process] = InspectFitSyst.vreq(reqs["inspections"][process],
+                        region_name=region_name, x_range=x_range,
+                        process_group_name=ins_process_group_name, blind_range=blind_range,
+                        process_name=ins_process_name)
 
         # get models for background scaling
         background_model_found = False
@@ -110,23 +151,6 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     f"feature_names=('{self.calibration_feature_name}',), "
                     "category_name='base')")
 
-        if self.counting:  # counting
-            blind_range = (str(self.mass_point - 2 * self.sigma), str(self.mass_point + 2 * self.sigma))
-            for process in reqs["fits"]:
-                if process == "data_obs": # FIXME
-                    reqs["fits"][process].x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
-                elif not self.config.processes.get(process).isSignal and \
-                        not self.config.processes.get(process).isData:
-                    reqs["fits"][process].x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
-                    reqs["fits"][process].blind_range = blind_range
-                    reqs["inspections"][process].x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
-                    reqs["inspections"][process].region_name = self.loose_region
-                    reqs["inspections"][process].blind_range = blind_range
-                    reqs["inspections"][process].process_name = "background"
-                    reqs["inspections"][process].process_group_name = self.process_group_name[len("qcd_"):]
-                else:
-                    reqs["fits"][process].x_range = blind_range
-                    reqs["inspections"][process].x_range = blind_range
         return reqs
 
     def run(self):
@@ -184,7 +208,7 @@ class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
         return reqs
 
 
-class CreateWorkspaceDQCD(CreateWorkspace, DQCDBaseTask, FitConfigBaseTask):
+class CreateWorkspaceDQCD(DQCDBaseTask, FitConfigBaseTask, CreateWorkspace):
     def requires(self):
         if self.combine_categories:
             return CombineDatacardsDQCD.vreq(self)
@@ -332,13 +356,16 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
                 _exclude=["branches", "branch"])}
 
     def output(self):
+        if self.combine_categories:
+            process_group_name=self.process_group_names[self.branch]
+        else:
+            process_group_name=self.process_group_names[0]
+
         return {
-            process_group_name: {
-                feature.name: self.local_target("results_{}{}.json".format(
-                    feature.name, self.get_output_postfix(process_group_name=process_group_name,
-                        category_names=self.fit_config[process_group_name].keys())))
-                for feature in self.features
-            } for process_group_name in self.process_group_names
+            feature.name: self.local_target("results_{}{}.json".format(
+                feature.name, self.get_output_postfix(process_group_name=process_group_name,
+                    category_names=self.fit_config[process_group_name].keys())))
+            for feature in self.features
         }
 
     def combine_parser(self, filename):
@@ -355,21 +382,24 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
         return res
 
     def run(self):
-        inputs = self.input()["collection"].targets[self.branch]
-        for pgn in self.process_group_names:
-            for feature in self.features:
-                res = self.combine_parser(inputs[feature.name]["txt"].path)
-                if not res:
-                    print("Fit for %s did not converge. Filling with dummy values." % pgn)
-                    res = {
-                        "2.5": 1.,
-                        "16.0": 1.,
-                        "50.0": 1.,
-                        "84.0": 1.,
-                        "97.5": 1.
-                    }
-                with open(create_file_dir(self.output()[pgn][feature.name].path), "w+") as f:
-                    json.dump(res, f, indent=4)
+        if self.combine_categories:
+            print(self.input()["collection"].targets)
+            inputs = self.input()["collection"].targets[0]
+        else:
+            inputs = self.input()["collection"].targets[self.branch]
+        for feature in self.features:
+            res = self.combine_parser(inputs[feature.name]["txt"].path)
+            if not res:
+                print("Fit did not converge. Filling with dummy values.")
+                res = {
+                    "2.5": 1.,
+                    "16.0": 1.,
+                    "50.0": 1.,
+                    "84.0": 1.,
+                    "97.5": 1.
+                }
+            with open(create_file_dir(self.output()[feature.name].path), "w+") as f:
+                json.dump(res, f, indent=4)
 
 
 class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper, FitConfigBaseTask):

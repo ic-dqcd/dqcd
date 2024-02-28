@@ -140,7 +140,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
         for feature in self.features:
             results = OrderedDict()
             for ip, process_group_name in enumerate(self.process_group_names):
-                with open(inputs["collection"].targets[0][process_group_name][feature.name].path) as f:
+                with open(inputs["collection"].targets[ip][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
             self.plot(results, create_file_dir(self.output()[feature.name].path))
 
@@ -278,12 +278,12 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
     def run(self):
         inputs = self.input()
         for feature in self.features:
-            for process_group_name in self.process_group_names:
+            for ip, process_group_name in enumerate(self.process_group_names):
                 results = OrderedDict()
-                for ip, category_name in enumerate(self.fit_config[process_group_name].keys()):
-                    with open(inputs["cat"][process_group_name]["collection"].targets[ip][process_group_name][feature.name].path) as f:
+                for ic, category_name in enumerate(self.fit_config[process_group_name].keys()):
+                    with open(inputs["cat"][process_group_name]["collection"].targets[ic][feature.name].path) as f:
                         results[category_name] = json.load(f)
-                with open(inputs["combined"]["collection"].targets[0][process_group_name][feature.name].path) as f:
+                with open(inputs["combined"]["collection"].targets[ip][feature.name].path) as f:
                     results["Combined"] = json.load(f)
 
                 self.plot(results, create_file_dir(

@@ -16,6 +16,10 @@ class Config(cmt_config):
         # add new process_group_name for each signal sample, avoiding "wrapper" processes
         for process in self.processes:
             if process.isSignal and "_" in process.name:
+                self.process_group_names["sig_" + process.name] = [
+                    process.name
+                ]
+
                 self.process_group_names[process.name] = [
                     "data",
                     "background",
@@ -235,6 +239,9 @@ class Config(cmt_config):
             "background": [
                 "background",
             ],
+            "data": [
+                "data",
+            ],
             "full": [
                 # "ggf_sm",
                 # "data_tau",
@@ -268,6 +275,20 @@ class Config(cmt_config):
                 "scenarioB1_mpi_2_mA_0p40_ctau_1p0",
                 # "scenarioB2_mpi_2_mA_1p10_ctau_100",
                 # "scenarioC_mpi_4_mA_3p20_ctau_0p1"
+            ],
+            "qcd_background": [
+                "qcd_1000toInf",
+                "qcd_120to170",
+                "qcd_15to20",
+                "qcd_170to300",
+                "qcd_20to30",
+                "qcd_300to470",
+                "qcd_30to50",
+                "qcd_470to600",
+                "qcd_50to80",
+                "qcd_600to800",
+                "qcd_80to120",
+                "qcd_800to1000",
             ],
         }
 
