@@ -947,14 +947,14 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
             
-            # Dataset("qcd_15to7000",
-                # dataset="/QCD_Pt-15to7000_TuneCP5_Flat2018_13TeV_pythia8/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                # process=self.processes.get("qcd_15to7000"),
-                # check_empty=False,
-                # skipFiles=[],
-                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                # xs=1315000000
-            # ),
+            #Dataset("qcd_15to7000",
+                #dataset="/QCD_Pt-15to7000_TuneCP5_Flat2018_13TeV_pythia8/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                #process=self.processes.get("qcd_15to7000"),
+                #check_empty=False,
+                #skipFiles=[],
+                #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                #xs=1315000000
+            #),
 
             Dataset("zprime_mpi_2_ctau_10",
                 dataset="/testZPrime_ctau10/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
@@ -964,6 +964,232 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 xs=signal_xs
             ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),  
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),     
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+            
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+ 
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1",
+                dataset="/hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+            
 
         ]
         return ObjectCollection(datasets)
