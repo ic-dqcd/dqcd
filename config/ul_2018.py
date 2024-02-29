@@ -929,8 +929,17 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
 
+            Dataset("hzdzd_mzd_8_ctau_1",
+                dataset="/HToZdZdTo2Mu2X_MZd-8_ctau-1mm_TuneCP5_13TeV_powheg2_JHUGenV738_pythia8/jleonhol-nanotronv1-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("hzdzd_mzd_8_ctau_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs
+            ),
+
             Dataset("hzdzd_mzd_8_ctau_100",
-                dataset="/HToZdZdTo2Mu2X_MZd-8_ctau-100mm_TuneCP5_13TeV_powheg2_JHUGenV738_pythia8/jleonhol-nanotronv2-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                dataset="/HToZdZdTo2Mu2X_MZd-8_ctau-100mm_TuneCP5_13TeV_powheg2_JHUGenV738_pythia8/jleonhol-nanotronv1-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
                 process=self.processes.get("hzdzd_mzd_8_ctau_100"),
                 check_empty=False,
                 tags=["ul"],
