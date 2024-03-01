@@ -921,13 +921,13 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
 
-            Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_new",
-                folder="/vols/cms/jleonhol/samples/ul_pu/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/",
-                process=self.processes.get("signal"),
-                file_pattern="nano.root",
-                tags=["ul"],
-                xs=signal_xs
-            ),
+            #Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_new",
+                #folder="/vols/cms/jleonhol/samples/ul_pu/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/",
+                #process=self.processes.get("signal"),
+                #file_pattern="nano.root",
+                #tags=["ul"],
+                #xs=signal_xs
+            #),
 
             Dataset("hzdzd_mzd_8_ctau_1",
                 dataset="/HToZdZdTo2Mu2X_MZd-8_ctau-1mm_TuneCP5_13TeV_powheg2_JHUGenV738_pythia8/jleonhol-nanotronv1-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
@@ -1011,7 +1011,7 @@ class Config(legacy_config):
             ),
 
             Dataset("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1",
-                dataset="/hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a892cb8ebd34e/USER",
+                dataset="/hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
                 process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],

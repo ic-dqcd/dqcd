@@ -132,6 +132,8 @@ class Config(cmt_config):
             Process("qcd_800to1000", Label("QCD (800-1000)"), color=(255, 153, 0), parent_process="qcd"),
             Process("qcd_15to7000", Label("QCD (15-7000)"), color=(255, 153, 0), parent_process="qcd"),
 
+            Process("QCD_Pt-15to7000_TuneCP5_Flat2018", Label("QCD (15to7000)"), color=(255, 153, 0), parent_process="qcd"),
+
             Process("signal", Label("Signal"), color=(0, 0, 0), isSignal=True),
 
             Process("scenarioA", Label("scenarioA"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
@@ -209,6 +211,33 @@ class Config(cmt_config):
             Process("scenarioC_mpi_4_mA_3p20_ctau_10", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
             Process("scenarioC_mpi_4_mA_3p20_ctau_100", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
             Process("scenarioC_mpi_4_mA_3p20_ctau_1p0", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=1.0$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
+
+            Process("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+
 
             Process("hzdzd", Label("$H\\to$$Z_dZ_d$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
             Process("hzdzd_mzd_8_ctau_100", Label("$H\\to$ $Z_dZ_d$, $m_{Z_d}=8$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="hzdzd"),
@@ -291,6 +320,9 @@ class Config(cmt_config):
                 "qcd_80to120",
                 "qcd_800to1000",
             ],
+            "sig": [
+                "signal"
+            ]
         }
 
         process_training_names = {
@@ -804,7 +836,7 @@ class Config(cmt_config):
 
             # Feature("muon1_sv_bestchi2_pt", "muonSV_mu1pt.at(min_chi2_index)",
             Feature("muon1_sv_bestchi2_pt", "muon1_sv_bestchi2_pt",
-                binning=(30, 0, 150), x_title=Label("muonSV muon1 #p_{T} (min #chi^2)"),
+                binning=(100, 0, 200), x_title=Label("muonSV muon1 #p_{T} (min #chi^2)"),
                 units="GeV", tags=["lbn", "lbn_pt"]),
             # Feature("muon1_sv_bestchi2_eta", "muonSV_mu1eta.at(min_chi2_index)",
             Feature("muon1_sv_bestchi2_eta", "muon1_sv_bestchi2_eta",
@@ -821,7 +853,7 @@ class Config(cmt_config):
 
             # Feature("muon2_sv_bestchi2_pt", "muonSV_mu2pt.at(min_chi2_index)",
             Feature("muon2_sv_bestchi2_pt", "muon2_sv_bestchi2_pt",
-                binning=(30, 0, 150), x_title=Label("muonSV muon2 #p_{T} (min #chi^2)"),
+                binning=(100, 0, 200), x_title=Label("muonSV muon2 #p_{T} (min #chi^2)"),
                 units="GeV", tags=["lbn", "lbn_pt"]),
             # Feature("muon2_sv_bestchi2_eta", "muonSV_mu2eta.at(min_chi2_index)",
             Feature("muon2_sv_bestchi2_eta", "muon2_sv_bestchi2_eta",
@@ -837,10 +869,12 @@ class Config(cmt_config):
                 tags=["lbn", "lbn_m"]),
 
             # Feature("muonSV_chi2_bestchi2", "muonSV_chi2.at(min_chi2_index)", binning=(50, 0, 1500),
-            Feature("muonSV_bestchi2_chi2", "muonSV_bestchi2_chi2", binning=(50, 0, 1500),
+            Feature("muonSV_bestchi2_chi2", "muonSV_bestchi2_chi2", binning=(100, 0, 10),
+                x_title=Label("muonSV chi2 (min #chi^2)"), tags=["lbn_light", "lbn"]),
+            Feature("muonSV_bestchi2_chi2_with_mass_cut", "muonSV_bestchi2_chi2", selection="muonSV_bestchi2_mass > 5.0", binning=(100, 0, 10),
                 x_title=Label("muonSV chi2 (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_pAngle_bestchi2", "muonSV_pAngle.at(min_chi2_index)", binning=(70, 0, 3.5),
-            Feature("muonSV_bestchi2_pAngle", "muonSV_bestchi2_pAngle", binning=(70, 0, 3.5),
+            Feature("muonSV_bestchi2_pAngle", "muonSV_bestchi2_pAngle", binning=(100, 0, 3.5),
                 x_title=Label("muonSV pAngle (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dlen_bestchi2", "muonSV_dlen.at(min_chi2_index)", binning=(80, 0, 20),
             Feature("muonSV_bestchi2_dlen", "muonSV_bestchi2_dlen", binning=(80, 0, 20),
@@ -849,10 +883,10 @@ class Config(cmt_config):
             Feature("muonSV_bestchi2_dlenSig", "muonSV_bestchi2_dlenSig", binning=(100, 0, 1500),
                 x_title=Label("muonSV dlenSig (min #chi^2)"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dxy_bestchi2", "muonSV_dxy.at(min_chi2_index)", binning=(40, 0, 20),
-            Feature("muonSV_bestchi2_dxy", "muonSV_bestchi2_dxy", binning=(40, 0, 20),
+            Feature("muonSV_bestchi2_dxy", "muonSV_bestchi2_dxy", binning=(100, 0, 25),
                 x_title=Label("muonSV dxy"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dxySig_bestchi2", "muonSV_dxySig.at(min_chi2_index)", binning=(100, 0, 2500),
-            Feature("muonSV_bestchi2_dxySig", "muonSV_bestchi2_dxySig", binning=(100, 0, 2500),
+            Feature("muonSV_bestchi2_dxySig", "muonSV_bestchi2_dxySig", binning=(100, 0, 1000),
                 x_title=Label("muonSV dxySig (min #chi^2)"), tags=["lbn_light", "lbn"]),
 
             Feature("muonSV_x", "muonSV_x", binning=(50, -10, 10),
@@ -950,6 +984,9 @@ class Config(cmt_config):
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV"),
             Feature("muonSV_bestchi2_mass_fullrange", "muonSV_bestchi2_mass", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                units="GeV"),
+            Feature("muonSV_bestchi2_mass_fullrange_fewer_bins", "muonSV_bestchi2_mass", binning=(100, 0, 22),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV"),
             # Feature("muonSV_mass_min_chi2_bdt", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
