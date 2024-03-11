@@ -13,6 +13,10 @@ class Config(cmt_config):
         super(Config, self).__init__(*args, **kwargs)
         self.regions = self.add_regions()
 
+        # self.qcd_var1 = DotDict({"nominal": "os", "inverted": "ss"})
+        self.qcd_var1 = DotDict({"nominal": "bdt_tight", "inverted": "bdt_loose"})
+        self.qcd_var2 = DotDict({"nominal": "chi2_tight", "inverted": "chi2_loose"})
+
         # add new process_group_name for each signal sample, avoiding "wrapper" processes
         for process in self.processes:
             if process.isSignal and "_" in process.name:
@@ -212,31 +216,32 @@ class Config(cmt_config):
             Process("scenarioC_mpi_4_mA_3p20_ctau_100", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
             Process("scenarioC_mpi_4_mA_3p20_ctau_1p0", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=1.0$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
 
-            Process("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
-            Process("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector", Label(latex="vector"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
+            Process("vector_m_10_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_10_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_10_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_10_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_10_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_15_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_15_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_15_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_15_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_15_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=15$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_20_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_20_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_20_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_20_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_20_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=20$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_2_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_2_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_2_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_2_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_2_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=2$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_5_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_5_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_5_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_5_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
+            Process("vector_m_5_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
 
 
             Process("hzdzd", Label("$H\\to$$Z_dZ_d$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),

@@ -10,9 +10,38 @@ from config.legacy_2018 import Config as legacy_config
 class Config(legacy_config):
 
     def add_regions(self, **kwargs):
+        os_sel =  "muonSV_charge.at(min_chi2_index) == 0"
+        ss_sel =  "muonSV_charge.at(min_chi2_index) != 0"
+        bdt_scA_loose = "{{bdt_scenarioA}} < 0.7"
+        bdt_scA_tight = "{{bdt_scenarioA}} > 0.98"
+        chi2_loose = "{{muonSV_bestchi2_chi2}} > 5"
+        chi2_tight = "{{muonSV_bestchi2_chi2}} <= 5"
+
         regions = [
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
             Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
+
+            Category("os", "OS region", selection=os_sel),
+            Category("ss", "SS region", selection=ss_sel),
+            Category("bdt_tight", "Tight bdt region", selection=bdt_scA_tight),
+            Category("bdt_loose", "Loose bdt region", selection=bdt_scA_loose),
+            Category("chi2_tight", "Tight bdt region", selection=chi2_tight),
+            Category("chi2_loose", "Loose bdt region", selection=chi2_loose),
+
+            Category("os_loose", "OS, Loose bdt region", selection=jrs(bdt_scA_loose, os_sel)),
+            Category("ss_loose", "SS, Loose bdt region", selection=jrs(bdt_scA_loose, ss_sel)),
+            Category("os_tight", "OS, Tight bdt region", selection=jrs(bdt_scA_tight, os_sel)),
+            Category("ss_tight", "SS, Tight bdt region", selection=jrs(bdt_scA_tight, ss_sel)),
+
+            Category("bdt_tight_chi2_loose", "Tight bdt, Loose chi2 region", selection=jrs(chi2_loose, bdt_scA_tight)),
+            Category("bdt_loose_chi2_loose", "Loose bdt, Loose chi2 region", selection=jrs(chi2_loose, bdt_scA_loose)),
+            Category("bdt_tight_chi2_tight", "Tight bdt, Tight chi2 region", selection=jrs(chi2_tight, bdt_scA_tight)),
+            Category("bdt_loose_chi2_tight", "Loose bdt, Tight chi2 region", selection=jrs(chi2_tight, bdt_scA_loose)),
+
+            Category("os_chi2_loose", "OS, Loose chi2 region", selection=jrs(chi2_loose, os_sel)),
+            Category("ss_chi2_loose", "SS, Loose chi2 region", selection=jrs(chi2_loose, ss_sel)),
+            Category("os_chi2_tight", "OS, Tight chi2 region", selection=jrs(chi2_tight, os_sel)),
+            Category("ss_chi2_tight", "SS, Tight chi2 region", selection=jrs(chi2_tight, ss_sel)),
 
             Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"),
             Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
@@ -33,6 +62,10 @@ class Config(legacy_config):
             # for the new Z' samples, using scenario A since the signature in similar
             Category("loose_bdt_zprime", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("tight_bdt_zprime", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+
+            # for the vector portal samples, using dedicated BDT
+            Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.7"),
+            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.95"),
         ]
         return ObjectCollection(regions)
 
@@ -285,6 +318,19 @@ class Config(legacy_config):
                 runPeriod="D",
                 # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="output_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root"
+            ),
+            
+            Dataset("data_2018d_bph1_1fb_v2",
+                dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                runPeriod="D",
+                # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
+                file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
+                check_empty=False,
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
@@ -967,7 +1013,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_10_ctau_100_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -976,7 +1022,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_10_ctau_10_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -985,7 +1031,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_10_ctau_1_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -994,7 +1040,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_10_ctau_500_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1003,7 +1049,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_10_ctau_50_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1012,7 +1058,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_15_ctau_100_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1021,7 +1067,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_15_ctau_10_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1030,7 +1076,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_15_ctau_1_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1039,7 +1085,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_15_ctau_500_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1048,7 +1094,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_15_ctau_50_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1057,7 +1103,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_20_ctau_100_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1066,7 +1112,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_20_ctau_10_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1075,7 +1121,7 @@ class Config(legacy_config):
             
             Dataset("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_20_ctau_1_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1084,7 +1130,7 @@ class Config(legacy_config):
  
             Dataset("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_20_ctau_500_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1093,7 +1139,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_20_ctau_50_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1102,7 +1148,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_2_ctau_100_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1111,7 +1157,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_2_ctau_10_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1120,7 +1166,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_2_ctau_1_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1129,7 +1175,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_2_ctau_500_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1138,7 +1184,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_2_ctau_50_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1147,7 +1193,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_5_ctau_100_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1156,7 +1202,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_5_ctau_10_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1165,7 +1211,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_5_ctau_1_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1174,7 +1220,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_5_ctau_500_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1183,7 +1229,7 @@ class Config(legacy_config):
 
             Dataset("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1"),
+                process=self.processes.get("vector_m_5_ctau_50_xiO_1_xiL_1"),
                 check_empty=False,
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",

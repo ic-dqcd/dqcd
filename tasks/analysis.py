@@ -304,6 +304,8 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
             signal_tag = "zd"
         elif "zprime" in process_group_name:
             signal_tag = "pi"
+        elif "vector" in process_group_name:
+            signal_tag = ""
         else:
             raise ValueError(f"{process_group_name} can't be handled by ScanCombineDQCD")
         i = process_group_name.find(f"m{signal_tag}_")

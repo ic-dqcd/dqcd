@@ -4,7 +4,8 @@ class DQCDBDTSelectionRDFProducer():
         self.bdt_cut_value = kwargs.pop("bdt_cut_value", 0.)
 
     def run(self, df):
-        df = df.Filter(f"{self.bdt_name} > {self.bdt_cut_value}")
+        df = df.Filter(f"{self.bdt_name} > {self.bdt_cut_value}",
+            f"{self.bdt_name} > {self.bdt_cut_value}")
         return df, []
 
 

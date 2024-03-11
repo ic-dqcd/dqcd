@@ -199,6 +199,12 @@ action() {
           compile="1"
         fi
 
+        export BASEFILTERS_PATH="Base/Filters"
+        if [ ! -d "$BASEFILTERS_PATH" ]; then
+          git clone https://gitlab.cern.ch/cms-phys-ciemat/event-filters.git Base/Filters
+          compile="1"
+        fi
+
         export DQCD_PATH="DQCD/Modules"
         if [ ! -d "$DQCD_PATH" ]; then
           git clone https://github.com/ic-dqcd/dqcd-modules.git DQCD/Modules
@@ -290,6 +296,7 @@ action() {
             cmt_pip_install sphinx==5.2.2
             cmt_pip_install sphinx_rtd_theme
             cmt_pip_install sphinx_design
+            cmt_pip_install envyaml
         fi
 
         # gfal python bindings
