@@ -212,6 +212,7 @@ class Config(cmt_config):
             Process("scenarioC_mpi_4_mA_3p20_ctau_100", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
             Process("scenarioC_mpi_4_mA_3p20_ctau_1p0", Label(latex="sc.C, $m_{\pi}=4$, $m_{A}=3.2$, $c\\tau=1.0$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioC"),
 
+            Process("vector", Label("vector"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
             Process("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
             Process("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
             Process("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
@@ -302,7 +303,7 @@ class Config(cmt_config):
             "bkgscenario": [
                 "background",
                 "scenarioA_mpi_4_mA_1p33_ctau_10",
-                "scenarioB1_mpi_2_mA_0p40_ctau_1p0",
+                #"scenarioB1_mpi_2_mA_0p40_ctau_1p0",
                 # "scenarioB2_mpi_2_mA_1p10_ctau_100",
                 # "scenarioC_mpi_4_mA_3p20_ctau_0p1"
             ],
