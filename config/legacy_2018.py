@@ -243,7 +243,6 @@ class Config(cmt_config):
             Process("vector_m_5_ctau_500_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=500$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
             Process("vector_m_5_ctau_50_xiO_1_xiL_1", Label(latex="vector, $m=5$, $c\\tau=50$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
 
-
             Process("hzdzd", Label("$H\\to$$Z_dZ_d$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
             Process("hzdzd_mzd_8_ctau_100", Label("$H\\to$ $Z_dZ_d$, $m_{Z_d}=8$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="hzdzd"),
             Process("hzdzd_mzd_8_ctau_1", Label("$H\\to$ $Z_dZ_d$, $m_{Z_d}=8$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="hzdzd"),
@@ -307,7 +306,7 @@ class Config(cmt_config):
             "bkgscenario": [
                 "background",
                 "scenarioA_mpi_4_mA_1p33_ctau_10",
-                "scenarioB1_mpi_2_mA_0p40_ctau_1p0",
+                #"scenarioB1_mpi_2_mA_0p40_ctau_1p0",
                 # "scenarioB2_mpi_2_mA_1p10_ctau_100",
                 # "scenarioC_mpi_4_mA_3p20_ctau_0p1"
             ],
