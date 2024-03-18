@@ -162,7 +162,8 @@ class DQCDTrigSF_RDFProducer():
         self.isMC = kwargs.pop("isMC")
         self.isUL = kwargs.pop("isUL")
 
-        filename = "${CMT_BASE}/../data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.json"
+        # filename = "${CMT_BASE}/../data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.json"
+        filename = "${CMT_BASE}/../data/dqcd_sf_bestdrtag.json"
 
         if self.isMC and not self.isUL:
             raise ValueError("DQCDTrigSF_RDF module only available for UL samples")
@@ -208,7 +209,7 @@ class DQCDTrigSF_RDFProducer():
 
     def run(self, df):
         if self.isMC:
-            branches = ['trigSF', 'trigSF_up', 'trigSF_down']
+            branches = ['trigSFnew', 'trigSFnew_up', 'trigSFnew_down']
             for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
                 df = df.Define(branch_name, """get_dqcd_trig_sf(
                     muonSV_chi2_trig_muon1_index, muonSV_chi2_trig_muon2_index,

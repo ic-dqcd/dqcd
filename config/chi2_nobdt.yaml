@@ -4,6 +4,13 @@ chi2:
     parameters:
         year: self.config.year
 
+trigsf:
+    name: DQCDTrigSF_RDF
+    path: modules.DQCD_SF
+    parameters:
+        isMC: self.dataset.process.isMC
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+
 #bdt_inference_a:
 #    name: DQCDULBDTNoJet
 #    path: DQCD.Modules.BDTULinferenceNoJet

@@ -11,6 +11,24 @@ from cmt.base_tasks.base import Task
 class Config(cmt_config):
     def __init__(self, *args, **kwargs):
         super(Config, self).__init__(*args, **kwargs)
+
+        self.resonance_masses = {
+            "ks": (0.43, 0.49),
+            "eta": (0.52, 0.58),
+            "rho": (0.73, 0.84),  # rho/omega
+            "phi": (0.96, 1.08),
+            "jpsi": (2.91, 3.27),
+            "psi2s": (3.47, 3.89),
+            "upsilon1s": (8.99, 9.87),
+            "upsilon2s": (9.61, 10.39),
+            "upsilon3s": (9.87, 10.77),
+        }
+        self.resonance_mass_sel = "(%s)" % jrs(
+            ["{{muonSV_bestchi2_mass}} > %s && {{muonSV_bestchi2_mass}} < %s" % (elem[0], elem[1])
+                for elem in self.resonance_masses.values()],
+            op="or"
+        )
+
         self.regions = self.add_regions()
 
         # self.qcd_var1 = DotDict({"nominal": "os", "inverted": "ss"})
@@ -46,6 +64,7 @@ class Config(cmt_config):
                     "qcd_800to1000",
                     process.name
                 ]
+
 
     def add_regions(self, **kwargs):
         regions = [
@@ -965,10 +984,11 @@ class Config(cmt_config):
             ),
             #Feature("bdt_scenarioA", "bdt_scenarioA_nojetsel", binning=(20, 0, 1),
             Feature("bdt_scenarioA", "bdt_scenarioA", binning=(20, 0, 1),
+            #Feature("bdt_scenarioA", "bdt_scenarioA_nochi2", binning=(20, 0, 1),
             #Feature("bdt_scenarioA", "bdt_new_scenarioA", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario A)"),
             ),
-            Feature("bdt_scenarioB1", "bdt_scenarioB1", binning=(20, 0, 1),
+            Feature("bdt_scenarioB1", "bdt_scenarioB1_new", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario B1)"),
             ),
             Feature("bdt_scenarioB2", "bdt_new_scenarioB2", binning=(20, 0, 1),
@@ -976,6 +996,10 @@ class Config(cmt_config):
             ),
             Feature("bdt_scenarioC", "bdt_new_scenarioC", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario C)"),
+            ),
+
+            Feature("bdt_vector", "bdt_vector_new", binning=(20, 0, 1),
+                x_title=Label("BDT score (vector portal)"),
             ),
 
             # Feature("muonSV_mass_min_chi2", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),

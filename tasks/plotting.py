@@ -161,13 +161,19 @@ class ParamPlotDQCD(PlotCombineDQCD):
         for feature in self.features:
             results = OrderedDict()
             table = []
-            for process_group_name in self.process_group_names:
-                with open(inputs["collection"].targets[0][process_group_name][feature.name].path) as f:
+            for ip, process_group_name in enumerate(self.process_group_names):
+                with open(inputs["collection"].targets[ip][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
                 params = process_group_name.split("_")
+                if process_group_name.startswith("scenario"):
+                    indexes = (4, 6)
+                elif process_group_name.startswith("vector"):
+                    indexes = (2, 4)
+                else:
+                    raise ValueError("Need to implement that process_group_name")
                 params = {
-                    "mass": params[4].replace("p", "."),
-                    "lifetime": params[6].replace("p", "."),
+                    "mass": float(params[indexes[0]].replace("p", ".")),
+                    "lifetime": float(params[indexes[1]].replace("p", ".")),
                 }
                 table.append([
                     params["mass"], params["lifetime"],

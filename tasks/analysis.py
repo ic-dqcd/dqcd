@@ -8,30 +8,18 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    CombineBase, CombineCategoriesTask, Fit, InspectFitSyst, CreateDatacards, CombineDatacards,
-    CreateWorkspace, RunCombine, PullsAndImpacts, MergePullsAndImpacts, PlotPullsAndImpacts,
-    ValidateDatacards
+    FitBase, CombineBase, CombineCategoriesTask, Fit, InspectFitSyst, CreateDatacards,
+    CombineDatacards, CreateWorkspace, RunCombine, PullsAndImpacts, MergePullsAndImpacts,
+    PlotPullsAndImpacts, ValidateDatacards
 )
 
-class DQCDBaseTask():
+class DQCDBaseTask(DatasetWrapperTask):
     tight_region = luigi.Parameter(default="tight_bdt", description="region_name with the "
         "tighter bdt cut, default: tight_bdt")
     loose_region = luigi.Parameter(default="loose_bdt", description="region_name with the "
         "looser bdt cut, default: loose_bdt")
     mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
         "define the fit ranges and blinded regions")
-
-
-class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
-
-    calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
-
-    def __init__(self, *args, **kwargs):
-        super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
-        self.sigma = self.mass_point * 0.01
-        self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
-        if self.process_group_name != "default":
-            self.models = self.modify_models()
 
     def modify_models(self):
         new_models = {}
@@ -63,6 +51,18 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                 new_models[model] = copy(self.models[model])
                 new_models[model]["x_range"] = str(self.fit_range)[1:-1]
         return new_models
+
+
+class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
+
+    calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
+
+    def __init__(self, *args, **kwargs):
+        super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
+        self.sigma = self.mass_point * 0.01
+        self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
+        if self.process_group_name != "default":
+            self.models = self.modify_models()
 
     def requires(self):
         reqs = super(CreateDatacardsDQCD, self).requires()
@@ -174,7 +174,7 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
         super(CreateDatacardsDQCD, self).run()
 
 
-class FitConfigBaseTask(law.Task):
+class FitConfigBaseTask(DatasetWrapperTask):
     fit_config_file = luigi.Parameter(default="fit_config", description="file including "
         "fit configuration, default: fit_config.yaml")
 
@@ -270,9 +270,29 @@ class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
         return CreateWorkspaceDQCD.vreq(self)
 
 
-class ProcessGroupNameWrapper(DatasetWrapperTask):
+class ProcessGroupNameWrapper(FitConfigBaseTask):
     process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
         "empty means all scenarios, default: empty")
+
+    def get_mass_point(self, process_group_name):
+        if "scenario" in process_group_name:
+            signal_tag = "A"
+        elif "hzdzd" in process_group_name:
+            signal_tag = "zd"
+        elif "zprime" in process_group_name:
+            signal_tag = "pi"
+        elif "vector" in process_group_name:
+            signal_tag = ""
+        else:
+            raise ValueError(f"{process_group_name} can't be handled by ScanCombineDQCD")
+        i = process_group_name.find(f"m{signal_tag}_")
+        f = process_group_name.find("_ctau")
+        mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
+        if mass_point == 0.33:
+            mass_point = 0.333
+        elif mass_point == 0.67:
+            mass_point = 0.667
+        return mass_point
 
     def __init__(self, *args, **kwargs):
         super(ProcessGroupNameWrapper, self).__init__(*args, **kwargs)
@@ -296,26 +316,6 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
         else:
             process_group_name = self.process_group_names[0]
             return len(list(self.fit_config[process_group_name].keys()))
-
-    def get_mass_point(self, process_group_name):
-        if "scenario" in process_group_name:
-            signal_tag = "A"
-        elif "hzdzd" in process_group_name:
-            signal_tag = "zd"
-        elif "zprime" in process_group_name:
-            signal_tag = "pi"
-        elif "vector" in process_group_name:
-            signal_tag = ""
-        else:
-            raise ValueError(f"{process_group_name} can't be handled by ScanCombineDQCD")
-        i = process_group_name.find(f"m{signal_tag}_")
-        f = process_group_name.find("_ctau")
-        mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
-        if mass_point == 0.33:
-            mass_point = 0.333
-        elif mass_point == 0.67:
-            mass_point = 0.667
-        return mass_point
           
     def requires(self):
         if self.combine_categories:
@@ -385,7 +385,6 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
 
     def run(self):
         if self.combine_categories:
-            print(self.input()["collection"].targets)
             inputs = self.input()["collection"].targets[0]
         else:
             inputs = self.input()["collection"].targets[self.branch]
@@ -404,7 +403,7 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
                 json.dump(res, f, indent=4)
 
 
-class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper, FitConfigBaseTask):
+class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper):
     def requires(self):
         reqs = {}
         for process_group_name in self.process_group_names:
@@ -490,3 +489,166 @@ class MergePullsAndImpactsDQCD(MergePullsAndImpacts, FitConfigBaseTask, DQCDBase
 class PlotPullsAndImpactsDQCD(PlotPullsAndImpacts, FitConfigBaseTask, DQCDBaseTask):
     def requires(self):
         return MergePullsAndImpactsDQCD.vreq(self)
+
+
+class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
+
+    category_names = (
+        "base",
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    )
+    feature_name = "muonSV_bestchi2_mass_fullrange"
+    params = ["integral", "mean", "sigma", "gamma", "chi2"]
+
+    def requires(self):
+        reqs = {}
+        for process_group_name in self.process_group_names:
+            signal = process_group_name[:process_group_name.find("_")]
+            tight_region = f"tight_bdt_{signal}"
+            loose_region = f"loose_bdt_{signal}"
+            mass_point = self.get_mass_point(process_group_name)
+            sigma = mass_point * 0.01
+            fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
+
+            reqs[process_group_name] = {}
+            for category_name in self.category_names:
+                reqs[process_group_name][category_name] = Fit.vreq(
+                    self, process_group_name="sig_" + process_group_name, region_name=tight_region,
+                    category_name=category_name, feature_names=(self.feature_name,),
+                    x_range=fit_range, method="voigtian", process_name=process_group_name,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1)})
+        return reqs
+
+    def output(self):
+        out = {}
+        out["tables"] = {
+            cat: {
+                ext: self.local_target(f"table_{cat}_{self.fit_config_file}.{ext}")
+                for ext in ["txt", "tex", "json"]
+            } for cat in self.category_names
+        }
+        for param in self.params:
+            if param == "chi2":
+                out[param] = self.local_target(f"{param}/{param}_{self.fit_config_file}.pdf")
+            out[f"{param}_cat"] = {
+                cat: self.local_target(f"{param}/{param}_{cat}_{self.fit_config_file}.pdf")
+                for cat in self.category_names
+            }
+            if param == "integral":
+                out[f"{param}_cat_ratio"] = {
+                    cat: self.local_target(f"{param}/{param}_{cat}_ratio_{self.fit_config_file}.pdf")
+                    for cat in self.category_names
+                }
+                out[f"{param}_cat_unc"] = {
+                    cat: self.local_target(f"{param}/{param}_{cat}_rel_unc_{self.fit_config_file}.pdf")
+                    for cat in self.category_names
+                }
+        return out
+
+    def run(self):
+        def round_unc(num):
+            if num == 0:
+                return num
+            exp = 0
+            while True:
+                if num * 10 ** exp > 1:
+                    return round(num, exp + 1)
+                exp += 1
+
+        import tabulate
+        import math
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+
+        inputs = self.input()
+
+        plot = []
+        d_param = {cat: {} for cat in self.category_names}
+        d_param_ratio = {cat: {} for cat in self.category_names}
+        d_param_unc = {cat: {} for cat in self.category_names}
+        for icat, cat in enumerate(self.category_names):
+            table = []
+            outd = {}
+            d_param[cat] = {param: {} for param in self.params}
+            d_param_ratio[cat] = {param: {} for param in self.params}
+            d_param_unc[cat] = {"integral": {}}
+            for pgn in self.process_group_names:
+                mass_point = self.get_mass_point(pgn)
+                # ctau = float(pgn.split("_ctau_")[1].replace("p", "."))
+                ctau = pgn.split("_ctau_")[1].replace("p", ".")
+                try:
+                    ctau = float(ctau)
+                except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
+                    ctau = float(ctau.split("_")[0])
+
+                with open(inputs[pgn][cat][self.feature_name]["json"].path) as f:
+                    d = json.load(f)
+                table.append([pgn] + [d[""][param] for param in self.params])
+                outd[pgn] = {param: d[""][param] for param in self.params}
+                for param in self.params:
+                    if param == "chi2":
+                        if math.isnan(float(d[""]["chi2"])):
+                            d_param[cat]["chi2"][(mass_point, ctau)] = ("nan", d[""]["Number of non-zero bins"])
+                        else:
+                            d_param[cat]["chi2"][(mass_point, ctau)] = (
+                                round(d[""]["chi2"], 2), d[""]["Number of non-zero bins"])
+                        if d[""]["chi2"] > 10.5 or math.isnan(float(d[""]["chi2"])):
+                            plot.append((icat, -1))
+                        else:
+                            plot.append((icat, d[""]["chi2"]))
+                    else:
+                        d_param[cat][param][(mass_point, ctau)] = round_unc(d[""][param])
+                        d_param_ratio[cat][param][(mass_point, ctau)] = round_unc(d[""][param] /
+                            d_param["base"][param][(mass_point, ctau)])
+                        if param == "integral":
+                            d_param_unc[cat][param][(mass_point, ctau)] = round_unc(
+                                d[""]["integral_error"] / d[""]["integral"] if d[""]["integral"] != 0
+                                else 0.
+                            )
+
+            # fancy_table = tabulate.tabulate(table, headers=["process"] + self.params)
+            # with open(create_file_dir(self.output()["tables"][cat]["txt"].path), "w+") as f:
+                # f.write(fancy_table)
+            # fancy_table_tex = tabulate.tabulate(table, headers=["process"] + self.params, tablefmt="latex")
+            # with open(create_file_dir(self.output()["tables"][cat]["tex"].path), "w+") as f:
+                # f.write(fancy_table_tex)
+            # with open(create_file_dir(self.output()["tables"][cat]["json"].path), "w+") as f:
+                # json.dump(d, f, indent=4)
+
+            for key, d in zip(["cat", "cat_ratio", "cat_unc"], [d_param, d_param_ratio, d_param_unc]):
+                for param in self.params:
+                    if param != "integral" and key in ["cat_ratio", "cat_unc"]:
+                        continue
+                    ax = plt.subplot()
+                    plt.plot([x for (x,y) in d[cat][param].keys()],
+                        [y for (x,y) in d[cat][param].keys()], ".")
+                    for (x, y), z in d[cat][param].items():
+                        plt.annotate(z, # this is the text
+                            (x, y), # this is the point to label
+                            textcoords="offset points", # how to position the text
+                            xytext=(0,10), # distance from text to points (x,y)
+                            ha='center',
+                            fontsize=5) # horizontal alignment can be left, right or center
+                    plt.xlabel(f"mass")
+                    plt.ylabel(f"ctau")
+                    plt.yscale('log')
+                    plt.savefig(create_file_dir(self.output()[f"{param}_{key}"][cat].path),
+                        bbox_inches='tight')
+                    plt.close()
+
+        ax = plt.subplot()
+        ax.set_xticks(list(range(len(self.category_names))))
+        ax.set_xticklabels(self.category_names, rotation=60, rotation_mode="anchor", ha="right")
+        im = plt.hist2d([elem[0] for elem in plot], [elem[1] for elem in plot],
+            bins=(len(self.category_names), 12),
+            range=[[-0.5, len(self.category_names) - 0.5],[-1.5, 10.5]])
+        ax.set_xbound(-0.5, len(self.category_names) - 0.5)
+        ax.set_ybound(-1.5, 10.5)
+        plt.colorbar(im[3])
+        plt.yscale("linear")
+        plt.ylabel(f"chi2/ndf")
+        plt.savefig(create_file_dir(self.output()["chi2"].path), bbox_inches='tight')

@@ -932,6 +932,8 @@ class TriggerSFtnpRk(TriggerSF):
 
         df = ROOT.RDataFrame("Events", self.input()["data"][0].path)
 
+        df.Snapshot("Events", "all_ev.root")
+
         df = df.Filter("nmuonSV > 0")
         df = df.Define("muonSV_min_chi2_index", """
             get_muonsv_index(nmuonSV, muonSV_chi2, muonSV_z, PV_z, muonSV_mass, muonSV_mu1eta, muonSV_mu2eta, muonSV_mu1phi, muonSV_mu2phi, muonSV_mu1index, muonSV_mu2index)
@@ -1176,7 +1178,9 @@ class TriggerSFtnpRknew(TriggerSF):
                 //std::cout << "call get_muonsv_index function" << std::endl;
                 std::vector<std::pair<int, float>> index_chi2;
                 for (int i = 0; i < nmuonSV; i++) {
+                    std::cout << "i " << i << " " << chisqr(1, muonSV_chi2[i]) << " " << muonSV_z[i] << " " << PV_z << " " << reco::deltaR(muonSV_mu1eta[i], muonSV_mu1phi[i], muonSV_mu2eta[i], muonSV_mu2phi[i]) << " " << muonSV_mass[i] << std::endl; 
                     if (chisqr(1, muonSV_chi2[i]) < 0.01 || abs(muonSV_z[i] - PV_z) > 0.5 || reco::deltaR(muonSV_mu1eta[i], muonSV_mu1phi[i], muonSV_mu2eta[i], muonSV_mu2phi[i]) < 0.15 || muonSV_mass[i] < 2.9 || muonSV_mass[i] > 3.3) continue;
+                    std::cout << "Pass muonsv cuts" <<std::endl;
                     int index1 = muonSV_mu1index[i];
                     int index2 = muonSV_mu2index[i];
                     index_chi2.push_back(std::make_pair(i, muonSV_chi2[i]));
@@ -1203,13 +1207,15 @@ class TriggerSFtnpRknew(TriggerSF):
                 for (int i = 0; i < nMuonBPark; i++) {
                     if (!MuonBPark_fired_HLT_Mu9_IP6[i])
                         continue;
-                    //std::cout << "pass trigger" << std::endl;    
+                    //std::cout << "pass trigger" << std::endl;
+                    // std::cout << "i " << i << " " << reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) << " " << muon_pt << " " << abs(muon_dxy)/muon_dxyErr << " " << muon_tightId << std::endl;
                     if (reco::deltaR(muon_eta, muon_phi, MuonBPark_eta[i], MuonBPark_phi[i]) < 0.2 && muon_pt > 10.0 && abs(muon_dxy)/muon_dxyErr > 8.0 && muon_tightId == 1){
                         //std::cout << "before TrigObjBPark check" << std::endl;
                         
                         for (int j = 0; j < nTrigObjBPark; j++) {
+                            // std::cout << "j " << j << " " << reco::deltaR(muon_eta, muon_phi, TrigObjBPark_eta[j], TrigObjBPark_phi[j]) << " " << TrigObjBPark_l1pt[j] << " " << TrigObjBPark_l1dR[j] << std::endl;
                             if (reco::deltaR(muon_eta, muon_phi, TrigObjBPark_eta[j], TrigObjBPark_phi[j]) < 0.05 && TrigObjBPark_l1pt[j] > 10.0 && TrigObjBPark_l1dR[j] < 0.05){
-                                //std::cout << "muon pass!" << std::endl;
+                                // std::cout << "muon pass!" << std::endl;
                                 return true;
                             }
                         }
@@ -1297,6 +1303,20 @@ class TriggerSFtnpRknew(TriggerSF):
         self.add_to_root(ROOT)
         #print("path = ", self.input()["data"][0].path)
         df = ROOT.RDataFrame("Events", self.input()["data"][0].path)
+
+        # df = df.Range(0, 1000)
+
+        h = df.Define("dz", "abs(muonSV_z[muonSV_mass > 2.9 && muonSV_mass < 3.3] - PV_z)").Histo1D(("dz", "; dz; Events", 100, 0, 0.5), "dz")
+        print(h.Integral())
+        c = ROOT.TCanvas()
+        h.Draw()
+        c.SaveAs("histo_dz.pdf")
+
+        return
+
+        # df = df.Filter("event == 200346525")
+
+        # df.Snapshot("Events", "all_ev.root")
 
         df = df.Filter("nmuonSV > 0")
         df = df.Define("muonSV_min_chi2_index", """

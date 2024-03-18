@@ -12,10 +12,14 @@ class Config(legacy_config):
     def add_regions(self, **kwargs):
         os_sel =  "muonSV_charge.at(min_chi2_index) == 0"
         ss_sel =  "muonSV_charge.at(min_chi2_index) != 0"
-        bdt_scA_loose = "{{bdt_scenarioA}} < 0.7"
-        bdt_scA_tight = "{{bdt_scenarioA}} > 0.98"
+        bdt_scA_loose = "{{bdt_scenarioA}} <= 0.7"
+        bdt_scA_tight = "{{bdt_scenarioA}} > 0.7"
+        # bdt_scA_tight = "{{bdt_scenarioA}} > 0.98"
         chi2_loose = "{{muonSV_bestchi2_chi2}} > 5"
         chi2_tight = "{{muonSV_bestchi2_chi2}} <= 5"
+
+        chi2_vvloose = "{{muonSV_bestchi2_chi2}} > 7.5"
+        chi2_vloose = "{{muonSV_bestchi2_chi2}} > 5 && {{muonSV_bestchi2_chi2}} <= 7.5"
 
         regions = [
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
@@ -24,6 +28,8 @@ class Config(legacy_config):
             Category("os", "OS region", selection=os_sel),
             Category("ss", "SS region", selection=ss_sel),
             Category("bdt_tight", "Tight bdt region", selection=bdt_scA_tight),
+            Category("bdt_tight_nores", "Tight bdt region, no resonances",
+                selection=jrs(bdt_scA_tight, "!" + self.resonance_mass_sel)),
             Category("bdt_loose", "Loose bdt region", selection=bdt_scA_loose),
             Category("chi2_tight", "Tight bdt region", selection=chi2_tight),
             Category("chi2_loose", "Loose bdt region", selection=chi2_loose),
@@ -33,10 +39,23 @@ class Config(legacy_config):
             Category("os_tight", "OS, Tight bdt region", selection=jrs(bdt_scA_tight, os_sel)),
             Category("ss_tight", "SS, Tight bdt region", selection=jrs(bdt_scA_tight, ss_sel)),
 
-            Category("bdt_tight_chi2_loose", "Tight bdt, Loose chi2 region", selection=jrs(chi2_loose, bdt_scA_tight)),
-            Category("bdt_loose_chi2_loose", "Loose bdt, Loose chi2 region", selection=jrs(chi2_loose, bdt_scA_loose)),
-            Category("bdt_tight_chi2_tight", "Tight bdt, Tight chi2 region", selection=jrs(chi2_tight, bdt_scA_tight)),
-            Category("bdt_loose_chi2_tight", "Loose bdt, Tight chi2 region", selection=jrs(chi2_tight, bdt_scA_loose)),
+            # Category("bdt_tight_chi2_loose", "BDT > 0.7, chi2 > 5", selection=jrs(chi2_loose, bdt_scA_tight)),
+            # Category("bdt_loose_chi2_loose", "BDT <= 0.7, chi2 > 5", selection=jrs(chi2_loose, bdt_scA_loose)),
+            # Category("bdt_tight_chi2_tight", "BDT > 0.7, chi2 <= 5", selection=jrs(chi2_tight, bdt_scA_tight)),
+            # Category("bdt_loose_chi2_tight", "LBDT <= 0.7, chi2 <= 5", selection=jrs(chi2_tight, bdt_scA_loose)),
+            # Category("bdt_tight_chi2_loose", "BDT > 0.7, chi2 > 7.5", selection=jrs(chi2_vvloose, bdt_scA_tight)),
+            # Category("bdt_loose_chi2_loose", "BDT <= 0.7, chi2 > 7.5", selection=jrs(chi2_vvloose, bdt_scA_loose)),
+            # Category("bdt_tight_chi2_tight", "BDT > 0.7, 5 < chi2 <= 7.5", selection=jrs(chi2_vloose, bdt_scA_tight)),
+            # Category("bdt_loose_chi2_tight", "LBDT <= 0.7, 5 < chi2 <= 7.5", selection=jrs(chi2_vloose, bdt_scA_loose)),
+
+            Category("bdt_tight_chi2_loose", "BDT > 0.7, chi2 > 7.5, no resonances",
+                selection=jrs("!" + self.resonance_mass_sel, jrs(chi2_vvloose, bdt_scA_tight))),
+            Category("bdt_loose_chi2_loose", "BDT <= 0.7, chi2 > 7.5, no resonances",
+                selection=jrs("!" + self.resonance_mass_sel, jrs(chi2_vvloose, bdt_scA_loose))),
+            Category("bdt_tight_chi2_tight", "BDT > 0.7, 5 < chi2 <= 7.5, no resonances",
+                selection=jrs("!" + self.resonance_mass_sel, jrs(chi2_vloose, bdt_scA_tight))),
+            Category("bdt_loose_chi2_tight", "LBDT <= 0.7, 5 < chi2 <= 7.5, no resonances",
+                selection=jrs("!" + self.resonance_mass_sel, jrs(chi2_vloose, bdt_scA_loose))),
 
             Category("os_chi2_loose", "OS, Loose chi2 region", selection=jrs(chi2_loose, os_sel)),
             Category("ss_chi2_loose", "SS, Loose chi2 region", selection=jrs(chi2_loose, ss_sel)),
@@ -1235,7 +1254,12 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 xs=signal_xs
             ),
-            
+
+            Dataset("BuToJpsiK",
+                dataset = "/BuToJpsiK_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/jleonhol-BuToKJPsiMC-f7d89a2f103706ffd8ab9007e324774d/USER",
+                process=self.processes.get("BuToJpsiK"),
+                check_empty=False,
+            ),
 
         ]
         return ObjectCollection(datasets)
@@ -1248,7 +1272,7 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["puWeight", "idWeight", "trigSF"]  # others needed
+        weights.base = ["puWeight", "idWeight", "trigSFnew"]  # others needed
         #weights.base = ["puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
         # weights.base = ["1"]  # others needed
 

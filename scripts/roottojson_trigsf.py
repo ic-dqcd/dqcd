@@ -81,14 +81,16 @@ d_syst = {
 from copy import deepcopy as copy
 from analysis_tools.utils import import_root
 ROOT = import_root()
-tf = ROOT.TFile.Open("data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.root")
-histo = tf.Get("scale_factors_2018")
+# tf = ROOT.TFile.Open("data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.root")
+tf = ROOT.TFile.Open("data/dqcd_sf_bestdrtag.root")
+# histo = tf.Get("scale_factors_2018")
+histo = tf.Get("hist_dqcd_sf")
 
 for ib in range(len(d["corrections"][0]["data"]["edges"]) - 1):
     new_d_pt = copy(d_pt)
     for ibpt in range(len(new_d_pt["edges"]) - 1):
         new_d_syst = copy(d_syst)
-        print(ib + 1, ibpt + 1, histo.GetBinContent(ib + 1, ibpt + 1))
+        print(ib + 1, d["corrections"][0]["data"]["edges"][ib], ibpt + 1, new_d_pt["edges"][ibpt], histo.GetBinContent(ib + 1, ibpt + 1))
         if ib == 2:
             print("Filling dxy bins 1-inf with 1 +- 0")
             content = 1.
@@ -107,7 +109,7 @@ for ib in range(len(d["corrections"][0]["data"]["edges"]) - 1):
 
 
 import json
-with open("data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.json", "w+") as f:
+with open("data/dqcd_sf_bestdrtag.json", "w+") as f:
     json.dump(d, f, indent=4)
 
 
