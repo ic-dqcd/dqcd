@@ -269,6 +269,9 @@ class Config(cmt_config):
             Process("zprime", Label("$Z^'$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
             Process("zprime_mpi_2_ctau_10", Label("$Z^{'}$, $m_{\pi}=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="zprime"),
 
+            Process("btophi", Label("$B\\to$$\PhiX$"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
+            Process("btophi_m_2_ctau_10", Label("$B\\to$$\PhiX$, $m=2$, $c\\tau=10$"), color=(0, 0, 0), isSignal=True, parent_process="btophi"),
+
             Process("data", Label("Data"), color=(0, 0, 0), isData=True),
 
             Process("dum", Label("dum"), color=(0, 0, 0)),

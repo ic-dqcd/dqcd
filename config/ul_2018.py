@@ -1261,6 +1261,13 @@ class Config(legacy_config):
                 check_empty=False,
             ),
 
+            Dataset("btophi_m_2_ctau_10",
+                dataset = "/btophi_m_2_ctau_10/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("btophi_m_2_ctau_10"),
+                check_empty=False,
+            ),
+
+
         ]
         return ObjectCollection(datasets)
 
