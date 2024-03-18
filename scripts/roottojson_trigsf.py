@@ -32,6 +32,7 @@ d = {
                 "input": "absdxy",
                 "edges": [
                     0.,
+                    1e-2,
                     1e-1,
                     1.,
                     float("inf")
@@ -91,7 +92,8 @@ for ib in range(len(d["corrections"][0]["data"]["edges"]) - 1):
     for ibpt in range(len(new_d_pt["edges"]) - 1):
         new_d_syst = copy(d_syst)
         print(ib + 1, d["corrections"][0]["data"]["edges"][ib], ibpt + 1, new_d_pt["edges"][ibpt], histo.GetBinContent(ib + 1, ibpt + 1))
-        if ib == 2:
+        # if ib == 2:
+        if d["corrections"][0]["data"]["edges"][ib] == 1.0:
             print("Filling dxy bins 1-inf with 1 +- 0")
             content = 1.
             error = 0.
