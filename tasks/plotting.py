@@ -78,11 +78,22 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
     def get_signal_tag(self, results, ilabel):
         process_name = self.config.processes.get(list(results.keys())[ilabel]).name
         if process_name.startswith("scenario"):
-            return "A"
+            return "_A"
         elif process_name.startswith("hzdzd"):
-            return "Z_d"
+            return "_Z_d"
         elif process_name.startswith("zprime"):
-            return "\pi"
+            return "_\pi"
+        elif process_name.startswith("btophi"):
+            return ""
+        else:
+            raise ValueError
+
+    def get_y_axis_label(self, process_group_name):
+        if process_group_name.startswith("btophi"):
+            return r"95$\%$ CL on BR(pp$\to$B$\to\phi$X$\to2\mu$X)"
+        elif process_group_name.startswith("scenario"):
+            return r"95$\%$ CL on BR(H$\to\Psi\Psi$)"
+        return r"95$\%$ CL on BR"
 
     def plot(self, results, output_file):
         import matplotlib
@@ -118,14 +129,17 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
         if len(labels) <= 4:
             for ilabel, label in enumerate(labels):
                 signal_tag = self.get_signal_tag(results, ilabel)
-                index = label.find("$m_{%s}" % signal_tag)
+                index = label.find("$m{%s}" % signal_tag)
+                if index == -1:
+                    index = label.find("$m%s" % signal_tag)
+
                 print(signal_tag, index, label[:index] + "\n" + label[index:])
                 labels[ilabel] = label[:index] + "\n" + label[index:]
             ax.set_xticklabels(labels)
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
-        plt.ylabel(r"95$\%$ CL on BR(H$\to\Psi\Psi$)")
+        plt.ylabel(self.get_y_axis_label(self.fit_config_file))
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
         plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
             self.config.year, self.config.lumi_fb),
@@ -269,7 +283,7 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
-        plt.ylabel(r"95$\%$ CL on BR(H$\to\Psi\Psi$)")
+        plt.ylabel(self.get_y_axis_label(self.fit_config_file))
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
         plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
             self.config.year, self.config.lumi_fb),
