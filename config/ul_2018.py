@@ -85,6 +85,10 @@ class Config(legacy_config):
             # for the vector portal samples, using dedicated BDT
             Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.7"),
             Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.95"),
+
+            # for the B->PhiX samples
+            Category("loose_bdt_btophi", "Loose bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.65"),
+            Category("tight_bdt_btophi", "Tight bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.98"),
         ]
         return ObjectCollection(regions)
 
@@ -1265,6 +1269,9 @@ class Config(legacy_config):
                 dataset = "/btophi_m_2_ctau_10/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
                 process=self.processes.get("btophi_m_2_ctau_10"),
                 check_empty=False,
+                tags=["ul"],
+                # xs=8.293e+07,
+                xs=1.,
             ),
 
 

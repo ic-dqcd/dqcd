@@ -214,9 +214,6 @@ action() {
         export CORRECTIONS_PATH="Corrections"
         cmt_add_root_inc $(correction config --incdir)
         if [ ! -d "$CORRECTIONS_PATH" ]; then
-          git clone https://github.com/jaimeleonh/correctionlib-wrapper --branch cmssw_version  Corrections/Wrapper
-          # git clone https://gitlab.cern.ch/cms-phys-ciemat/tau-corrections.git Corrections/TAU
-
            git clone https://gitlab.cern.ch/cms-phys-ciemat/jme-corrections.git Corrections/JME
            cd Corrections/JME/data
            wget https://github.com/cms-jet/JECDatabase/raw/master/tarballs/Summer19UL18_V5_MC.tar.gz
