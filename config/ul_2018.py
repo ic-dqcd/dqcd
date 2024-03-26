@@ -83,8 +83,8 @@ class Config(legacy_config):
             Category("tight_bdt_zprime", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
 
             # for the vector portal samples, using dedicated BDT
-            Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.7"),
-            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.95"),
+            Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.6"),
+            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9993"),
         ]
         return ObjectCollection(regions)
 
@@ -1279,7 +1279,7 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["puWeight", "idWeight", "trigSFnew"]  # others needed
+        weights.base = ["puWeight", "idWeight", "trigSF"]  # others needed
         #weights.base = ["puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
         # weights.base = ["1"]  # others needed
 
