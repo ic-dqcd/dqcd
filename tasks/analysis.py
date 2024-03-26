@@ -14,9 +14,9 @@ from cmt.base_tasks.analysis import (
 )
 
 class DQCDBaseTask(DatasetWrapperTask):
-    tight_region = luigi.Parameter(default="tight_bdt", description="region_name with the "
+    tight_region = luigi.Parameter(default="tight_bdt_vector", description="region_name with the "
         "tighter bdt cut, default: tight_bdt")
-    loose_region = luigi.Parameter(default="loose_bdt", description="region_name with the "
+    loose_region = luigi.Parameter(default="loose_bdt_vector", description="region_name with the "
         "looser bdt cut, default: loose_bdt")
     mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
         "define the fit ranges and blinded regions")
@@ -138,13 +138,13 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
                     for param, value in new_fit_params["fit_parameters"].items()]) + "}"
 
-                reqs["tight"] =  eval("Fit.vreq(self, version='muonsv_calibration_v2', "
+                reqs["tight"] =  eval("Fit.vreq(self, "
                     f"{params}, _exclude=['include_fit'], "
                     "region_name=self.tight_region, "
                     "process_group_name='background', "
                     f"feature_names=('{self.calibration_feature_name}',), "
                     "category_name='base')")
-                reqs["loose"] =  eval(f"Fit.vreq(self, version='muonsv_calibration_v2', "
+                reqs["loose"] =  eval(f"Fit.vreq(self, "
                     f"{params}, _exclude=['include_fit'], "
                     "region_name=self.loose_region, "
                     "process_group_name='background', "

@@ -209,7 +209,7 @@ class DQCDTrigSF_RDFProducer():
 
     def run(self, df):
         if self.isMC:
-            branches = ['trigSFnew', 'trigSFnew_up', 'trigSFnew_down']
+            branches = ['trigSF', 'trigSF_up', 'trigSF_down']
             for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
                 df = df.Define(branch_name, """get_dqcd_trig_sf(
                     muonSV_chi2_trig_muon1_index, muonSV_chi2_trig_muon2_index,
