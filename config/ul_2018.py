@@ -84,7 +84,7 @@ class Config(legacy_config):
 
             # for the vector portal samples, using dedicated BDT
             Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.6"),
-            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9993"),
+            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.993"),
         ]
         return ObjectCollection(regions)
 
