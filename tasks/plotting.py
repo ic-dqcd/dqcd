@@ -78,12 +78,12 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
     def get_signal_tag(self, results, ilabel):
         process_name = self.config.processes.get(list(results.keys())[ilabel]).name
         if process_name.startswith("scenario"):
-            return "_A"
+            return "_{A}"
         elif process_name.startswith("hzdzd"):
-            return "_Z_d"
+            return "_{Z_d}"
         elif process_name.startswith("zprime"):
-            return "_\pi"
-        elif process_name.startswith("btophi"):
+            return "_{\pi}"
+        elif process_name.startswith("btophi") or process_name.startswith("vector"):
             return ""
         else:
             raise ValueError
@@ -129,11 +129,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
         if len(labels) <= 4:
             for ilabel, label in enumerate(labels):
                 signal_tag = self.get_signal_tag(results, ilabel)
-                index = label.find("$m{%s}" % signal_tag)
-                if index == -1:
-                    index = label.find("$m%s" % signal_tag)
-
-                print(signal_tag, index, label[:index] + "\n" + label[index:])
+                index = label.find("$m%s" % signal_tag)
                 labels[ilabel] = label[:index] + "\n" + label[index:]
             ax.set_xticklabels(labels)
         else:
@@ -277,7 +273,7 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
         if len(labels) <= 4:
             for ilabel, label in enumerate(labels):
                 signal_tag = self.get_signal_tag(results, ilabel)
-                index = label.find("$m_{%s}" % signal_tag)
+                index = label.find("$m%s" % signal_tag)
                 labels[ilabel] = label[:index] + "\n" + label[index:]
             ax.set_xticklabels(labels)
         else:
