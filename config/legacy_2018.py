@@ -1134,7 +1134,7 @@ class Config(cmt_config):
                     else:
                         break
                 if not found:
-                    for children_process in self.get_children_from_process(process.name):
+                    for children_process in self.get_children_from_process(original_process.name):
                         if children_process.name in syst.SystProcesses[isy]:
                             if syst_name not in systematics:
                                 systematics[syst_name] = {}
