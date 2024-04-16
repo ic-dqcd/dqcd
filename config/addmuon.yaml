@@ -1,0 +1,30 @@
+add_muon:
+    name: AdditionalMuonDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
+add_muon_var:
+    name: AdditionalMuonVarDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
+trigsf:
+    name: DQCDTrigSF_RDF
+    path: modules.DQCD_SF
+    parameters:
+        isMC: self.dataset.process.isMC
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+
+chi2:
+    name: DummyMinChi2RDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
+masses:
+    name: AllMassDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year

@@ -313,8 +313,7 @@ class Config(legacy_config):
                 },
                 skipped_files_must_be_in_dataset=False,
             ),
-            
-            
+
             Dataset("data_2018d_bph1",
                 dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
@@ -342,7 +341,7 @@ class Config(legacy_config):
                 # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="output_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root"
             ),
-            
+
             Dataset("data_2018d_bph1_1fb_v2",
                 dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
@@ -364,6 +363,15 @@ class Config(legacy_config):
                     for i in range(1, 21)],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 xs=signal_xs,
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_1p33_ctau_10_ext",
+                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
             ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_0p1",
