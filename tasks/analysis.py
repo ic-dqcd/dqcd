@@ -14,9 +14,9 @@ from cmt.base_tasks.analysis import (
 )
 
 class DQCDBaseTask(DatasetWrapperTask):
-    tight_region = luigi.Parameter(default="tight_bdt_vector", description="region_name with the "
+    tight_region = luigi.Parameter(default="tight_bdt_scenarioA", description="region_name with the "
         "tighter bdt cut, default: tight_bdt")
-    loose_region = luigi.Parameter(default="loose_bdt_vector", description="region_name with the "
+    loose_region = luigi.Parameter(default="loose_bdt_scenarioA", description="region_name with the "
         "looser bdt cut, default: loose_bdt")
     mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
         "define the fit ranges and blinded regions")

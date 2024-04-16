@@ -902,8 +902,8 @@ class Config(cmt_config):
             # Feature("muonSV_pAngle_bestchi2", "muonSV_pAngle.at(min_chi2_index)", binning=(70, 0, 3.5),
             Feature("muonSV_bestchi2_pAngle", "muonSV_bestchi2_pAngle", binning=(100, 0, 3.5),
                 x_title=Label("muonSV pAngle (min #chi^{2})"), tags=["lbn_light", "lbn"]),
-            Feature("muonSV_bestchi2_pAngle_cut", "muonSV_bestchi2_pAngle > 0.15", binning=(2, -0.5, 1.5),
-                x_title=Label("muonSV pAngle (min #chi^{2}) > 0.15"), tags=["lbn_light", "lbn"]),
+            Feature("muonSV_bestchi2_pAngle_cut", "muonSV_bestchi2_pAngle > 0.2", binning=(2, -0.5, 1.5),
+                x_title=Label("muonSV pAngle (min #chi^{2}) > 0.2"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dlen_bestchi2", "muonSV_dlen.at(min_chi2_index)", binning=(80, 0, 20),
             Feature("muonSV_bestchi2_dlen", "muonSV_bestchi2_dlen", binning=(80, 0, 20),
                 x_title=Label("muonSV dlen"), tags=["lbn_light", "lbn"]),
@@ -1028,8 +1028,49 @@ class Config(cmt_config):
                 selection="xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0 < 0.85",
                 units="GeV",
                 blinded_range=[1.5, 2.5]),
+
+            # all muonSVs
+            Feature("all_muonSV_mass",
+                # "get_all_masses(cat_index, muonSV_bestchi2_mass, mass_multivertices)", binning=(8270, 0, 22),
+                "mass_multivertices", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass"),
+                units="GeV"),
+            Feature("all_muonSV_mass_fullrange",
+                # "get_all_masses(cat_index, muonSV_bestchi2_mass, mass_multivertices)", binning=(8270, 0, 22),
+                "mass_multivertices", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass"),
+                units="GeV"),
+
             Feature("nmuonSV_3sigma", "nmuonSV_3sigma", binning=(11, -0.5, 10.5),
                 x_title=Label("nmuonSV_3sigma"), tags=["lbn"]),
+
+            # additional muons
+            Feature("muonSV_bestchi2_mass_addeta", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+            Feature("muonSV_bestchi2_mass_addloose_eta", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+            Feature("add_muon_pt_loose_eta", "get_floatvar_additional_muons(Muon_pt, add_muon_indexes)", binning=(20, 0, 20),
+                x_title=Label("Add. muon p_{T}"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+            Feature("add_muon_pt_eta", "get_floatvar_additional_muons(Muon_pt, add_muon_indexes)", binning=(20, 0, 20),
+                x_title=Label("Add. muon p_{T}"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
 
             Feature("puWeight", "puWeight", binning=(20, 0, 2),
                 x_title=Label("puWeight"),
