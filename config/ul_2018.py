@@ -730,7 +730,7 @@ class Config(legacy_config):
 
             Dataset("scenarioA_mpi_2_mA_0p67_ctau_100_ext",
                 dataset = "/scenarioA_mpi_2_mA_0p67_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_2_mA_0p67_ctau_10"),
+                process=self.processes.get("scenarioA_mpi_2_mA_0p67_ctau_100"),
                 check_empty=False,
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 xs=signal_xs,
