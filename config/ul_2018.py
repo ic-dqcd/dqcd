@@ -602,6 +602,213 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
 
+            Dataset("scenarioA_mpi_4_mA_1p33_ctau_10_ext",
+                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_1p33_ctau_0p1_ext",
+                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_0p1/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_0p1"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_1p33_ctau_1p0_ext",
+                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_1p0"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_1p33_ctau_100_ext",
+                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_100"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_0p40_ctau_1p0_ext",
+                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_1p0"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_0p40_ctau_10_ext",
+                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_4_mA_0p40_ctau_100_ext",
+                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_100"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_1_mA_0p33_ctau_0p1_ext",
+                dataset = "/scenarioA_mpi_1_mA_0p33_ctau_0p1/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_1_mA_0p33_ctau_0p1"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_1_mA_0p33_ctau_1p0_ext",
+                dataset = "/scenarioA_mpi_1_mA_0p33_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_1_mA_0p33_ctau_1p0"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_1_mA_0p33_ctau_10_ext",
+                dataset = "/scenarioA_mpi_1_mA_0p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_1_mA_0p33_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_1_mA_0p33_ctau_100_ext",
+                dataset = "/scenarioA_mpi_1_mA_0p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_1_mA_0p33_ctau_100"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_2_mA_0p67_ctau_0p1_ext",
+                dataset = "/scenarioA_mpi_2_mA_0p67_ctau_0p1/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_2_mA_0p67_ctau_0p1"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_2_mA_0p67_ctau_1p0_ext",
+                dataset = "/scenarioA_mpi_2_mA_0p67_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_2_mA_0p67_ctau_1p0"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_2_mA_0p67_ctau_10_ext",
+                dataset = "/scenarioA_mpi_2_mA_0p67_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_2_mA_0p67_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_2_mA_0p67_ctau_100_ext",
+                dataset = "/scenarioA_mpi_2_mA_0p67_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_2_mA_0p67_ctau_100"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_1p00_ctau_0p1_ext",
+                dataset = "/scenarioA_mpi_10_mA_1p00_ctau_0p1/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_1p00_ctau_0p1"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_1p00_ctau_1p0_ext",
+                dataset = "/scenarioA_mpi_10_mA_1p00_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_1p00_ctau_1p0"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_1p00_ctau_10_ext",
+                dataset = "/scenarioA_mpi_10_mA_1p00_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_1p00_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_1p00_ctau_100_ext",
+                dataset = "/scenarioA_mpi_10_mA_1p00_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_1p00_ctau_100"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_3p33_ctau_0p1_ext",
+                dataset = "/scenarioA_mpi_10_mA_3p33_ctau_0p1/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_3p33_ctau_0p1"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_3p33_ctau_1p0_ext",
+                dataset = "/scenarioA_mpi_10_mA_3p33_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_3p33_ctau_1p0"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_3p33_ctau_10_ext",
+                dataset = "/scenarioA_mpi_10_mA_3p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_3p33_ctau_10"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
+            Dataset("scenarioA_mpi_10_mA_3p33_ctau_100_ext",
+                dataset = "/scenarioA_mpi_10_mA_3p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                process=self.processes.get("scenarioA_mpi_10_mA_3p33_ctau_100"),
+                check_empty=False,
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                tags=["ext"]
+            ),
+
             Dataset("scenarioB1_mpi_1_mA_0p33_ctau_0p1",
                 dataset = "/scenarioB1_mpi_1_mA_0p33_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
                 process=self.processes.get("scenarioB1_mpi_1_mA_0p33_ctau_0p1"),
