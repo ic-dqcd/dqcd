@@ -1,6 +1,7 @@
 import json
 import luigi
 import law
+import math
 from copy import deepcopy as copy
 
 from analysis_tools.utils import create_file_dir, import_root
@@ -494,21 +495,28 @@ class PlotPullsAndImpactsDQCD(PlotPullsAndImpacts, FitConfigBaseTask, DQCDBaseTa
 class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
 
     category_names = (
-        "base",
+        "base", # required at first position
         "singlev_cat1", "singlev_cat2", "singlev_cat3",
         "singlev_cat4", "singlev_cat5", "singlev_cat6",
         "multiv_cat1", "multiv_cat2", "multiv_cat3",
         "multiv_cat4", "multiv_cat5", "multiv_cat6",
     )
-    feature_name = "muonSV_bestchi2_mass_fullrange"
+    # feature_names = ("muonSV_bestchi2_mass_fullrange",)
+    feature_names = (
+        # "muonSV_bestchi2_mass_fullrange_bdt_0p8",
+        # "muonSV_bestchi2_mass_fullrange_bdt_0p9",
+        # "muonSV_bestchi2_mass_fullrange_bdt_0p95",
+        "muonSV_bestchi2_mass_fullrange_bdt_0p98",
+    )
     params = ["integral", "mean", "sigma", "gamma", "chi2"]
 
     def requires(self):
         reqs = {}
         for process_group_name in self.process_group_names:
             signal = process_group_name[:process_group_name.find("_")]
-            tight_region = f"tight_bdt_{signal}"
-            loose_region = f"loose_bdt_{signal}"
+            # tight_region = f"tight_bdt_{signal}"
+            tight_region = law.NO_STR
+            # loose_region = f"loose_bdt_{signal}"
             mass_point = self.get_mass_point(process_group_name)
             sigma = mass_point * 0.01
             fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
@@ -517,35 +525,42 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
             for category_name in self.category_names:
                 reqs[process_group_name][category_name] = Fit.vreq(
                     self, process_group_name="sig_" + process_group_name, region_name=tight_region,
-                    category_name=category_name, feature_names=(self.feature_name,),
-                    x_range=fit_range, method="voigtian", process_name=process_group_name,
-                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1)})
+                    category_name=category_name, x_range=fit_range, method="voigtian",
+                    process_name=process_group_name, feature_names=self.feature_names,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
+                        "gamma": (0.005,)})
         return reqs
 
     def output(self):
         out = {}
-        out["tables"] = {
-            cat: {
-                ext: self.local_target(f"table_{cat}_{self.fit_config_file}.{ext}")
-                for ext in ["txt", "tex", "json"]
-            } for cat in self.category_names
-        }
-        for param in self.params:
-            if param == "chi2":
-                out[param] = self.local_target(f"{param}/{param}_{self.fit_config_file}.pdf")
-            out[f"{param}_cat"] = {
-                cat: self.local_target(f"{param}/{param}_{cat}_{self.fit_config_file}.pdf")
-                for cat in self.category_names
+        for feature_name in self.feature_names:
+            out[feature_name] = {}
+            out[feature_name]["tables"] = {
+                cat: {
+                    ext: self.local_target(f"{feature_name}/table_{cat}_{self.fit_config_file}.{ext}")
+                    for ext in ["txt", "tex", "json"]
+                } for cat in self.category_names
             }
-            if param == "integral":
-                out[f"{param}_cat_ratio"] = {
-                    cat: self.local_target(f"{param}/{param}_{cat}_ratio_{self.fit_config_file}.pdf")
+            for param in self.params:
+                if param == "chi2":
+                    out[feature_name][param] = self.local_target(f"{feature_name}/{param}/{param}_{self.fit_config_file}.pdf")
+                out[feature_name][f"{param}_cat"] = {
+                    cat: self.local_target(f"{feature_name}/{param}/{param}_{cat}_{self.fit_config_file}.pdf")
                     for cat in self.category_names
                 }
-                out[f"{param}_cat_unc"] = {
-                    cat: self.local_target(f"{param}/{param}_{cat}_rel_unc_{self.fit_config_file}.pdf")
+                out[feature_name][f"{param}_cat_ratio"] = {
+                    cat: self.local_target(f"{feature_name}/{param}/{param}_{cat}_ratio_{self.fit_config_file}.pdf")
                     for cat in self.category_names
                 }
+                out[feature_name][f"{param}_cat_wrtbase"] = {
+                    cat: self.local_target(f"{feature_name}/{param}/{param}_{cat}_wrtbase_{self.fit_config_file}.pdf")
+                    for cat in self.category_names
+                }
+                if param == "integral":
+                    out[feature_name][f"{param}_cat_unc"] = {
+                        cat: self.local_target(f"{feature_name}/{param}/{param}_{cat}_rel_unc_{self.fit_config_file}.pdf")
+                        for cat in self.category_names
+                    }
         return out
 
     def run(self):
@@ -566,89 +581,265 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
 
         inputs = self.input()
 
-        plot = []
-        d_param = {cat: {} for cat in self.category_names}
-        d_param_ratio = {cat: {} for cat in self.category_names}
-        d_param_unc = {cat: {} for cat in self.category_names}
-        for icat, cat in enumerate(self.category_names):
-            table = []
-            outd = {}
-            d_param[cat] = {param: {} for param in self.params}
-            d_param_ratio[cat] = {param: {} for param in self.params}
-            d_param_unc[cat] = {"integral": {}}
-            for pgn in self.process_group_names:
-                mass_point = self.get_mass_point(pgn)
-                # ctau = float(pgn.split("_ctau_")[1].replace("p", "."))
-                ctau = pgn.split("_ctau_")[1].replace("p", ".")
-                try:
-                    ctau = float(ctau)
-                except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
-                    ctau = float(ctau.split("_")[0])
+        for feature_name in self.feature_names:
+            plot = []
+            d_param = {cat: {} for cat in self.category_names}
+            d_param_ratio = {cat: {} for cat in self.category_names}
+            d_param_unc = {cat: {} for cat in self.category_names}
+            for icat, cat in enumerate(self.category_names):
+                table = []
+                outd = {}
+                d_param[cat] = {param: {} for param in self.params}
+                d_param_ratio[cat] = {param: {} for param in self.params}
+                d_param_unc[cat] = {"integral": {}}
+                for pgn in self.process_group_names:
+                    mass_point = self.get_mass_point(pgn)
+                    # ctau = float(pgn.split("_ctau_")[1].replace("p", "."))
+                    ctau = pgn.split("_ctau_")[1].replace("p", ".")
+                    try:
+                        ctau = float(ctau)
+                    except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
+                        ctau = float(ctau.split("_")[0])
 
-                with open(inputs[pgn][cat][self.feature_name]["json"].path) as f:
-                    d = json.load(f)
-                table.append([pgn] + [d[""][param] for param in self.params])
-                outd[pgn] = {param: d[""][param] for param in self.params}
-                for param in self.params:
-                    if param == "chi2":
-                        if math.isnan(float(d[""]["chi2"])):
-                            d_param[cat]["chi2"][(mass_point, ctau)] = ("nan", d[""]["Number of non-zero bins"])
+                    with open(inputs[pgn][cat][feature_name]["json"].path) as f:
+                        d = json.load(f)
+                    table.append([pgn] + [d[""][param] for param in self.params])
+                    outd[pgn] = {param: d[""][param] for param in self.params}
+                    for param in self.params:
+                        if param == "chi2":
+                            if math.isnan(float(d[""]["chi2"])):
+                                d_param[cat]["chi2"][(mass_point, ctau)] = ("nan", d[""]["Number of non-zero bins"])
+                            else:
+                                d_param[cat]["chi2"][(mass_point, ctau)] = (
+                                    round(d[""]["chi2"], 2), d[""]["Number of non-zero bins"])
+                            if d[""]["chi2"] > 10.5 or math.isnan(float(d[""]["chi2"])):
+                                plot.append((icat, -1))
+                            else:
+                                plot.append((icat, d[""]["chi2"]))
                         else:
-                            d_param[cat]["chi2"][(mass_point, ctau)] = (
-                                round(d[""]["chi2"], 2), d[""]["Number of non-zero bins"])
-                        if d[""]["chi2"] > 10.5 or math.isnan(float(d[""]["chi2"])):
-                            plot.append((icat, -1))
-                        else:
-                            plot.append((icat, d[""]["chi2"]))
-                    else:
-                        d_param[cat][param][(mass_point, ctau)] = round_unc(d[""][param])
-                        d_param_ratio[cat][param][(mass_point, ctau)] = round_unc(d[""][param] /
-                            d_param["base"][param][(mass_point, ctau)])
-                        if param == "integral":
-                            d_param_unc[cat][param][(mass_point, ctau)] = round_unc(
-                                d[""]["integral_error"] / d[""]["integral"] if d[""]["integral"] != 0
-                                else 0.
+                            d_param[cat][param][(mass_point, ctau)] = (
+                                round_unc(d[""][param]), round_unc(d[""][param + "_error"])
                             )
+                            d_param_ratio[cat][param][(mass_point, ctau)] = round_unc(d[""][param] /
+                                d_param["base"][param][(mass_point, ctau)][0])
+                            if param == "integral":
+                                d_param_unc[cat][param][(mass_point, ctau)] = round_unc(
+                                    d[""]["integral_error"] / d[""]["integral"] if d[""]["integral"] != 0
+                                    else 0.
+                                )
 
-            # fancy_table = tabulate.tabulate(table, headers=["process"] + self.params)
-            # with open(create_file_dir(self.output()["tables"][cat]["txt"].path), "w+") as f:
-                # f.write(fancy_table)
-            # fancy_table_tex = tabulate.tabulate(table, headers=["process"] + self.params, tablefmt="latex")
-            # with open(create_file_dir(self.output()["tables"][cat]["tex"].path), "w+") as f:
-                # f.write(fancy_table_tex)
-            # with open(create_file_dir(self.output()["tables"][cat]["json"].path), "w+") as f:
-                # json.dump(d, f, indent=4)
+                fancy_table = tabulate.tabulate(table, headers=["process"] + self.params)
+                with open(create_file_dir(self.output()[feature_name]["tables"][cat]["txt"].path), "w+") as f:
+                    f.write(fancy_table)
+                fancy_table_tex = tabulate.tabulate(table, headers=["process"] + self.params, tablefmt="latex")
+                with open(create_file_dir(self.output()[feature_name]["tables"][cat]["tex"].path), "w+") as f:
+                    f.write(fancy_table_tex)
+                with open(create_file_dir(self.output()[feature_name]["tables"][cat]["json"].path), "w+") as f:
+                    json.dump(d, f, indent=4)
 
-            for key, d in zip(["cat", "cat_ratio", "cat_unc"], [d_param, d_param_ratio, d_param_unc]):
-                for param in self.params:
-                    if param != "integral" and key in ["cat_ratio", "cat_unc"]:
-                        continue
-                    ax = plt.subplot()
-                    plt.plot([x for (x,y) in d[cat][param].keys()],
-                        [y for (x,y) in d[cat][param].keys()], ".")
-                    for (x, y), z in d[cat][param].items():
-                        plt.annotate(z, # this is the text
-                            (x, y), # this is the point to label
-                            textcoords="offset points", # how to position the text
-                            xytext=(0,10), # distance from text to points (x,y)
-                            ha='center',
-                            fontsize=5) # horizontal alignment can be left, right or center
-                    plt.xlabel(f"mass")
-                    plt.ylabel(f"ctau")
-                    plt.yscale('log')
-                    plt.savefig(create_file_dir(self.output()[f"{param}_{key}"][cat].path),
-                        bbox_inches='tight')
-                    plt.close()
+                # for key, d in zip(["cat", "cat_ratio", "cat_unc"], [d_param, d_param_ratio, d_param_unc]):
+                    # for param in self.params:
+                        # # if param != "integral" and key in ["cat_ratio", "cat_unc"]:
+                        # if param != "integral" and key in ["cat_unc"]:
+                            # continue
+                        # ax = plt.subplot()
+                        # plt.plot([x for (x,y) in d[cat][param].keys()],
+                            # [y for (x,y) in d[cat][param].keys()], ".")
+                        # for (x, y), z in d[cat][param].items():
+                            # if isinstance(z, tuple):
+                                # z = z[0]
+                            # plt.annotate(z, # this is the text
+                                # (x, y), # this is the point to label
+                                # textcoords="offset points", # how to position the text
+                                # xytext=(0,10), # distance from text to points (x,y)
+                                # ha='center',
+                                # fontsize=5) # horizontal alignment can be left, right or center
+                        # plt.xlabel(f"mass")
+                        # plt.ylabel(f"ctau")
+                        # plt.yscale('log')
+                        # plt.savefig(create_file_dir(self.output()[feature_name][f"{param}_{key}"][cat].path),
+                            # bbox_inches='tight')
+                        # plt.close()
+                
+                # categories w.r.t. base
+                for key, d in zip(["cat_wrtbase"], [d_param]):
+                    for param in self.params:
+                        npoints = len(d[cat][param].items())
+                        ax = plt.subplot()
 
-        ax = plt.subplot()
-        ax.set_xticks(list(range(len(self.category_names))))
-        ax.set_xticklabels(self.category_names, rotation=60, rotation_mode="anchor", ha="right")
-        im = plt.hist2d([elem[0] for elem in plot], [elem[1] for elem in plot],
-            bins=(len(self.category_names), 12),
-            range=[[-0.5, len(self.category_names) - 0.5],[-1.5, 10.5]])
-        ax.set_xbound(-0.5, len(self.category_names) - 0.5)
-        ax.set_ybound(-1.5, 10.5)
-        plt.colorbar(im[3])
-        plt.yscale("linear")
-        plt.ylabel(f"chi2/ndf")
-        plt.savefig(create_file_dir(self.output()["chi2"].path), bbox_inches='tight')
+                        # results for the base category
+                        for ival, values in enumerate(d["base"][param].values()):
+                            plt.fill_between((ival - 0.25, ival + 0.25),
+                            (1 - values[1]/values[0] if "nan" not in values else 0),
+                            (1 + values[1]/values[0] if "nan" not in values else 0),
+                            # color="y", alpha=.5)
+                            color="0.8")
+
+                        # results for the category under study
+                        y = [(elem[0]/base[0] if elem[0] != 'nan' and base[0] != 'nan' else 0)
+                            for elem, base in zip(d[cat][param].values(), d["base"][param].values())]
+                        yerr = [(elem[1]/base[0] if elem[1] != 'nan' and base[0] != 'nan' else 0)
+                            for elem, base in zip(d[cat][param].values(), d["base"][param].values())]
+                        ax.errorbar(range(npoints), y, yerr, fmt='.')
+
+                        ax.set_ybound(0, 2)
+                        ax.set_ylim(0, 2)
+
+                        plt.ylabel("%s %s/No categorisation" % (param, cat))
+                        plt.xlabel("(mass, ctau)")
+
+                        labels = list(d["base"][param].keys())
+                        ax.set_xticks(list(range(len(labels))))
+                        if len(labels) <= 4:
+                            ax.set_xticklabels(labels)
+                        else:
+                            ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
+
+                        plt.savefig(create_file_dir(self.output()[feature_name][f"{param}_{key}"][cat].path),
+                            bbox_inches='tight')
+                        plt.close()
+
+            ax = plt.subplot()
+            ax.set_xticks(list(range(len(self.category_names))))
+            ax.set_xticklabels(self.category_names, rotation=60, rotation_mode="anchor", ha="right")
+            im = plt.hist2d([elem[0] for elem in plot], [elem[1] for elem in plot],
+                bins=(len(self.category_names), 12),
+                range=[[-0.5, len(self.category_names) - 0.5],[-1.5, 10.5]])
+            ax.set_xbound(-0.5, len(self.category_names) - 0.5)
+            ax.set_ybound(-1.5, 10.5)
+            plt.colorbar(im[3])
+            plt.yscale("linear")
+            plt.ylabel(f"chi2/ndf")
+            plt.savefig(create_file_dir(self.output()[feature_name]["chi2"].path), bbox_inches='tight')
+
+
+class ReFitDQCD(Fit):
+    def requires(self):
+        reqs = {
+            "histos": super(ReFitDQCD, self).requires(),
+            "base_fit": Fit.vreq(self, category_name="base")
+        }
+        return reqs
+
+    def get_input(self):
+        return self.input()["histos"]
+
+    def run(self):
+        inp = self.input()["base_fit"]
+        for feature in self.features:
+            with open(inp[feature.name]["json"].path) as f:
+                d = json.load(f)
+            self.fit_parameters = dict(self.fit_parameters)
+            # self.fit_parameters["mean"] = (self.fit_parameters["mean"][0],)
+            self.fit_parameters["sigma"] = (d[""]["sigma"],)
+
+        super(ReFitDQCD, self).run()
+
+
+class ReFitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
+
+    category_names = (
+        "base", # required at first position
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    )
+    # feature_names = ("muonSV_bestchi2_mass_fullrange",)
+    feature_names = ("muonSV_bestchi2_mass_fullrange_bdt_0p98",)
+    params = ["integral", "mean", "sigma", "gamma", "chi2"]
+
+    def requires(self):
+        reqs = {"old": {}, "new": {}}
+        for process_group_name in self.process_group_names:
+            signal = process_group_name[:process_group_name.find("_")]
+            # tight_region = f"tight_bdt_{signal}"
+            tight_region = law.NO_STR
+            # loose_region = f"loose_bdt_{signal}"
+            mass_point = self.get_mass_point(process_group_name)
+            sigma = mass_point * 0.01
+            fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
+
+            reqs["old"][process_group_name] = {}
+            reqs["new"][process_group_name] = {}
+            for category_name in self.category_names:
+                reqs["new"][process_group_name][category_name] = ReFitDQCD.vreq(
+                    self, process_group_name="sig_" + process_group_name, region_name=tight_region,
+                    category_name=category_name, x_range=fit_range, method="voigtian",
+                    process_name=process_group_name, feature_names=self.feature_names,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
+                        "gamma": (0.005,)})
+                reqs["old"][process_group_name][category_name] = Fit.vreq(
+                    self, process_group_name="sig_" + process_group_name, region_name=tight_region,
+                    category_name=category_name, x_range=fit_range, method="voigtian",
+                    process_name=process_group_name, feature_names=self.feature_names,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
+                        "gamma": (0.005,)})
+        return reqs
+
+    def output(self):
+        return {
+            "percat": {
+                cat: self.local_target(f"{self.feature_names[0]}_{cat}_{self.fit_config_file}.pdf")
+                for cat in self.category_names
+            },
+            "summary": self.local_target(f"{self.feature_names[0]}_{self.fit_config_file}.txt")
+        }
+
+    def run(self):
+        import tabulate
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+
+        def round_unc(num):
+            if math.isnan(num):
+                return num
+            if num == 0:
+                return num
+            exp = 0
+            while True:
+                if num * 10 ** exp > 1:
+                    return round(num, exp + 1)
+                exp += 1
+
+        inp = self.input()
+        chi2_old = {}
+        chi2_new = {}
+        for cat in self.category_names:
+            chi2_old[cat] = {}
+            chi2_new[cat] = {}
+            for pgn in self.process_group_names:
+                with open(inp["old"][pgn][cat][self.feature_names[0]]["json"].path) as f:
+                    d = json.load(f)
+                chi2_old[cat][pgn] = d[""]["chi2"]
+                with open(inp["new"][pgn][cat][self.feature_names[0]]["json"].path) as f:
+                    d = json.load(f)
+                chi2_new[cat][pgn] = d[""]["chi2"]
+
+            npoints = len(self.process_group_names)
+            ax = plt.subplot()
+            plt.plot(list(range(npoints)), chi2_old[cat].values(), color="b", label="Categ-custom fit")
+            plt.plot(list(range(npoints)), chi2_new[cat].values(), color="r", label="No-categ fit")
+
+            plt.legend(title=cat)
+            plt.xlabel("(mass, ctau)")
+            plt.ylabel("$\chi^2$")
+
+            labels = list(chi2_old[cat].keys())
+            ax.set_xticks(list(range(len(labels))))
+            if len(labels) <= 4:
+                ax.set_xticklabels(labels)
+            else:
+                ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
+
+            plt.savefig(create_file_dir(self.output()["percat"][cat].path), bbox_inches='tight')
+            plt.close()
+
+        table = []
+        for pgn in self.process_group_names:
+            table.append([pgn] + [str((round_unc(chi2_old[cat][pgn]), round_unc(chi2_new[cat][pgn])))
+                for cat in self.category_names])
+        table_txt = tabulate.tabulate(table, headers=[""] + list(self.category_names))
+        with open(create_file_dir(self.output()["summary"].path), "w+") as f:
+            f.write(table_txt)
