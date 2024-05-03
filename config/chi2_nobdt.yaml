@@ -11,6 +11,15 @@ trigsf:
         isMC: self.dataset.process.isMC
         isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
 
+rew:
+    name: DQCDReweighingRDF
+    path: modules.reweighing
+    parameters:
+        input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
+        output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
+        displaced_pdgid: 9900015
+        do_reweighing: self.dataset.has_tag('rew')
+
 #bdt_inference_a:
 #    name: DQCDULBDTNoJet
 #    path: DQCD.Modules.BDTULinferenceNoJet

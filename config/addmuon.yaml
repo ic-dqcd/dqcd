@@ -1,3 +1,9 @@
+chi2:
+    name: DummyMinChi2RDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
 add_muon:
     name: AdditionalMuonDQCDRDF
     path: modules.muonsv_selection
@@ -10,6 +16,12 @@ add_muon_var:
     parameters:
         year: self.config.year
 
+add_muon_deltar:
+    name: MuonDeltaRDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
 trigsf:
     name: DQCDTrigSF_RDF
     path: modules.DQCD_SF
@@ -17,14 +29,18 @@ trigsf:
         isMC: self.dataset.process.isMC
         isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
 
-chi2:
-    name: DummyMinChi2RDF
-    path: modules.muonsv_selection
-    parameters:
-        year: self.config.year
-
 masses:
     name: AllMassDQCDRDF
     path: modules.muonsv_selection
     parameters:
         year: self.config.year
+
+
+rew:
+    name: DQCDReweighingRDF
+    path: modules.reweighing
+    parameters:
+        input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
+        output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
+        displaced_pdgid: 9900015
+        do_reweighing: self.dataset.has_tag('rew')
