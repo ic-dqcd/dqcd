@@ -1,48 +1,56 @@
 scenarioA_mpi_1_mA_0p33_ctau_0p1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: True
-    singlev_cat5: True
-    singlev_cat6: True
+    #singlev_cat5: True
+    #singlev_cat6: True
     multiv_cat1: True
     multiv_cat2: True
     multiv_cat3: True
     multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    #multiv_cat5: True
+    #multiv_cat6: True
 
 scenarioA_mpi_1_mA_0p33_ctau_10:
+    singlev_cat1: True
+    singlev_cat2: True
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
     multiv_cat1: True
     multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 scenarioA_mpi_1_mA_0p33_ctau_100:
-    singlev_cat3: True
-    singlev_cat4: True
-    singlev_cat5: True
-    singlev_cat6: True
+    singlev_cat1: True
+    singlev_cat2: True
+    singlev_cat3: False
+    singlev_cat4: False
+    singlev_cat5: False
+    singlev_cat6: False
     multiv_cat1: True
     multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 scenarioA_mpi_1_mA_0p33_ctau_1p0:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
     singlev_cat5: True
     singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
     multiv_cat5: True
     multiv_cat6: True
 

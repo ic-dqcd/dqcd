@@ -9,7 +9,11 @@ action() {
     cd nanoaod_base_analysis
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
-    export CMT_BASE="$PWD"
+    export CMT_BASE="DUMMY"
+    if [[ "$CMT_BASE" == "DUMMY" ]]; then
+        echo "Need to change the path stored in CMT_BASE to the present folder"
+        return "1"
+    fi 
 
     # check if this setup script is sourced by a remote job
     if [ "$CMT_ON_HTCONDOR" = "1" ]; then
@@ -74,8 +78,8 @@ action() {
     [ -z "$CMT_JOB_DIR" ] && export CMT_JOB_DIR="$CMT_DATA/jobs"
     [ -z "$CMT_TMP_DIR" ] && export CMT_TMP_DIR="$CMT_DATA/tmp"
     [ -z "$CMT_CMSSW_BASE" ] && export CMT_CMSSW_BASE="$CMT_DATA/cmssw"
-    [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="slc7_amd64_gcc10"
-    [ -z "$CMT_CMSSW_VERSION" ] && export CMT_CMSSW_VERSION="CMSSW_12_3_0_pre6"
+    [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="el9_amd64_gcc11"
+    [ -z "$CMT_CMSSW_VERSION" ] && export CMT_CMSSW_VERSION="CMSSW_13_0_13"
     [ -z "$CMT_PYTHON_VERSION" ] && export CMT_PYTHON_VERSION="3"
 
     # specific eos dirs
@@ -93,8 +97,10 @@ action() {
        mkdir -p "$TMPDIR"
     fi
 
-    echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
-    export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
+    if [[ $CMT_IC_USER == jleonhol ]]; then
+        echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
+        export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
+    fi
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
@@ -294,6 +300,7 @@ action() {
             cmt_pip_install sphinx_rtd_theme
             cmt_pip_install sphinx_design
             cmt_pip_install envyaml
+            cmt_pip_install matplotlib==3.4.3
         fi
 
         # gfal python bindings

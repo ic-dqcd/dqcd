@@ -4,12 +4,37 @@ chi2:
     parameters:
         year: self.config.year
 
+add_muon:
+    name: AdditionalMuonDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
+add_muon_var:
+    name: AdditionalMuonVarDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
+add_muon_deltar:
+    name: MuonDeltaRDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
 trigsf:
     name: DQCDTrigSF_RDF
     path: modules.DQCD_SF
     parameters:
         isMC: self.dataset.process.isMC
         isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+
+masses:
+    name: AllMassDQCDRDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
+
 
 rew:
     name: DQCDReweighingRDF
@@ -19,11 +44,3 @@ rew:
         output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
         displaced_pdgid: 9900015
         do_reweighing: self.dataset.has_tag('rew')
-
-#bdt_inference_a:
-#    name: DQCDULBDTNoJet
-#    path: DQCD.Modules.BDTULinferenceNoJet
-#    parameters:
-#        isMC: self.dataset.process.isMC
-#        scenario: A
-#        bdt_name: bdt_scenarioA_nojetsel

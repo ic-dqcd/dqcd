@@ -169,10 +169,10 @@ class DQCDTrigSF_RDFProducer():
             raise ValueError("DQCDTrigSF_RDF module only available for UL samples")
 
         if self.isMC:
-            if "/libCorrectionsWrapper.so" not in ROOT.gSystem.GetLibraries():
-                ROOT.gInterpreter.Load("libCorrectionsWrapper.so")
+            if "/libBaseModules.so" not in ROOT.gSystem.GetLibraries():
+                ROOT.gInterpreter.Load("libBaseModules.so")
             ROOT.gInterpreter.Declare(os.path.expandvars(
-                '#include "$CMSSW_BASE/src/Corrections/Wrapper/interface/custom_sf.h"'))
+                '#include "$CMSSW_BASE/src/Base/Modules/interface/correctionWrapper.h"'))
             ROOT.gInterpreter.ProcessLine(
                 f'auto corr_dqcdtrig = MyCorrections("{os.path.expandvars(filename)}", '
                     '"scale_factor2D_trigger_absdxy_pt_TnP_2018_syst");'
@@ -209,7 +209,7 @@ class DQCDTrigSF_RDFProducer():
 
     def run(self, df):
         if self.isMC:
-            branches = ['trigSFnew', 'trigSFnew_up', 'trigSFnew_down']
+            branches = ['trigSF', 'trigSF_up', 'trigSF_down']
             for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
                 df = df.Define(branch_name, """get_dqcd_trig_sf(
                     muonSV_chi2_trig_muon1_index, muonSV_chi2_trig_muon2_index,
