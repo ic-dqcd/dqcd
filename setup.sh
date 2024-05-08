@@ -9,7 +9,11 @@ action() {
     cd nanoaod_base_analysis
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
-    export CMT_BASE="$PWD"
+    export CMT_BASE="DUMMY"
+    if [[ "$CMT_BASE" == "DUMMY" ]]; then
+        echo "Need to change the path stored in CMT_BASE to the present folder"
+        return "1"
+    fi 
 
     # check if this setup script is sourced by a remote job
     if [ "$CMT_ON_HTCONDOR" = "1" ]; then
@@ -74,7 +78,7 @@ action() {
     [ -z "$CMT_JOB_DIR" ] && export CMT_JOB_DIR="$CMT_DATA/jobs"
     [ -z "$CMT_TMP_DIR" ] && export CMT_TMP_DIR="$CMT_DATA/tmp"
     [ -z "$CMT_CMSSW_BASE" ] && export CMT_CMSSW_BASE="$CMT_DATA/cmssw"
-    [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="slc7_amd64_gcc11"
+    [ -z "$CMT_SCRAM_ARCH" ] && export CMT_SCRAM_ARCH="el9_amd64_gcc11"
     [ -z "$CMT_CMSSW_VERSION" ] && export CMT_CMSSW_VERSION="CMSSW_13_0_13"
     [ -z "$CMT_PYTHON_VERSION" ] && export CMT_PYTHON_VERSION="3"
 
