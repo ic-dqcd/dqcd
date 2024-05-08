@@ -169,10 +169,10 @@ class DQCDTrigSF_RDFProducer():
             raise ValueError("DQCDTrigSF_RDF module only available for UL samples")
 
         if self.isMC:
-            if "/libCorrectionsWrapper.so" not in ROOT.gSystem.GetLibraries():
-                ROOT.gInterpreter.Load("libCorrectionsWrapper.so")
+            if "/libBaseModules.so" not in ROOT.gSystem.GetLibraries():
+                ROOT.gInterpreter.Load("libBaseModules.so")
             ROOT.gInterpreter.Declare(os.path.expandvars(
-                '#include "$CMSSW_BASE/src/Corrections/Wrapper/interface/custom_sf.h"'))
+                '#include "$CMSSW_BASE/src/Base/Modules/interface/correctionWrapper.h"'))
             ROOT.gInterpreter.ProcessLine(
                 f'auto corr_dqcdtrig = MyCorrections("{os.path.expandvars(filename)}", '
                     '"scale_factor2D_trigger_absdxy_pt_TnP_2018_syst");'
