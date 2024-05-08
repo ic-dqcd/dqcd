@@ -12,6 +12,9 @@ class Config(cmt_config):
     def __init__(self, *args, **kwargs):
         super(Config, self).__init__(*args, **kwargs)
 
+        self.single_column_width = 0.4
+        self.double_column_width = 0.3
+
         self.resonance_masses = {
             "ks": (0.43, 0.49),
             "eta": (0.52, 0.58),
@@ -174,8 +177,10 @@ class Config(cmt_config):
             Process("scenarioA_mpi_4_mA_0p40_ctau_1p0", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=0.40$, $c\\tau=1.0$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_4_mA_1p33_ctau_0p1", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=0.1$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_4_mA_1p33_ctau_10", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=10$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
-            Process("scenarioA_mpi_4_mA_1p33_ctau_100", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=100$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
-            Process("scenarioA_mpi_4_mA_1p33_ctau_1p0", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=1$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_10_rew_short", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=10$ (1->10)"), color=(255, 0, 255), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_10_rew", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=10$ (100->10)"), color=(0, 255, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_100", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=100$"), color=(0, 0, 255), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_4_mA_1p33_ctau_1p0", Label(latex="sc.A, $m_{\pi}=4$, $m_{A}=1.33$, $c\\tau=1$"), color=(0, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_10_mA_1p00_ctau_0p1", Label(latex="sc.A, $m_{\pi}=10$, $m_{A}=1$, $c\\tau=0.1$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_10_mA_1p00_ctau_10", Label(latex="sc.A, $m_{\pi}=10$, $m_{A}=1$, $c\\tau=10$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_10_mA_1p00_ctau_100", Label(latex="sc.A, $m_{\pi}=10$, $m_{A}=1$, $c\\tau=100$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
@@ -348,6 +353,21 @@ class Config(cmt_config):
             ],
             "sig": [
                 "signal"
+            ],
+            "jpsi": [
+                "data",
+                "BuToJpsiK"
+            ],
+            "scA_jpsi": [
+                "scenarioA_mpi_4_mA_1p33_ctau_10",
+                "BuToJpsiK"
+            ],
+            "rew": [
+                "scenarioA_mpi_4_mA_1p33_ctau_10",
+                "scenarioA_mpi_4_mA_1p33_ctau_10_rew",
+                "scenarioA_mpi_4_mA_1p33_ctau_10_rew_short",
+                "scenarioA_mpi_4_mA_1p33_ctau_100",
+                "scenarioA_mpi_4_mA_1p33_ctau_1p0",
             ]
         }
 
@@ -902,8 +922,8 @@ class Config(cmt_config):
             # Feature("muonSV_pAngle_bestchi2", "muonSV_pAngle.at(min_chi2_index)", binning=(70, 0, 3.5),
             Feature("muonSV_bestchi2_pAngle", "muonSV_bestchi2_pAngle", binning=(100, 0, 3.5),
                 x_title=Label("muonSV pAngle (min #chi^{2})"), tags=["lbn_light", "lbn"]),
-            Feature("muonSV_bestchi2_pAngle_cut", "muonSV_bestchi2_pAngle > 0.15", binning=(2, -0.5, 1.5),
-                x_title=Label("muonSV pAngle (min #chi^{2}) > 0.15"), tags=["lbn_light", "lbn"]),
+            Feature("muonSV_bestchi2_pAngle_cut", "muonSV_bestchi2_pAngle > 0.2", binning=(2, -0.5, 1.5),
+                x_title=Label("muonSV pAngle (min #chi^{2}) > 0.2"), tags=["lbn_light", "lbn"]),
             # Feature("muonSV_dlen_bestchi2", "muonSV_dlen.at(min_chi2_index)", binning=(80, 0, 20),
             Feature("muonSV_bestchi2_dlen", "muonSV_bestchi2_dlen", binning=(80, 0, 20),
                 x_title=Label("muonSV dlen"), tags=["lbn_light", "lbn"]),
@@ -988,11 +1008,20 @@ class Config(cmt_config):
                 x_title=Label("BDT score"),
             ),
             #Feature("bdt_scenarioA", "bdt_scenarioA_nojetsel", binning=(20, 0, 1),
-            Feature("bdt_scenarioA", "bdt_scenarioA", binning=(20, 0, 1),
+            Feature("bdt_scenarioA", "bdt_scenarioA", binning=(100, 0, 1),
             #Feature("bdt_scenarioA", "bdt_scenarioA_nochi2", binning=(20, 0, 1),
             #Feature("bdt_scenarioA", "bdt_new_scenarioA", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario A)"),
             ),
+
+            Feature("bdt_scenarioA_0p8_1p0", "bdt_scenarioA", binning=(40, 0.8, 1),
+                x_title=Label("BDT score (scenario A)"),
+            ),
+
+            Feature("bdt_scenarioA_0p95_1p0", "bdt_scenarioA", binning=(25, 0.95, 1),
+                x_title=Label("BDT score (scenario A)"),
+            ),
+
             Feature("bdt_scenarioB1", "bdt_scenarioB1_new", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario B1)"),
             ),
@@ -1012,6 +1041,10 @@ class Config(cmt_config):
             Feature("muonSV_bestchi2_mass", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV"),
+            Feature("muonSV_bestchi2_mass_jpsi", "muonSV_bestchi2_mass", binning=(50, 2.91, 3.27),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                units="GeV",
+                selection="muonSV_bestchi2_mass > 2.91 && muonSV_bestchi2_mass < 3.27"),
             Feature("muonSV_bestchi2_mass_0p33", "muonSV_bestchi2_mass",
                 binning=(50, 0.333 - 5 * 0.01 * 0.333, 0.333 + 5 * 0.01 * 0.333),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
@@ -1028,8 +1061,98 @@ class Config(cmt_config):
                 selection="xgb0__m_2p0_ctau_10p0_xiO_1p0_xiL_1p0 < 0.85",
                 units="GeV",
                 blinded_range=[1.5, 2.5]),
+
+            Feature("muonSV_bestchi2_mass_fullrange_bdt_0p8", "muonSV_bestchi2_mass", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="{{bdt_scenarioA}} > 0.8",
+                units="GeV"),
+
+            Feature("muonSV_bestchi2_mass_fullrange_bdt_0p9", "muonSV_bestchi2_mass", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="{{bdt_scenarioA}} > 0.9",
+                units="GeV"),
+
+            Feature("muonSV_bestchi2_mass_fullrange_bdt_0p95", "muonSV_bestchi2_mass", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="{{bdt_scenarioA}} > 0.95",
+                units="GeV"),
+
+            Feature("muonSV_bestchi2_mass_fullrange_bdt_0p98", "muonSV_bestchi2_mass", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="{{bdt_scenarioA}} > 0.98",
+                units="GeV"),
+
+            # all muonSVs
+            Feature("all_muonSV_mass",
+                # "get_all_masses(cat_index, muonSV_bestchi2_mass, mass_multivertices)", binning=(8270, 0, 22),
+                "mass_multivertices", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass"),
+                units="GeV"),
+            Feature("all_muonSV_mass_fullrange",
+                # "get_all_masses(cat_index, muonSV_bestchi2_mass, mass_multivertices)", binning=(8270, 0, 22),
+                "mass_multivertices", binning=(8270, 0, 22),
+                x_title=Label("muonSV mass"),
+                units="GeV"),
+
             Feature("nmuonSV_3sigma", "nmuonSV_3sigma", binning=(11, -0.5, 10.5),
                 x_title=Label("nmuonSV_3sigma"), tags=["lbn"]),
+
+            # additional muons
+            Feature("muonSV_bestchi2_mass_addeta", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+            Feature("muonSV_bestchi2_mass_addloose_eta", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+
+            Feature("muonSV_bestchi2_mass_addeta_dr", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4 &&"
+                    "min_add_muon_deltaR > 0.1"
+                "].size() > 0",
+                units="GeV"),
+            Feature("muonSV_bestchi2_mass_addloose_eta_dr", "muonSV_bestchi2_mass", binning=(50, 1.2635, 1.3965),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4 &&"
+                    "min_add_muon_deltaR > 0.1"
+                "].size() > 0",
+                units="GeV"),
+
+            Feature("add_muon_pt_loose_eta", "get_floatvar_additional_muons(Muon_pt, add_muon_indexes)", binning=(20, 0, 20),
+                x_title=Label("Add. muon p_{T}"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+            Feature("add_muon_pt_eta", "get_floatvar_additional_muons(Muon_pt, add_muon_indexes)", binning=(20, 0, 20),
+                x_title=Label("Add. muon p_{T}"),
+                selection="get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                    "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+                "].size() > 0",
+                units="GeV"),
+            Feature("min_add_muon_deltar", "min_add_muon_deltaR", binning=(100, 0, 7),
+                x_title=Label("min Delta R (Add. muon, muonSV muons)")),
+
+            # gen
+            Feature("gen_dark_photon_pt", "GenPart_pt[GenPart_is_dark_photon_into_muons == 1]", binning=(50, 0, 50),
+                x_title=Label("Gen A'#rightarrow#mu#mu p_{T}"),
+                units="GeV"
+            ),
+            Feature("gen_dark_photon_pt_eff", "GenPart_pt[GenPart_is_dark_photon_into_muons_eff == 1]", binning=(50, 0, 50),
+                x_title=Label("Gen A'#rightarrow#mu#mu p_{T} (eff)"),
+                units="GeV"
+            ),
 
             Feature("puWeight", "puWeight", binning=(20, 0, 2),
                 x_title=Label("puWeight"),
@@ -1143,6 +1266,18 @@ class Config(cmt_config):
                             systematics[syst_name][original_process.name] = eval(systVal)
                             break
         return systematics
+
+    def get_ctau_from_dataset_name(self, sample, final_char="_"):
+        try:
+            if "ctau" not in sample:
+                return -1
+        except:
+            return -1
+        subs = sample[sample.find("ctau") + len("ctau_"):]
+        final_index = subs.find(final_char)
+        if final_index != -1:
+            subs = subs[:final_index]
+        return float(subs.replace("p", "."))
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
 config = Config("legacy_2018", year=2018, ecm=13, lumi_pb=33600)

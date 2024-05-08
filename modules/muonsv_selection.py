@@ -388,3 +388,170 @@ class DummyMinChi2RDFProducer():
 
 def DummyMinChi2RDF(*args, **kwargs):
     return lambda: DummyMinChi2RDFProducer()
+
+
+
+class AdditionalMuonDQCDRDFProducer():
+    def __init__(self, *args, **kwargs):
+        ROOT.gInterpreter.Declare("""
+            using Vfloat = const ROOT::RVec<float>&;
+            using Vint = const ROOT::RVec<int>&;
+            std::vector<int> get_add_muon_indexes(
+                Vint indexes_multivertices,
+                Vint muonSV_mu1index, Vint muonSV_mu2index,
+                int nMuon, Vfloat Muon_pt, Vfloat Muon_phi, Vfloat Muon_eta)
+            {
+                std::vector<int> add_muon_indexes;
+                for (size_t iMuon = 0; iMuon < nMuon; iMuon++) {
+                    bool found = false;
+                    for (auto &muonSV_index: indexes_multivertices) {
+                        if (muonSV_mu1index[muonSV_index] == iMuon || muonSV_mu2index[muonSV_index] == iMuon) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        add_muon_indexes.push_back(iMuon);
+                    }
+                }
+                return add_muon_indexes;
+            }
+        """)
+
+    def run(self, df):
+        # df = df.Filter("event == 17031")
+        df = df.Define("add_muon_indexes", "get_add_muon_indexes(indexes_multivertices, "
+            "muonSV_mu1index, muonSV_mu2index, nMuon, Muon_pt, Muon_phi, Muon_eta)")
+        return df, ["add_muon_indexes"]
+
+
+def AdditionalMuonDQCDRDF(*args, **kwargs):
+    return lambda: AdditionalMuonDQCDRDFProducer(*args, **kwargs)
+
+
+class AdditionalMuonVarDQCDRDFProducer():
+    def __init__(self, *args, **kwargs):
+        ROOT.gInterpreter.Declare("""
+            using Vfloat = const ROOT::RVec<float>&;
+            using Vint = const ROOT::RVec<int>&;
+            ROOT::RVec<int> get_intvar_additional_muons(Vint vec, Vint muon_indexes) {
+                std::vector<int> var_vec;
+                for (auto &muon_index: muon_indexes) {
+                    var_vec.push_back(vec[muon_index]);
+                }
+                return ROOT::RVec<int>(var_vec.data(), var_vec.size());
+            }
+            ROOT::RVec<float> get_floatvar_additional_muons(Vfloat vec, Vint muon_indexes) {
+                std::vector<float> var_vec;
+                for (auto &muon_index: muon_indexes) {
+                    var_vec.push_back(vec[muon_index]);
+                }
+                return ROOT::RVec<float>(var_vec.data(), var_vec.size());
+            }
+        """)
+
+    def run(self, df):
+        return df, []
+
+
+def AdditionalMuonVarDQCDRDF(*args, **kwargs):
+    return lambda: AdditionalMuonVarDQCDRDFProducer(*args, **kwargs)
+
+
+class AllMassDQCDRDFProducer():
+    def __init__(self, *args, **kwargs):
+        ROOT.gInterpreter.Declare("""
+            using Vfloat = const ROOT::RVec<float>&;
+            using Vint = const ROOT::RVec<int>&;
+            ROOT::RVec<float> get_all_masses(int cat_index, float muonSV_bestchi2_mass, Vfloat mass_multivertices) {
+                std::vector<float> masses;
+                if (cat_index == 0)
+                    masses.push_back(muonSV_bestchi2_mass);
+                else
+                    for (auto &mass: mass_multivertices)
+                        masses.push_back(mass);
+                return ROOT::RVec<float>(masses.data(), masses.size());
+            }
+        """)
+
+    def run(self, df):
+        return df, []
+
+
+def AllMassDQCDRDF(*args, **kwargs):
+    return lambda: AllMassDQCDRDFProducer(*args, **kwargs)
+
+
+class MuonDeltaRDQCDRDFProducer():
+    def __init__(self, *args, **kwargs):
+        ROOT.gInterpreter.Declare("""
+            #include <algorithm>    // std::find
+            #include <vector>       // std::vector
+            #include "DataFormats/Math/interface/deltaR.h"
+            using Vfloat = const ROOT::RVec<float>&;
+            using Vint = const ROOT::RVec<int>&;
+            std::vector<float> get_deltaR_allmuons(Vint indexes_multivertices, Vint add_muon_indexes,
+                Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
+                Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
+                Vfloat Muon_eta, Vfloat Muon_phi
+            ) {
+                std::vector<float> deltaR;
+                for (auto &iadd_muon: add_muon_indexes) {
+                    std::vector<float> deltaR_thismuon;
+                    for (auto &imuonsv_muon: indexes_multivertices) {
+                        deltaR_thismuon.push_back(reco::deltaR(
+                            muonSV_mu1eta[imuonsv_muon], muonSV_mu1phi[imuonsv_muon],
+                            Muon_eta[iadd_muon], Muon_phi[iadd_muon]
+                        ));
+                        deltaR_thismuon.push_back(reco::deltaR(
+                            muonSV_mu2eta[imuonsv_muon], muonSV_mu2phi[imuonsv_muon],
+                            Muon_eta[iadd_muon], Muon_phi[iadd_muon]
+                        ));
+                    }
+                    if (deltaR_thismuon.size() > 0) {
+                        auto elem = std::min_element(deltaR_thismuon.begin(), deltaR_thismuon.end());
+                        deltaR.push_back(*elem);
+                    }
+                }
+                return deltaR;
+            }
+        """)
+
+    def run(self, df):
+        df = df.Define("min_add_muon_deltaR_std", "get_deltaR_allmuons(indexes_multivertices, "
+            "add_muon_indexes, muonSV_mu1eta, muonSV_mu1phi, muonSV_mu2eta, muonSV_mu2phi, "
+            "Muon_eta, Muon_phi)").Define("min_add_muon_deltaR",
+            "ROOT::RVec<float>(min_add_muon_deltaR_std.data(), min_add_muon_deltaR_std.size())")
+
+        # df = df.Define("muonSV_bestchi2_mass_addeta",
+            # "get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                # "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+            # "].size() > 0 ? muonSV_bestchi2_mass : -1")
+
+        # df = df.Define("muonSV_bestchi2_mass_addloose_eta",
+            # "get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                # "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                # "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+            # "].size() > 0 ? muonSV_bestchi2_mass : -1")
+
+        # df = df.Define("muonSV_bestchi2_mass_addeta_dr",
+            # "get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                # "min_add_muon_deltaR > 0.1 && "
+                # "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+            # "].size() > 0 ? muonSV_bestchi2_mass : -1")
+
+        # df = df.Define("muonSV_bestchi2_mass_addloose_eta_dr",
+            # "get_intvar_additional_muons(Muon_looseId, add_muon_indexes)["
+                # "min_add_muon_deltaR > 0.1 && "
+                # "get_intvar_additional_muons(Muon_looseId, add_muon_indexes) == 1 && "
+                # "abs(get_floatvar_additional_muons(Muon_eta, add_muon_indexes)) <= 2.4"
+            # "].size() > 0 ? muonSV_bestchi2_mass : -1")
+
+        return df, ["min_add_muon_deltaR",
+            # "muonSV_bestchi2_mass_addeta", "muonSV_bestchi2_mass_addloose_eta",
+            # "muonSV_bestchi2_mass_addeta_dr", "muonSV_bestchi2_mass_addloose_eta_dr"
+        ]
+
+
+def MuonDeltaRDQCDRDF(*args, **kwargs):
+    return lambda: MuonDeltaRDQCDRDFProducer(*args, **kwargs)
