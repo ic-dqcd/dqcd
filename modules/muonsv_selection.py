@@ -89,12 +89,23 @@ class DQCDMuonSVSelectionRDFProducer():
                 }
                 for (int ipair = 0; ipair < index_pairs.size(); ipair++) {
                     if (valid[ipair]) {
-                        mass_multivertices.push_back(muonSV_mass[index_pairs[ipair].first]);
-                        mass_multivertices.push_back(muonSV_mass[index_pairs[ipair].second]);
-                        chi2_multivertices.push_back(muonSV_chi2[index_pairs[ipair].first]);
-                        chi2_multivertices.push_back(muonSV_chi2[index_pairs[ipair].second]);
-                        indexes_multivertices.push_back(index_pairs[ipair].first);
-                        indexes_multivertices.push_back(index_pairs[ipair].second);
+                        if (std::find(indexes_multivertices.begin(), indexes_multivertices.end(),
+                                index_pairs[ipair].first) == indexes_multivertices.end()) {
+                            // index wasn't previously stored, we do it now
+                            // this could happen if we have multiv associations like 0<->1, 1<->2
+                            mass_multivertices.push_back(muonSV_mass[index_pairs[ipair].first]);
+                            chi2_multivertices.push_back(muonSV_chi2[index_pairs[ipair].first]);
+                            indexes_multivertices.push_back(index_pairs[ipair].first);
+                        }
+                        if (std::find(indexes_multivertices.begin(), indexes_multivertices.end(),
+                                index_pairs[ipair].second) == indexes_multivertices.end()) {
+                            // index wasn't previously stored, we do it now
+                            // this could happen if we have multiv associations like 0<->1, 1<->2
+                            mass_multivertices.push_back(muonSV_mass[index_pairs[ipair].second]);
+                            chi2_multivertices.push_back(muonSV_chi2[index_pairs[ipair].second]);
+                            indexes_multivertices.push_back(index_pairs[ipair].second);
+                        }
+
                     }
                 }
 
@@ -345,6 +356,60 @@ class DQCDTriggerSelectionRDFProducer():
 
 def DQCDTriggerSelectionRDF(*args, **kwargs):
     return lambda: DQCDTriggerSelectionRDFProducer(*args, **kwargs)
+
+
+class DQCDLooseMuonSelectionRDFProducer():
+    def __init__(self, *args, **kwargs):
+        if not os.getenv("_DQCDLooseMuonSelection"):
+            os.environ["_DQCDLooseMuonSelection"] = "DQCDLooseMuonSelection"
+            ROOT.gInterpreter.Declare("""
+                #include <algorithm>    // std::find
+                #include <vector>       // std::vector
+                #include "DataFormats/Math/interface/deltaR.h"
+
+                using Vfloat = const ROOT::RVec<float>&;
+                using Vint = const ROOT::RVec<int>&;
+                using Vbool = const ROOT::RVec<bool>&;
+                int are_all_muonsv_loose(
+                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
+                    Vint muonSV_mu1index, Vint muonSV_mu2index, 
+                    Vbool Muon_looseId,
+                    Vint indexes_multivertices
+                )
+                {
+                    if (indexes_multivertices.size() == 0)
+                        return 0;
+                    for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
+                        if (muonSV_dR[imuonSV] > 1.2)
+                            continue;
+                        if (indexes_multivertices.size() > 0) {
+                            // index has to be selected by the DQCDMuonSVSelectionRDF module
+                            if (std::find(indexes_multivertices.begin(), indexes_multivertices.end(),
+                                    imuonSV) == indexes_multivertices.end())
+                                // imuonSV not in the ones selected from the multivertices
+                                continue;
+                        }
+
+                        // Requires both muons from the SV to be loose muon
+                        if (!((Muon_looseId[muonSV_mu1index[imuonSV]] == 1)
+                                && (Muon_looseId[muonSV_mu2index[imuonSV]] == 1)))
+                            return 0;
+                    }
+                    return 1;
+                }
+            """)
+
+    def run(self, df):
+        df = df.Filter(
+            "are_all_muonsv_loose(nmuonSV, muonSV_chi2, muonSV_dR, "
+                "muonSV_mu1index, muonSV_mu2index, Muon_looseId, indexes_multivertices) == 1",
+            "MuonSV(s) has/ve two loose muons"
+        )
+        return df, []
+
+
+def DQCDLooseMuonSelectionRDF(*args, **kwargs):
+    return lambda: DQCDLooseMuonSelectionRDFProducer(*args, **kwargs)
 
 
 class DummyMinChi2RDFProducer():
