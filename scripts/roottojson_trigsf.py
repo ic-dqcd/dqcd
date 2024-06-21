@@ -32,9 +32,13 @@ d = {
                 "input": "absdxy",
                 "edges": [
                     0.,
-                    1e-2,
+                    # 1e-2,
                     1e-1,
+                    3e-1,
+                    5e-1,
+                    7e-1,
                     1.,
+                    10.,
                     float("inf")
                 ],
                 "content": [],
@@ -50,9 +54,7 @@ d_pt = {
     "input": "pt",
     "edges": [
         0.,
-        4.,
         6.,
-        10.,
         16.,
         float("inf")
     ],
@@ -83,20 +85,20 @@ from copy import deepcopy as copy
 from analysis_tools.utils import import_root
 ROOT = import_root()
 # tf = ROOT.TFile.Open("data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.root")
-tf = ROOT.TFile.Open("data/dqcd_sf_bestdrtag.root")
-# histo = tf.Get("scale_factors_2018")
-histo = tf.Get("hist_dqcd_sf")
+# tf = ROOT.TFile.Open("data/dqcd_sf_bestdrtag.root")
+tf = ROOT.TFile.Open("data/scale_factor2D_trigger_lxy_pt_TnP_2018_syst_19Jun.root")
+histo = tf.Get("scale_factors_2018")
+# histo = tf.Get("hist_dqcd_sf")
 
 for ib in range(len(d["corrections"][0]["data"]["edges"]) - 1):
     new_d_pt = copy(d_pt)
     for ibpt in range(len(new_d_pt["edges"]) - 1):
         new_d_syst = copy(d_syst)
-        print(ib + 1, d["corrections"][0]["data"]["edges"][ib], ibpt + 1, new_d_pt["edges"][ibpt], histo.GetBinContent(ib + 1, ibpt + 1))
         # if ib == 2:
-        if d["corrections"][0]["data"]["edges"][ib] == 1.0:
-            print("Filling dxy bins 1-inf with 1 +- 0")
+        if d["corrections"][0]["data"]["edges"][ib] == 10.0:
+            print("Filling dxy bins 1-inf with 1 +- 0.05")
             content = 1.
-            error = 0.
+            error = 0.05
             new_d_syst["content"][0]["value"] = content
             new_d_syst["content"][1]["value"] = content + error
             new_d_syst["content"][2]["value"] = content - error
@@ -107,11 +109,12 @@ for ib in range(len(d["corrections"][0]["data"]["edges"]) - 1):
             new_d_syst["content"][1]["value"] = content + error
             new_d_syst["content"][2]["value"] = content - error
         new_d_pt["content"].append(new_d_syst)
+    print(ib + 1, d["corrections"][0]["data"]["edges"][ib], ibpt + 1, new_d_pt["edges"][ibpt], content, error)
     d["corrections"][0]["data"]["content"].append(new_d_pt)
 
 
 import json
-with open("data/dqcd_sf_bestdrtag.json", "w+") as f:
+with open("data/trigger_sf.json", "w+") as f:
     json.dump(d, f, indent=4)
 
 

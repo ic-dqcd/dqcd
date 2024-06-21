@@ -5,3 +5,10 @@ puweight:
         isMC: self.dataset.process.isMC
         year: self.config.year
         isUL: self.dataset.has_tag('ul')
+
+
+filter_eff:
+    name: DQCDFilterEfficiencyRDF
+    path: modules.DQCD_SF
+    parameters:
+        process_name: self.dataset.process.name

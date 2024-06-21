@@ -92,7 +92,8 @@ class DQCDIdSF_RDFProducer():
         self.isMC = kwargs.pop("isMC")
         self.isUL = kwargs.pop("isUL")
 
-        filename = "${CMT_BASE}/../data/scale_factor2D_NUM_LooseID_DEN_SAMuons_absdxy_pt_TnP_2018_syst.json"
+        # filename = "${CMT_BASE}/../data/scale_factor2D_NUM_LooseID_DEN_SAMuons_absdxy_pt_TnP_2018_syst.json"
+        filename = "${CMT_BASE}/../data/id_sf.json"
 
         if self.isMC and not self.isUL:
             raise ValueError("DQCDIdSF_RDF module only available for UL samples")
@@ -115,14 +116,14 @@ class DQCDIdSF_RDFProducer():
                     using Vbool = const ROOT::RVec<bool>&;
                     float get_dqcd_id_sf(Vint indexes_multivertices,
                         Vint muonSV_mu1index, Vint muonSV_mu2index,
-                        Vfloat Muon_pt, Vfloat Muon_dxy, std::string syst)
+                        Vfloat Muon_pt, Vfloat muonSV_dxy, std::string syst)
                     {
                         float sf = 1.;
                         for (auto &index: indexes_multivertices) {
                             auto mu1_index = muonSV_mu1index[index];
                             auto mu2_index = muonSV_mu2index[index];
-                            sf *= corr_dqcdid.eval({fabs(Muon_dxy[mu1_index]), Muon_pt[mu1_index], syst});
-                            sf *= corr_dqcdid.eval({fabs(Muon_dxy[mu2_index]), Muon_pt[mu2_index], syst});
+                            sf *= corr_dqcdid.eval({fabs(muonSV_dxy[index]), Muon_pt[mu1_index], syst});
+                            sf *= corr_dqcdid.eval({fabs(muonSV_dxy[index]), Muon_pt[mu2_index], syst});
                         }
                         return sf;
                     }
@@ -133,7 +134,7 @@ class DQCDIdSF_RDFProducer():
             branches = ['idWeight', 'idWeight_up', 'idWeight_down']
             for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
                 df = df.Define(branch_name, """get_dqcd_id_sf(indexes_multivertices,
-                    muonSV_mu1index, muonSV_mu2index, Muon_pt, Muon_dxy, "%s")""" % syst)
+                    muonSV_mu1index, muonSV_mu2index, Muon_pt, muonSV_dxy, "%s")""" % syst)
         else:
             branches = []
         return df, branches
@@ -163,7 +164,8 @@ class DQCDTrigSF_RDFProducer():
         self.isUL = kwargs.pop("isUL")
 
         # filename = "${CMT_BASE}/../data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.json"
-        filename = "${CMT_BASE}/../data/dqcd_sf_bestdrtag.json"
+        # filename = "${CMT_BASE}/../data/dqcd_sf_bestdrtag.json"
+        filename = "${CMT_BASE}/../data/trigger_sf.json"
 
         if self.isMC and not self.isUL:
             raise ValueError("DQCDTrigSF_RDF module only available for UL samples")
@@ -187,23 +189,22 @@ class DQCDTrigSF_RDFProducer():
                     float get_dqcd_trig_sf(
                         int muonSV_chi2_trig_muon1_index,
                         int muonSV_chi2_trig_muon2_index,
-                        Vfloat Muon_pt, Vfloat Muon_dxy, std::string syst)
+                        int muonSV_chi2_trig_index,
+                        Vfloat Muon_pt, Vfloat muonSV_dxy, std::string syst)
                     {
-                        auto mu1_pt = -1., mu2_pt = -1., mu1_dxy = -1., mu2_dxy = -1.;
+                        auto mu1_pt = -1., mu2_pt = -1.;
                         if (muonSV_chi2_trig_muon1_index >= 0) {
                             mu1_pt = Muon_pt[muonSV_chi2_trig_muon1_index];
-                            mu1_dxy = Muon_dxy[muonSV_chi2_trig_muon1_index];
                         }
                         if (muonSV_chi2_trig_muon2_index >= 0) {
                             mu2_pt = Muon_pt[muonSV_chi2_trig_muon2_index];
-                            mu2_dxy = Muon_dxy[muonSV_chi2_trig_muon2_index];
                         }
                         // this check should not be needed, as there is a filter in the trigger module to prevent this
                         if (mu1_pt == -1 && mu2_pt == -1)
                             return 1;
                         if (mu1_pt > mu2_pt)
-                            return corr_dqcdtrig.eval({fabs(mu1_dxy), mu1_pt, syst});
-                        return corr_dqcdtrig.eval({fabs(mu2_dxy), mu2_pt, syst});
+                            return corr_dqcdtrig.eval({fabs(muonSV_dxy[muonSV_chi2_trig_index]), mu1_pt, syst});
+                        return corr_dqcdtrig.eval({fabs(muonSV_dxy[muonSV_chi2_trig_index]), mu2_pt, syst});
                     }
                 """)
 
@@ -213,7 +214,7 @@ class DQCDTrigSF_RDFProducer():
             for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
                 df = df.Define(branch_name, """get_dqcd_trig_sf(
                     muonSV_chi2_trig_muon1_index, muonSV_chi2_trig_muon2_index,
-                    Muon_pt, Muon_dxy, "%s")""" % syst)
+                    muonSV_chi2_trig_index, Muon_pt, muonSV_dxy, "%s")""" % syst)
         else:
             branches = []
         return df, branches
@@ -234,3 +235,67 @@ def DQCDTrigSF_RDF(**kwargs):
                 isUL: self.dataset.has_tag('ul')
     """
     return lambda: DQCDTrigSF_RDFProducer(**kwargs)
+
+
+class DQCDFilterEfficiencyRDFProducer():
+    def __init__(self, *args, **kwargs):
+        self.process_name = kwargs.pop("process_name", "")
+
+    def run(self, df):
+        efficiencies = {
+            "scenarioA_mpi_10_mA_2p00_ctau_0p1": 0.350826,
+            "scenarioA_mpi_10_mA_2p00_ctau_10": 0.350766,
+            "scenarioA_mpi_1_mA_0p25_ctau_1p0": 0.779565,
+            "scenarioA_mpi_1_mA_0p45_ctau_0p1": 0.807967,
+            "scenarioA_mpi_1_mA_0p45_ctau_10": 0.807751,
+            "scenarioA_mpi_1_mA_0p45_ctau_100": 0.808274,
+            "scenarioA_mpi_1_mA_0p45_ctau_1p0": 0.807607,
+            "scenarioA_mpi_2_mA_0p25_ctau_0p1": 0.772924,
+            "scenarioA_mpi_2_mA_0p25_ctau_10": 0.773136,
+            "scenarioA_mpi_2_mA_0p25_ctau_100": 0.772665,
+            "scenarioA_mpi_2_mA_0p25_ctau_1p0": 0.774017,
+            "scenarioA_mpi_2_mA_0p40_ctau_0p1": 0.80055,
+            "scenarioA_mpi_10_mA_2p00_ctau_100": 0.349556,
+            "scenarioA_mpi_2_mA_0p40_ctau_10": 0.800526,
+            "scenarioA_mpi_2_mA_0p40_ctau_100": 0.800117,
+            "scenarioA_mpi_2_mA_0p40_ctau_1p0": 0.800939,
+            "scenarioA_mpi_2_mA_0p90_ctau_0p1": 0.690108,
+            "scenarioA_mpi_2_mA_0p90_ctau_10": 0.689377,
+            "scenarioA_mpi_2_mA_0p90_ctau_100": 0.689698,
+            "scenarioA_mpi_2_mA_0p90_ctau_1p0": 0.689619,
+            "scenarioA_mpi_4_mA_0p80_ctau_0p1": 0.376616,
+            "scenarioA_mpi_4_mA_0p80_ctau_10": 0.377489,
+            "scenarioA_mpi_4_mA_0p80_ctau_100": 0.378642,
+            "scenarioA_mpi_10_mA_2p00_ctau_1p0": 0.350715,
+            "scenarioA_mpi_4_mA_0p80_ctau_1p0": 0.377283,
+            "scenarioA_mpi_4_mA_1p90_ctau_0p1": 0.58982,
+            "scenarioA_mpi_4_mA_1p90_ctau_10": 0.590124,
+            "scenarioA_mpi_4_mA_1p90_ctau_100": 0.589969,
+            "scenarioA_mpi_4_mA_1p90_ctau_1p0": 0.58885,
+            "scenarioA_mpi_10_mA_4p90_ctau_0p1": 0.321156,
+            "scenarioA_mpi_10_mA_4p90_ctau_10": 0.322171,
+            "scenarioA_mpi_10_mA_4p90_ctau_100": 0.321784,
+            "scenarioA_mpi_10_mA_4p90_ctau_1p0": 0.321571,
+            "scenarioA_mpi_1_mA_0p25_ctau_0p1": 0.780521,
+            "scenarioA_mpi_1_mA_0p25_ctau_10": 0.779906,
+            "scenarioA_mpi_1_mA_0p25_ctau_100": 0.779666,
+        }
+        eff = efficiencies.get(self.process_name, 1.)
+        df = df.Define("filter_efficiency", "1./%s" % eff)
+        return df, ["filter_efficiency"]
+
+
+def DQCDFilterEfficiencyRDF(**kwargs):
+    """
+    Module to extract the pythia efficiencies
+    YAML sintaxis:
+
+    .. code-block:: yaml
+
+        codename:
+            name: DQCDFilterEfficiencyRDF
+            path: modules.DQCD_SF
+            parameters:
+                process_name: self.dataset.process.name
+    """
+    return lambda: DQCDFilterEfficiencyRDFProducer(**kwargs)
