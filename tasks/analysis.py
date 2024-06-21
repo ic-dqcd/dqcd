@@ -2,11 +2,12 @@ import json
 import luigi
 import law
 import math
+import itertools
 from copy import deepcopy as copy
 
 from analysis_tools.utils import create_file_dir, import_root
 
-from cmt.base_tasks.base import DatasetWrapperTask
+from cmt.base_tasks.base import DatasetWrapperTask, HTCondorWorkflow, SGEWorkflow, SlurmWorkflow
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
     FitBase, CombineBase, CombineCategoriesTask, Fit, InspectFitSyst, CreateDatacards,
@@ -21,13 +22,27 @@ class DQCDBaseTask(DatasetWrapperTask):
         "looser bdt cut, default: loose_bdt")
     mass_point = luigi.FloatParameter(default=1.33, description="mass point to be used to "
         "define the fit ranges and blinded regions")
+    use_refit = luigi.BoolParameter(default=False, description="whether to extract the sigmas "
+        "from the base category, default: True")
+    custom_signal_fit_parameters = luigi.DictParameter(default={}, description="Initial values for "
+        "the parameters involved in the fit, defaults depend on the method. Should be included as "
+        "--custom-signal-fit-parameters '{\"mean\": \"(20, -100, 100)\"}'")
+
+    default_process_group_name = "sigbkg"
 
     def modify_models(self):
         new_models = {}
-        for process in self.config.process_group_names[self.process_group_name]:
-            if self.config.processes.get(process).isSignal:
-                signal_process = process
-                break
+        try:
+            # if it's a signal coming from the grid, it won't be defined as a process_group_name
+            # in the config, so we don't have to look for it
+            for process in self.config.process_group_names[self.process_group_name]:
+                if self.config.processes.get(process).isSignal:
+                    signal_process = process
+                    break
+        except KeyError:
+            signal_process = self.process_group_name
+            # self.process_group_name = "sigbkg"
+
         for model in self.models:
             process_name = self.models[model]["process_name"]
             if process_name != signal_process and self.config.processes.get(process_name).isSignal:
@@ -37,8 +52,11 @@ class DQCDBaseTask(DatasetWrapperTask):
                 new_models[signal_process]["x_range"] = str(self.fit_range)[1:-1]
                 if "fit_parameters" not in new_models[signal_process]:
                     new_models[signal_process]["fit_parameters"] = {}
-                new_models[signal_process]["fit_parameters"]["mean"] = "{}, {}, {}".format(
-                    self.mass_point, self.mass_point - 1, self.mass_point + 1)
+                if len(self.custom_signal_fit_parameters) > 0:
+                    new_models[signal_process]["fit_parameters"] = self.custom_signal_fit_parameters
+                else:
+                    new_models[signal_process]["fit_parameters"]["mean"] = "{}, {}, {}".format(
+                        self.mass_point, self.mass_point - 1, self.mass_point + 1)
             elif not self.config.processes.get(process_name).isSignal and \
                     not self.config.processes.get(process_name).isData and self.counting:
                 # swap background appearing in the model with all separate qcd samples
@@ -51,19 +69,28 @@ class DQCDBaseTask(DatasetWrapperTask):
             else:
                 new_models[model] = copy(self.models[model])
                 new_models[model]["x_range"] = str(self.fit_range)[1:-1]
+
         return new_models
 
+    def get_output_postfix(self, **kwargs):
+        postfix = super(DQCDBaseTask, self).get_output_postfix(**kwargs)
+        if self.use_refit:
+            postfix += "__refit"
+        return postfix
 
-class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
+
+class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
+    refit_signal_with_syst = False
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
         self.sigma = self.mass_point * 0.01
         self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
-        if self.process_group_name != "default":
-            self.models = self.modify_models()
+        # if self.process_group_name != "default":
+        self.models = self.modify_models()
+        self.cls = Fit if not self.use_refit else ReFitDQCD
 
     def requires(self):
         reqs = super(CreateDatacardsDQCD, self).requires()
@@ -80,10 +107,12 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                         not self.config.processes.get(process).isData:
                     region_name = loose_region
                     process_group_name = "background"
+                    cls = Fit
                 else:
                     region_name = self.region_name  # probably redundant
                     process_group_name = "sig_" + self.process_group_name
-                reqs["fits"][process] = Fit.vreq(reqs["fits"][process], region_name=region_name,
+                    cls = self.cls
+                reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
                     x_range=x_range, process_group_name=process_group_name)
                 reqs["inspections"][process] = InspectFitSyst.vreq(reqs["inspections"][process],
                     region_name=region_name, x_range=x_range, process_group_name=process_group_name)
@@ -96,6 +125,7 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     process_group_name = "data"
                     blind_range = ("-1", "-1")
                     region_name = loose_region
+                    cls = Fit
                 elif not self.config.processes.get(process).isSignal and \
                         not self.config.processes.get(process).isData:
                     x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
@@ -104,6 +134,7 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     ins_process_group_name = "background"
                     ins_process_name = "background"
                     region_name = loose_region
+                    cls = Fit
                 else:
                     x_range = blind_range
                     blind_range = ("-1", "-1")
@@ -111,8 +142,9 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                     ins_process_group_name = "sig_" + self.process_group_name[len("qcd_"):]
                     ins_process_name = self.process_group_name[len("qcd_"):]
                     region_name = self.region_name
+                    cls = self.cls
 
-                reqs["fits"][process] = Fit.vreq(reqs["fits"][process], region_name=region_name,
+                reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
                     x_range=x_range, process_group_name=process_group_name, blind_range=blind_range)
                 if process != "data_obs":
                     reqs["inspections"][process] = InspectFitSyst.vreq(reqs["inspections"][process],
@@ -154,8 +186,7 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
 
         return reqs
 
-    def run(self):
-        assert "tight" in self.region_name
+    def get_additional_scaling(self):
         inputs = self.input()
         with open(inputs["tight"][self.calibration_feature_name]["json"].path) as f:
             d_tight = json.load(f)
@@ -171,7 +202,11 @@ class CreateDatacardsDQCD(CreateDatacards, DQCDBaseTask):
                 if not self.config.processes.get(process).isSignal and \
                         not self.config.processes.get(process).isData:
                     self.additional_scaling[process] = additional_scaling * 2/3
+        return self.additional_scaling
 
+    def run(self):
+        assert "tight" in self.region_name
+        self.get_additional_scaling()
         super(CreateDatacardsDQCD, self).run()
 
 
@@ -207,7 +242,6 @@ class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
                 _exclude=["category_names"])
 
         return reqs
-
 
 class CreateWorkspaceDQCD(DQCDBaseTask, FitConfigBaseTask, CreateWorkspace):
     def requires(self):
@@ -295,6 +329,14 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
             mass_point = 0.667
         return mass_point
 
+    def get_ctau(self, process_group_name):
+        ctau = process_group_name.split("_ctau_")[1].replace("p", ".")
+        try:
+            ctau = float(ctau)
+        except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
+            ctau = float(ctau.split("_")[0])
+        return ctau
+
     def __init__(self, *args, **kwargs):
         super(ProcessGroupNameWrapper, self).__init__(*args, **kwargs)
         if not self.process_group_names:
@@ -304,7 +346,42 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
         # self.category_name = self.category_names[0]
 
 
-class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
+class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper, law.LocalWorkflow,
+        HTCondorWorkflow, SGEWorkflow, SlurmWorkflow):
+    def combine_parser(self, filename):
+        import os
+        res = {}
+        with open(os.path.expandvars(filename), "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                if "Observed" in line:
+                    res["observed"] = float(line.split(" ")[-1][0:-1])
+                elif "Expected" in line:
+                    index = line.find("%")
+                    res[float(line[index - 4: index])] = float(line.split(" ")[-1][0:-1])
+        return res
+
+    def run(self):
+        if self.combine_categories:
+            inputs = self.input()["collection"].targets[0]
+        else:
+            inputs = self.input()["collection"].targets[self.branch]
+        for feature in self.features:
+            res = self.combine_parser(inputs[feature.name]["txt"].path)
+            if not res:
+                print("Fit did not converge. Filling with dummy values.")
+                res = {
+                    "2.5": 1.,
+                    "16.0": 1.,
+                    "50.0": 1.,
+                    "84.0": 1.,
+                    "97.5": 1.
+                }
+            with open(create_file_dir(self.output()[feature.name].path), "w+") as f:
+                json.dump(res, f, indent=4)
+
+
+class ScanCombineDQCD(BaseScanTask):
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
         assert(
@@ -313,11 +390,11 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
 
     def create_branch_map(self):
         if self.combine_categories:
-            return len(self.process_group_names)
+            return self.process_group_names
         else:
             process_group_name = self.process_group_names[0]
-            return len(list(self.fit_config[process_group_name].keys()))
-          
+            return list(self.fit_config[process_group_name].keys())
+
     def requires(self):
         if self.combine_categories:
             process_group_name=self.process_group_names[self.branch]
@@ -370,38 +447,6 @@ class ScanCombineDQCD(RunCombineDQCD, ProcessGroupNameWrapper):
                     category_names=self.fit_config[process_group_name].keys())))
             for feature in self.features
         }
-
-    def combine_parser(self, filename):
-        import os
-        res = {}
-        with open(os.path.expandvars(filename), "r") as f:
-            lines = f.readlines()
-            for line in lines:
-                if "Observed" in line:
-                    res["observed"] = float(line.split(" ")[-1][0:-1])
-                elif "Expected" in line:
-                    index = line.find("%")
-                    res[float(line[index - 4: index])] = float(line.split(" ")[-1][0:-1])
-        return res
-
-    def run(self):
-        if self.combine_categories:
-            inputs = self.input()["collection"].targets[0]
-        else:
-            inputs = self.input()["collection"].targets[self.branch]
-        for feature in self.features:
-            res = self.combine_parser(inputs[feature.name]["txt"].path)
-            if not res:
-                print("Fit did not converge. Filling with dummy values.")
-                res = {
-                    "2.5": 1.,
-                    "16.0": 1.,
-                    "50.0": 1.,
-                    "84.0": 1.,
-                    "97.5": 1.
-                }
-            with open(create_file_dir(self.output()[feature.name].path), "w+") as f:
-                json.dump(res, f, indent=4)
 
 
 class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper):
@@ -541,6 +586,12 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                     for ext in ["txt", "tex", "json"]
                 } for cat in self.category_names
             }
+            out[feature_name]["sigma_mass_ratio"] = {
+                cat: {
+                    ext: self.local_target(f"{feature_name}/sigma_mass_ratio_{cat}_{self.fit_config_file}.{ext}")
+                    for ext in ["pdf"]
+                } for cat in self.category_names
+            }
             for param in self.params:
                 if param == "chi2":
                     out[feature_name][param] = self.local_target(f"{feature_name}/{param}/{param}_{self.fit_config_file}.pdf")
@@ -590,16 +641,12 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                 table = []
                 outd = {}
                 d_param[cat] = {param: {} for param in self.params}
+                d_param[cat]["sigma_mass_ratio"] = {}
                 d_param_ratio[cat] = {param: {} for param in self.params}
                 d_param_unc[cat] = {"integral": {}}
                 for pgn in self.process_group_names:
                     mass_point = self.get_mass_point(pgn)
-                    # ctau = float(pgn.split("_ctau_")[1].replace("p", "."))
-                    ctau = pgn.split("_ctau_")[1].replace("p", ".")
-                    try:
-                        ctau = float(ctau)
-                    except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
-                        ctau = float(ctau.split("_")[0])
+                    ctau = self.get_ctau(pgn)
 
                     with open(inputs[pgn][cat][feature_name]["json"].path) as f:
                         d = json.load(f)
@@ -627,6 +674,9 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                                     d[""]["integral_error"] / d[""]["integral"] if d[""]["integral"] != 0
                                     else 0.
                                 )
+                    d_param[cat]["sigma_mass_ratio"][mass_point, ctau]= (
+                        d[""]["sigma"] / mass_point, d[""]["sigma_error"] / mass_point
+                    )
 
                 fancy_table = tabulate.tabulate(table, headers=["process"] + self.params)
                 with open(create_file_dir(self.output()[feature_name]["tables"][cat]["txt"].path), "w+") as f:
@@ -635,7 +685,7 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                 with open(create_file_dir(self.output()[feature_name]["tables"][cat]["tex"].path), "w+") as f:
                     f.write(fancy_table_tex)
                 with open(create_file_dir(self.output()[feature_name]["tables"][cat]["json"].path), "w+") as f:
-                    json.dump(d, f, indent=4)
+                    json.dump(outd, f, indent=4)
 
                 # for key, d in zip(["cat", "cat_ratio", "cat_unc"], [d_param, d_param_ratio, d_param_unc]):
                     # for param in self.params:
@@ -660,7 +710,7 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                         # plt.savefig(create_file_dir(self.output()[feature_name][f"{param}_{key}"][cat].path),
                             # bbox_inches='tight')
                         # plt.close()
-                
+
                 # categories w.r.t. base
                 for key, d in zip(["cat_wrtbase"], [d_param]):
                     for param in self.params:
@@ -699,6 +749,18 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                             bbox_inches='tight')
                         plt.close()
 
+                    # sigma-mass ratio
+                    npoints = len(d[cat]["sigma_mass_ratio"].keys())
+                    ax = plt.subplot()
+                    for i, (value, error) in enumerate(d[cat]["sigma_mass_ratio"].values()):
+                        plt.errorbar(i, value, yerr=error, color="k", marker="o")
+                    ax.set_xticks(list(range(npoints)))
+                    ax.set_xticklabels(list(d[cat]["sigma_mass_ratio"].keys()), rotation=60,
+                        rotation_mode="anchor", ha="right")
+                    plt.savefig(create_file_dir(self.output()[feature_name][f"sigma_mass_ratio"][cat]["pdf"].path),
+                        bbox_inches='tight')
+                    plt.close()
+
             ax = plt.subplot()
             ax.set_xticks(list(range(len(self.category_names))))
             ax.set_xticklabels(self.category_names, rotation=60, rotation_mode="anchor", ha="right")
@@ -730,8 +792,7 @@ class ReFitDQCD(Fit):
             with open(inp[feature.name]["json"].path) as f:
                 d = json.load(f)
             self.fit_parameters = dict(self.fit_parameters)
-            # self.fit_parameters["mean"] = (self.fit_parameters["mean"][0],)
-            self.fit_parameters["sigma"] = (d[""]["sigma"],)
+            # self.fit_parameters["sigma"] = (d[""]["sigma"],)
 
         super(ReFitDQCD, self).run()
 
@@ -843,3 +904,660 @@ class ReFitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
         table_txt = tabulate.tabulate(table, headers=[""] + list(self.category_names))
         with open(create_file_dir(self.output()["summary"].path), "w+") as f:
             f.write(table_txt)
+
+
+# class CompareReFitDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
+class CompareReFitDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
+    default_categories = [
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    ]
+    keys = ["2.5", "16.0", "50.0", "84.0", "97.5"]
+
+    def requires(self):
+        return {
+            "no_refit": {
+                # "cat": {
+                    # pgn: ScanCombineDQCD.vreq(self, combine_categories=False,
+                        # process_group_names=[pgn], use_refit=False, _exclude=["branches"])
+                    # for pgn in self.process_group_names
+                # },
+                "combined": ScanCombineDQCD.vreq(self, combine_categories=True,
+                    use_refit=False, _exclude=["branches"]),
+            },
+            "refit": {
+                # "cat": {
+                    # pgn: ScanCombineDQCD.vreq(self, combine_categories=False,
+                        # process_group_names=[pgn], use_refit=True, _exclude=["branches"])
+                    # for pgn in self.process_group_names
+                # },
+                "combined": ScanCombineDQCD.vreq(self, combine_categories=True,
+                    use_refit=True, _exclude=["branches"]),
+            }
+        }
+
+    def output(self):
+        return {
+            feature.name: {
+                f"{ext}_{key}": self.local_target("plot__{}__{}_{}.{}".format(
+                    feature.name, self.fit_config_file, key, ext))
+                for ext, key in itertools.product(["txt", "pdf"], self.keys)
+            }
+            for feature in self.features
+        }
+
+    def run(self):
+        import tabulate
+        inputs = self.input()
+
+        for feature in self.features:
+            tables = {key: [] for key in self.keys}
+            for ip, process_group_name in enumerate(self.process_group_names):
+                lines = {key: [process_group_name] for key in self.keys}
+                # for category_name in self.default_categories:
+                    # try:
+                        # ic = list(self.fit_config[process_group_name].keys()).index(category_name)
+                    # except ValueError:
+                        # for key in self.keys:
+                            # lines[key].append(-1)
+                            # continue
+                    # with open(inputs["no_refit"]["cat"][process_group_name]["collection"].targets[ic][feature.name].path) as f:
+                        # val = json.load(f)
+                    # with open(inputs["refit"]["cat"][process_group_name]["collection"].targets[ic][feature.name].path) as f:
+                        # val_refit = json.load(f)
+                    # for key in self.keys:
+                        # try:
+                            # lines[key].append(val_refit[key] / val[key])
+                        # except ValueError:
+                            # lines[key].append(-1)
+                with open(inputs["no_refit"]["combined"]["collection"].targets[ip][feature.name].path) as f:
+                    val = json.load(f)
+                with open(inputs["refit"]["combined"]["collection"].targets[ip][feature.name].path) as f:
+                    val_refit = json.load(f)
+                for key in self.keys:
+                    try:
+                        lines[key].append(val_refit[key] / val[key])
+                    except ValueError:
+                        lines[key].append(-1)
+                    tables[key].append(lines[key])
+
+        for key in self.keys:
+            # txt = tabulate.tabulate(tables[key], headers=self.default_categories + ["Combined"])
+            txt = tabulate.tabulate(tables[key], headers=["Combined"])
+            with open(create_file_dir(self.output()[feature.name]["txt_" + key].path), "w+") as f:
+                f.write(txt)
+
+
+# class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
+class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
+    # default_categories = [
+        # "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        # "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        # "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        # "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    # ]
+    default_categories = [
+        "singlev_cat3", "multiv_cat3"
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super(InterpolationTestDQCD, self).__init__(*args, **kwargs)
+        if len(self.category_names) == 0:
+            self.category_names = self.default_categories
+
+    def requires(self):
+        reqs = {}
+        for process_group_name in self.process_group_names:
+            signal = process_group_name[:process_group_name.find("_")]
+            tight_region = f"tight_bdt_{signal}"
+            mass_point = self.get_mass_point(process_group_name)
+            sigma = mass_point * 0.01
+            fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
+
+            reqs[process_group_name] = {}
+            for category_name in self.category_names:
+                reqs[process_group_name][category_name] = ReFitDQCD.vreq(
+                    self, process_group_name="sig_" + process_group_name, region_name=tight_region,
+                    category_name=category_name, x_range=fit_range, method="voigtian",
+                    process_name=process_group_name, feature_names=self.feature_names,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
+                        "gamma": (0.005,)})
+        return reqs
+
+    def output(self):
+        ctaus = []
+        mass_points = []
+        for pgn in self.process_group_names:
+            mass_points.append(self.get_mass_point(pgn))
+            ctaus.append(pgn.split("_ctau_")[1].replace("p", "."))
+            try:
+                ctaus[-1] = float(ctaus[-1])
+            except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
+                ctaus[-1] = float(ctaus[-1].split("_")[0])
+        mass_points = set(mass_points)
+        ctaus = set(ctaus)
+
+        return {
+            feature.name: {
+                cat: {
+                    "values": self.local_target(f"values_{feature.name}_{cat}.pdf"),
+                    "interp": self.local_target(f"interp_{feature.name}_{cat}.pdf"),
+                    "interp_model": self.local_target(f"interp_{feature.name}_{cat}_model.pkl"),
+                    "interp2d_model": self.local_target(f"interp2d_{feature.name}_{cat}_model.pkl"),
+                    # "interp_clough": self.local_target(f"clough_{feature.name}_{cat}.pdf"),
+                    "interp2d": self.local_target(f"interp2d_{feature.name}_{cat}.pdf"),
+                    "ratio": self.local_target(f"ratio_{feature.name}_{cat}.pdf"),
+                    "ratio2d": self.local_target(f"ratio2d_{feature.name}_{cat}.pdf"),
+                    # "dum": self.local_target(f"dum_{feature.name}_{cat}.pdf"),
+
+                    "interp_test": {
+                        (m, ctau): self.local_target(f"interp_test/{feature.name}_{cat}_{m}_{ctau}.pdf")
+                        for (m, ctau) in itertools.product(mass_points, ctaus)
+                        if not (m in [min(mass_points), max(mass_points)] and \
+                            ctau in [min(ctaus), max(ctaus)])
+                    },
+                    "interp2d_test": {
+                        (m, ctau): self.local_target(f"interp2d_test/{feature.name}_{cat}_{m}_{ctau}.pdf")
+                        for (m, ctau) in itertools.product(mass_points, ctaus)
+                        if not (m in [min(mass_points), max(mass_points)] and \
+                            ctau in [min(ctaus), max(ctaus)])
+                    },
+                    "interp_m": {
+                        m: self.local_target(f"interp_per_mass/{feature.name}_{cat}_{m}.pdf")
+                        for m in mass_points
+                    },
+                    # "interp_ctau": {
+                        # ctau: self.local_target(f"interp_per_ctau/{feature.name}_{cat}_{ctau}.pdf")
+                        # for ctau in ctaus
+                    # },
+                    "interp2d_m": {
+                        m: self.local_target(f"interp2d_per_mass/{feature.name}_{cat}_{m}.pdf")
+                        for m in mass_points
+                    },
+                    # "interp2d_ctau": {
+                        # ctau: self.local_target(f"interp2d_per_ctau/{feature.name}_{cat}_{ctau}.pdf")
+                        # for ctau in ctaus
+                    # }
+                } for cat in self.category_names
+            } for feature in self.features
+        }
+
+    def load_inputs(self, feature, cat):
+        values = {}
+        for pgn in self.process_group_names:
+            with open(self.input()[pgn][cat][feature.name]["json"].path) as f:
+                d = json.load(f)
+            mass_point = self.get_mass_point(pgn)
+            ctau = pgn.split("_ctau_")[1].replace("p", ".")
+            try:
+                ctau = float(ctau)
+            except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
+                ctau = float(ctau.split("_")[0])
+            values[(mass_point, ctau)] = (d[""]["integral"], d[""]["integral_error"])
+        return values
+
+    def run(self):
+        from scipy.interpolate import LinearNDInterpolator
+        from scipy.interpolate import CloughTocher2DInterpolator
+        # from scipy.interpolate import interp2d as Interpolator2D
+        from scipy.interpolate import SmoothBivariateSpline as Interpolator2D
+        import numpy as np
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+        import pickle
+
+        for feature in self.features:
+            for cat in self.category_names:
+                values = self.load_inputs(feature, cat)
+                mass_points = set([elem[0] for elem in values.keys()])
+                ctaus = set([elem[1] for elem in values.keys()])
+
+                mass_points = sorted(mass_points)
+                ctaus = sorted(ctaus)
+                grid_x, grid_y = np.meshgrid(mass_points, ctaus)
+
+                @np.vectorize
+                def func(x, y):
+                    return values[(x, y)][0]
+
+                # train with the whole sample
+                X = np.array([(m, ctau) for (m, ctau) in itertools.product(mass_points, ctaus)])
+                Y = np.array([values[elem][0] for elem in itertools.product(mass_points, ctaus)])
+                interp = LinearNDInterpolator(X, Y)
+                # interp2d = Interpolator2D(X[:, 0], X[:, 1], Y, kind="linear")
+                # interp2d = Interpolator2D(X[:, 0], X[:, 1], Y, s=0.0)
+                interp2d = CloughTocher2DInterpolator(X, np.array([values[elem]
+                    for elem in itertools.product(mass_points, ctaus)]))
+
+                ctau_range = (min(ctaus), max(ctaus))
+                m_range = (min(mass_points), max(mass_points))
+                n_points = 100
+                for name, method in [("interp", interp), ("interp2d", interp2d)]:
+                    for m in mass_points:
+                        ax = plt.subplot()
+                        X_to_plot = np.array([e[1] for e in values.keys() if e[0] == m])
+                        Y_to_plot = np.array([v[0] for e, v in values.items() if e[0] == m])
+                        plt.scatter(X_to_plot, Y_to_plot, label="Observations")
+                        x_m = np.geomspace(start=ctau_range[0], stop=ctau_range[1], num=n_points)
+                        X_m = np.array(list(itertools.product([m], x_m)))
+                        # if name == "interp":
+                        X_1, X_2 = np.meshgrid(X_m[:, 0], X_m[:, 1])
+                        prediction = method(X_1, X_2)
+                        prediction = prediction[:, 1]
+                        if name == "interp2d":
+                            prediction = prediction[:, 0]
+                            # print(prediction)
+                        # else:
+                            # prediction = method(np.array([m]), x_m)
+                            # prediction = prediction[0, :]
+                            # print(prediction)
+
+                        plt.plot(X_m[:, 1], prediction, label="Mean prediction")
+                        plt.legend(title=f"Mass = {m} GeV")
+                        plt.xscale('log')
+                        plt.savefig(create_file_dir(self.output()[feature.name][cat]["%s_m" % name][m].path),
+                            bbox_inches='tight')
+                        plt.close()
+                    with open(create_file_dir(
+                            self.output()[feature.name][cat]["%s_model" % name].path), 'wb') as f:
+                        pickle.dump(method, f)
+
+                res_interp = {}
+                res_interp2d = {}
+                # res_interp_clough = {}
+
+                for m_skip, ctau_skip in itertools.product(mass_points, ctaus):
+                    # avoid skipping the corners of the grid
+                    if m_skip in [min(mass_points), max(mass_points)] and \
+                            ctau_skip in [min(ctaus), max(ctaus)]:
+                        res_interp[(m_skip, ctau_skip)] = -999
+                        res_interp2d[(m_skip, ctau_skip)] = -999
+                        # res_interp_clough[(m_skip, ctau_skip)] = -999
+                        continue
+                    points = [(m, ctau)
+                        for (m, ctau) in itertools.product(mass_points, ctaus)
+                        if not(m == m_skip and ctau == ctau_skip)]
+                    results = [values[elem][0] for elem in points]
+                    points = np.array(points)
+                    results = np.array(results)
+
+                    interp = LinearNDInterpolator(points, results)
+                    # interp2d = Interpolator2D(points[:, 0], points[:, 1], results, kind="linear")
+                    # interp2d = Interpolator2D(points[:, 0], points[:, 1], results, s=0.0)
+                    interp2d = CloughTocher2DInterpolator(points, results)
+                    res_interp[(m_skip, ctau_skip)] = interp(*np.meshgrid([m_skip], [ctau_skip]))
+                    res_interp2d[(m_skip, ctau_skip)] = interp2d(*np.meshgrid([m_skip], [ctau_skip]))[0][0]
+                    # print(res_interp[(m_skip, ctau_skip)], values[(m_skip, ctau_skip)])
+                    # print(res_interp2d[(m_skip, ctau_skip)], values[(m_skip, ctau_skip)])
+                    # res_interp2d[(m_skip, ctau_skip)] = interp2d([m_skip], [ctau_skip])
+                    # res_interp_clough[(m_skip, ctau_skip)] = interp_clough(*np.meshgrid([m_skip], [ctau_skip]))
+
+                    for (name, z) in zip(
+                            ["interp_test", "interp2d_test"],
+                            # [interp(grid_x, grid_y), interp2d(mass_points, ctaus)]):
+                            [interp(grid_x, grid_y), interp2d(grid_x, grid_y)]):
+                            # [interp(grid_x, grid_y), interp2d(grid_x, grid_y)[:, 0]]):
+                        ax = plt.subplot()
+                        if "ratio" not in name:
+                            plt.pcolor(grid_x, grid_y, z, shading='auto', vmin=0, vmax=100)
+                        else:
+                            plt.pcolor(grid_x, grid_y, z, shading='auto', vmin=0, vmax=2)
+                        for ix, iy in itertools.product(range(grid_x.shape[0]), range(grid_x.shape[1])):
+                            plt.text(grid_x[ix, iy], grid_y[ix, iy],
+                                '%.4f->%.4f' % (
+                                    values[(grid_x[ix, iy], grid_y[ix, iy])][0], z[ix, iy]),
+                                horizontalalignment='center',
+                                verticalalignment='center',
+                                fontsize=5
+                            )
+                        plt.colorbar()
+                        ax.set_ybound(0.05, 120)
+                        ax.set_ylim(0.05, 120)
+                        # ax.set_zbound(0, 100)
+                        # ax.set_zlim(0, 100)
+                        plt.yscale('log')
+                        plt.savefig(create_file_dir(
+                                self.output()[feature.name][cat][name][(m_skip, ctau_skip)].path),
+                            bbox_inches='tight')
+                        plt.close()
+
+                # from pprint import pprint
+                # pprint(diffs)
+                # pprint(diffs_clough)
+
+                grid_z = func(grid_x, grid_y)
+                @np.vectorize
+                def func_interp(x, y):
+                    return res_interp[(x, y)]
+                grid_z_interp = func_interp(grid_x, grid_y)
+                @np.vectorize
+                def func_interp2d(x, y):
+                    return res_interp2d[(x, y)]
+                grid_z_interp2d = func_interp2d(grid_x, grid_y)
+
+                ratio_z_interp = (func_interp(grid_x, grid_y) - func(grid_x, grid_y)) / func_interp(grid_x, grid_y)
+                ratio_z_interp2d = (func_interp2d(grid_x, grid_y) - func(grid_x, grid_y)) / func_interp2d(grid_x, grid_y)
+
+                # @np.vectorize
+                # def func_clough(x, y):
+                    # return res_interp_clough[(x, y)]
+                # grid_z_clough = func_clough(grid_x, grid_y)
+
+                # print(grid_x)
+                # print(func(grid_x, grid_y))
+
+                for (name, z) in zip(
+                        ["values", "interp", "interp2d",
+                            # "interp_clough", "ratio", "ratio2d"],
+                            "ratio", "ratio2d"],
+                        [grid_z, grid_z_interp, grid_z_interp2d,
+                            # grid_z_clough, ratio_z_interp, ratio_z_interp2d]):
+                            ratio_z_interp, ratio_z_interp2d]):
+                    ax = plt.subplot()
+                    if "ratio" not in name:
+                        plt.pcolor(grid_x, grid_y, z, shading='auto', vmin=0, vmax=100)
+                    else:
+                        plt.pcolor(grid_x, grid_y, z, shading='auto', vmin=0, vmax=2)
+                    for ix, iy in itertools.product(range(grid_x.shape[0]), range(grid_x.shape[1])):
+                        plt.text(grid_x[ix, iy], grid_y[ix, iy],
+                            '%.4f->%.4f' % (
+                                values[(grid_x[ix, iy], grid_y[ix, iy])][0], z[ix, iy]),
+                            horizontalalignment='center',
+                            verticalalignment='center',
+                            fontsize=5
+                        )
+                    plt.colorbar()
+                    ax.set_ybound(0.05, 120)
+                    ax.set_ylim(0.05, 120)
+                    # ax.set_zbound(0, 100)
+                    # ax.set_zlim(0, 100)
+                    plt.yscale('log')
+                    plt.savefig(create_file_dir(self.output()[feature.name][cat][name].path),
+                        bbox_inches='tight')
+                    plt.close()
+
+
+class InterpolationGPDQCD(InterpolationTestDQCD):
+    # default_categories = [
+        # "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        # "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        # "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        # "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    # ]
+    default_categories = ["singlev_cat3"]
+    def output(self):
+        ctaus = []
+        mass_points = []
+        for pgn in self.process_group_names:
+            mass_points.append(self.get_mass_point(pgn))
+            ctaus.append(pgn.split("_ctau_")[1].replace("p", "."))
+            try:
+                ctaus[-1] = float(ctaus[-1])
+            except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
+                ctaus[-1] = float(ctaus[-1].split("_")[0])
+        mass_points = set(mass_points)
+        ctaus = set(ctaus)
+
+        return {
+            feature.name: {
+                cat: {
+                    "values": self.local_target(f"values_{feature.name}_{cat}.pdf"),
+                    "interp": self.local_target(f"interp_{feature.name}_{cat}.pdf"),
+                    "interp1d": self.local_target(f"interp1d_{feature.name}_{cat}.pdf"),
+                    "m": {
+                        m: self.local_target(f"interp_per_mass/{feature.name}_{cat}_{m}.pdf")
+                        for m in mass_points
+                    },
+                    "ctau": {
+                        ctau: self.local_target(f"interp_per_ctau/{feature.name}_{cat}_{ctau}.pdf")
+                        for ctau in ctaus
+                    }
+                } for cat in self.category_names
+            } for feature in self.features
+        }
+
+    def run(self):
+        from sklearn.gaussian_process import GaussianProcessRegressor
+        from sklearn.gaussian_process.kernels import RBF, RationalQuadratic, DotProduct, Exponentiation, Matern
+        import numpy as np
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+
+        kernel = 1 * RBF(length_scale=1.0, length_scale_bounds=(1e-2, 1e2))
+        # kernel = 1 * RBF(length_scale=1.0)
+        # kernel = 1 * RBF(length_scale=1.4)
+        # kernel = 1 * Matern()
+        # kernel = 1 * RationalQuadratic(length_scale=100)
+        # kernel = Exponentiation(DotProduct(), exponent=4)
+        # gaussian_process = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9)
+        gaussian_process = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=100)
+
+        for feature in self.features:
+            for cat in self.category_names:
+                values = self.load_inputs(feature, cat)
+                mass_points = set([elem[0] for elem in values.keys()])
+                ctaus = set([elem[1] for elem in values.keys()])
+
+                grid_x, grid_y = np.meshgrid(sorted(mass_points), sorted(ctaus))
+
+                X = np.array(list(values.keys()))
+                Y = np.array(list([e[0] for e in values.values()]))
+
+                # train with the whole sample
+                gaussian_process.fit(X, Y)
+                ctau_range = (min(ctaus), max(ctaus))
+                m_range = (min(mass_points), max(mass_points))
+                n_points = 100
+                for m in mass_points:
+                    ax = plt.subplot()
+                    X_to_plot = np.array([e[1] for e in values.keys() if e[0] == m])
+                    Y_to_plot = np.array([v[0] for e, v in values.items() if e[0] == m])
+                    plt.scatter(X_to_plot, Y_to_plot, label="Observations")
+                    x_m = np.geomspace(start=ctau_range[0], stop=ctau_range[1], num=n_points)
+                    X_m = np.array(list(itertools.product([m], x_m)))
+                    mean_prediction, std_prediction = gaussian_process.predict(X_m, return_std=True)
+                    plt.plot(X_m[:, 1], mean_prediction, label="Mean prediction")
+                    plt.fill_between(
+                        x_m,
+                        mean_prediction - 1.96 * std_prediction,
+                        mean_prediction + 1.96 * std_prediction,
+                        alpha=0.5,
+                        label=r"95% confidence interval",
+                    )
+                    plt.legend(title=f"Mass = {m} GeV")
+                    plt.xscale('log')
+                    plt.savefig(create_file_dir(self.output()[feature.name][cat]["m"][m].path),
+                        bbox_inches='tight')
+                    plt.close()
+
+                output = {}
+                for i, (m_skip, ctau_skip) in enumerate(X):
+                    # avoid skipping the corners of the grid
+                    if m_skip in [min(mass_points), max(mass_points)] and \
+                            ctau_skip in [min(ctaus), max(ctaus)]:
+                        output[(m_skip, ctau_skip)] = (1, 0)
+                        continue
+                    # print(X)
+
+                    X_train = np.array([e for e in values.keys() if e != (m_skip, ctau_skip)])
+                    Y_train = np.array([v[0] for e, v in values.items() if e != (m_skip, ctau_skip)])
+
+                    # X_train = np.ma.array(X, mask=False)
+                    # X_train.mask[i]
+                    # Y_train = np.ma.array(Y, mask=False)
+                    # Y_train.mask[i]
+
+                    gaussian_process.fit(X_train, Y_train)
+                    output[(m_skip, ctau_skip)] = gaussian_process.predict(np.array([X[i]]),
+                        return_std=True)
+                    res = gaussian_process.predict(X, return_std=True)
+
+                @np.vectorize
+                def func_interp(x, y):
+                    return output[(x, y)][0]
+                @np.vectorize
+                def func_interp_error(x, y):
+                    return output[(x, y)][1]
+                grid_z = func_interp(grid_x, grid_y)
+                grid_z_eror = func_interp_error(grid_x, grid_y)
+
+                ax = plt.subplot()
+                plt.pcolor(grid_x, grid_y, grid_z, shading='auto', vmin=0, vmax=100)
+                for ix, iy in itertools.product(range(grid_x.shape[0]), range(grid_x.shape[1])):
+                    plt.text(grid_x[ix, iy], grid_y[ix, iy], '%.4f->%.4f' % (
+                            values[(grid_x[ix, iy], grid_y[ix, iy])][0], grid_z[ix, iy]),
+                        horizontalalignment='center',
+                        verticalalignment='center',
+                        fontsize=5
+                    )
+                plt.colorbar()
+                ax.set_ybound(0.05, 120)
+                ax.set_ylim(0.05, 120)
+                # ax.set_zbound(0, 100)
+                # ax.set_zlim(0, 100)
+                plt.yscale('log')
+                plt.savefig(create_file_dir(self.output()[feature.name][cat]["interp"].path),
+                    bbox_inches='tight')
+                plt.close()
+
+                ax = plt.subplot()
+
+                keys = [(m, ctau) for (m, ctau) in itertools.product(mass_points, ctaus)]
+                for i, (m, ctau) in enumerate(keys):
+                    plt.fill_between((i - 0.25, i + 0.25),
+                        output[(m, ctau)][0] + 1.96 * output[(m, ctau)][1],
+                        output[(m, ctau)][0] - 1.96 * output[(m, ctau)][1],
+                        color="g",
+                    )
+                    plt.errorbar(i, values[(m, ctau)][0], yerr=values[(m, ctau)][1], color="k", marker="o")
+                ax.set_xticks(list(range(len(keys))))
+                ax.set_xticklabels(keys, rotation=60, rotation_mode="anchor", ha="right")
+                plt.savefig(create_file_dir(self.output()[feature.name][cat]["interp1d"].path),
+                    bbox_inches='tight')
+                plt.close('all')
+
+
+class InspectReFitSystDQCD(InspectFitSyst):
+    def requires(self):
+        """
+        Needs as input the json file provided by the Fit task
+        """
+        return ReFitDQCD.vreq(self)
+
+
+class SummariseSystResultsDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
+    # default_categories = [
+        # "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        # "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        # "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        # "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    # ]
+    default_categories = [
+        "singlev_cat3", "multiv_cat3"
+    ]
+    params = ["sigma", "mean", "integral"]
+
+    def __init__(self, *args, **kwargs):
+        super(SummariseSystResultsDQCD, self).__init__(*args, **kwargs)
+        if len(self.category_names) == 0:
+            self.category_names = self.default_categories
+        ctaus = [self.get_ctau(pgn) for pgn in self.process_group_names]
+        self.ctaus = list(set(ctaus)) + ["incl"]
+
+    def requires(self):
+        reqs = {}
+        for process_group_name in self.process_group_names:
+            signal = process_group_name[:process_group_name.find("_")]
+            tight_region = f"tight_bdt_{signal}"
+            mass_point = self.get_mass_point(process_group_name)
+            sigma = mass_point * 0.01
+            fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
+
+            reqs[process_group_name] = {}
+            for category_name in self.category_names:
+                reqs[process_group_name][category_name] = InspectReFitSystDQCD.vreq(
+                    self, process_group_name="sig_" + process_group_name, region_name=tight_region,
+                    category_name=category_name, x_range=fit_range, method="voigtian",
+                    process_name=process_group_name, feature_names=self.feature_names,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
+                        "gamma": (0.005,)})
+        return reqs
+
+    def output(self):
+        return {
+            feature.name: {
+                cat: {
+                    ctau: {
+                        param: {
+                            syst: {
+                                ext: self.local_target(
+                                    f"{feature.name}_{cat}_{syst}_{param}"
+                                        f"_{str(ctau).replace('.', 'p')}.{ext}")
+                                for ext in ["pdf", "txt"]
+                            } for syst in self.get_unique_systs(
+                                self.get_systs(feature, True,
+                                    category=self.config.categories.get(cat))
+                                + self.config.get_weights_systematics(
+                                    self.config.weights[cat], True)
+                            )
+                        } for param in self.params
+                    } for ctau in self.ctaus
+                } for cat in self.category_names
+            } for feature in self.features
+        }
+
+    def run(self):
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+        plt.rcParams['text.usetex'] = True
+
+        for feature in self.features:
+            for cat in self.category_names:
+                systs = self.get_unique_systs(
+                    self.get_systs(feature, True,
+                        category=self.config.categories.get(cat))
+                    + self.config.get_weights_systematics(self.config.weights[cat], True))
+                results = dict([(syst, {}) for syst in systs])
+                for pgn in self.process_group_names:
+                    ctau = self.get_ctau(pgn)
+                    path = self.input()[pgn][cat][feature.name]["json"].path
+                    with open(path) as f:
+                        d = json.load(f)
+                    for syst in systs:
+                        if "incl" not in results[syst]:
+                            results[syst]["incl"] = dict([(param, []) for param in self.params])
+                        if ctau not in results[syst]:
+                            results[syst][ctau] = dict([(param, []) for param in self.params])
+                        for param in self.params:
+                            results[syst][ctau][param].append(abs(d[syst][param]["up"]))
+                            results[syst][ctau][param].append(abs(d[syst][param]["down"]))
+                            results[syst]["incl"][param].append(abs(d[syst][param]["up"]))
+                            results[syst]["incl"][param].append(abs(d[syst][param]["down"]))
+                # Create histos
+                for syst in systs:
+                    for ctau in self.ctaus:
+                        for param in self.params:
+                            ax = plt.subplot()
+                            plt.hist(results[syst][ctau][param], bins=100)
+
+                            plt.xlabel(f"Deviation in {param}")
+                            plt.ylabel(f"Number of samples")
+                            plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}",
+                                transform=ax.transAxes)
+                            plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
+                                self.config.year, self.config.lumi_fb),
+                                transform=ax.transAxes, ha="right")
+                            inner_text = "\n".join([cat, syst])
+                            plt.text(0.5, 0.90, inner_text, transform=ax.transAxes, ha="center")
+
+                            plt.savefig(create_file_dir(
+                                    self.output()[feature.name][cat][ctau][param][syst]["pdf"].path),
+                                bbox_inches='tight')
+
+                            plt.close('all')
+

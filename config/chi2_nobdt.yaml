@@ -11,19 +11,67 @@ trigsf:
         isMC: self.dataset.process.isMC
         isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
 
+loose:
+    name: DQCDLooseMuonSelectionRDF
+    path: modules.muonsv_selection
+    parameters:
+        gen_mass: 2
+
+idsf:
+    name: DQCDIdSF_RDF
+    path: modules.DQCD_SF
+    parameters:
+        isMC: self.dataset.process.isMC
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+
+
+#rew_full:
+    #name: DQCDFullReweighingRDF
+    #path: modules.reweighing
+    #parameters:
+        #input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
+        #output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
+        #displaced_pdgid: 9900015
+        #do_reweighing: self.dataset.has_tag('rew')
+
+
+#rew:
+    #name: DQCDOnlyRecoReweighingRDF
+    #path: modules.reweighing
+    #parameters:
+        #input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
+        #output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
+        #displaced_pdgid: 9900015
+        #do_reweighing: self.dataset.has_tag('rew')
+
 rew:
-    name: DQCDReweighingRDF
+    name: DQCDReweighingWithRecoRDF
     path: modules.reweighing
     parameters:
-        input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
-        output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
         displaced_pdgid: 9900015
         do_reweighing: self.dataset.has_tag('rew')
+        input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
+        output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
 
-#bdt_inference_a:
-#    name: DQCDULBDTNoJet
-#    path: DQCD.Modules.BDTULinferenceNoJet
-#    parameters:
-#        isMC: self.dataset.process.isMC
-#        scenario: A
-#        bdt_name: bdt_scenarioA_nojetsel
+#gen_matching:
+    #name: DQCDMuonSVGenMatchedRDF
+    #path: modules.reweighing
+    #parameters:
+        #displaced_pdgid: 9900015
+        #is_signal: self.dataset.process.isSignal
+
+bdt_inference_a:
+    name: DQCDULBDTOnlyMu
+    path: DQCD.Modules.BDTULinferenceOnlyMu
+    parameters:
+        isMC: self.dataset.process.isMC
+        scenario: A
+        bdt_name: bdt_scenarioA_onlymu
+
+bdt_inference_a_DA:
+    name: DQCDULBDTOnlyMuDA
+    path: DQCD.Modules.BDTULinferenceOnlyMuDA
+    parameters:
+        isMC: self.dataset.process.isMC
+        scenario: A
+        bdt_name: bdt_scenarioA_onlymu_da

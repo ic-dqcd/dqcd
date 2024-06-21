@@ -8,8 +8,8 @@ from analysis_tools.utils import create_file_dir
 
 from cmt.base_tasks.base import CategoryWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
-from cmt.base_tasks.analysis import Fit
-from tasks.analysis import CombineDatacardsDQCD, ProcessGroupNameWrapper, ScanCombineDQCD
+from cmt.base_tasks.analysis import Fit, CombineCategoriesTask
+from tasks.analysis import ProcessGroupNameWrapper, ScanCombineDQCD, DQCDBaseTask, FitConfigBaseTask
 
 
 class FeaturePlotDQCD(FeaturePlot):
@@ -64,14 +64,17 @@ class FeaturePlotDQCDWrapper(CategoryWrapperTask):
         return FeaturePlotDQCD.req(self, category_name=category_name)
 
 
-class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
+class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTask, FitConfigBaseTask):
     def requires(self):
         return ScanCombineDQCD.vreq(self, combine_categories=True)
 
     def output(self):
         return {
-            feature.name: self.local_target("plot__{}__{}.pdf".format(
-                feature.name, self.fit_config_file))
+            feature.name: {
+                ext: self.local_target("plot__{}__{}.{}".format(
+                    feature.name, self.fit_config_file, ext))
+                for ext in ["pdf", "png"]
+            }
             for feature in self.features
         }
 
@@ -142,7 +145,8 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
             transform=ax.transAxes, ha="right")
         if True:
             plt.yscale('log')
-        plt.savefig(output_file, bbox_inches='tight')
+        plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
+        plt.savefig(create_file_dir(output_file["png"].path), bbox_inches='tight')
         plt.close('all')
 
     def run(self):
@@ -152,7 +156,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineDatacardsDQCD):
             for ip, process_group_name in enumerate(self.process_group_names):
                 with open(inputs["collection"].targets[ip][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
-            self.plot(results, create_file_dir(self.output()[feature.name].path))
+            self.plot(results, self.output()[feature.name])
 
 
 class ParamPlotDQCD(PlotCombineDQCD):
