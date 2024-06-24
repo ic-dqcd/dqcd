@@ -82,6 +82,7 @@ class Config(cmt_config):
                 muonSV_mu1eta.at(min_chi2_index) != 0 && muonSV_mu2eta.at(min_chi2_index) != 0"""
         categories = [
             Category("base", "base", selection="event >= 0"),
+            Category("base_puw", "base", selection="event >= 0"),
             Category("nosel", "No selection", selection="event >= 0"),
             Category("trigsel", "Only trigger selection applied",
                 selection="""((HLT_Mu9_IP6_part0 == 1) ||
@@ -1631,13 +1632,13 @@ class Config(cmt_config):
 
             Feature("puWeight", "puWeight", binning=(20, 0, 2),
                 x_title=Label("puWeight"),
-                systematics=["pu"]),
+                systematics=["CMS_parking_pileup_2018"]),
             Feature("idWeight", "idWeight", binning=(20, 0, 2),
                 x_title=Label("idWeight"),
-                systematics=["id"]),
+                systematics=["CMS_m_displaced_id_2018"]),
             Feature("trigSF", "trigSF", binning=(20, 0, 2),
                 x_title=Label("trigSF"),
-                systematics=["trig"]),
+                systematics=["CMS_eff_parking_trigger_2018"]),
             # Feature("ctau_reweighing", "ctau_reweighing", binning=(20, 0, 10),
             Feature("ctau_reweighing", "muonSV_ctau_rew.at(min_chi2_index)", binning=(20, 0, 10),
                 x_title=Label("ctau_reweighing")),
@@ -1664,9 +1665,9 @@ class Config(cmt_config):
         systematics = [
             Systematic("jet_smearing", "_nom"),
             # Systematic("met_smearing", ("MET", "MET_smeared")),
-            Systematic("pu", "", up="Up", down="Down"),
-            Systematic("id", ""),
-            Systematic("trig", ""),
+            Systematic("CMS_parking_pileup_2018", "", up="Up", down="Down"),
+            Systematic("CMS_m_displaced_id_2018", ""),
+            Systematic("CMS_eff_parking_trigger_2018", ""),
             Systematic("jer", "_smeared", affected_categories=self.categories.names(),
                 module_syst_type={
                     "jet_syst": {"up": "smeared_up", "down": "smeared_down"},
