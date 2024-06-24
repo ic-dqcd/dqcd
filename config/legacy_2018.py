@@ -1269,7 +1269,7 @@ class Config(cmt_config):
                 x_title=Label("BDT score (scenario A, DA)"),
             ),
 
-            Feature("bdt_scenarioB1", "bdt_scenarioB1_new", binning=(20, 0, 1),
+            Feature("bdt_scenarioB1", "bdt_scenarioB1_onlymu", binning=(20, 0, 1),
                 x_title=Label("BDT score (scenario B1)"),
             ),
             Feature("bdt_scenarioB2", "bdt_new_scenarioB2", binning=(20, 0, 1),
@@ -1279,7 +1279,7 @@ class Config(cmt_config):
                 x_title=Label("BDT score (scenario C)"),
             ),
 
-            Feature("bdt_vector", "bdt_vector_new", binning=(20, 0, 1),
+            Feature("bdt_vector", "bdt_vector_onlymu", binning=(20, 0, 1),
                 x_title=Label("BDT score (vector portal)"),
             ),
 

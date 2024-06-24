@@ -1,300 +1,350 @@
 vector_m_10_ctau_100_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_10_ctau_10_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_10_ctau_1_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_10_ctau_500_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_10_ctau_50_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_15_ctau_100_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_15_ctau_10_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_15_ctau_1_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_15_ctau_500_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_15_ctau_50_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_20_ctau_100_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_20_ctau_10_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_20_ctau_1_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_20_ctau_500_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_20_ctau_50_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_2_ctau_100_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_2_ctau_10_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_2_ctau_1_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_2_ctau_500_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_2_ctau_50_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_5_ctau_100_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_5_ctau_10_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_5_ctau_1_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_5_ctau_500_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
 vector_m_5_ctau_50_xiO_1_xiL_1:
+    singlev_cat1: False
+    singlev_cat2: False
     singlev_cat3: False
     singlev_cat4: False
-    singlev_cat5: True
-    singlev_cat6: True
-    multiv_cat1: True
-    multiv_cat2: True
-    multiv_cat3: True
-    multiv_cat4: True
-    multiv_cat5: True
-    multiv_cat6: True
+    singlev_cat5: False
+    singlev_cat6: False
+    multiv_cat1: False
+    multiv_cat2: False
+    multiv_cat3: False
+    multiv_cat4: False
+    multiv_cat5: False
+    multiv_cat6: False
 
