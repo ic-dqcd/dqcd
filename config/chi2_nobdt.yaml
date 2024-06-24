@@ -65,13 +65,15 @@ bdt_inference_a:
     path: DQCD.Modules.BDTULinferenceOnlyMu
     parameters:
         isMC: self.dataset.process.isMC
+        year: self.config.year
         scenario: A
         bdt_name: bdt_scenarioA_onlymu
 
-bdt_inference_a_DA:
-    name: DQCDULBDTOnlyMuDA
-    path: DQCD.Modules.BDTULinferenceOnlyMuDA
-    parameters:
-        isMC: self.dataset.process.isMC
-        scenario: A
-        bdt_name: bdt_scenarioA_onlymu_da
+#bdt_inference_a_DA:
+    #name: DQCDULBDTOnlyMuDA
+    #path: DQCD.Modules.BDTULinferenceOnlyMuDA
+    #parameters:
+        #isMC: self.dataset.process.isMC
+        #year: self.config.year
+        #scenario: A
+        #bdt_name: bdt_scenarioA_onlymu_da
