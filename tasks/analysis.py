@@ -91,6 +91,8 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         # if self.process_group_name != "default":
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
+        
+        print(self.loose_region)
 
     def requires(self):
         reqs = super(CreateDatacardsDQCD, self).requires()
@@ -170,7 +172,6 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                 if "fit_parameters" in new_fit_params:
                     params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
                     for param, value in new_fit_params["fit_parameters"].items()]) + "}"
-
                 reqs["tight"] =  eval("Fit.vreq(self, "
                     f"{params}, _exclude=['include_fit'], "
                     "region_name=self.tight_region, "
@@ -403,6 +404,8 @@ class ScanCombineDQCD(BaseScanTask):
             return RunCombineDQCD.vreq(self, mass_point=mass_point,
                 process_group_name=process_group_name,
                 region_name=f"tight_bdt_{signal}",
+                tight_region=f"tight_bdt_{signal}",
+                loose_region=f"loose_bdt_{signal}",
                 category_names=self.fit_config[process_group_name].keys(),
                 _exclude=["branches", "branch"])
         else:
@@ -412,6 +415,8 @@ class ScanCombineDQCD(BaseScanTask):
             return RunCombineDQCD.vreq(self, mass_point=mass_point,
                 process_group_name=process_group_name,
                 region_name=f"tight_bdt_{signal}",
+                tight_region=f"tight_bdt_{signal}",
+                loose_region=f"loose_bdt_{signal}",
                 category_names=self.fit_config[process_group_name].keys(),
                 _exclude=["branches", "branch"])
 
@@ -423,6 +428,8 @@ class ScanCombineDQCD(BaseScanTask):
             return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
                 process_group_name=process_group_name,
                 region_name=f"tight_bdt_{signal}",
+                tight_region=f"tight_bdt_{signal}",
+                loose_region=f"loose_bdt_{signal}",
                 category_names=self.fit_config[process_group_name].keys(),
                 _exclude=["branches", "branch"])}
         else:
@@ -432,6 +439,8 @@ class ScanCombineDQCD(BaseScanTask):
             return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
                 process_group_name=process_group_name,
                 region_name=f"tight_bdt_{signal}",
+                tight_region=f"tight_bdt_{signal}",
+                loose_region=f"loose_bdt_{signal}",
                 category_names=self.fit_config[process_group_name].keys(),
                 _exclude=["branches", "branch"])}
 
