@@ -30,6 +30,7 @@ bdtsf:
     parameters:
         process_name: self.dataset.process.name
 
+
 #rew_full:
     #name: DQCDFullReweighingRDF
     #path: modules.reweighing
@@ -65,32 +66,32 @@ rew:
         #displaced_pdgid: 9900015
         #is_signal: self.dataset.process.isSignal
 
-#bdt_inference_a:
+bdt_inference_a:
+    name: DQCDULBDTOnlyMu
+    path: DQCD.Modules.BDTULinferenceOnlyMu
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        scenario: A
+        bdt_name: bdt_scenarioA_onlymu
+
+#bdt_inference_b1:
     #name: DQCDULBDTOnlyMu
     #path: DQCD.Modules.BDTULinferenceOnlyMu
     #parameters:
         #isMC: self.dataset.process.isMC
         #year: self.config.year
-        #scenario: A
-        #bdt_name: bdt_scenarioA_onlymu
+        #scenario: B1
+        #bdt_name: bdt_scenarioB1_onlymu
 
-bdt_inference_b1:
-    name: DQCDULBDTOnlyMu
-    path: DQCD.Modules.BDTULinferenceOnlyMu
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        scenario: B1
-        bdt_name: bdt_scenarioB1_onlymu
-
-bdt_inference_vector:
-    name: DQCDULBDTOnlyMu
-    path: DQCD.Modules.BDTULinferenceOnlyMu
-    parameters:
-        isMC: self.dataset.process.isMC
-        year: self.config.year
-        scenario: vector
-        bdt_name: bdt_vector_onlymu
+#bdt_inference_vector:
+    #name: DQCDULBDTOnlyMu
+    #path: DQCD.Modules.BDTULinferenceOnlyMu
+    #parameters:
+        #isMC: self.dataset.process.isMC
+        #year: self.config.year
+        #scenario: vector
+        #bdt_name: bdt_vector_onlymu
 
 #bdt_inference_a_DA:
     #name: DQCDULBDTOnlyMuDA

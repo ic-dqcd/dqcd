@@ -1837,18 +1837,15 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        # weights.base = ["puWeight", "idWeight", "trigSF"]  # others needed
-        weights.base = ["puWeight", "idWeight", "trigSF", "ctau_reweighing"]  # others needed
-        #weights.base = []  # others needed
-        #weights.base = ["puWeight", "PUjetID_SF", "idWeight", "trigSF"]  # others needed
+        weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:
             weights[category.name] = weights.base
 
         weights.nosel = ["puWeight"]
-        weights.trigsel = ["puWeight"]
-        weights.base_puw = ["puWeight"]
+        weights.trigsel = ["puWeight", "ctau_reweighing"]
+        weights.base_puw = ["puWeight", "ctau_reweighing"]
         # weights.gen = ["puWeight", "idWeight", "trigSF", "ctau_reweighing"]  # others needed
         weights.gen0 = ["GenDark_rew_weight_0"]  # others needed
         weights.gen1 = ["GenDark_rew_weight_1"]  # others needed
@@ -1864,7 +1861,6 @@ class Config(legacy_config):
 
     # other methods
 
-# config = Config("base", year=2018, ecm=13, lumi_pb=59741)
 config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')

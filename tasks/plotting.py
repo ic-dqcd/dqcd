@@ -1,8 +1,10 @@
 import json
 import luigi
 from collections import OrderedDict
+import itertools
 import numpy as np
 import operator
+import re
 
 from analysis_tools.utils import create_file_dir
 
@@ -160,15 +162,129 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
 
 
 class ParamPlotDQCD(PlotCombineDQCD):
+    def __init__(self, *args, **kwargs):
+        super(ParamPlotDQCD, self).__init__(*args, **kwargs)
+        masses = []
+        ctaus = []
+        for pgn in self.process_group_names:
+            if "scenario" in pgn:
+                pattern = r"scenario(.*)_mpi_(.*)_mA_(.*)_ctau_(.*)"
+                match = re.fullmatch(pattern, pgn)
+                masses.append((float(match.group(2)), float(match.group(3).replace("p", "."))))
+                ctaus.append(self.get_ctau(pgn))
+            elif "vector" in pgn:
+                pattern = r"vector_m_(.*)_ctau_(.*)_xiO_1_xiL_1"
+                match = re.fullmatch(pattern, pgn)
+                masses.append(float(match.group(1)))
+                ctaus.append(self.get_ctau(pgn))
+            else:
+                raise ValueError(f"{pgn} can't be considered as a process_group_name")
+        self.masses = set(masses)
+        self.ctaus = set(ctaus)
+
     def output(self):
-        return {
-            feature.name: 
+        out = {
+            feature.name:
                 {
                     "txt": self.local_target("limits__{}__{}.csv".format(
-                        feature.name, self.fit_config_file))
+                        feature.name, self.fit_config_file)),
                 }
             for feature in self.features
         }
+        for feature in self.features:
+            if "scenario" in self.fit_config_file:
+                out[feature.name]["mass"] = {
+                    (mm, m): {
+                        key: self.local_target("fixed_mass/limits__{}__{}__mm_{}_m_{}.{}".format(
+                            feature.name, self.fit_config_file, mm, m, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for (mm, m) in self.masses
+                }
+                out[feature.name]["ctau"] = {
+                    (mm, ctau): {
+                        key: self.local_target("fixed_ctau/limits__{}__{}__mm_{}_ctau_{}.{}".format(
+                            feature.name, self.fit_config_file, mm, ctau, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for (mm, ctau) in itertools.product([e[0] for e in self.masses], self.ctaus)
+                }
+            else:
+                out[feature.name]["mass"] = {
+                    m: {
+                        key: self.local_target("fixed_mass/limits__{}__{}__m_{}.{}".format(
+                            feature.name, self.fit_config_file, m, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for m in self.masses
+                }
+                out[feature.name]["ctau"] = {
+                    ctau: {
+                        key: self.local_target("fixed_ctau/limits__{}__{}__ctau_{}.{}".format(
+                            feature.name, self.fit_config_file, ctau, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for ctau in self.ctaus
+                }
+
+        return out
+
+    def plot(self, results, output_file, **kwargs):
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+        plt.rcParams['text.usetex'] = True
+
+        ax = plt.subplot()
+
+        def scale(val):
+            return val * 0.01
+
+        plt.fill_between(
+            results.keys(),
+            [scale(elem["16.0"]) for elem in results.values()],
+            [scale(elem["84.0"]) for elem in results.values()],
+            color="#607641"
+        )
+        plt.fill_between(
+            results.keys(),
+            [scale(elem["84.0"]) for elem in results.values()],
+            [scale(elem["97.5"]) for elem in results.values()],
+            color="#F5BB54"
+        )
+        plt.fill_between(
+            results.keys(),
+            [scale(elem["16.0"]) for elem in results.values()],
+            [scale(elem["2.5"]) for elem in results.values()],
+            color="#F5BB54"
+        )
+        plt.plot(
+            results.keys(),
+            [scale(elem["50.0"]) for elem in results.values()],
+            color="r", linestyle="dashed"
+        )
+
+        plt.ylabel(self.get_y_axis_label(self.fit_config_file))
+
+        x_label = kwargs.pop("x_label")
+        plt.xlabel(x_label)
+        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
+        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
+            self.config.year, self.config.lumi_fb),
+            transform=ax.transAxes, ha="right")
+
+        # inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
+            # else f"$c\\tau={self.fixed_ctau}$ mm")
+        inner_text = kwargs.pop("inner_text")
+        inner_text_height = 1.0 - 0.05 * len(inner_text)
+        plt.text(0.5, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="center")
+
+        plt.yscale('log')
+        if kwargs.pop("log", False):
+            plt.xscale('log')
+        plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
+        plt.savefig(create_file_dir(output_file["png"].path), bbox_inches='tight')
+        plt.close('all')
 
     def run(self):
         inputs = self.input()
@@ -193,7 +309,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     params["mass"], params["lifetime"],
                     results[process_group_name]["2.5"], results[process_group_name]["16.0"],
                     results[process_group_name]["50.0"], results[process_group_name]["84.0"],
-                    results[process_group_name]["97.5"], 
+                    results[process_group_name]["97.5"],
                 ])
             table = sorted(table, key=operator.itemgetter(1))
             table = sorted(table, key=operator.itemgetter(0))
@@ -205,6 +321,72 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 for line in table:
                     fout.write(",".join([str(elem) for elem in line]) + "\n")
 
+            # limit plots per parameter
+            if "scenario" in self.fit_config_file:
+                pattern = r"scenario(.*)_mpi_(.*)_mA_(.*)_ctau_(.*)"
+
+                d_mass = {(mm, m): {} for mm, m in self.masses}
+                d_ctau = {(mm, ctau): {}
+                    for mm, ctau in itertools.product([elem[0] for elem in self.masses], self.ctaus)}
+                for pgn, value in results.items():
+                    match = re.fullmatch(pattern, pgn)
+                    mm = float(match.group(2))
+                    m = float(match.group(3).replace("p", "."))
+                    ctau = float(match.group(4).replace("p", "."))
+                    d_mass[(mm, m)][ctau] = value
+                    d_ctau[(mm, ctau)][m] = value
+
+                # llp_type = ""
+                # if self.fit_config_file.startswith("scenario"):
+                llp_type="_{A'}"
+                for key, val in d_mass.items():
+                    self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
+                        x_label="$c\\tau$ [mm]",
+                        log=True,
+                        inner_text=[
+                            f"Scenario {match.group(1)}",
+                            f"$m_\\pi$={key[0]} GeV",
+                            f"$m{llp_type}$={key[1]} GeV"]
+                    )
+                for key, val in d_ctau.items():
+                    self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],
+                        x_label=f"$m{llp_type}$ [GeV]",
+                        inner_text=[
+                            f"Scenario {match.group(1)}",
+                            f"$m_\\pi$={key[0]} GeV",
+                            f"$c\\tau=${key[1]} mm"]
+                    )
+
+            elif "vector" in self.fit_config_file:
+                pattern = r"vector_m_(.*)_ctau_(.*)_xiO_1_xiL_1"
+                d_mass = {m: {} for m in self.masses}
+                d_ctau = {ctau: {} for ctau in self.ctaus}
+                for pgn, value in results.items():
+                    match = re.fullmatch(pattern, pgn)
+                    m = float(match.group(1).replace("p", "."))
+                    ctau = float(match.group(2).replace("p", "."))
+                    d_mass[m][ctau] = value
+                    d_ctau[ctau][m] = value
+
+                for key, val in d_mass.items():
+                    self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
+                        x_label="$c\\tau$ [mm]",
+                        log=True,
+                        inner_text=[
+                            f"Vector portal",
+                            f"$m$={key} GeV"]
+                    )
+                for key, val in d_ctau.items():
+                    self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],
+                        x_label=f"$m$ [GeV]",
+                        inner_text=[
+                            f"Vector portal",
+                            f"$c\\tau=${key} mm"]
+                    )
+
+            else:
+                raise ValueError(f"Rename {self.fit_config_name} so it can be considered inside "
+                    f"{type(self)}")
 
 class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
     combine_categories = True  # for the output tag
