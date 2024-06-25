@@ -172,6 +172,13 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 match = re.fullmatch(pattern, pgn)
                 masses.append((float(match.group(2)), float(match.group(3).replace("p", "."))))
                 ctaus.append(self.get_ctau(pgn))
+            elif "vector" in pgn:
+                pattern = r"vector_m_(.*)_ctau_(.*)_xiO_1_xiL_1"
+                match = re.fullmatch(pattern, pgn)
+                masses.append(float(match.group(1)))
+                ctaus.append(self.get_ctau(pgn))
+            else:
+                raise ValueError(f"{pgn} can't be considered as a process_group_name")
         self.masses = set(masses)
         self.ctaus = set(ctaus)
 
@@ -185,22 +192,40 @@ class ParamPlotDQCD(PlotCombineDQCD):
             for feature in self.features
         }
         for feature in self.features:
-            out[feature.name]["mass"] = {
-                (mm, m): {
-                    key: self.local_target("fixed_mass/limits__{}__{}__mm_{}_m_{}.{}".format(
-                        feature.name, self.fit_config_file, mm, m, key))
-                    for key in ["png", "pdf"]
+            if "scenario" in self.fit_config_file:
+                out[feature.name]["mass"] = {
+                    (mm, m): {
+                        key: self.local_target("fixed_mass/limits__{}__{}__mm_{}_m_{}.{}".format(
+                            feature.name, self.fit_config_file, mm, m, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for (mm, m) in self.masses
                 }
-                for (mm, m) in self.masses
-            }
-            out[feature.name]["ctau"] = {
-                (mm, ctau): {
-                    key: self.local_target("fixed_ctau/limits__{}__{}__mm_{}_ctau_{}.{}".format(
-                        feature.name, self.fit_config_file, mm, ctau, key))
-                    for key in ["png", "pdf"]
+                out[feature.name]["ctau"] = {
+                    (mm, ctau): {
+                        key: self.local_target("fixed_ctau/limits__{}__{}__mm_{}_ctau_{}.{}".format(
+                            feature.name, self.fit_config_file, mm, ctau, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for (mm, ctau) in itertools.product([e[0] for e in self.masses], self.ctaus)
                 }
-                for (mm, ctau) in itertools.product([e[0] for e in self.masses], self.ctaus)
-            }
+            else:
+                out[feature.name]["mass"] = {
+                    m: {
+                        key: self.local_target("fixed_mass/limits__{}__{}__m_{}.{}".format(
+                            feature.name, self.fit_config_file, m, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for m in self.masses
+                }
+                out[feature.name]["ctau"] = {
+                    ctau: {
+                        key: self.local_target("fixed_ctau/limits__{}__{}__ctau_{}.{}".format(
+                            feature.name, self.fit_config_file, ctau, key))
+                        for key in ["png", "pdf"]
+                    }
+                    for ctau in self.ctaus
+                }
 
         return out
 
@@ -311,9 +336,9 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     d_mass[(mm, m)][ctau] = value
                     d_ctau[(mm, ctau)][m] = value
 
-                llp_type = ""
-                if self.fit_config_file.startswith("scenario"):
-                    llp_type="_{A'}"
+                # llp_type = ""
+                # if self.fit_config_file.startswith("scenario"):
+                llp_type="_{A'}"
                 for key, val in d_mass.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
                         x_label="$c\\tau$ [mm]",
@@ -332,6 +357,36 @@ class ParamPlotDQCD(PlotCombineDQCD):
                             f"$c\\tau=${key[1]} mm"]
                     )
 
+            elif "vector" in self.fit_config_file:
+                pattern = r"vector_m_(.*)_ctau_(.*)_xiO_1_xiL_1"
+                d_mass = {m: {} for m in self.masses}
+                d_ctau = {ctau: {} for ctau in self.ctaus}
+                for pgn, value in results.items():
+                    match = re.fullmatch(pattern, pgn)
+                    m = float(match.group(1).replace("p", "."))
+                    ctau = float(match.group(2).replace("p", "."))
+                    d_mass[m][ctau] = value
+                    d_ctau[ctau][m] = value
+
+                for key, val in d_mass.items():
+                    self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
+                        x_label="$c\\tau$ [mm]",
+                        log=True,
+                        inner_text=[
+                            f"Vector portal",
+                            f"$m$={key} GeV"]
+                    )
+                for key, val in d_ctau.items():
+                    self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],
+                        x_label=f"$m$ [GeV]",
+                        inner_text=[
+                            f"Vector portal",
+                            f"$c\\tau=${key} mm"]
+                    )
+
+            else:
+                raise ValueError(f"Rename {self.fit_config_name} so it can be considered inside "
+                    f"{type(self)}")
 
 class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
     combine_categories = True  # for the output tag

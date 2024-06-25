@@ -299,3 +299,34 @@ def DQCDFilterEfficiencyRDF(**kwargs):
                 process_name: self.dataset.process.name
     """
     return lambda: DQCDFilterEfficiencyRDFProducer(**kwargs)
+
+
+class DQCDBDTSFRDFProducer():
+    def __init__(self, *args, **kwargs):
+        self.process_name = kwargs.pop("process_name", "")
+
+    def run(self, df):
+        sfs = {
+            "scenarioA": 0.64,
+            "scenarioB1": 0.818,
+            "vector": 0.902, 
+        }
+        sf = sfs.get(self.process_name.split("_")[0], 1.)
+        df = df.Define("BDT_SF", str(sf))
+        return df, ["BDT_SF"]
+
+
+def DQCDBDTSFRDF(**kwargs):
+    """
+    Module to extract the pythia efficiencies
+    YAML sintaxis:
+
+    .. code-block:: yaml
+
+        codename:
+            name: DQCDBDTSFRDF
+            path: modules.DQCD_SF
+            parameters:
+                process_name: self.dataset.process.name
+    """
+    return lambda: DQCDBDTSFRDFProducer(**kwargs)

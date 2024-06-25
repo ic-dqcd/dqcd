@@ -1,0 +1,36 @@
+puweight:
+    name: puWeightParkingRDF
+    path: modules.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+
+
+filter_eff:
+    name: DQCDFilterEfficiencyRDF
+    path: modules.DQCD_SF
+    parameters:
+        process_name: self.dataset.process.name
+
+
+muonsv:
+    name: DQCDMuonSVSelectionRDF
+    path: modules.muonsv_selection
+    parameters:
+        gen_mass: 2
+
+rew:
+    name: DQCDReweighingWithRecoRDF
+    path: modules.reweighing
+    parameters:
+        displaced_pdgid: 9900015
+        do_reweighing: self.dataset.has_tag('rew')
+        input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
+        output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
+
+chi2:
+    name: DummyMinChi2RDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
