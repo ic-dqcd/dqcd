@@ -1,6 +1,7 @@
 process_name: background
 method: envelope
 functions: polynomial, exponential, powerlaw
+x_range: 1.2635, 1.3965
 fit_parameters:
     polynomial_order: 1
     p0: 0, -5, 5
