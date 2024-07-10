@@ -86,13 +86,12 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
+        self.mass_point = ProcessGroupNameWrapper.get_mass_point(self, self.process_group_name)
         self.sigma = self.mass_point * 0.01
         self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
         # if self.process_group_name != "default":
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
-        
-        print(self.loose_region)
 
     def requires(self):
         reqs = super(CreateDatacardsDQCD, self).requires()
@@ -102,8 +101,11 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
             for process in reqs["fits"]:
                 x_range = self.fit_range
                 if process == "data_obs":
+                    print("*******************************************************")
+                    print("WARNING: You are using loose_region to fit data histo")
+                    print("*******************************************************")
                     reqs["fits"][process] = Fit.vreq(reqs["fits"][process],
-                        region_name=self.region_name, x_range=x_range, process_group_name="data")
+                        region_name=loose_region , x_range=x_range, process_group_name="data")
                     continue  # FIXME
                 if not self.config.processes.get(process).isSignal and \
                         not self.config.processes.get(process).isData:
@@ -310,8 +312,10 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
     process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
         "empty means all scenarios, default: empty")
 
-    def get_mass_point(self, process_group_name):
-        if "scenario" in process_group_name:
+    def get_mass_point(self, process_group_name, signal_tag=None):
+        if signal_tag:
+            signal_tag = signal_tag
+        elif "scenario" in process_group_name:
             signal_tag = "A"
         elif "hzdzd" in process_group_name:
             signal_tag = "zd"
@@ -385,9 +389,9 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper, law.LocalWork
 class ScanCombineDQCD(BaseScanTask):
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
-        assert(
-            self.combine_categories or len(self.process_group_names)
-        )
+        # assert(
+            # self.combine_categories or len(self.process_group_names)
+        # )
 
     def create_branch_map(self):
         if self.combine_categories:

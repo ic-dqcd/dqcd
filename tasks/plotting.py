@@ -115,15 +115,15 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
             plt.fill_between((ival - 0.25, ival + 0.25),
                 scale(values["16.0"]), scale(values["84.0"]),
                 # color="g", alpha=.5)
-                color="g")
+                color="#607641")
             plt.fill_between((ival - 0.25, ival + 0.25),
                 scale(values["84.0"]), scale(values["97.5"]),
                 # color="y", alpha=.5)
-                color="y")
+                color="#F5BB54")
             plt.fill_between((ival - 0.25, ival + 0.25),
                 scale(values["16.0"]), scale(values["2.5"]),
                 # color="y", alpha=.5)
-                color="y")
+                color="#F5BB54")
 
             plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
                 color="k")
