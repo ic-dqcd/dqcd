@@ -4,6 +4,7 @@ import law
 import math
 import itertools
 from copy import deepcopy as copy
+from collections import OrderedDict
 
 from analysis_tools.utils import create_file_dir, import_root
 
@@ -89,6 +90,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         self.mass_point = ProcessGroupNameWrapper.get_mass_point(self, self.process_group_name)
         self.sigma = self.mass_point * 0.01
         self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
+        self.blind_range = (self.mass_point - 2 * self.sigma, self.mass_point + 2 * self.sigma)
         # if self.process_group_name != "default":
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
@@ -101,20 +103,30 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
             for process in reqs["fits"]:
                 x_range = self.fit_range
                 if process == "data_obs":
-                    print("*******************************************************")
-                    print("WARNING: You are using loose_region to fit data histo")
-                    print("*******************************************************")
+                    # print("*******************************************************")
+                    # print("WARNING: You are using loose_region to fit data histo")
+                    # print("*******************************************************")
                     reqs["fits"][process] = Fit.vreq(reqs["fits"][process],
-                        region_name=loose_region , x_range=x_range, process_group_name="data")
+                        region_name=self.region.name, x_range=x_range, process_group_name="data",
+                        save_pdf=False)
+                        # region_name=loose_region, x_range=x_range, process_group_name="data")
                     continue  # FIXME
                 if not self.config.processes.get(process).isSignal and \
-                        not self.config.processes.get(process).isData:
+                        not self.config.processes.get(process).isData:  # MC Background
                     region_name = loose_region
                     process_group_name = "background"
                     cls = Fit
+                elif self.config.processes.get(process).isData:
+                    reqs["fits"][process] = Fit.vreq(reqs["fits"][process],
+                        # region_name=loose_region, x_range=x_range, blind_range=self.blind_range,
+                        region_name=self.region.name, x_range=x_range, blind_range=self.blind_range,
+                        process_group_name="data")
+                    del reqs["inspections"][process]
+                    continue
                 else:
                     region_name = self.region_name  # probably redundant
-                    process_group_name = "sig_" + self.process_group_name
+                    # region_name = loose_region  # probably redundant
+                    process_group_name = "sig_" + self.process_group_name.replace("data_", "")
                     cls = self.cls
                 reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
                     x_range=x_range, process_group_name=process_group_name)
@@ -164,28 +176,35 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
             if model == "data_obs": # FIXME
                 continue
             process = fit_params["process_name"]
-            if not self.config.processes.get(process).isSignal and \
-                    not self.config.processes.get(process).isData and not background_model_found:
+            # if not self.config.processes.get(process).isSignal and \
+                    # not self.config.processes.get(process).isData and not background_model_found:
+            if not self.config.processes.get(process).isSignal and not background_model_found:
                 background_model_found = True  # avoid looping over all qcd processes
                 new_fit_params = copy(fit_params)
-                new_fit_params["process_name"] = "background"
+                if not self.config.processes.get(process).isData:
+                    new_fit_params["process_name"] = "background"
                 params = ", ".join([f"{param}='{value}'"
                     for param, value in new_fit_params.items() if param != "fit_parameters"])
                 if "fit_parameters" in new_fit_params:
                     params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
                     for param, value in new_fit_params["fit_parameters"].items()]) + "}"
-                reqs["tight"] =  eval("Fit.vreq(self, "
-                    f"{params}, _exclude=['include_fit'], "
-                    "region_name=self.tight_region, "
-                    "process_group_name='background', "
-                    f"feature_names=('{self.calibration_feature_name}',), "
-                    "category_name='base')")
-                reqs["loose"] =  eval(f"Fit.vreq(self, "
-                    f"{params}, _exclude=['include_fit'], "
-                    "region_name=self.loose_region, "
-                    "process_group_name='background', "
-                    f"feature_names=('{self.calibration_feature_name}',), "
-                    "category_name='base')")
+                # reqs["tight"] =  eval("Fit.vreq(self, "
+                    # f"{params}, _exclude=['include_fit'], "
+                    # "region_name=self.tight_region, "
+                    # f"process_group_name='{process}', "
+                    # f"feature_names=('{self.calibration_feature_name}',), "
+                    # "category_name='base')")
+                # reqs["loose"] =  eval(f"Fit.vreq(self, "
+                    # f"{params}, _exclude=['include_fit'], "
+                    # "region_name=self.loose_region, "
+                    # f"process_group_name='{process}', "
+                    # f"feature_names=('{self.calibration_feature_name}',), "
+                    # "category_name='base')")
+
+        # from pprint import pprint
+        # pprint(reqs)
+        # import sys
+        # sys.exit()
 
         return reqs
 
@@ -209,7 +228,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
     def run(self):
         assert "tight" in self.region_name
-        self.get_additional_scaling()
+        # self.get_additional_scaling()
         super(CreateDatacardsDQCD, self).run()
 
 
@@ -236,8 +255,15 @@ class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
 
     def requires(self):
         reqs = {}
+        print("************************************************")
+        print("WARNING: counting=False regardless of fit_config")
+        print("************************************************")
+        # Fixes needed both here and in CreateWorkspaceDQCD
+        
+        
         for category_name in self.category_names:
-            counting = self.fit_config[self.process_group_name][category_name]
+            # counting = self.fit_config[self.process_group_name][category_name]
+            counting = False            
             process_group_name = (self.process_group_name if not counting
                 else "qcd_" + self.process_group_name)
             reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
@@ -252,7 +278,8 @@ class CreateWorkspaceDQCD(DQCDBaseTask, FitConfigBaseTask, CreateWorkspace):
             return CombineDatacardsDQCD.vreq(self)
         reqs = {}
         for category_name in self.category_names:
-            counting = self.fit_config[self.process_group_name][category_name]
+            # counting = self.fit_config[self.process_group_name][category_name]
+            counting = False
             process_group_name = (self.process_group_name if not counting
                 else "qcd_" + self.process_group_name)
             reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
@@ -264,7 +291,8 @@ class CreateWorkspaceDQCD(DQCDBaseTask, FitConfigBaseTask, CreateWorkspace):
             return {"data": CombineDatacardsDQCD.vreq(self)}
         reqs = {"data": {}}
         for category_name in self.category_names:
-            counting = self.fit_config[self.process_group_name][category_name]
+            # counting = self.fit_config[self.process_group_name][category_name]
+            counting = False
             process_group_name = (self.process_group_name if not counting
                 else "qcd_" + self.process_group_name)
             reqs["data"][category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
@@ -311,6 +339,8 @@ class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
 class ProcessGroupNameWrapper(FitConfigBaseTask):
     process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
         "empty means all scenarios, default: empty")
+    use_data = luigi.BoolParameter(default=True, description="whether to extract the background from "
+        "the data sidebands, default: True")
 
     def get_mass_point(self, process_group_name, signal_tag=None):
         if signal_tag:
@@ -353,6 +383,7 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
 
 class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper, law.LocalWorkflow,
         HTCondorWorkflow, SGEWorkflow, SlurmWorkflow):
+
     def combine_parser(self, filename):
         import os
         res = {}
@@ -387,6 +418,7 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper, law.LocalWork
 
 
 class ScanCombineDQCD(BaseScanTask):
+
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
         # assert(
@@ -406,7 +438,7 @@ class ScanCombineDQCD(BaseScanTask):
             mass_point = self.get_mass_point(process_group_name)
             signal = process_group_name[:process_group_name.find("_")]
             return RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name,
+                process_group_name=("data_" if self.use_data else "") + process_group_name,
                 region_name=f"tight_bdt_{signal}",
                 tight_region=f"tight_bdt_{signal}",
                 loose_region=f"loose_bdt_{signal}",
@@ -417,7 +449,7 @@ class ScanCombineDQCD(BaseScanTask):
             mass_point = self.get_mass_point(process_group_name)
             signal = process_group_name[:process_group_name.find("_")]
             return RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name,
+                process_group_name=("data_" if self.use_data else "") + process_group_name,
                 region_name=f"tight_bdt_{signal}",
                 tight_region=f"tight_bdt_{signal}",
                 loose_region=f"loose_bdt_{signal}",
@@ -430,7 +462,7 @@ class ScanCombineDQCD(BaseScanTask):
             mass_point = self.get_mass_point(process_group_name)
             signal = process_group_name[:process_group_name.find("_")]
             return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name,
+                process_group_name=("data_" if self.use_data else "") + process_group_name,
                 region_name=f"tight_bdt_{signal}",
                 tight_region=f"tight_bdt_{signal}",
                 loose_region=f"loose_bdt_{signal}",
@@ -441,7 +473,7 @@ class ScanCombineDQCD(BaseScanTask):
             mass_point = self.get_mass_point(process_group_name)
             signal = process_group_name[:process_group_name.find("_")]
             return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name,
+                process_group_name=("data_" if self.use_data else "") + process_group_name,
                 region_name=f"tight_bdt_{signal}",
                 tight_region=f"tight_bdt_{signal}",
                 loose_region=f"loose_bdt_{signal}",
@@ -1574,3 +1606,94 @@ class SummariseSystResultsDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
 
                             plt.close('all')
 
+
+# law run BDTRatioTest --version prod_1007_inttest  --config-name ul_2018 --workers 100
+#--MergeCategorizationStats-version prod_1201_bdt0p45
+#--MergeCategorization-version prod_1302_nojet_nosel --PrePlot-workflow htcondor
+#--PrePlot-preplot-modules-file chi2_nobdt --PrePlot-transfer-logs --PrePlot-allow-redefinition
+from cmt.base_tasks.plotting import BasePlotTask
+class BDTRatioTest(BasePlotTask):
+    category_names=["base",
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    ]
+    region_names=["vvloose_bdt_scenarioA", "vloose_bdt_scenarioA", "loose_bdt_scenarioA", "medium_bdt_scenarioA"]
+    feature_names=("muonSV_bestchi2_mass_fullrange_fewer_bins", "bdt_scenarioA")
+
+    def requires(self):
+        return {
+            cat: {
+                region: FeaturePlot.vreq(self, category_name=cat, region_name=region,
+                    save_yields=True, dataset_names="data_2018d_bph1_1fb", process_group_name="data",
+                    feature_names=self.feature_names, hide_data=False, stack=True)
+                for region in self.region_names
+            } for cat in self.category_names
+        }
+
+    def output(self):
+        return {
+            region: self.local_target(f"ratio__{region}.pdf")
+            for region in self.region_names[1:]
+        }
+
+    def run(self):
+        from tabulate import tabulate
+        import math
+        from matplotlib import pyplot as plt
+
+        inp = self.input()
+        results = {}
+        for cat in self.category_names:
+            results[cat] = {}
+            for region in self.region_names:
+                with open(inp[cat][region]["yields"].targets[self.feature_names[0]].path) as f:  # FIXME
+                    results[cat][region] = json.load(f)
+
+        for iregion in range(1, len(self.region_names)):
+
+            this_reg_base = results["base"][self.region_names[iregion]]["data"]["Total yield"]
+            this_reg_error_base = results["base"][self.region_names[iregion]]["data"]["Total yield error"]
+            prev_reg_base = results["base"][self.region_names[iregion - 1]]["data"]["Total yield"]
+            prev_reg_error_base = results["base"][self.region_names[iregion - 1]]["data"]["Total yield error"]
+
+            print(this_reg_base, this_reg_error_base, prev_reg_base, prev_reg_error_base)
+
+            ratio_base = this_reg_base / prev_reg_base if prev_reg_base != 0 else 0
+            error_ratio_base = ratio_base * math.sqrt((this_reg_error_base / this_reg_base)**2 +
+                (prev_reg_error_base / prev_reg_base)**2)
+
+            values = []
+            errors = []
+            for cat in self.category_names[1:]:
+                this_reg = results[cat][self.region_names[iregion]]["data"]["Total yield"]
+                this_reg_error = results[cat][self.region_names[iregion]]["data"]["Total yield error"]
+                prev_reg = results[cat][self.region_names[iregion - 1]]["data"]["Total yield"]
+                prev_reg_error = results[cat][self.region_names[iregion - 1]]["data"]["Total yield error"]
+
+                ratio = this_reg / prev_reg if prev_reg != 0 else 0
+                values.append(ratio / ratio_base)
+                errors.append(
+                    0 if this_reg == 0 or prev_reg == 0
+                    else (ratio / ratio_base) * math.sqrt(
+                        (this_reg_error / this_reg) ** 2 + (prev_reg_error / prev_reg) ** 2)
+                )
+
+            ax = plt.subplot()
+            ax.errorbar(range(len(self.category_names) - 1), values, errors, fmt='.')
+            print(ratio_base, error_ratio_base)
+            plt.fill_between(
+                range(len(self.category_names) - 1),
+                (ratio_base - error_ratio_base) / ratio_base,
+                (ratio_base + error_ratio_base) / ratio_base,
+                alpha=0.5 
+            )
+            plt.ylabel(f"{self.region_names[iregion]}/{self.region_names[iregion - 1]}")
+            ax.set_xticks(list(range(len(self.category_names) - 1)))
+            ax.set_xticklabels(self.category_names[1:], rotation=60, rotation_mode="anchor", ha="right")
+            ax.set_ybound(0, 2)
+            ax.set_ylim(0, 2)
+            plt.savefig(create_file_dir(self.output()[self.region_names[iregion]].path),
+                bbox_inches='tight')
+            plt.close()

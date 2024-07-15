@@ -1,0 +1,23 @@
+background:
+    process_name: data
+    method: envelope
+    functions: polynomial,exponential,powerlaw
+    # method: polynomial
+    x_range: 1.2635, 1.3965
+    # blind_range: 1.3034, 1.3566 # should be taken automatically for bkg
+    fit_parameters:
+        polynomial_order: 1
+        p0: 0, -5, 5
+
+signal:
+    process_name: signal
+    method: voigtian
+    x_range: 1.2635, 1.3965
+
+
+# process_name: background
+# method: exponential
+
+
+# process_name: background
+# method: powerlaw
