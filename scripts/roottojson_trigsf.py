@@ -54,7 +54,7 @@ d_pt = {
     "input": "pt",
     "edges": [
         0.,
-        6.,
+        10.,
         16.,
         float("inf")
     ],
@@ -109,7 +109,7 @@ for ib in range(len(d["corrections"][0]["data"]["edges"]) - 1):
             new_d_syst["content"][1]["value"] = content + error
             new_d_syst["content"][2]["value"] = content - error
         new_d_pt["content"].append(new_d_syst)
-    print(ib + 1, d["corrections"][0]["data"]["edges"][ib], ibpt + 1, new_d_pt["edges"][ibpt], content, error)
+        print(ib + 1, d["corrections"][0]["data"]["edges"][ib], ibpt + 1, new_d_pt["edges"][ibpt], content, error)
     d["corrections"][0]["data"]["content"].append(new_d_pt)
 
 

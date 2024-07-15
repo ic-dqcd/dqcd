@@ -61,8 +61,12 @@ class Config(legacy_config):
             Category("os_chi2_tight", "OS, Tight chi2 region", selection=jrs(chi2_tight, os_sel)),
             Category("ss_chi2_tight", "SS, Tight chi2 region", selection=jrs(chi2_tight, ss_sel)),
 
+            Category("vvloose_bdt_scenarioA", "VVLoose bdt (A) region", selection="{{bdt_scenarioA}} > 0.55"),
+            Category("vloose_bdt_scenarioA", "VLoose bdt (A) region", selection="{{bdt_scenarioA}} > 0.6"),
             Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            Category("medium_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.75"),
+            # Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
 
             Category("bdt_scenarioA_0_0p2", "bdt (A) < 0.2 region",
                 selection="{{bdt_scenarioA}} < 0.2"),
@@ -1838,13 +1842,14 @@ class Config(legacy_config):
         # weights.total_events_weights = ["1"]
 
         weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
+        #weights.base = ["puWeight", "BDT_SF", "idWeight", "ctau_reweighing"]
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:
             weights[category.name] = weights.base
 
         weights.nosel = ["puWeight"]
-        weights.trigsel = ["puWeight", "ctau_reweighing"]
+        weights.trigsel = ["puWeight", ]#"ctau_reweighing"]
         weights.base_puw = ["puWeight", "ctau_reweighing"]
         # weights.gen = ["puWeight", "idWeight", "trigSF", "ctau_reweighing"]  # others needed
         weights.gen0 = ["GenDark_rew_weight_0"]  # others needed
@@ -1861,6 +1866,6 @@ class Config(legacy_config):
 
     # other methods
 
-config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
-#config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')

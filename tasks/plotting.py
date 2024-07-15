@@ -491,3 +491,92 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
                 self.plot(results, create_file_dir(
                     self.output()[process_group_name][feature.name].path),
                     inner_text=self.config.processes.get(process_group_name).label.latex)
+
+
+
+class BDTOptimizationDQCD(PlotCombineDQCD):
+    combine_categories = True  # for the output tag
+
+    category_names = [
+        "singlev_cat1",  "singlev_cat2",  "singlev_cat3",
+        "singlev_cat4",  "singlev_cat5",  "singlev_cat6",
+        "multiv_cat1",  "multiv_cat2",  "multiv_cat3",
+        "multiv_cat4",  "multiv_cat5",  "multiv_cat6",
+    ]
+
+    def requires(self):
+        return {
+            "cat": {
+                pgn: ScanCombineDQCD.vreq(self, combine_categories=False,
+                    process_group_names=[pgn], _exclude=["branches"])
+                for pgn in self.process_group_names
+            },
+            "combined": ScanCombineDQCD.vreq(self, combine_categories=True, _exclude=["branches"]),
+        }
+
+    def output(self):
+        return {
+            category_name: {
+                ext: self.local_target(f"plot__{category_name}.{ext}")
+                for ext in ["png", "pdf"]
+            }
+            for category_name in self.category_names + ["combined"]
+        }
+
+    def get_bdt_cut(self, feature_name):
+        if "bdt" in feature_name:
+            return feature_name.split("_")[-1].replace("p", ".")
+        else:
+            return "0"
+
+    def plot(self, results, output_file, inner_text=None):
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+        plt.rcParams['text.usetex'] = True
+
+        ax = plt.subplot()
+
+        for pgn in results.keys():
+            plt.plot(range(len(results[pgn].keys())), results[pgn].values(),
+                label=self.config.processes.get(pgn).label.latex)
+        ax.set_xticks(list(range(len(list(results.values())[0].keys()))))
+        ax.set_xticklabels(
+            [f"BDT $>$ {self.get_bdt_cut(key)}" for key in list(results.values())[0].keys()],
+            rotation=60, rotation_mode="anchor", ha="right")
+
+        plt.ylabel(self.get_y_axis_label(self.fit_config_file))
+        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
+        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
+            self.config.year, self.config.lumi_fb),
+            transform=ax.transAxes, ha="right")
+        plt.text(0.5, 0.95, inner_text, transform=ax.transAxes, ha="center")
+        legend = plt.legend()
+        if True:
+            plt.yscale('log')
+        plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
+        plt.savefig(create_file_dir(output_file["png"].path), bbox_inches='tight')
+        plt.close('all')
+
+    def run(self):
+        def scale(val):
+            return val * 0.01
+
+        inputs = self.input()
+        for ic, category_name in enumerate(self.category_names):
+            results = {}
+            for ip, process_group_name in enumerate(self.process_group_names):
+                results[process_group_name] = OrderedDict()
+                for feature in self.features:
+                    with open(inputs["cat"][process_group_name]["collection"].targets[ic][feature.name].path) as f:
+                        results[process_group_name][feature.name] = scale(json.load(f)["50.0"])
+            self.plot(results, self.output()[category_name],
+                inner_text=self.config.categories.get(category_name).label)
+
+        results = {}
+        for ip, process_group_name in enumerate(self.process_group_names):
+            results[process_group_name] = OrderedDict()
+            for feature in self.features:
+                with open(inputs["combined"]["collection"].targets[ip][feature.name].path) as f:
+                    results[process_group_name][feature.name] = scale(json.load(f)["50.0"])
+        self.plot(results, self.output()["combined"], inner_text="Combined categories")
