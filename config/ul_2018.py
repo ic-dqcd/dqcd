@@ -410,6 +410,83 @@ class Config(legacy_config):
                 check_empty=False,
             ),
 
+            # DATA datasets to use in final unblinding
+
+            Dataset("data_2018d_bph1234",
+                folder=[
+                    "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
+                    "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                ]
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018_bph1",
+                dataset="/ParkingBPH1/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018_bph2",
+                dataset="/ParkingBPH2/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018_bph3",
+                dataset="/ParkingBPH3/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018_bph4",
+                dataset="/ParkingBPH4/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018_bph5",
+                dataset="/ParkingBPH5/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018_bph6",
+                dataset="/ParkingBPH6/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
                 dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
                 process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10_short"),
