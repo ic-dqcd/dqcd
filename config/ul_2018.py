@@ -418,7 +418,7 @@ class Config(legacy_config):
                     "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
                     "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
                     "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                ]
+                ],
                 process=self.processes.get("data"),
                 merging={
                     "base": 20,
