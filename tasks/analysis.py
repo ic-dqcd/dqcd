@@ -84,6 +84,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
     refit_signal_with_syst = False
+    min_events_for_fitting = 0
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
@@ -121,6 +122,10 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                         # region_name=loose_region, x_range=x_range, blind_range=self.blind_range,
                         region_name=self.region.name, x_range=x_range, blind_range=self.blind_range,
                         process_group_name="data")
+                    reqs["constant_fit"] = Fit.vreq(reqs["fits"][process],
+                        # region_name=loose_region, x_range=x_range, blind_range=self.blind_range,
+                        region_name=self.region.name, x_range=x_range, blind_range=self.blind_range,
+                        process_group_name="data", method="constant")
                     del reqs["inspections"][process]
                     continue
                 else:
@@ -226,6 +231,26 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                     self.additional_scaling[process] = additional_scaling * 2/3
         return self.additional_scaling
 
+    def get_fit_path(self, fit_params, feature):
+        if fit_params["process_name"] == "data":
+            # if the number of events in the unblinded region is smaller than 10, use the constant
+            # fit instead
+            p = self.input()["fits"][fit_params["process_name"]][feature.name]["json"].path
+            with open(p) as f:
+                d = json.load(f)
+            if d[""]["integral"] < self.min_events_for_fitting:
+                return self.input()["constant_fit"][feature.name]["root"].path
+        return self.input()["fits"][fit_params["process_name"]][feature.name]["root"].path
+
+    def model_uses_envelope(self, fit_params, feature):
+        if fit_params["process_name"] == "data":
+            p = self.input()["fits"][fit_params["process_name"]][feature.name]["json"].path
+            with open(p) as f:
+                d = json.load(f)
+            if d[""]["integral"] < self.min_events_for_fitting:
+                return False
+        return fit_params.get("method") == "envelope"
+
     def run(self):
         assert "tight" in self.region_name
         # self.get_additional_scaling()
@@ -259,11 +284,9 @@ class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
         print("WARNING: counting=False regardless of fit_config")
         print("************************************************")
         # Fixes needed both here and in CreateWorkspaceDQCD
-        
-        
         for category_name in self.category_names:
             # counting = self.fit_config[self.process_group_name][category_name]
-            counting = False            
+            counting = False
             process_group_name = (self.process_group_name if not counting
                 else "qcd_" + self.process_group_name)
             reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
@@ -1687,7 +1710,7 @@ class BDTRatioTest(BasePlotTask):
                 range(len(self.category_names) - 1),
                 (ratio_base - error_ratio_base) / ratio_base,
                 (ratio_base + error_ratio_base) / ratio_base,
-                alpha=0.5 
+                alpha=0.5
             )
             plt.ylabel(f"{self.region_names[iregion]}/{self.region_names[iregion - 1]}")
             ax.set_xticks(list(range(len(self.category_names) - 1)))
