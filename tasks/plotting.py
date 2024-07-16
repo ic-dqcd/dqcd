@@ -6,7 +6,7 @@ import numpy as np
 import operator
 import re
 
-from analysis_tools.utils import create_file_dir
+from analysis_tools.utils import create_file_dir, import_root
 
 from cmt.base_tasks.base import CategoryWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
@@ -495,13 +495,17 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
 
 
 class BDTOptimizationDQCD(PlotCombineDQCD):
+    plot_fits = luigi.BoolParameter(default=True, description="whether to plot signal-background "
+        "distributions per category, default: True")
+
     combine_categories = True  # for the output tag
 
     category_names = [
-        "singlev_cat1",  "singlev_cat2",  "singlev_cat3",
-        "singlev_cat4",  "singlev_cat5",  "singlev_cat6",
-        "multiv_cat1",  "multiv_cat2",  "multiv_cat3",
-        "multiv_cat4",  "multiv_cat5",  "multiv_cat6",
+        # "singlev_cat1",
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
     ]
 
     def requires(self):
@@ -515,13 +519,28 @@ class BDTOptimizationDQCD(PlotCombineDQCD):
         }
 
     def output(self):
-        return {
-            category_name: {
-                ext: self.local_target(f"plot__{category_name}.{ext}")
-                for ext in ["png", "pdf"]
-            }
-            for category_name in self.category_names + ["combined"]
+        output = {
+            "bdt": {
+                category_name: {
+                    ext: self.local_target(f"bdt/plot__{category_name}.{ext}")
+                    for ext in ["png", "pdf"]
+                }
+                for category_name in self.category_names + ["combined"]
+            },
         }
+        if self.plot_fits:
+            output["distributions"] = {
+                category_name: {
+                    pgn: {
+                        f.name: {
+                            ext: self.local_target(
+                                f"distributions/{category_name}/{pgn}/{f.name}__{category_name}__{pgn}.{ext}")
+                            for ext in ["png", "pdf"]
+                        } for f in self.features
+                    } for pgn in self.process_group_names
+                } for category_name in self.category_names
+            }
+        return output
 
     def get_bdt_cut(self, feature_name):
         if "bdt" in feature_name:
@@ -559,6 +578,8 @@ class BDTOptimizationDQCD(PlotCombineDQCD):
         plt.close('all')
 
     def run(self):
+        ROOT = import_root()
+
         def scale(val):
             return val * 0.01
 
@@ -570,7 +591,7 @@ class BDTOptimizationDQCD(PlotCombineDQCD):
                 for feature in self.features:
                     with open(inputs["cat"][process_group_name]["collection"].targets[ic][feature.name].path) as f:
                         results[process_group_name][feature.name] = scale(json.load(f)["50.0"])
-            self.plot(results, self.output()[category_name],
+            self.plot(results, self.output()["bdt"][category_name],
                 inner_text=self.config.categories.get(category_name).label)
 
         results = {}
@@ -579,4 +600,58 @@ class BDTOptimizationDQCD(PlotCombineDQCD):
             for feature in self.features:
                 with open(inputs["combined"]["collection"].targets[ip][feature.name].path) as f:
                     results[process_group_name][feature.name] = scale(json.load(f)["50.0"])
-        self.plot(results, self.output()["combined"], inner_text="Combined categories")
+        self.plot(results, self.output()["bdt"]["combined"], inner_text="Combined categories")
+
+
+        # distributions
+        for ic, category_name in enumerate(self.category_names):
+            for ip, process_group_name in enumerate(self.process_group_names):
+                for f in self.features:
+                    t = self.requires()["cat"][process_group_name].requires()["data"].requires()\
+                        ["data"].requires()["data"][category_name].requires()["fits"]["data"]
+                    p = self.requires()["cat"][process_group_name].requires()["data"].requires()\
+                        ["data"].requires()["data"][category_name].input()["fits"]["data"]\
+                        [f.name]["root"].path
+                    model_tf = ROOT.TFile.Open(p)
+                    w = model_tf.Get("workspace_data")
+                    # w = model_tf.Get("workspace_SIGNALPROCESS")
+                    data_obs = w.data("data_obs")
+
+                    x_data, blind = self.get_x(t.x_range, t.blind_range)
+                    frame = x_data.frame()
+                    # if not blind:
+                    nlowerbins, nupperbins = 0, 0
+                    for ib in range(f.binning[0]):
+                        bin_center = (f.binning[1] +
+                            ((2 * ib + 1) / 2.) * (f.binning[2] - f.binning[1]) / (f.binning[0]))
+                        if bin_center >= float(t.x_range[0]) and \
+                                bin_center < float(t.blind_range[0]):
+                            nlowerbins += 1
+                        elif bin_center <= float(t.x_range[1]) and \
+                                bin_center > float(t.blind_range[1]):
+                            nupperbins += 1
+                    x_data.setBins(nlowerbins, "loSB")
+                    x_data.setBins(nupperbins, "hiSB")
+                    data_obs.plotOn(frame, Name="data_lower_sideband", Binning="loSB")
+                    data_obs.plotOn(frame, Name="data_higer_sideband", Binning="hiSB")
+
+                    # model_data = w.pdf("model_data")
+                    # model_data.plotOn(frame, ROOT.RooFit.LineColor(ROOT.kBlack), ROOT.RooFit.Name(f"Data"))
+
+                    p_signal = self.requires()["cat"][process_group_name].requires()["data"].requires()\
+                        ["data"].requires()["data"][category_name].input()["fits"][process_group_name]\
+                        [f.name]["root"].path
+                    model_tf_signal = ROOT.TFile.Open(p_signal)
+                    w_signal = model_tf_signal.Get(f"workspace_{process_group_name}")
+                    signal_data = w_signal.data("data_obs")
+                    signal_pdf = w_signal.pdf(f"model_{process_group_name}")
+                    # frame_signal = x_data.frame()
+                    signal_data.plotOn(frame, ROOT.RooFit.MarkerColor(ROOT.kRed),
+                        ROOT.RooFit.LineColor(ROOT.kRed), ROOT.RooFit.Name(f"Signal"), ROOT.RooFit.Rescale(100.))
+                    signal_pdf.plotOn(frame, ROOT.RooFit.LineColor(ROOT.kRed), ROOT.RooFit.Normalization(100.))
+
+                    c = ROOT.TCanvas()
+                    frame.Draw("sames")
+                    # frame_signal.Draw("sames")
+                    c.SaveAs(create_file_dir(self.output()["distributions"][category_name]\
+                        [process_group_name][f.name]["pdf"].path))
