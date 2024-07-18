@@ -65,8 +65,8 @@ class Config(legacy_config):
             Category("vloose_bdt_scenarioA", "VLoose bdt (A) region", selection="{{bdt_scenarioA}} > 0.6"),
             Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("medium_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.75"),
-            # Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            # Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
 
             Category("bdt_scenarioA_0_0p2", "bdt (A) < 0.2 region",
                 selection="{{bdt_scenarioA}} < 0.2"),

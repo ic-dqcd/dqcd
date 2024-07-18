@@ -77,7 +77,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
                     feature.name, self.fit_config_file, ext))
                 for ext in ["pdf", "png"]
             }
-            for feature in self.features
+            for feature in self.requires().features
         }
 
     def get_signal_tag(self, results, ilabel):
@@ -153,10 +153,10 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
 
     def run(self):
         inputs = self.input()
-        for feature in self.features:
+        for feature in self.requires().features:
             results = OrderedDict()
             for ip, process_group_name in enumerate(self.process_group_names):
-                with open(inputs["collection"].targets[ip][feature.name].path) as f:
+                with open(inputs[process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
             self.plot(results, self.output()[feature.name])
 
