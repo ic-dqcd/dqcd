@@ -105,6 +105,16 @@ class Config(cmt_config):
             Category("gen8", "gen8", selection="event >= 0"),
             # Category("dum", "dummy category", selection="event == 220524669"),
             Category("dum", "dummy category", selection="event == 3"),
+            Category("jpsi", "jpsi events",
+                selection="""(GenPart_pdgId[abs(GenPart_pdgId) == 443].size() > 0)
+                    && ((HLT_Mu9_IP6_part0 == 1) ||
+                        (HLT_Mu9_IP6_part1 == 1) || (HLT_Mu9_IP6_part2 == 1) ||
+                        (HLT_Mu9_IP6_part3 == 1) || (HLT_Mu9_IP6_part4 == 1))"""),
+            Category("nojpsi", "nojpsi events",
+                 selection="""(GenPart_pdgId[abs(GenPart_pdgId) == 443].size() == 0)
+                    && ((HLT_Mu9_IP6_part0 == 1) ||
+                        (HLT_Mu9_IP6_part1 == 1) || (HLT_Mu9_IP6_part2 == 1) ||
+                        (HLT_Mu9_IP6_part3 == 1) || (HLT_Mu9_IP6_part4 == 1))"""),
 
             # analysis categories
             # multi-vertex
@@ -1735,8 +1745,8 @@ class Config(cmt_config):
 
     def add_default_module_files(self):
         defaults = {}
-        defaults["PreprocessRDF"] = "modules"
-        defaults["PreCounter"] = "weights"
+        # defaults["PreprocessRDF"] = "modules"
+        # defaults["PreCounter"] = "weights"
         return defaults
 
     # other methods
@@ -1810,6 +1820,12 @@ class Config(cmt_config):
         if final_index != -1:
             subs = subs[:final_index]
         return float(subs.replace("p", "."))
+
+    def get_feature_mass(self, mass):
+        return Feature(f"muonSV_bestchi2_mass_{str(mass).replace('.', 'p')}",
+            "muonSV_bestchi2_mass", binning=(50, 0.95 * mass, 1.05 * mass),
+            x_title=Label("muonSV mass (Min. #chi^{2})"),
+            units="GeV")
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
 config = Config("legacy_2018", year=2018, ecm=13, lumi_pb=33600)

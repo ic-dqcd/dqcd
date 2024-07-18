@@ -377,7 +377,7 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
         elif "vector" in process_group_name or "btophi" in process_group_name:
             signal_tag = ""
         else:
-            raise ValueError(f"{process_group_name} can't be handled by ScanCombineDQCD")
+            raise ValueError(f"{process_group_name} can't be handled by ProcessGroupNameWrapper")
         i = process_group_name.find(f"m{signal_tag}_")
         f = process_group_name.find("_ctau")
         mass_point = float(process_group_name[i + 2 + len(signal_tag):f].replace("p", "."))
@@ -404,8 +404,8 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
         # self.category_name = self.category_names[0]
 
 
-class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper, law.LocalWorkflow,
-        HTCondorWorkflow, SGEWorkflow, SlurmWorkflow):
+class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWorkflow,
+        # HTCondorWorkflow, SGEWorkflow, SlurmWorkflow):
 
     def combine_parser(self, filename):
         import os
@@ -421,100 +421,151 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper, law.LocalWork
         return res
 
     def run(self):
-        if self.combine_categories:
-            inputs = self.input()["collection"].targets[0]
-        else:
-            inputs = self.input()["collection"].targets[self.branch]
-        for feature in self.features:
-            res = self.combine_parser(inputs[feature.name]["txt"].path)
-            if not res:
-                print("Fit did not converge. Filling with dummy values.")
-                res = {
-                    "2.5": 1.,
-                    "16.0": 1.,
-                    "50.0": 1.,
-                    "84.0": 1.,
-                    "97.5": 1.
-                }
-            with open(create_file_dir(self.output()[feature.name].path), "w+") as f:
-                json.dump(res, f, indent=4)
+        for pgn in self.process_group_names:
+            for feature, feature_to_save in zip(self.requires()[pgn].features, self.features):
+                if self.combine_categories:
+                    res = self.combine_parser(
+                        self.input()[pgn]["collection"].targets[0][feature.name]["txt"].path)
+                    if not res:
+                        print("Fit did not converge. Filling with dummy values.")
+                        res = {
+                            "2.5": 1.,
+                            "16.0": 1.,
+                            "50.0": 1.,
+                            "84.0": 1.,
+                            "97.5": 1.
+                        }
+                    with open(create_file_dir(
+                            self.output()[pgn][feature_to_save.name].path), "w+") as f:
+                        json.dump(res, f, indent=4)
+                else:
+                    for icat, cat in enumerate(self.fit_config[pgn].keys()):
+                        res = self.combine_parser(
+                            self.input()[pgn]["collection"].targets[icat][feature.name]["txt"].path)
+                        if not res:
+                            print("Fit did not converge. Filling with dummy values.")
+                            res = {
+                                "2.5": 1.,
+                                "16.0": 1.,
+                                "50.0": 1.,
+                                "84.0": 1.,
+                                "97.5": 1.
+                            }
+                        with open(create_file_dir(
+                                self.output()[pgn][cat][feature_to_save.name].path), "w+") as f:
+                            json.dump(res, f, indent=4)
 
 
 class ScanCombineDQCD(BaseScanTask):
+    feature_names = ("muonSV_bestchi2_mass",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
 
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
         # assert(
             # self.combine_categories or len(self.process_group_names)
         # )
-
-    def create_branch_map(self):
-        if self.combine_categories:
-            return self.process_group_names
-        else:
-            process_group_name = self.process_group_names[0]
-            return list(self.fit_config[process_group_name].keys())
+        assert (len(self.feature_names) == len(self.features_to_compute(1)))
 
     def requires(self):
-        if self.combine_categories:
-            process_group_name=self.process_group_names[self.branch]
-            mass_point = self.get_mass_point(process_group_name)
-            signal = process_group_name[:process_group_name.find("_")]
-            return RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=("data_" if self.use_data else "") + process_group_name,
+        reqs = {}
+        for pgn in self.process_group_names:
+            mass_point = self.get_mass_point(pgn)
+            mass_point_str = str(mass_point).replace(".", "p")
+            signal = pgn[:pgn.find("_")]
+            reqs[pgn] = RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point_str}",
+                feature_names=self.features_to_compute(mass_point),
+                mass_point=mass_point,
+                process_group_name=("data_" if self.use_data else "") + pgn,
                 region_name=f"tight_bdt_{signal}",
                 tight_region=f"tight_bdt_{signal}",
                 loose_region=f"loose_bdt_{signal}",
-                category_names=self.fit_config[process_group_name].keys(),
-                _exclude=["branches", "branch"])
-        else:
-            process_group_name=self.process_group_names[0]
-            mass_point = self.get_mass_point(process_group_name)
-            signal = process_group_name[:process_group_name.find("_")]
-            return RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=("data_" if self.use_data else "") + process_group_name,
-                region_name=f"tight_bdt_{signal}",
-                tight_region=f"tight_bdt_{signal}",
-                loose_region=f"loose_bdt_{signal}",
-                category_names=self.fit_config[process_group_name].keys(),
-                _exclude=["branches", "branch"])
+                category_names=list(self.fit_config[pgn].keys()))
+        return reqs
 
-    def workflow_requires(self):
-        if self.combine_categories:
-            process_group_name=self.process_group_names[self.branch]
-            mass_point = self.get_mass_point(process_group_name)
-            signal = process_group_name[:process_group_name.find("_")]
-            return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=("data_" if self.use_data else "") + process_group_name,
-                region_name=f"tight_bdt_{signal}",
-                tight_region=f"tight_bdt_{signal}",
-                loose_region=f"loose_bdt_{signal}",
-                category_names=self.fit_config[process_group_name].keys(),
-                _exclude=["branches", "branch"])}
-        else:
-            process_group_name=self.process_group_names[0]
-            mass_point = self.get_mass_point(process_group_name)
-            signal = process_group_name[:process_group_name.find("_")]
-            return {"data": RunCombineDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=("data_" if self.use_data else "") + process_group_name,
-                region_name=f"tight_bdt_{signal}",
-                tight_region=f"tight_bdt_{signal}",
-                loose_region=f"loose_bdt_{signal}",
-                category_names=self.fit_config[process_group_name].keys(),
-                _exclude=["branches", "branch"])}
+
+    # def create_branch_map(self):
+        # if self.combine_categories:
+            # return self.process_group_names
+        # else:
+            # process_group_name = self.process_group_names[0]
+            # return list(self.fit_config[process_group_name].keys())
+
+    # def requires(self):
+        # if self.combine_categories:
+            # process_group_name=self.process_group_names[self.branch]
+            # mass_point = self.get_mass_point(process_group_name)
+            # signal = process_group_name[:process_group_name.find("_")]
+            # return RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point}",
+                # feature_names=(f"self.config.get_feature_mass({mass_point})",),
+                # mass_point=mass_point,
+                # process_group_name=("data_" if self.use_data else "") + process_group_name,
+                # region_name=f"tight_bdt_{signal}",
+                # tight_region=f"tight_bdt_{signal}",
+                # loose_region=f"loose_bdt_{signal}",
+                # category_names=self.fit_config[process_group_name].keys(),
+                # _exclude=["branches", "branch"])
+        # else:
+            # process_group_name=self.process_group_names[0]
+            # mass_point = self.get_mass_point(process_group_name)
+            # signal = process_group_name[:process_group_name.find("_")]
+            # return RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point}",
+                # feature_names=(f"self.config.get_feature_mass({mass_point})",),
+                # mass_point=mass_point,
+                # process_group_name=("data_" if self.use_data else "") + process_group_name,
+                # region_name=f"tight_bdt_{signal}",
+                # tight_region=f"tight_bdt_{signal}",
+                # loose_region=f"loose_bdt_{signal}",
+                # category_names=self.fit_config[process_group_name].keys(),
+                # _exclude=["branches", "branch"])
+
+    # def workflow_requires(self):
+        # if self.combine_categories:
+            # process_group_name=self.process_group_names[self.branch]
+            # mass_point = self.get_mass_point(process_group_name)
+            # signal = process_group_name[:process_group_name.find("_")]
+            # return {"data": RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point}",
+                # feature_names=(f"self.config.get_feature_mass({mass_point})",),
+                # mass_point=mass_point,
+                # process_group_name=("data_" if self.use_data else "") + process_group_name,
+                # region_name=f"tight_bdt_{signal}",
+                # tight_region=f"tight_bdt_{signal}",
+                # loose_region=f"loose_bdt_{signal}",
+                # category_names=self.fit_config[process_group_name].keys(),
+                # _exclude=["branches", "branch"])}
+        # else:
+            # process_group_name=self.process_group_names[0]
+            # mass_point = self.get_mass_point(process_group_name)
+            # signal = process_group_name[:process_group_name.find("_")]
+            # return {"data": RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point}",
+                # feature_names=(f"self.config.get_feature_mass({mass_point})",),
+                # mass_point=mass_point,
+                # process_group_name=("data_" if self.use_data else "") + process_group_name,
+                # region_name=f"tight_bdt_{signal}",
+                # tight_region=f"tight_bdt_{signal}",
+                # loose_region=f"loose_bdt_{signal}",
+                # category_names=self.fit_config[process_group_name].keys(),
+                # _exclude=["branches", "branch"])}
 
     def output(self):
         if self.combine_categories:
-            process_group_name=self.process_group_names[self.branch]
+            return {
+                pgn: {
+                    feature.name: self.local_target("results_{}_{}.json".format(
+                        feature.name, pgn))
+                    for feature in self.features
+                } for pgn in self.process_group_names
+            }
         else:
-            process_group_name=self.process_group_names[0]
-
-        return {
-            feature.name: self.local_target("results_{}{}.json".format(
-                feature.name, self.get_output_postfix(process_group_name=process_group_name,
-                    category_names=self.fit_config[process_group_name].keys())))
-            for feature in self.features
-        }
+            return {
+                pgn: {
+                    category_name: {
+                        feature.name: self.local_target("results_{}_{}_{}.json".format(
+                            feature.name, pgn, category_name))
+                        for feature in self.features
+                    } for category_name in self.fit_config[pgn].keys()
+                } for pgn in self.process_group_names
+            }
 
 
 class InspectPlotDQCD(CombineBase, DQCDBaseTask, ProcessGroupNameWrapper):
