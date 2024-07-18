@@ -189,9 +189,9 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     "txt": self.local_target("limits__{}__{}.csv".format(
                         feature.name, self.fit_config_file)),
                 }
-            for feature in self.features
+            for feature in self.requires().features
         }
-        for feature in self.features:
+        for feature in self.requires().features:
             if "scenario" in self.fit_config_file:
                 out[feature.name]["mass"] = {
                     (mm, m): {
@@ -288,11 +288,12 @@ class ParamPlotDQCD(PlotCombineDQCD):
 
     def run(self):
         inputs = self.input()
-        for feature in self.features:
+        for feature in self.requires().features:
             results = OrderedDict()
             table = []
             for ip, process_group_name in enumerate(self.process_group_names):
-                with open(inputs["collection"].targets[ip][feature.name].path) as f:
+                with open(inputs[process_group_name][feature.name].path) as f:
+                # with open(inputs["collection"].targets[ip][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
                 params = process_group_name.split("_")
                 if process_group_name.startswith("scenario"):
@@ -388,17 +389,14 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 raise ValueError(f"Rename {self.fit_config_name} so it can be considered inside "
                     f"{type(self)}")
 
+
 class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
     combine_categories = True  # for the output tag
 
     def requires(self):
         return {
-            "cat": {
-                pgn: ScanCombineDQCD.vreq(self, combine_categories=False,
-                    process_group_names=[pgn], _exclude=["branches"])
-                for pgn in self.process_group_names
-            },
-            "combined": ScanCombineDQCD.vreq(self, combine_categories=True, _exclude=["branches"]),
+            "cat": ScanCombineDQCD.vreq(self, combine_categories=False),
+            "combined": ScanCombineDQCD.vreq(self, combine_categories=True),
         }
 
     def output(self):
@@ -406,7 +404,7 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
             process_group_name: {
                 feature.name: self.local_target("plot__{}__{}.pdf".format(
                     feature.name, self.get_output_postfix(process_group_name=process_group_name)))
-                for feature in self.features
+                for feature in self.requires()["combined"].features
             } for process_group_name in self.process_group_names
         }
 
@@ -479,19 +477,18 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
 
     def run(self):
         inputs = self.input()
-        for feature in self.features:
+        for feature in self.requires()["combined"].features:
             for ip, process_group_name in enumerate(self.process_group_names):
                 results = OrderedDict()
                 for ic, category_name in enumerate(self.fit_config[process_group_name].keys()):
-                    with open(inputs["cat"][process_group_name]["collection"].targets[ic][feature.name].path) as f:
+                    with open(inputs["cat"][process_group_name][category_name][feature.name].path) as f:
                         results[category_name] = json.load(f)
-                with open(inputs["combined"]["collection"].targets[ip][feature.name].path) as f:
+                with open(inputs["combined"][process_group_name][feature.name].path) as f:
                     results["Combined"] = json.load(f)
 
                 self.plot(results, create_file_dir(
                     self.output()[process_group_name][feature.name].path),
                     inner_text=self.config.processes.get(process_group_name).label.latex)
-
 
 
 class BDTOptimizationDQCD(PlotCombineDQCD):
