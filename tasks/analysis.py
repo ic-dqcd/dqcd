@@ -96,6 +96,8 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
 
+        self.use_data = any("data" in model["process_name"] for model in self.models.values())
+
     def requires(self):
         reqs = super(CreateDatacardsDQCD, self).requires()
 
@@ -174,37 +176,38 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                         process_name=ins_process_name)
 
         # get models for background scaling
-        background_model_found = False
-        for model, fit_params in self.models.items():
-            fit_params["x_range"] = str(self.fit_range)[1:-1]
-            # look for background or qcd_*
-            if model == "data_obs": # FIXME
-                continue
-            process = fit_params["process_name"]
-            # if not self.config.processes.get(process).isSignal and \
-                    # not self.config.processes.get(process).isData and not background_model_found:
-            if not self.config.processes.get(process).isSignal and not background_model_found:
-                background_model_found = True  # avoid looping over all qcd processes
-                new_fit_params = copy(fit_params)
-                if not self.config.processes.get(process).isData:
-                    new_fit_params["process_name"] = "background"
-                params = ", ".join([f"{param}='{value}'"
-                    for param, value in new_fit_params.items() if param != "fit_parameters"])
-                if "fit_parameters" in new_fit_params:
-                    params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
-                    for param, value in new_fit_params["fit_parameters"].items()]) + "}"
-                # reqs["tight"] =  eval("Fit.vreq(self, "
-                    # f"{params}, _exclude=['include_fit'], "
-                    # "region_name=self.tight_region, "
-                    # f"process_group_name='{process}', "
-                    # f"feature_names=('{self.calibration_feature_name}',), "
-                    # "category_name='base')")
-                # reqs["loose"] =  eval(f"Fit.vreq(self, "
-                    # f"{params}, _exclude=['include_fit'], "
-                    # "region_name=self.loose_region, "
-                    # f"process_group_name='{process}', "
-                    # f"feature_names=('{self.calibration_feature_name}',), "
-                    # "category_name='base')")
+        if not self.use_data:
+            background_model_found = False
+            for model, fit_params in self.models.items():
+                fit_params["x_range"] = str(self.fit_range)[1:-1]
+                # look for background or qcd_*
+                if model == "data_obs": # FIXME
+                    continue
+                process = fit_params["process_name"]
+                # if not self.config.processes.get(process).isSignal and \
+                        # not self.config.processes.get(process).isData and not background_model_found:
+                if not self.config.processes.get(process).isSignal and not background_model_found:
+                    background_model_found = True  # avoid looping over all qcd processes
+                    new_fit_params = copy(fit_params)
+                    if not self.config.processes.get(process).isData:
+                        new_fit_params["process_name"] = "background"
+                    params = ", ".join([f"{param}='{value}'"
+                        for param, value in new_fit_params.items() if param != "fit_parameters"])
+                    if "fit_parameters" in new_fit_params:
+                        params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
+                        for param, value in new_fit_params["fit_parameters"].items()]) + "}"
+                    reqs["tight"] =  eval("Fit.vreq(self, "
+                        f"{params}, _exclude=['include_fit'], "
+                        "region_name=self.tight_region, "
+                        f"process_group_name='{process}', "
+                        f"feature_names=('{self.calibration_feature_name}',), "
+                        "category_name='base')")
+                    reqs["loose"] =  eval(f"Fit.vreq(self, "
+                        f"{params}, _exclude=['include_fit'], "
+                        "region_name=self.loose_region, "
+                        f"process_group_name='{process}', "
+                        f"feature_names=('{self.calibration_feature_name}',), "
+                        "category_name='base')")
 
         # from pprint import pprint
         # pprint(reqs)
@@ -214,6 +217,8 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         return reqs
 
     def get_additional_scaling(self):
+        if self.use_data:
+            return {}
         inputs = self.input()
         with open(inputs["tight"][self.calibration_feature_name]["json"].path) as f:
             d_tight = json.load(f)
@@ -253,7 +258,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
     def run(self):
         assert "tight" in self.region_name
-        # self.get_additional_scaling()
+        self.get_additional_scaling()
         super(CreateDatacardsDQCD, self).run()
 
 
