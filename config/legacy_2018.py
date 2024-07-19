@@ -1279,6 +1279,7 @@ class Config(cmt_config):
             ),
             #Feature("bdt_scenarioA", "bdt_scenarioA_nojetsel", binning=(20, 0, 1),
             Feature("bdt_scenarioA", "bdt_scenarioA_onlymu", binning=(100, 0, 1),
+            # Feature("bdt_scenarioA", "bdt_scenarioA", binning=(100, 0, 1),
                 x_title=Label("BDT score (scenario A)"),
             ),
 
@@ -1824,6 +1825,7 @@ class Config(cmt_config):
     def get_feature_mass(self, mass):
         return Feature(f"muonSV_bestchi2_mass_{str(mass).replace('.', 'p')}",
             "muonSV_bestchi2_mass", binning=(50, 0.95 * mass, 1.05 * mass),
+            blinded_range=(0.98 * mass, 1.02 * mass),
             x_title=Label("muonSV mass (Min. #chi^{2})"),
             units="GeV")
 
