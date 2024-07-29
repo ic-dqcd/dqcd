@@ -66,6 +66,7 @@ class Config(legacy_config):
             Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("medium_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.75"),
             Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
             # Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
 
             Category("bdt_scenarioA_0_0p2", "bdt (A) < 0.2 region",
@@ -99,6 +100,7 @@ class Config(legacy_config):
             # for the vector portal samples, using dedicated BDT
             Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.55"),
             Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9945"),
+            Category("tight_bdt_vector_1", "BDT > 0.9", selection="{{bdt_vector}} > 0.9"),
 
             # for the B->PhiX samples
             Category("loose_bdt_btophi", "Loose bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.65"),
@@ -412,19 +414,32 @@ class Config(legacy_config):
 
             # DATA datasets to use in final unblinding
 
-            Dataset("data_2018d_bph1234",
+             Dataset("data_2018d_bph1_full",
                 folder=[
-                    "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
+                    # sample_path + "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    # sample_path + "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    # sample_path + "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
                 ],
                 process=self.processes.get("data"),
                 merging={
                     "base": 20,
                 },
                 tags=["ul"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+            ),
+
+            Dataset("data_2018d_bph1234",
+                folder=[
+                    sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
+                    sample_path + "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    sample_path + "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    sample_path + "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                ],
+                process=self.processes.get("data"),
+                merging={
+                    "base": 20,
+                },
+                tags=["ul"],
             ),
 
             Dataset("data_2018_bph1",
