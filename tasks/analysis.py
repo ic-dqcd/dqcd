@@ -171,8 +171,14 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                     # region_name = loose_region  # probably redundant
                     process_group_name = "sig_" + self.process_group_name.replace("data_", "")
                     cls = self.cls
-                reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
-                    x_range=x_range, process_group_name=process_group_name)
+
+                if cls == Fit:
+                    reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
+                        x_range=x_range, process_group_name=process_group_name)
+                else:
+                    reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
+                        x_range=x_range, process_group_name=process_group_name,
+                        tight_region=self.tight_region, loose_region=self.loose_region)
                 reqs["inspections"][process] = InspectFitSyst.vreq(reqs["inspections"][process],
                     region_name=region_name, x_range=x_range, process_group_name=process_group_name)
 
