@@ -120,7 +120,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
     refit_signal_with_syst = False
     min_events_for_fitting = 0
-    norm_bkg_to_data = True
+    norm_bkg_to_data = False
     save_proper_norm = False
 
     def __init__(self, *args, **kwargs):
@@ -303,8 +303,11 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
     def get_data_obs_workspace(self, feature):
         if self.use_data:
             return super(CreateDatacardsDQCD, self).get_data_obs_workspace(feature)
-        model_tf = ROOT.TFile.Open(self.get_fit_path(self.non_data_names[0], feature))
-        return model_tf.Get("workspace_" + self.non_data_names[0])
+        for p_name in self.non_data_names:
+            if not self.config.processes.get(p_name).isSignal:
+                break
+        model_tf = ROOT.TFile.Open(self.get_fit_path(p_name, feature))
+        return model_tf.Get("workspace_" + p_name)
 
     def get_shape_line(self, process_in_datacard, bin_name, process_name, feature):
         if process_name == "data_obs" and not self.use_data:
