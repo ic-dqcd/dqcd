@@ -120,7 +120,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
     refit_signal_with_syst = False
     min_events_for_fitting = 0
-    norm_bkg_to_data = False
+    norm_bkg_to_data = True
     save_proper_norm = False
 
     def __init__(self, *args, **kwargs):
@@ -289,6 +289,11 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                     d = json.load(f)
                 if d[""]["integral"] < self.min_events_for_fitting:
                     return self.input()["constant_fit"][feature.name]["root"].path
+        elif fit_params == "data_obs" and not self.use_data:
+            for p_name in self.non_data_names:
+                if not self.config.processes.get(p_name).isSignal:
+                    break
+            return super(CreateDatacardsDQCD, self).get_fit_path(p_name, feature)
         return super(CreateDatacardsDQCD, self).get_fit_path(fit_params, feature)
 
     def model_uses_envelope(self, fit_params, feature):
