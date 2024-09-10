@@ -133,7 +133,7 @@ class DQCDMuonSVSelectionRDFProducer():
             } // end function
 
             //
-            // function to get deltaR. Assuming all vectors have the same length https://its.cern.ch/jira/browse/HIGHPRIOREQ-769n
+            // function to get deltaR. Assuming all vectors have the same length
             //
             ROOT::RVec<float> get_deltaR(int n, Vfloat eta1, Vfloat phi1, Vfloat eta2, Vfloat phi2) {
                 ROOT::RVec<float> dR(n, 0);
