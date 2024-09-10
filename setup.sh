@@ -10,7 +10,7 @@ action() {
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
     #export CMT_BASE=$PWD
-    export CMT_BASE="/home/hep/jleonhol/dqcd_el9/nanoaod_base_analysis"
+    export CMT_BASE="DUMMY"
     if [[ "$CMT_BASE" == "DUMMY" ]]; then
         echo "Need to change the path stored in CMT_BASE to the present folder"
         return "1"
