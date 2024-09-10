@@ -101,6 +101,15 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
             return r"95$\%$ CL on BR(H$\to\Psi\Psi$)"
         return r"95$\%$ CL on BR"
 
+    def set_cms_labels(self, plt, ax):
+        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
+        plt.text(1., 1.01, r"%s%s, %s fb${}^{-1} (%s $TeV)" % (
+            self.config.year,
+            (" Simulation" if not self.unblind and "data" not in self.fit_models else ""),
+            self.config.lumi_fb,
+            self.config.ecm),
+            transform=ax.transAxes, ha="right")
+
     def plot(self, results, output_file):
         import matplotlib
         matplotlib.use("Agg")
@@ -146,11 +155,8 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
+        self.set_cms_labels(plt, ax)
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
-        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
-        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
-            self.config.year, self.config.lumi_fb),
-            transform=ax.transAxes, ha="right")
         if True:
             plt.yscale('log')
         plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
@@ -283,10 +289,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
 
         x_label = kwargs.pop("x_label")
         plt.xlabel(x_label)
-        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
-        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
-            self.config.year, self.config.lumi_fb),
-            transform=ax.transAxes, ha="right")
+        self.set_cms_labels(plt, ax)
 
         # inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
             # else f"$c\\tau={self.fixed_ctau}$ mm")
@@ -490,10 +493,7 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
-        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
-        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
-            self.config.year, self.config.lumi_fb),
-            transform=ax.transAxes, ha="right")
+        self.set_cms_labels(plt, ax)
         plt.text(0.5, 0.95, inner_text, transform=ax.transAxes, ha="center")
         if True:
             plt.yscale('log')
