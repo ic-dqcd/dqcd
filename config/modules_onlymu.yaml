@@ -11,7 +11,6 @@ muon:
     parameters:
         year: self.config.year
 
-
 muonsv:
     name: DQCDMuonSVSelectionRDF
     path: modules.muonsv_selection
@@ -56,38 +55,38 @@ trigsf:
         isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
 
 
-jet_smearing:
-    name: jetSmearerRDF
-    path: Corrections.JME.smearing
-    parameters:
-        year: self.config.year
-        isMC: self.dataset.process.isMC
-        jerTag: self.config.year
-        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
-        ispreVFP: self.config.get_aux('ispreVFP', False)
+#jet_smearing:
+    #name: jetSmearerRDF
+    #path: Corrections.JME.smearing
+    #parameters:
+        #year: self.config.year
+        #isMC: self.dataset.process.isMC
+        #jerTag: self.config.year
+        #isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+        #ispreVFP: self.config.get_aux('ispreVFP', False)
 
 
-jet_smear_val:
-    name: jetVarRDF
-    path: Corrections.JME.smearing
-    parameters:
-        isMC: self.dataset.process.isMC
+#jet_smear_val:
+    #name: jetVarRDF
+    #path: Corrections.JME.smearing
+    #parameters:
+        #isMC: self.dataset.process.isMC
 
 
-met_smearing:
-    name: metSmearerRDF
-    path: Corrections.JME.smearing
-    parameters:
-        isMC: self.dataset.process.isMC
+#met_smearing:
+    #name: metSmearerRDF
+    #path: Corrections.JME.smearing
+    #parameters:
+        #isMC: self.dataset.process.isMC
 
 
-bdt_inference_a_nojet:
-    name: DQCDULBDTNoJet
-    path: DQCD.Modules.BDTULinferenceNoJet
-    parameters:
-        isMC: self.dataset.process.isMC
-        scenario: A
-        bdt_name: bdt_scenarioA_nojet
+#bdt_inference_a_nojet:
+    #name: DQCDULBDTNoJet
+    #path: DQCD.Modules.BDTULinferenceNoJet
+    #parameters:
+        #isMC: self.dataset.process.isMC
+        #scenario: A
+        #bdt_name: bdt_scenarioA_nojet
 
 bdt_inference_a:
     name: DQCDULBDTOnlyMu
@@ -96,6 +95,18 @@ bdt_inference_a:
         isMC: self.dataset.process.isMC
         scenario: A
 
+bdtsf:
+    name: DQCDBDTSFRDF
+    path: modules.DQCD_SF
+    parameters:
+        process_name: self.dataset.process.name
+
+
+chi2:
+    name: DummyMinChi2RDF
+    path: modules.muonsv_selection
+    parameters:
+        year: self.config.year
 
 #bdt_cut_loose:
     #name: DQCDBDTSelectionRDF

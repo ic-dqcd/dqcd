@@ -428,6 +428,30 @@ class Config(legacy_config):
                 tags=["ul"],
             ),
 
+            Dataset("data_2018d_bph1_full_matveto",
+                dataset="/ParkingBPH1/jleonhol-nanotron_mv-8570e29278f985b83289e6d44303ab3a/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 40,
+                },
+                tags=["ul"],
+                runPeriod="D",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                check_empty=False
+            ),
+
+             Dataset("data_2018d_bph1_full_matveto_v2",
+                dataset="/ParkingBPH1/jleonhol-nanotron_mv_v2-8570e29278f985b83289e6d44303ab3a/USER",
+                process=self.processes.get("data"),
+                merging={
+                    "base": 40,
+                },
+                tags=["ul"],
+                runPeriod="D",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                check_empty=False
+            ),
+
             Dataset("data_2018d_bph1234",
                 folder=[
                     sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
@@ -1934,7 +1958,7 @@ class Config(legacy_config):
         # weights.total_events_weights = ["1"]
 
         weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
-        #weights.base = ["puWeight", "BDT_SF", "idWeight", "ctau_reweighing"]
+        # weights.base = ["puWeight", "BDT_SF", "idWeight", "ctau_reweighing"]
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:

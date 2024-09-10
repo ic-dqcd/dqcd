@@ -133,7 +133,7 @@ class DQCDMuonSVSelectionRDFProducer():
             } // end function
 
             //
-            // function to get deltaR. Assuming all vectors have the same length n
+            // function to get deltaR. Assuming all vectors have the same length
             //
             ROOT::RVec<float> get_deltaR(int n, Vfloat eta1, Vfloat phi1, Vfloat eta2, Vfloat phi2) {
                 ROOT::RVec<float> dR(n, 0);
@@ -308,24 +308,30 @@ class DQCDTriggerSelectionRDFProducer():
                         indexes[0] = muonsvs[0].i;
                         indexes[1] = muonsvs[0].muonBPark_trigger_index_1;
                         indexes[2] = muonsvs[0].muonBPark_trigger_index_2;
-                        auto MuonBPark1_trig_eta = MuonBPark_eta[indexes[1]];
-                        auto MuonBPark1_trig_phi = MuonBPark_phi[indexes[1]];
                         auto MuonBPark2_trig_eta = MuonBPark_eta[indexes[2]];
                         auto MuonBPark2_trig_phi = MuonBPark_phi[indexes[2]];
                         float mindeltaR1 = 999.;
                         float mindeltaR2 = 999.;
                         for (size_t iMuon = 0; iMuon < nMuon; iMuon++) {
-                            auto dr1 = reco::deltaR(MuonBPark1_trig_eta, MuonBPark1_trig_phi,
-                                Muon_eta[iMuon], Muon_phi[iMuon]);
-                            auto dr2 = reco::deltaR(MuonBPark2_trig_eta, MuonBPark2_trig_phi,
-                                Muon_eta[iMuon], Muon_phi[iMuon]);
-                            if (dr1 < 0.05 && dr1 < mindeltaR1) {
-                                indexes[3] = iMuon;
-                                mindeltaR1 = dr1;
+                            if (indexes[1] != -999) {
+                                auto MuonBPark1_trig_eta = MuonBPark_eta[indexes[1]];
+                                auto MuonBPark1_trig_phi = MuonBPark_phi[indexes[1]];
+                                auto dr1 = reco::deltaR(MuonBPark1_trig_eta, MuonBPark1_trig_phi,
+                                    Muon_eta[iMuon], Muon_phi[iMuon]);
+                                if (dr1 < 0.05 && dr1 < mindeltaR1) {
+                                    indexes[3] = iMuon;
+                                    mindeltaR1 = dr1;
+                                }
                             }
-                            if (dr2 < 0.05 && dr2 < mindeltaR2) {
-                                indexes[4] = iMuon;
-                                mindeltaR2 = dr2;
+                            if (indexes[2] != -999) {
+                                auto MuonBPark2_trig_eta = MuonBPark_eta[indexes[2]];
+                                auto MuonBPark2_trig_phi = MuonBPark_phi[indexes[2]];
+                                auto dr2 = reco::deltaR(MuonBPark2_trig_eta, MuonBPark2_trig_phi,
+                                    Muon_eta[iMuon], Muon_phi[iMuon]);
+                                if (dr2 < 0.05 && dr2 < mindeltaR2) {
+                                    indexes[4] = iMuon;
+                                    mindeltaR2 = dr2;
+                                }
                             }
                         }
                     }

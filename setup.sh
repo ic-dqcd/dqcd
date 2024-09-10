@@ -9,11 +9,12 @@ action() {
     cd nanoaod_base_analysis
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
+    #export CMT_BASE=$PWD
     export CMT_BASE="DUMMY"
     if [[ "$CMT_BASE" == "DUMMY" ]]; then
         echo "Need to change the path stored in CMT_BASE to the present folder"
         return "1"
-    fi 
+    fi
 
     # check if this setup script is sourced by a remote job
     if [ "$CMT_ON_HTCONDOR" = "1" ]; then
@@ -88,6 +89,9 @@ action() {
     [ -z "$CMT_STORE_EOS_MERGECATEGORIZATION" ] && export CMT_STORE_EOS_MERGECATEGORIZATION="$CMT_STORE_EOS"
     [ -z "$CMT_STORE_EOS_SHARDS" ] && export CMT_STORE_EOS_SHARDS="$CMT_STORE_EOS"
     [ -z "$CMT_STORE_EOS_EVALUATION" ] && export CMT_STORE_EOS_EVALUATION="$CMT_STORE_EOS"
+
+    export CMT_REMOTE_PREPROCESSING="1"
+
     if [ -n "$CMT_IC_USER" ]; then
        if [ -n "$CMT_TMPDIR" ]; then
          export TMPDIR="$CMT_TMPDIR"
@@ -97,10 +101,10 @@ action() {
        mkdir -p "$TMPDIR"
     fi
 
-    if [[ $CMT_IC_USER == jleonhol ]]; then
-        echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
-        export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
-    fi
+    #if [[ $CMT_IC_USER == jleonhol ]]; then
+    #    echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
+    #    export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
+    #fi
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"
@@ -189,7 +193,7 @@ action() {
             scramv1 project CMSSW "$CMT_CMSSW_VERSION"
         fi
         cd "$CMT_CMSSW_BASE/$CMT_CMSSW_VERSION/src"
-        
+
         eval `scramv1 runtime -sh`
 
         compile="0"
@@ -238,6 +242,10 @@ action() {
         export COMBINE_PATH="HiggsAnalysis/CombinedLimit"
         if [ ! -d "$COMBINE_PATH" ]; then
           git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git -b v9.1.0 HiggsAnalysis/CombinedLimit
+          cd HiggsAnalysis/CombinedLimit
+          git clone https://gitlab.cern.ch/SimplifiedLikelihood/SLtools.git
+          add_sltools_path="1"
+          cd -
           compile="1"
         fi
 
@@ -257,6 +265,11 @@ action() {
         if [ "$compile" == "1" ]
         then
             scram b
+        fi
+
+        if [ "$add_sltools_path" == "1" ]
+        then
+            cmt_add_py "$CMSSW_BASE/src/HiggsAnalysis/CombinedLimit/SLtools"
         fi
 
         #export COMBINE_PATH="HiggsAnalysis/CombinedLimit"
