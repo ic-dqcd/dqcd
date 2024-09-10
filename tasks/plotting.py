@@ -67,6 +67,7 @@ class FeaturePlotDQCDWrapper(CategoryWrapperTask):
 
 
 class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTask, FitConfigBaseTask):
+
     def requires(self):
         return ScanCombineDQCD.vreq(self, combine_categories=True)
 
@@ -126,7 +127,12 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
                 color="#F5BB54")
 
             plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
-                color="k")
+                "--", color="k")
+
+            if "observed" in values and self.unblind:
+                plt.plot([ival - 0.25, ival + 0.25],
+                    [scale(values["observed"]), scale(values["observed"])], "-", color="k")
+                plt.plot(ival, scale(values["observed"]), "o", color="k")
 
         labels = ["%s" % self.config.processes.get(key).label.latex for key in results]
         ax.set_xticks(list(range(len(labels))))
@@ -244,13 +250,15 @@ class ParamPlotDQCD(PlotCombineDQCD):
             results.keys(),
             [scale(elem["16.0"]) for elem in results.values()],
             [scale(elem["84.0"]) for elem in results.values()],
-            color="#607641"
+            color="#607641",
+            label="68\% expected"
         )
         plt.fill_between(
             results.keys(),
             [scale(elem["84.0"]) for elem in results.values()],
             [scale(elem["97.5"]) for elem in results.values()],
-            color="#F5BB54"
+            color="#F5BB54",
+            label="95\% expected"
         )
         plt.fill_between(
             results.keys(),
@@ -261,7 +269,14 @@ class ParamPlotDQCD(PlotCombineDQCD):
         plt.plot(
             results.keys(),
             [scale(elem["50.0"]) for elem in results.values()],
-            color="r", linestyle="dashed"
+            color="k", linestyle="dashed",
+            label="Median expected"
+        )
+        plt.plot(
+            results.keys(),
+            [scale(elem["observed"]) for elem in results.values()],
+            "o-", color="k",
+            label="Observed"
         )
 
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
@@ -279,6 +294,8 @@ class ParamPlotDQCD(PlotCombineDQCD):
         inner_text_height = 1.0 - 0.05 * len(inner_text)
         plt.text(0.5, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="center")
 
+        leg = ax.legend()
+
         plt.yscale('log')
         if kwargs.pop("log", False):
             plt.xscale('log')
@@ -291,6 +308,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
         for feature in self.requires().features:
             results = OrderedDict()
             table = []
+            observed_is_available = False
             for ip, process_group_name in enumerate(self.process_group_names):
                 with open(inputs[process_group_name][feature.name].path) as f:
                 # with open(inputs["collection"].targets[ip][feature.name].path) as f:
@@ -306,18 +324,26 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     "mass": float(params[indexes[0]].replace("p", ".")),
                     "lifetime": float(params[indexes[1]].replace("p", ".")),
                 }
-                table.append([
+                res = [
                     params["mass"], params["lifetime"],
                     results[process_group_name]["2.5"], results[process_group_name]["16.0"],
                     results[process_group_name]["50.0"], results[process_group_name]["84.0"],
                     results[process_group_name]["97.5"],
-                ])
+                ]
+                if self.unblind and "observed" in results[process_group_name]:
+                    observed_is_available = True
+                    res.append(results[process_group_name]["observed"])
+                table.append(res)
             table = sorted(table, key=operator.itemgetter(1))
             table = sorted(table, key=operator.itemgetter(0))
-            table = [[
+            keys = [
                 "mass", "lifetime", "Expected 2.5%", "Expected 16.0%",
                 "Expected 50%", "Expected 84.0%", "Expected 97.5%",
-            ]] + table
+            ]
+            if self.unblind and observed_is_available:
+                keys.append("Observed")
+
+            table = keys + table
             with open(create_file_dir(self.output()[feature.name]["txt"].path), "w+") as fout:
                 for line in table:
                     fout.write(",".join([str(elem) for elem in line]) + "\n")

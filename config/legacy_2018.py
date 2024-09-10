@@ -597,6 +597,10 @@ class Config(cmt_config):
             ],
             "scenarioA": [
                 "scenarioA"
+            ],
+            "matveto": [
+                "data",
+                "data_matveto"
             ]
         }
 
@@ -1107,10 +1111,18 @@ class Config(cmt_config):
             Feature("muonSV_dxySig", "muonSV_dxySig", binning=(100, 0, 2500),
                 x_title=Label("muonSV dxySig")),
 
+            Feature("muonSV_dxy_matveto", "muonSV_dxy[muonSV_material_veto == 1]", binning=(40, 0, 20),
+                x_title=Label("muonSV dxy (Mat. veto applied)")),
+
             Feature("muonSV_dxy_minchi2", "muonSV_dxy[muonSV_chi2==Min(muonSV_chi2)]",
                 binning=(40, 0, 20),
                 x_title=Label("muonSV dxy"),
                 units="cm"),
+            Feature("muonSV_dxy_minchi2_matveto", "muonSV_dxy.at(ArgMin(muonSV_chi2[muonSV_material_veto == 1]))",
+                binning=(40, 0, 20),
+                x_title=Label("muonSV dxy"),
+                units="cm"),
+
             Feature("muonSV_dxy_minchi2_lowrange", "muonSV_dxy[muonSV_chi2==Min(muonSV_chi2)]",
                 binning=(100, 0, 2),
                 x_title=Label("muonSV dxy"),
@@ -1394,6 +1406,10 @@ class Config(cmt_config):
                 x_title=Label("muonSV mass (Min. #chi^{2}, l_{xy} > 0.2)"),
                 units="GeV",
                 selection="muonSV_bestchi2_dxy > 0.2"),
+            Feature("muonSV_bestchi2_mass_fullrange_dxy0p1_fewer_bins", "muonSV_bestchi2_mass", binning=(100, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2}, l_{xy} > 0.1)"),
+                units="GeV",
+                selection="muonSV_bestchi2_dxy > 0.1"),
             # Feature("muonSV_mass_min_chi2_bdt", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 22),
             Feature("muonSV_mass_min_chi2_maxbdt", "muonSV_mass.at(min_chi2_index)", binning=(100, 0, 4),
                 x_title=Label("muonSV mass (Min. #chi^{2}), BDT < 0.85"),

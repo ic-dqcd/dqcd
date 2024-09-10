@@ -38,7 +38,7 @@ class DQCDBaseTask(DatasetWrapperTask):
         try:
             # if it's a signal coming from the grid, it won't be defined as a process_group_name
             # in the config, so we don't have to look for it
-            for process in self.config.process_group_names[self.process_group_name]:
+            for process in self.config.process_group_names[self.process_group_name.replace("data_", "")]:
                 if self.config.processes.get(process).isSignal:
                     signal_process = process
                     break
@@ -107,7 +107,7 @@ class FitDQCD(Fit, DQCDBaseTask):
         with open(inputs["loose"][self.calibration_feature_name]["json"].path) as f:
             d_loose = json.load(f)
         additional_scaling = d_tight[""]["integral"] / d_loose[""]["integral"]
-        self.additional_scaling = {"background": additional_scaling}
+        self.additional_scaling = {self.process_name: additional_scaling}
         return self.additional_scaling
 
     def run(self):
@@ -184,35 +184,43 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                     region_name=region_name, x_range=x_range, process_group_name=process_group_name)
 
         else:  # counting
-            blind_range = (str(self.mass_point - 2 * self.sigma), str(self.mass_point + 2 * self.sigma))
+            process_tag = "qcd_" if not "data" in self.process_group_name else "data_"
+            self.additional_scaling = {"background": 2./3.}
             for process in reqs["fits"]:
+                blind_range = (str(self.mass_point - 2 * self.sigma), str(self.mass_point + 2 * self.sigma))
                 if process == "data_obs": # FIXME
-                    x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
+                    x_range = blind_range
                     process_group_name = "data"
                     blind_range = ("-1", "-1")
-                    region_name = loose_region
+                    region_name = self.region_name
                     cls = Fit
                 elif not self.config.processes.get(process).isSignal and \
-                        not self.config.processes.get(process).isData:
+                        not self.config.processes.get(process).isData:  # Background from MC
                     x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
                     blind_range = blind_range
                     process_group_name = "qcd_background"
                     ins_process_group_name = "background"
                     ins_process_name = "background"
                     region_name = loose_region
+                    cls = FitDQCD
+                elif self.config.processes.get(process).isData: # Background from Data
+                    x_range = (str(self.fit_range[0]), str(self.fit_range[1]))
+                    blind_range = blind_range
+                    process_group_name = self.process_group_name
+                    region_name = self.region_name
                     cls = Fit
                 else:
                     x_range = blind_range
                     blind_range = ("-1", "-1")
-                    process_group_name = "sig_" + self.process_group_name[len("qcd_"):]
-                    ins_process_group_name = "sig_" + self.process_group_name[len("qcd_"):]
-                    ins_process_name = self.process_group_name[len("qcd_"):]
+                    process_group_name = "sig_" + self.process_group_name[len(process_tag):]
+                    ins_process_group_name = "sig_" + self.process_group_name[len(process_tag):]
+                    ins_process_name = self.process_group_name[len(process_tag):]
                     region_name = self.region_name
                     cls = self.cls
 
                 reqs["fits"][process] = cls.vreq(reqs["fits"][process], region_name=region_name,
                     x_range=x_range, process_group_name=process_group_name, blind_range=blind_range)
-                if process != "data_obs":
+                if process != "data_obs" and not self.config.processes.get(process).isData:
                     reqs["inspections"][process] = InspectFitSyst.vreq(reqs["inspections"][process],
                         region_name=region_name, x_range=x_range,
                         process_group_name=ins_process_group_name, blind_range=blind_range,
@@ -350,14 +358,15 @@ class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
 
     def requires(self):
         reqs = {}
-        print("************************************************")
-        print("WARNING: counting=False regardless of fit_config")
-        print("************************************************")
+        # print("************************************************")
+        # print("WARNING: counting=False regardless of fit_config")
+        # print("************************************************")
         # Fixes needed both here and in CreateWorkspaceDQCD
         for category_name in self.category_names:
-            # counting = self.fit_config[self.process_group_name][category_name]
-            counting = False
-            process_group_name = (self.process_group_name if not counting
+            counting = self.fit_config[self.process_group_name.replace("data_", "")][category_name]
+            # counting = False
+            process_group_name = (self.process_group_name
+                if not counting or "data" in self.process_group_name
                 else "qcd_" + self.process_group_name)
             reqs[category_name] = CreateDatacardsDQCD.vreq(self, category_name=category_name,
                 counting=counting, process_group_name=process_group_name,
@@ -1802,8 +1811,6 @@ class BDTRatioTest(BasePlotTask):
             prev_reg_base = results["base"][self.region_names[iregion - 1]]["data"]["Total yield"]
             prev_reg_error_base = results["base"][self.region_names[iregion - 1]]["data"]["Total yield error"]
 
-            print(this_reg_base, this_reg_error_base, prev_reg_base, prev_reg_error_base)
-
             ratio_base = this_reg_base / prev_reg_base if prev_reg_base != 0 else 0
             error_ratio_base = ratio_base * math.sqrt((this_reg_error_base / this_reg_base)**2 +
                 (prev_reg_error_base / prev_reg_base)**2)
@@ -1826,7 +1833,6 @@ class BDTRatioTest(BasePlotTask):
 
             ax = plt.subplot()
             ax.errorbar(range(len(self.category_names) - 1), values, errors, fmt='.')
-            print(ratio_base, error_ratio_base)
             plt.fill_between(
                 range(len(self.category_names) - 1),
                 (ratio_base - error_ratio_base) / ratio_base,

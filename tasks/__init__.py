@@ -4,3 +4,4 @@ from tasks.pnet import *
 from tasks.analysis import *
 from tasks.plotting import *
 from tasks.grid import *
+from tasks.combine import *
