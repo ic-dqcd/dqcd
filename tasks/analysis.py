@@ -495,11 +495,13 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
         with open(os.path.expandvars(filename), "r") as f:
             lines = f.readlines()
             for line in lines:
-                if "Observed" in line:
+                if line.startswith("Observed"):
                     res["observed"] = float(line.split(" ")[-1][0:-1])
-                elif "Expected" in line:
+                elif line.startswith("Expected"):
                     index = line.find("%")
                     res[float(line[index - 4: index])] = float(line.split(" ")[-1][0:-1])
+        if len(res) <= 1:
+            res = {}
         return res
 
     def run(self):
