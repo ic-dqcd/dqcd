@@ -465,7 +465,12 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
                 color="y")
 
             plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
-                color="k")
+                "--", color="k")
+
+            if "observed" in values and self.unblind:
+                plt.plot([ival - 0.25, ival + 0.25],
+                    [scale(values["observed"]), scale(values["observed"])], "-", color="k")
+                plt.plot(ival, scale(values["observed"]), "o", color="k")
 
             vals += list(values.values())
 
