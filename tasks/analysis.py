@@ -296,6 +296,9 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
                 with open(p) as f:
                     d = json.load(f)
                 if d[""]["integral"] < self.min_events_for_fitting:
+                    self.log.write(f"Data histogram has {d['']['integral']} events, smaller than "
+                        f"the threshold ({self.min_events_for_fitting}) -> constant fit is "
+                        "considered for the data\n")
                     return self.input()["constant_fit"][feature.name]["root"].path
         elif fit_params == "data_obs" and not self.use_data:
             for p_name in self.non_data_names:
