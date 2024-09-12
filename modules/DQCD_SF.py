@@ -237,6 +237,90 @@ def DQCDTrigSF_RDF(**kwargs):
     return lambda: DQCDTrigSF_RDFProducer(**kwargs)
 
 
+class DQCDTrigSF_mudxy_RDFProducer(DQCDTrigSF_RDFProducer):
+    def __init__(self, *args, **kwargs):
+        # self.year = int(kwargs.pop("year"))
+        self.isMC = kwargs.pop("isMC")
+        self.isUL = kwargs.pop("isUL")
+
+        # filename = "${CMT_BASE}/../data/scale_factor2D_trigger_absdxy_pt_TnP_2018_syst.json"
+        # filename = "${CMT_BASE}/../data/dqcd_sf_bestdrtag.json"
+        filename = "${CMT_BASE}/../data/trigger_sf_mudxy.json"
+
+        if self.isMC and not self.isUL:
+            raise ValueError("DQCDTrigSF_RDF module only available for UL samples")
+
+        if self.isMC:
+            if "/libBaseModules.so" not in ROOT.gSystem.GetLibraries():
+                ROOT.gInterpreter.Load("libBaseModules.so")
+            ROOT.gInterpreter.Declare(os.path.expandvars(
+                '#include "$CMSSW_BASE/src/Base/Modules/interface/correctionWrapper.h"'))
+            ROOT.gInterpreter.ProcessLine(
+                f'auto corr_dqcdtrig = MyCorrections("{os.path.expandvars(filename)}", '
+                    '"scale_factor2D_trigger_absdxy_pt_TnP_2018_syst");'
+            )
+
+            if not os.getenv("_DQCDTrigSF"):
+                os.environ["_DQCDTrigSF"] = "DQCDTrigSF"
+                ROOT.gInterpreter.Declare("""
+                    using Vfloat = const ROOT::RVec<float>&;
+                    using Vint = const ROOT::RVec<int>&;
+                    using Vbool = const ROOT::RVec<bool>&;
+                    float get_dqcd_trig_sf(
+                        int muonSV_chi2_trig_muon1_index,
+                        int muonSV_chi2_trig_muon2_index,
+                        int muonSV_chi2_trig_index,
+                        Vfloat Muon_pt, Vfloat Muon_dxy, std::string syst)
+                    {
+                        auto mu1_pt = -1., mu2_pt = -1.;
+                        if (muonSV_chi2_trig_muon1_index >= 0) {
+                            mu1_pt = Muon_pt[muonSV_chi2_trig_muon1_index];
+                        }
+                        if (muonSV_chi2_trig_muon2_index >= 0) {
+                            mu2_pt = Muon_pt[muonSV_chi2_trig_muon2_index];
+                        }
+                        // this check should not be needed, as there is a filter in the trigger module to prevent this
+                        if (mu1_pt == -1 && mu2_pt == -1)
+                            return 1;
+                        if (mu1_pt > mu2_pt)
+                            return corr_dqcdtrig.eval(
+                                {fabs(Muon_dxy[muonSV_chi2_trig_muon1_index]), mu1_pt, syst});
+                        return corr_dqcdtrig.eval(
+                            {fabs(Muon_dxy[muonSV_chi2_trig_muon2_index]), mu2_pt, syst});
+                    }
+                """)
+
+    def run(self, df):
+        if self.isMC:
+            branches = ['trigSF', 'trigSF_up', 'trigSF_down']
+            for branch_name, syst in zip(branches, ["sf", "systup", "systdown"]):
+                df = df.Define(branch_name, """get_dqcd_trig_sf(
+                    muonSV_chi2_trig_muon1_index, muonSV_chi2_trig_muon2_index,
+                    Muon_pt, Muon_dxy, "%s")""" % syst)
+        else:
+            branches = []
+        return df, branches
+
+
+def DQCDTrigSF_mudxy_RDF(**kwargs):
+    """
+    Module to compute muon Id scale factors for the DQCD analysis.
+    YAML sintaxis:
+
+    .. code-block:: yaml
+
+        codename:
+            name: DQCDTrigSF_mudxy_RDF
+            path: modules.DQCD_SF
+            parameters:
+                isMC: self.dataset.process.isMC
+                isUL: self.dataset.has_tag('ul')
+    """
+    return lambda: DQCDTrigSF_mudxy_RDFProducer(**kwargs)
+
+
+
+
 class DQCDFilterEfficiencyRDFProducer():
     def __init__(self, *args, **kwargs):
         self.process_name = kwargs.pop("process_name", "")
@@ -312,6 +396,7 @@ class DQCDBDTSFRDFProducer():
             "vector": 0.902, 
         }
         sf = sfs.get(self.process_name.split("_")[0], 1.)
+        print("BDT_SF", self.process_name, sf)
         df = df.Define("BDT_SF", str(sf))
         return df, ["BDT_SF"]
 
