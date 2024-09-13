@@ -424,6 +424,7 @@ class Config(legacy_config):
                 process=self.processes.get("data"),
                 merging={
                     "base": 20,
+                    "singlev_cat1": 30
                 },
                 tags=["ul"],
             ),
