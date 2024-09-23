@@ -1,12 +1,12 @@
 import os
 
-from Corrections.JME.PUjetID_SF import PUjetID_SFRDFProducer
+#from Corrections.JME.PUjetID_SF import PUjetID_SFRDFProducer
 from analysis_tools.utils import import_root
 import correctionlib
 
 ROOT = import_root()
 correctionlib.register_pyroot_binding()
-
+'''
 class DQCDPUjetID_SFRDFProducer(PUjetID_SFRDFProducer):
     def __init__(self, year, *args, **kwargs):
         super(DQCDPUjetID_SFRDFProducer, self).__init__(year, *args, **kwargs)
@@ -84,7 +84,7 @@ def DQCDPUjetID_SFRDF(**kwargs):
     """
     year = kwargs.pop("year")
     return lambda: DQCDPUjetID_SFRDFProducer(year, **kwargs)
-
+'''
 
 class DQCDIdSF_RDFProducer():
     def __init__(self, *args, **kwargs):
@@ -269,7 +269,6 @@ class DQCDTrigSF_mudxy_RDFProducer(DQCDTrigSF_RDFProducer):
                     float get_dqcd_trig_sf(
                         int muonSV_chi2_trig_muon1_index,
                         int muonSV_chi2_trig_muon2_index,
-                        int muonSV_chi2_trig_index,
                         Vfloat Muon_pt, Vfloat Muon_dxy, std::string syst)
                     {
                         auto mu1_pt = -1., mu2_pt = -1.;
@@ -391,9 +390,9 @@ class DQCDBDTSFRDFProducer():
 
     def run(self, df):
         sfs = {
-            "scenarioA": 0.64,
-            "scenarioB1": 0.818,
-            "vector": 0.902, 
+            "scenarioA": 0.983,
+            "scenarioB1": 0.690,
+            "vector": 0.966, 
         }
         sf = sfs.get(self.process_name.split("_")[0], 1.)
         print("BDT_SF", self.process_name, sf)
