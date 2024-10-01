@@ -15,7 +15,7 @@ from cmt.base_tasks.analysis import (
 )
 from tasks.analysis import (
     DQCDBaseTask, CreateDatacardsDQCD, CombineDatacardsDQCD, InterpolationTestDQCD,
-    ProcessGroupNameWrapper, FitConfigBaseTask, BaseScanTask
+    ProcessGroupNameWrapper, FitConfigBaseTask, BaseScanTask, FitDQCD
 )
 from tasks.plotting import PlotCombineDQCD
 from collections import OrderedDict
@@ -34,7 +34,7 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsGridDQCD, self).__init__(*args, **kwargs)
         self.interpolation_model = None
-        self.non_data_names = [elem.replace("signal", self.process_group_name)
+        self.non_data_names = [elem.replace("signal", self.process_group_name.replace("data_", ""))
             for elem in self.non_data_names]
         self.empty_background = False
         # avoid using a different ctau than the one in the process_group_name
@@ -44,9 +44,9 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         loose_region_name = self.region.name.replace("tight", "loose")
 
         # background fit
-        bkg_process_name = "background"  # move to data when the unblinding strategy is in place
+        bkg_process_name = "data"  # move to data when the unblinding strategy is in place
         self.model_processes = [bkg_process_name]
-        fit_params = self.models[bkg_process_name]
+        fit_params = self.models["background"]
         fit_params["x_range"] = str(self.fit_range)[1:-1]
         params = ", ".join([f"{param}='{value}'"
             for param, value in fit_params.items() if param != "fit_parameters"])
@@ -54,15 +54,19 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
             params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
             for param, value in fit_params["fit_parameters"].items()]) + "}"
 
-        reqs["fits"]["background"] = eval(f"Fit.vreq(self, {params}, region_name=loose_region_name, "
-            "process_group_name='background')")#, _exclude=['include_fit', 'save_pdf', 'save_png'])")
+        if bkg_process_name == "background":
+            reqs["fits"]["background"] = eval(f"FitDQCD.vreq(self, {params}, region_name=loose_region_name, "
+                "process_group_name='background')")#, _exclude=['include_fit', 'save_pdf', 'save_png'])")
+        else:
+            reqs["fits"]["data"] = eval(f"Fit.vreq(self, {params}, region_name=self.region_name, "
+                "process_group_name='data')")#, _exclude=['include_fit', 'save_pdf', 'save_png'])")
         # reqs["inspections"]["background"] = eval(f"InspectFitSyst.vreq(self, {params}, "
             # "region_name=loose_region_name, process_group_name='background',"
             # "_exclude=['include_fit', 'save_pdf', 'save_png'])")
 
         # data_obs fit (to obtain the yield)
         # we may need to fix this later on if we apply any blinding on the background fit
-        fit_params = copy(self.models[bkg_process_name])
+        fit_params = copy(self.models["background"])
         fit_params["process_name"] = "data"
         params = ", ".join([f"{param}='{value}'"
             for param, value in fit_params.items() if param != "fit_parameters"])
@@ -74,46 +78,13 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         reqs["signal"] = InterpolationTestDQCD.vreq(self, category_names=(self.category_name,), 
             process_group_names=self.process_group_names)
 
-        # get models for background scaling
-        background_model_found = False
-        for model, fit_params in self.models.items():
-            fit_params["x_range"] = str(self.fit_range)[1:-1]
-            # look for background or qcd_*
-            if model == "data_obs": # FIXME
-                continue
-            process = fit_params["process_name"]
-            is_background = False
-            try:
-                if not (self.config.processes.get(process).isSignal or \
-                        self.config.processes.get(process).isData):
-                    is_background = True
-            except:  # signal from the grid
-                is_background = False
-
-            if is_background and not background_model_found:
-                background_model_found = True  # avoid looping over all qcd processes
-                new_fit_params = copy(fit_params)
-                new_fit_params["process_name"] = "background"
-                params = ", ".join([f"{param}='{value}'"
-                    for param, value in new_fit_params.items() if param != "fit_parameters"])
-                if "fit_parameters" in new_fit_params:
-                    params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
-                    for param, value in new_fit_params["fit_parameters"].items()]) + "}"
-
-                reqs["tight"] =  eval("Fit.vreq(self, "
-                    f"{params}, _exclude=['include_fit'], "
-                    "region_name=self.tight_region, "
-                    "process_group_name='background', "
-                    f"feature_names=('{self.calibration_feature_name}',), "
-                    "category_name='base')")
-                reqs["loose"] =  eval(f"Fit.vreq(self, "
-                    f"{params}, _exclude=['include_fit'], "
-                    "region_name=self.loose_region, "
-                    "process_group_name='background', "
-                    f"feature_names=('{self.calibration_feature_name}',), "
-                    "category_name='base')")
-
         return reqs
+
+    def process_is_signal(self, p_name):
+        try:
+            return super(CreateDatacardsGridDQCD, self).process_is_signal(p_name)
+        except:
+            return True
 
     def get_rate_from_process_in_fit(self, feature, p_name):
         try:
@@ -283,6 +254,15 @@ class PlotGridBaseDQCD(law.Task):
 
 
 class ScanCombineGridDQCD(BaseScanTask, PlotGridBaseDQCD):
+    feature_names = ("muonSV_bestchi2_mass",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
+    category_names = (
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    )
+
     def __init__(self, *args, **kwargs):
         super(ScanCombineGridDQCD, self).__init__(*args, **kwargs)
 
@@ -296,54 +276,44 @@ class ScanCombineGridDQCD(BaseScanTask, PlotGridBaseDQCD):
         self.params = {i: elem for i, elem in enumerate(itertools.product(masses, ctaus))}
         assert(self.combine_categories or len(self.params) == 1)
 
-    def create_branch_map(self):
-        if self.combine_categories:
-            return self.params
-        else:
-            return self.category_names
+    def get_processes_to_scan(self):
+        return [self.signal_template.format(*params) for params in self.params.values()]
 
     def requires(self):
-        if self.combine_categories:
-            process_group_name=self.signal_template.format(*self.branch_data)
-            mass_point = self.get_mass_point(process_group_name)
-            signal = process_group_name[:process_group_name.find("_")]
-            return RunCombineGridDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name,
+        reqs = {}
+        for params in self.params.values():
+            pgn = self.signal_template.format(*params)
+            mass_point = self.get_mass_point(pgn)
+            mass_point_str = str(mass_point).replace(".", "p")
+            signal = pgn[:pgn.find("_")]
+            reqs[pgn] = RunCombineGridDQCD.vreq(self, version=self.version + f"_m{mass_point_str}",
+                feature_names=self.features_to_compute(mass_point),
+                mass_point=mass_point,
+                process_group_name=("data_" if self.use_data else "") + pgn,
                 region_name=f"tight_bdt_{signal}",
                 category_names=self.category_names,
-                _exclude=["branches", "branch"])
-        else:
-            process_group_name=self.signal_template.format(*self.params[0])
-            mass_point = self.get_mass_point(process_group_name)
-            signal = process_group_name[:process_group_name.find("_")]
-            return RunCombineGridDQCD.vreq(self, mass_point=mass_point,
-                process_group_name=process_group_name,
-                region_name=f"tight_bdt_{signal}",
-                category_names=self.category_names,
-                _exclude=["branches", "branch"])
-
-    def workflow_requires(self):
-        process_group_name=self.signal_template.format(*self.params[0])
-        mass_point = self.get_mass_point(process_group_name)
-        signal = process_group_name[:process_group_name.find("_")]
-        return {"data": RunCombineGridDQCD.vreq(self, mass_point=mass_point,
-            process_group_name=process_group_name,
-            region_name=f"tight_bdt_{signal}",
-            category_names=self.category_names,
-            _exclude=["branches", "branch"])}
+                custom_output_tag="_" + pgn)
+        return reqs
 
     def output(self):
         if self.combine_categories:
-            process_group_name=self.signal_template.format(*self.branch_data)
+            return {
+                self.signal_template.format(*params): {
+                    feature.name: self.local_target("results_{}_{}.json".format(
+                        feature.name, self.signal_template.format(*params)))
+                    for feature in self.features
+                } for params in self.params.values()
+            }
         else:
-            process_group_name=self.signal_template.format(*self.params[0])
-
-        return {
-            feature.name: self.local_target("results_{}{}.json".format(
-                feature.name, self.get_output_postfix(process_group_name=process_group_name,
-                    category_names=self.category_names)))
-            for feature in self.features
-        }
+            return {
+                self.signal_template.format(*params): {
+                    category_name: {
+                        feature.name: self.local_target("results_{}_{}_{}.json".format(
+                            feature.name, self.signal_template.format(*params), category_name))
+                        for feature in self.features
+                    } for category_name in self.category_names
+                } for params in self.params.values()
+            }
 
 
 class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
@@ -382,7 +352,7 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
                     feature.name, self.fit_config_file, postfix, ext))
                 for ext in ["pdf", "png"]
             }
-            for feature in self.features
+            for feature in self.requires().features
         }
 
     def get_extra_signal_mass_from_template(self, template):
@@ -434,7 +404,7 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
         )
 
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
-        
+
         llp_type = ""
         if self.signal_template.startswith("scenarioA"):
             llp_type="_{A'}"
@@ -465,10 +435,10 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
 
     def run(self):
         inputs = self.input()
-        for feature in self.features:
+        for feature in self.requires().features:
             results = OrderedDict()
             index_to_store = 0 if self.fixed_ctau != law.NO_FLOAT else 1
-            for ip, param_set in self.requires().params.items():
-                with open(inputs["collection"].targets[ip][feature.name].path) as f:
-                    results[param_set[index_to_store]] = json.load(f)
+            for params in self.requires().params.values():
+                with open(inputs[self.signal_template.format(*params)][feature.name].path) as f:
+                    results[params[index_to_store]] = json.load(f)
             self.plot(results, self.output()[feature.name])

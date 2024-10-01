@@ -43,7 +43,7 @@ class DQCDBaseTask(DatasetWrapperTask):
                     signal_process = process
                     break
         except KeyError:
-            signal_process = self.process_group_name
+            signal_process = self.process_group_name.replace("data_", "")
             # self.process_group_name = "sigbkg"
 
         for model in self.models:
@@ -489,6 +489,9 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
 class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWorkflow,
         # HTCondorWorkflow, SGEWorkflow, SlurmWorkflow):
 
+    def get_processes_to_scan(self):
+        return self.process_group_names
+
     def combine_parser(self, filename):
         import os
         res = {}
@@ -505,7 +508,7 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
         return res
 
     def run(self):
-        for pgn in self.process_group_names:
+        for pgn in self.get_processes_to_scan():
             for feature, feature_to_save in zip(self.requires()[pgn].features, self.features):
                 if self.combine_categories:
                     res = self.combine_parser(
@@ -542,7 +545,8 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
 
 class ScanCombineDQCD(BaseScanTask):
     feature_names = ("muonSV_bestchi2_mass",)
-    features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
+    # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
 
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
@@ -987,7 +991,7 @@ class ReFitDQCD(Fit):
         return reqs
 
     def get_input(self):
-        return self.input()["histos"]
+        return self.input()["histos"]["histo"]
 
     def run(self):
         inp = self.input()["base_fit"]
