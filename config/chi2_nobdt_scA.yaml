@@ -50,6 +50,8 @@ bdtsf:
         #displaced_pdgid: 9900015
         #do_reweighing: self.dataset.has_tag('rew')
 
+######################################## REWEIGHING ########################################
+# FOR SCENARIOX SAMPLES
 rew:
     name: DQCDReweighingWithRecoRDF
     path: modules.reweighing
@@ -59,21 +61,35 @@ rew:
         input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset, '/')
         output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
 
-#gen_matching:
-    #name: DQCDMuonSVGenMatchedRDF
+# FOR VECTOR PORTAL SAMPLES
+#rew:
+    #name: DQCDReweighingWithRecoRDF
     #path: modules.reweighing
     #parameters:
         #displaced_pdgid: 9900015
-        #is_signal: self.dataset.process.isSignal
+        #do_reweighing: self.dataset.has_tag('rew')
+        #input_ctau: self.config.get_ctau_from_dataset_name(self.dataset.dataset)
+        #output_ctau: self.config.get_ctau_from_dataset_name(self.dataset.name)
+
+########################################
+
+#bdt_inference_a:
+    #name: DQCDULBDTOnlyMu
+    #path: DQCD.Modules.BDTULinferenceOnlyMu
+    #parameters:
+        #isMC: self.dataset.process.isMC
+        #year: self.config.year
+        #scenario: A
+        #bdt_name: bdt_scenarioA_onlymu
 
 bdt_inference_a:
-    name: DQCDULBDTOnlyMu
-    path: DQCD.Modules.BDTULinferenceOnlyMu
+    name: DQCDULBDTNoJet
+    path: DQCD.Modules.BDTULinferenceFinal
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
         scenario: A
-        bdt_name: bdt_scenarioA_onlymu
+        bdt_name: bdt_scenarioA_final
 
 #bdt_inference_b1:
     #name: DQCDULBDTOnlyMu
