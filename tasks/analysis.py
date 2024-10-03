@@ -119,7 +119,7 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
     calibration_feature_name = "muonSV_bestchi2_mass_fullrange"
     refit_signal_with_syst = False
-    min_events_for_fitting = 0
+    min_events_for_fitting = 10
     norm_bkg_to_data = True
     save_proper_norm = False
 

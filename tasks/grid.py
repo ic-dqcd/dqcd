@@ -48,6 +48,9 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         self.model_processes = [bkg_process_name]
         fit_params = self.models["background"]
         fit_params["x_range"] = str(self.fit_range)[1:-1]
+        if bkg_process_name != "background":
+            fit_params["blind_range"] = str(self.blind_range)[1:-1]
+
         params = ", ".join([f"{param}='{value}'"
             for param, value in fit_params.items() if param != "fit_parameters"])
         if "fit_parameters" in fit_params:
@@ -60,6 +63,10 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         else:
             reqs["fits"]["data"] = eval(f"Fit.vreq(self, {params}, region_name=self.region_name, "
                 "process_group_name='data')")#, _exclude=['include_fit', 'save_pdf', 'save_png'])")
+            params = params.replace(fit_params["method"], "constant")
+            reqs["constant_fit"] = eval(f"Fit.vreq(self, {params}, region_name=self.region_name, "
+                "process_group_name='data')")
+                #, _exclude=['include_fit', 'save_pdf', 'save_png'])")
         # reqs["inspections"]["background"] = eval(f"InspectFitSyst.vreq(self, {params}, "
             # "region_name=loose_region_name, process_group_name='background',"
             # "_exclude=['include_fit', 'save_pdf', 'save_png'])")
@@ -73,6 +80,17 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         if "fit_parameters" in fit_params:
             params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
             for param, value in fit_params["fit_parameters"].items()]) + "}"
+
+        # data_obs
+        if bkg_process_name != "background":
+            fit_params["x_range"] = str(self.blind_range)[1:-1]
+            del fit_params["blind_range"]
+            params = ", ".join([f"{param}='{value}'"
+                for param, value in fit_params.items() if param != "fit_parameters"])
+            if "fit_parameters" in fit_params:
+                params += ", fit_parameters={" + ", ".join([f"'{param}': '{value}'"
+                for param, value in fit_params["fit_parameters"].items()]) + "}"
+
         reqs["fits"]["data_obs"] = eval(f"Fit.vreq(self, {params}, region_name=self.region.name, "
             "process_group_name='data', _exclude=['include_fit', 'save_pdf', 'save_png'])")
         reqs["signal"] = InterpolationTestDQCD.vreq(self, category_names=(self.category_name,), 

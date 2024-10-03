@@ -10,6 +10,14 @@ from cmt.base_tasks.base import Task
 
 class Config(cmt_config):
     def __init__(self, *args, **kwargs):
+        self.dxy_cut_all = ("!((muonSV_dxy > 6.7 && muonSV_dxy < 7.3) || "
+            "(muonSV_dxy > 10.5 && muonSV_dxy < 11.5) || "
+            "(muonSV_dxy > 15.6 && muonSV_dxy < 16.6))")
+        self.dxy_cut = ("!((muonSV_bestchi2_dxy > 6.7 && muonSV_bestchi2_dxy < 7.3) || "
+            "(muonSV_bestchi2_dxy > 10.5 && muonSV_bestchi2_dxy < 11.5) || "
+            "(muonSV_bestchi2_dxy > 15.6 && muonSV_bestchi2_dxy < 16.6))")
+        self.dz_cut = "muonSV_bestchi2_z < 27 || muonSV_bestchi2_z > 52"
+
         super(Config, self).__init__(*args, **kwargs)
 
         self.single_column_width = 0.4
@@ -1106,13 +1114,10 @@ class Config(cmt_config):
                 x_title=Label("muonSV dlen")),
             Feature("muonSV_dlenSig", "muonSV_dlenSig", binning=(100, 0, 1500),
                 x_title=Label("muonSV dlenSig")),
-            Feature("muonSV_dxy", "muonSV_dxy", binning=(40, 0, 20),
-                x_title=Label("muonSV dxy")),
+            Feature("muonSV_dxy", "muonSV_dxy", binning=(100, 0, 25),
+                x_title=Label("muonSV dxy"), units="cm"),
             Feature("muonSV_dxySig", "muonSV_dxySig", binning=(100, 0, 2500),
                 x_title=Label("muonSV dxySig")),
-
-            Feature("muonSV_dxy_matveto", "muonSV_dxy[muonSV_material_veto == 1]", binning=(40, 0, 20),
-                x_title=Label("muonSV dxy (Mat. veto applied)")),
 
             Feature("muonSV_dxy_minchi2", "muonSV_dxy[muonSV_chi2==Min(muonSV_chi2)]",
                 binning=(40, 0, 20),
@@ -1121,6 +1126,22 @@ class Config(cmt_config):
             Feature("muonSV_dxy_minchi2_matveto", "muonSV_dxy.at(ArgMin(muonSV_chi2[muonSV_material_veto == 1]))",
                 binning=(40, 0, 20),
                 x_title=Label("muonSV dxy"),
+                units="cm"),
+            Feature("muonSV_z_minchi2", "abs(muonSV_z[muonSV_chi2==Min(muonSV_chi2)])",
+                binning=(900, 0, 300),
+                x_title=Label("muonSV z"),
+                units="cm"),
+            Feature("muonSV_z_minchi2_lowrange", "muonSV_z[muonSV_chi2==Min(muonSV_chi2)]",
+                binning=(200, -10, 10),
+                x_title=Label("muonSV z"),
+                units="cm"),
+            Feature("muonSV_z_minchi2_dxy_cut", "abs(muonSV_z[muonSV_chi2==Min(muonSV_chi2) && !( "
+                    "(muonSV_dxy > 6.7 && muonSV_dxy < 7.3) || "
+                    "(muonSV_dxy > 10.5 && muonSV_dxy < 11.5) || "
+                    "(muonSV_dxy > 15.6 && muonSV_dxy < 16.6)"
+                ")])",
+                binning=(900, 0, 300),
+                x_title=Label("muonSV z (dxy cut)"),
                 units="cm"),
 
             Feature("muonSV_x_minchi2", "muonSV_x[muonSV_chi2==Min(muonSV_chi2)]",
@@ -1139,6 +1160,18 @@ class Config(cmt_config):
                 binning=(500, -12, 12),
                 x_title=Label("muonSV y (min #chi^2, Mat. veto applied)"),
                 units="cm"),
+            Feature("muonSV_x_matveto", "muonSV_x[muonSV_material_veto == 1]",
+                binning=(500, -20, 20),
+                x_title=Label("muonSV x (Mat. veto applied)"),
+                units="cm"),
+            Feature("muonSV_y_matveto", "muonSV_y[muonSV_material_veto == 1]",
+                binning=(500, -20, 20),
+                x_title=Label("muonSV y (Mat. veto applied)"),
+                units="cm"),
+            Feature("muonSV_material_veto_minchi2", "muonSV_material_veto[muonSV_chi2==Min(muonSV_chi2)]",
+                binning=(2, -0.5, 1.5),
+                x_title=Label("muonSV material veto)")
+                ),
 
             Feature("muonSV_dxy_minchi2_lowrange", "muonSV_dxy[muonSV_chi2==Min(muonSV_chi2)]",
                 binning=(100, 0, 2),
@@ -1155,6 +1188,87 @@ class Config(cmt_config):
             Feature("muonSV_dxysig_minchi2_lowrange", "muonSV_dxySig[muonSV_chi2==Min(muonSV_chi2)]",
                 binning=(100, 0, 20),
                 x_title=Label("muonSV dxysig")),
+
+
+            # material veto distances
+            Feature("muonSV_min_material_dxy_minchi2", "muonSV_min_material_dxy[muonSV_chi2==Min(muonSV_chi2)]",
+                binning=(1000, 0, 1),
+                x_title=Label("muonSV min material dxy (min #chi^{2})"),
+                units="cm"),
+            Feature("muonSV_min_material_dz_minchi2", "muonSV_min_material_z[muonSV_chi2==Min(muonSV_chi2)]",
+                binning=(1000, 0, 1),
+                x_title=Label("muonSV min material z (min #chi^{2})"),
+                units="cm"),
+            Feature("muonSV_min_material_dz_minchi2_long", "muonSV_min_material_z[muonSV_chi2==Min(muonSV_chi2)]",
+                binning=(1000, 0, 50),
+                x_title=Label("muonSV min material z (min #chi^{2})"),
+                units="cm"),
+            Feature("muonSV_min_material_dz_minchi2_long_eta0p5", "muonSV_min_material_z["
+                "muonSV_chi2==Min(muonSV_chi2) &&"
+                "abs(muonSV_mu1eta) < 0.5 && abs(muonSV_mu2eta) < 0.5"
+                "]",
+                binning=(1000, 0, 50),
+                x_title=Label("muonSV min material z (min #chi^{2}), #eta(#mu_{1})<0.5, #eta(#mu_{2})<0.5"),
+                units="cm"),
+            Feature("muonSV_min_material_dz_minchi2_long_eta1p0", "muonSV_min_material_z["
+                    "muonSV_chi2==Min(muonSV_chi2) &&"
+                    "abs(muonSV_mu1eta) < 1.0 && abs(muonSV_mu2eta) < 1.0"
+                "]",
+                binning=(1000, 0, 50),
+                x_title=Label("muonSV min material z (min #chi^{2}), #eta(#mu_{1})<1.0, #eta(#mu_{2})<1.0"),
+                units="cm"),
+            Feature("muonSV_min_material_dz_long", "muonSV_min_material_z",
+                binning=(1000, 0, 50),
+                x_title=Label("muonSV min material z5"),
+                units="cm"),
+            Feature("muonSV_min_material_dz_long_dxy0p2", "muonSV_min_material_z["
+                    "muonSV_min_material_dxy < 0.2"
+                "]",
+                binning=(1000, 0, 50),
+                x_title=Label("muonSV min material z, muonSV_min_material_dxy < 0.2"),
+                units="cm"),
+
+            Feature("muonSV_dxy_matveto", "muonSV_dxy[muonSV_material_veto == 1]", binning=(100, 0, 25),
+                x_title=Label("muonSV dxy (mat. veto)"),
+                units="cm", selection_name="mat. veto applied"),
+            Feature("muonSV_z_matveto", "muonSV_z[muonSV_material_veto == 1]", binning=(200, -50, 50),
+                x_title=Label("muonSV z (mat. veto)"), units="cm"),
+
+            Feature("material_z", "tracker_mat_z",
+                binning=(1000, -50, 50),
+                x_title=Label("Pixel tracker z"),
+                units="cm"),
+
+            Feature("material_xy", "tracker_mat_xy",
+                binning=(1000, 0, 25),
+                x_title=Label("Pixel tracker r"),
+                units="cm"),
+
+            # local distances
+            Feature("muonSV_min_d_x", "muonSV_min_d_x",
+                binning=(1000, 0, 5),
+                x_title=Label("muonSV - pixel module min #Delta x"),
+                units="cm"),
+            Feature("muonSV_min_d_y", "muonSV_min_d_y",
+                binning=(1000, 0, 5),
+                x_title=Label("muonSV - pixel module min #Delta y"),
+                units="cm"),
+            Feature("muonSV_min_d_z", "muonSV_min_d_z",
+                binning=(1000, 0, 5),
+                x_title=Label("muonSV - pixel module min #Delta z"),
+                units="cm"),
+            Feature("muonSV_min_d_x_dxyrange", f"muonSV_min_d_x[!({self.dxy_cut_all})]",
+                binning=(1000, 0, 5),
+                x_title=Label("muonSV - pixel module min #Delta x (In material dxy regions)"),
+                units="cm"),
+            Feature("muonSV_min_d_y_dxyrange", f"muonSV_min_d_y[!({self.dxy_cut_all})]",
+                binning=(1000, 0, 5),
+                x_title=Label("muonSV - pixel module min #Delta y (In material dxy regions)"),
+                units="cm"),
+            Feature("muonSV_min_d_z_dxyrange", f"muonSV_min_d_z[!({self.dxy_cut_all})]",
+                binning=(1000, 0, 5),
+                x_title=Label("muonSV - pixel module min #Delta z (In material dxy regions)"),
+                units="cm"),
 
             Feature("muonSV_mu1pt", "muonSV_mu1pt", binning=(30, 0, 150),
                 x_title=Label("muonSV muon1 p_{T}"),
@@ -1236,11 +1350,11 @@ class Config(cmt_config):
             Feature("muonSV_bestchi2_dxySig", "muonSV_bestchi2_dxySig", binning=(100, 0, 1000),
                 x_title=Label("muonSV dxySig (min #chi^2)"), tags=["lbn_light", "lbn"]),
 
-            Feature("muonSV_x", "muonSV_x", binning=(1000, -12, 12),
+            Feature("muonSV_x", "muonSV_x", binning=(500, -20, 20),
                 x_title=Label("muonSV x")),
-            Feature("muonSV_y", "muonSV_y", binning=(1000, -12, 12),
+            Feature("muonSV_y", "muonSV_y", binning=(500, -20, 20),
                 x_title=Label("muonSV y")),
-            Feature("muonSV_z", "muonSV_z", binning=(100, -20, 20),
+            Feature("muonSV_z", "muonSV_z", binning=(200, -50, 50),
                 x_title=Label("muonSV z")),
 
             # Feature("muonSV_x_bestchi2", "muonSV_x.at(min_chi2_index)", binning=(50, -10, 10),
@@ -1266,12 +1380,12 @@ class Config(cmt_config):
                 blinded_range=[1.5, 2.5]),
                 # blinded_range=[[0.2, 0.4], [1.5, 2.5]]),
             Feature("sv_x", "SV_x", binning=(50, -4, 4),
-                x_title=Label("muonSV x"),),
+                x_title=Label("SV x"),),
             Feature("sv_y", "SV_y", binning=(50, -4, 4),
-                x_title=Label("muonSV y"),),
-            Feature("sv_z", "SV_z", binning=(100, -20, 20),
-                x_title=Label("muonSV z"),),
-            Feature("sv_dxy", "SV_dxy", binning=(40, 0, 10),
+                x_title=Label("SV y"),),
+            Feature("sv_z", "SV_z", binning=(200, -50, 50),
+                x_title=Label("SV z"),),
+            Feature("sv_dxy", "SV_dxy", binning=(100, 0, 25),
                 x_title=Label("SV dxy")),
             Feature("sv_dxySig", "SV_dxySig", binning=(100, 0, 750),
                 x_title=Label("SV dxySig")),
@@ -1860,6 +1974,22 @@ class Config(cmt_config):
             "muonSV_bestchi2_mass", binning=(50, 0.95 * mass, 1.05 * mass),
             blinded_range=(0.98 * mass, 1.02 * mass),
             x_title=Label("muonSV mass (Min. #chi^{2})"),
+            units="GeV")
+
+    def get_feature_mass_dxycut(self, mass):
+        return Feature(f"muonSV_bestchi2_mass_{str(mass).replace('.', 'p')}",
+            "muonSV_bestchi2_mass", binning=(50, 0.95 * mass, 1.05 * mass),
+            blinded_range=(0.98 * mass, 1.02 * mass),
+            x_title=Label("muonSV mass (Min. #chi^{2})"),
+            selection=self.dxy_cut,
+            units="GeV")
+
+    def get_feature_mass_dxyzcut(self, mass):
+        return Feature(f"muonSV_bestchi2_mass_{str(mass).replace('.', 'p')}",
+            "muonSV_bestchi2_mass", binning=(50, 0.95 * mass, 1.05 * mass),
+            blinded_range=(0.98 * mass, 1.02 * mass),
+            x_title=Label("muonSV mass (Min. #chi^{2})"),
+            selection=jrs(self.dxy_cut, self.dz_cut),
             units="GeV")
 
 # config = Config("base", year=2018, ecm=13, lumi_pb=59741)
