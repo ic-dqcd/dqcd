@@ -30,6 +30,7 @@ class BaseDQCDGridTask(DQCDBaseTask, ProcessGroupNameWrapper):
 
 class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
     refit_signal_with_syst = False
+    feature_name_general = "muonSV_bestchi2_mass"
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsGridDQCD, self).__init__(*args, **kwargs)
@@ -38,7 +39,7 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
             for elem in self.non_data_names]
         self.empty_background = False
         # avoid using a different ctau than the one in the process_group_name
-        
+
     def requires(self):
         reqs = {"fits": {}, "inspections": {}}
         loose_region_name = self.region.name.replace("tight", "loose")
@@ -93,7 +94,10 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
 
         reqs["fits"]["data_obs"] = eval(f"Fit.vreq(self, {params}, region_name=self.region.name, "
             "process_group_name='data', _exclude=['include_fit', 'save_pdf', 'save_png'])")
-        reqs["signal"] = InterpolationTestDQCD.vreq(self, category_names=(self.category_name,), 
+
+        interp_version = "_".join(self.version.split("_")[:-1])
+        reqs["signal"] = InterpolationTestDQCD.vreq(self, version=interp_version,
+            category_names=(self.category_name,),
             process_group_names=self.process_group_names)
 
         return reqs
@@ -114,7 +118,7 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
             if self.interpolation_model == None:
                 import pickle
                 # with open(self.input()["signal"][feature.name][self.category_name]["interp2d_model"].path, "rb") as f:
-                with open(self.input()["signal"][feature.name][self.category_name]["interp_model"].path, "rb") as f:
+                with open(self.input()["signal"][self.feature_name_general][self.category_name]["interp_model"].path, "rb") as f:
                     self.interpolation_model = pickle.load(f)
             try:  # interp2d
                 return float(self.interpolation_model(self.mass_point, self.ctau)[0])
@@ -287,7 +291,7 @@ class ScanCombineGridDQCD(BaseScanTask, PlotGridBaseDQCD):
         masses = np.linspace(start=self.min_mass, stop=self.max_mass, num=self.n_masses)
         # remove masses within the resonance ranges
         for resonance_mass_range in self.config.resonance_masses.values():
-            masses = [elem for elem in masses 
+            masses = [elem for elem in masses
                 if elem < resonance_mass_range[0] or elem > resonance_mass_range[1]]
         ctaus = np.geomspace(start=self.min_ctau, stop=self.max_ctau, num=self.n_ctaus)
 
@@ -384,7 +388,7 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
                 except:
                     continue
         return -1, ""
-        
+
 
     def plot(self, results, output_file):
         import matplotlib
