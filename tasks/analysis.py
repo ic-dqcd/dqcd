@@ -1208,6 +1208,9 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
     default_categories = [
         "singlev_cat3", "multiv_cat3"
     ]
+    feature_names = ("muonSV_bestchi2_mass",)
+    # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
 
     def __init__(self, *args, **kwargs):
         super(InterpolationTestDQCD, self).__init__(*args, **kwargs)
@@ -1220,15 +1223,18 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
             signal = process_group_name[:process_group_name.find("_")]
             tight_region = f"tight_bdt_{signal}"
             mass_point = self.get_mass_point(process_group_name)
+            mass_point_str = str(mass_point).replace(".", "p")
             sigma = mass_point * 0.01
             fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
 
             reqs[process_group_name] = {}
             for category_name in self.category_names:
                 reqs[process_group_name][category_name] = ReFitDQCD.vreq(
-                    self, process_group_name="sig_" + process_group_name, region_name=tight_region,
+                    self, version=self.version + f"_m{mass_point_str}",
+                    process_group_name="sig_" + process_group_name, region_name=tight_region,
                     category_name=category_name, x_range=fit_range, method="voigtian",
-                    process_name=process_group_name, feature_names=self.feature_names,
+                    process_name=process_group_name,
+                    feature_names=self.features_to_compute(mass_point),
                     fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
                         "gamma": (0.005,)})
         return reqs
@@ -1294,7 +1300,8 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
     def load_inputs(self, feature, cat):
         values = {}
         for pgn in self.process_group_names:
-            with open(self.input()[pgn][cat][feature.name]["json"].path) as f:
+            feature_to_use = self.requires()[pgn][cat].features[self.features.index(feature)]
+            with open(self.input()[pgn][cat][feature_to_use.name]["json"].path) as f:
                 d = json.load(f)
             mass_point = self.get_mass_point(pgn)
             ctau = pgn.split("_ctau_")[1].replace("p", ".")
