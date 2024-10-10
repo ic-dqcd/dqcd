@@ -754,20 +754,24 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
         "multiv_cat4", "multiv_cat5", "multiv_cat6",
     )
     # feature_names = ("muonSV_bestchi2_mass_fullrange",)
-    feature_names = (
+    # feature_names = (
         # "muonSV_bestchi2_mass_fullrange_bdt_0p8",
         # "muonSV_bestchi2_mass_fullrange_bdt_0p9",
         # "muonSV_bestchi2_mass_fullrange_bdt_0p95",
-        "muonSV_bestchi2_mass_fullrange_bdt_0p98",
-    )
+        # "muonSV_bestchi2_mass_fullrange_bdt_0p98",
+    # )
+
+    feature_names = ("muonSV_bestchi2_mass",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
+
     params = ["integral", "mean", "sigma", "gamma", "chi2"]
 
     def requires(self):
         reqs = {}
         for process_group_name in self.process_group_names:
             signal = process_group_name[:process_group_name.find("_")]
-            # tight_region = f"tight_bdt_{signal}"
-            tight_region = law.NO_STR
+            tight_region = f"tight_bdt_{signal}"
+            # tight_region = law.NO_STR
             # loose_region = f"loose_bdt_{signal}"
             mass_point = self.get_mass_point(process_group_name)
             sigma = mass_point * 0.01
@@ -778,9 +782,9 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                 reqs[process_group_name][category_name] = Fit.vreq(
                     self, process_group_name="sig_" + process_group_name, region_name=tight_region,
                     category_name=category_name, x_range=fit_range, method="voigtian",
-                    process_name=process_group_name, feature_names=self.feature_names,
+                    process_name=process_group_name, feature_names=self.features_to_compute(mass_point),
                     fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
-                        "gamma": (0.005,)})
+                        "gamma": (0.005,), "sigma": (0.001, 0., 1.)})
         return reqs
 
     def output(self):
@@ -797,6 +801,18 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                 cat: {
                     ext: self.local_target(f"{feature_name}/sigma_mass_ratio_{cat}_{self.fit_config_file}.{ext}")
                     for ext in ["pdf"]
+                } for cat in self.category_names
+            }
+            out[feature_name]["mean_mass_ratio"] = {
+                cat: {
+                    ext: self.local_target(f"{feature_name}/mean_mass_ratio/mean_mass_ratio_{cat}_{self.fit_config_file}.{ext}")
+                    for ext in ["pdf", "json"]
+                } for cat in self.category_names
+            }
+            out[feature_name]["sigma_mean_mass_ratio"] = {
+                cat: {
+                    ext: self.local_target(f"{feature_name}/sigma_mean_mass_ratio/sigma_mean_mass_ratio_{cat}_{self.fit_config_file}.{ext}")
+                    for ext in ["pdf", "json"]
                 } for cat in self.category_names
             }
             for param in self.params:
@@ -849,50 +865,60 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                 outd = {}
                 d_param[cat] = {param: {} for param in self.params}
                 d_param[cat]["sigma_mass_ratio"] = {}
+                d_param[cat]["mean_mass_ratio"] = {}
+                d_param[cat]["sigma_mean_mass_ratio"] = {}
                 d_param_ratio[cat] = {param: {} for param in self.params}
                 d_param_unc[cat] = {"integral": {}}
                 for pgn in self.process_group_names:
                     mass_point = self.get_mass_point(pgn)
+                    # input_feature = self.requires()[pgn][cat].features[self.feature_names.index(feature_name)]
+                    input_feature = eval(self.features_to_compute(mass_point)[self.feature_names.index(feature_name)])
+                    input_feature_name = input_feature.name
                     ctau = self.get_ctau(pgn)
-
-                    with open(inputs[pgn][cat][feature_name]["json"].path) as f:
+                    with open(inputs[pgn][cat][input_feature_name]["json"].path) as f:
                         d = json.load(f)
                     table.append([pgn] + [d[""][param] for param in self.params])
                     outd[pgn] = {param: d[""][param] for param in self.params}
-                    for param in self.params:
-                        if param == "chi2":
-                            if math.isnan(float(d[""]["chi2"])):
-                                d_param[cat]["chi2"][(mass_point, ctau)] = ("nan", d[""]["Number of non-zero bins"])
-                            else:
-                                d_param[cat]["chi2"][(mass_point, ctau)] = (
-                                    round(d[""]["chi2"], 2), d[""]["Number of non-zero bins"])
-                            if d[""]["chi2"] > 10.5 or math.isnan(float(d[""]["chi2"])):
-                                plot.append((icat, -1))
-                            else:
-                                plot.append((icat, d[""]["chi2"]))
-                        else:
-                            d_param[cat][param][(mass_point, ctau)] = (
-                                round_unc(d[""][param]), round_unc(d[""][param + "_error"])
-                            )
-                            d_param_ratio[cat][param][(mass_point, ctau)] = round_unc(d[""][param] /
-                                d_param["base"][param][(mass_point, ctau)][0])
-                            if param == "integral":
-                                d_param_unc[cat][param][(mass_point, ctau)] = round_unc(
-                                    d[""]["integral_error"] / d[""]["integral"] if d[""]["integral"] != 0
-                                    else 0.
-                                )
-                    d_param[cat]["sigma_mass_ratio"][mass_point, ctau]= (
+                    # for param in self.params:
+                        # if param == "chi2":
+                            # if math.isnan(float(d[""]["chi2"])):
+                                # d_param[cat]["chi2"][(mass_point, ctau)] = ("nan", d[""]["Number of non-zero bins"])
+                            # else:
+                                # d_param[cat]["chi2"][(mass_point, ctau)] = (
+                                    # round(d[""]["chi2"], 2), d[""]["Number of non-zero bins"])
+                            # if d[""]["chi2"] > 10.5 or math.isnan(float(d[""]["chi2"])):
+                                # plot.append((icat, -1))
+                            # else:
+                                # plot.append((icat, d[""]["chi2"]))
+                        # else:
+                            # d_param[cat][param][(mass_point, ctau)] = (
+                                # round_unc(d[""][param]), round_unc(d[""][param + "_error"])
+                            # )
+                            # d_param_ratio[cat][param][(mass_point, ctau)] = round_unc(d[""][param] /
+                                # d_param["base"][param][(mass_point, ctau)][0])
+                            # if param == "integral":
+                                # d_param_unc[cat][param][(mass_point, ctau)] = round_unc(
+                                    # d[""]["integral_error"] / d[""]["integral"] if d[""]["integral"] != 0
+                                    # else 0.
+                                # )
+                    d_param[cat]["sigma_mass_ratio"][mass_point, ctau] = (
                         d[""]["sigma"] / mass_point, d[""]["sigma_error"] / mass_point
                     )
+                    d_param[cat]["mean_mass_ratio"][mass_point, ctau] = (
+                        100 * (d[""]["mean"] / mass_point - 1)
+                    )
+                    d_param[cat]["sigma_mean_mass_ratio"][mass_point, ctau] = (
+                        100 * (((d[""]["sigma"]) / (0.01 * mass_point)) - 1)
+                    )
 
-                fancy_table = tabulate.tabulate(table, headers=["process"] + self.params)
-                with open(create_file_dir(self.output()[feature_name]["tables"][cat]["txt"].path), "w+") as f:
-                    f.write(fancy_table)
-                fancy_table_tex = tabulate.tabulate(table, headers=["process"] + self.params, tablefmt="latex")
-                with open(create_file_dir(self.output()[feature_name]["tables"][cat]["tex"].path), "w+") as f:
-                    f.write(fancy_table_tex)
-                with open(create_file_dir(self.output()[feature_name]["tables"][cat]["json"].path), "w+") as f:
-                    json.dump(outd, f, indent=4)
+                # fancy_table = tabulate.tabulate(table, headers=["process"] + self.params)
+                # with open(create_file_dir(self.output()[feature_name]["tables"][cat]["txt"].path), "w+") as f:
+                    # f.write(fancy_table)
+                # fancy_table_tex = tabulate.tabulate(table, headers=["process"] + self.params, tablefmt="latex")
+                # with open(create_file_dir(self.output()[feature_name]["tables"][cat]["tex"].path), "w+") as f:
+                    # f.write(fancy_table_tex)
+                # with open(create_file_dir(self.output()[feature_name]["tables"][cat]["json"].path), "w+") as f:
+                    # json.dump(outd, f, indent=4)
 
                 # for key, d in zip(["cat", "cat_ratio", "cat_unc"], [d_param, d_param_ratio, d_param_unc]):
                     # for param in self.params:
@@ -920,41 +946,41 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
 
                 # categories w.r.t. base
                 for key, d in zip(["cat_wrtbase"], [d_param]):
-                    for param in self.params:
-                        npoints = len(d[cat][param].items())
-                        ax = plt.subplot()
+                    # for param in self.params:
+                        # npoints = len(d[cat][param].items())
+                        # ax = plt.subplot()
 
-                        # results for the base category
-                        for ival, values in enumerate(d["base"][param].values()):
-                            plt.fill_between((ival - 0.25, ival + 0.25),
-                            (1 - values[1]/values[0] if "nan" not in values else 0),
-                            (1 + values[1]/values[0] if "nan" not in values else 0),
-                            # color="y", alpha=.5)
-                            color="0.8")
+                        # # results for the base category
+                        # for ival, values in enumerate(d["base"][param].values()):
+                            # plt.fill_between((ival - 0.25, ival + 0.25),
+                            # (1 - values[1]/values[0] if "nan" not in values else 0),
+                            # (1 + values[1]/values[0] if "nan" not in values else 0),
+                            # # color="y", alpha=.5)
+                            # color="0.8")
 
-                        # results for the category under study
-                        y = [(elem[0]/base[0] if elem[0] != 'nan' and base[0] != 'nan' else 0)
-                            for elem, base in zip(d[cat][param].values(), d["base"][param].values())]
-                        yerr = [(elem[1]/base[0] if elem[1] != 'nan' and base[0] != 'nan' else 0)
-                            for elem, base in zip(d[cat][param].values(), d["base"][param].values())]
-                        ax.errorbar(range(npoints), y, yerr, fmt='.')
+                        # # results for the category under study
+                        # y = [(elem[0]/base[0] if elem[0] != 'nan' and base[0] != 'nan' else 0)
+                            # for elem, base in zip(d[cat][param].values(), d["base"][param].values())]
+                        # yerr = [(elem[1]/base[0] if elem[1] != 'nan' and base[0] != 'nan' else 0)
+                            # for elem, base in zip(d[cat][param].values(), d["base"][param].values())]
+                        # ax.errorbar(range(npoints), y, yerr, fmt='.')
 
-                        ax.set_ybound(0, 2)
-                        ax.set_ylim(0, 2)
+                        # ax.set_ybound(0, 2)
+                        # ax.set_ylim(0, 2)
 
-                        plt.ylabel("%s %s/No categorisation" % (param, cat))
-                        plt.xlabel("(mass, ctau)")
+                        # plt.ylabel("%s %s/No categorisation" % (param, cat))
+                        # plt.xlabel("(mass, ctau)")
 
-                        labels = list(d["base"][param].keys())
-                        ax.set_xticks(list(range(len(labels))))
-                        if len(labels) <= 4:
-                            ax.set_xticklabels(labels)
-                        else:
-                            ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
+                        # labels = list(d["base"][param].keys())
+                        # ax.set_xticks(list(range(len(labels))))
+                        # if len(labels) <= 4:
+                            # ax.set_xticklabels(labels)
+                        # else:
+                            # ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
-                        plt.savefig(create_file_dir(self.output()[feature_name][f"{param}_{key}"][cat].path),
-                            bbox_inches='tight')
-                        plt.close()
+                        # plt.savefig(create_file_dir(self.output()[feature_name][f"{param}_{key}"][cat].path),
+                            # bbox_inches='tight')
+                        # plt.close()
 
                     # sigma-mass ratio
                     npoints = len(d[cat]["sigma_mass_ratio"].keys())
@@ -968,38 +994,64 @@ class FitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                         bbox_inches='tight')
                     plt.close()
 
-            ax = plt.subplot()
-            ax.set_xticks(list(range(len(self.category_names))))
-            ax.set_xticklabels(self.category_names, rotation=60, rotation_mode="anchor", ha="right")
-            im = plt.hist2d([elem[0] for elem in plot], [elem[1] for elem in plot],
-                bins=(len(self.category_names), 12),
-                range=[[-0.5, len(self.category_names) - 0.5],[-1.5, 10.5]])
-            ax.set_xbound(-0.5, len(self.category_names) - 0.5)
-            ax.set_ybound(-1.5, 10.5)
-            plt.colorbar(im[3])
-            plt.yscale("linear")
-            plt.ylabel(f"chi2/ndf")
-            plt.savefig(create_file_dir(self.output()[feature_name]["chi2"].path), bbox_inches='tight')
+                    ax = plt.subplot()
+                    # plt.hist(d[cat]["mean_mass_ratio"].values(), bins=20, range=[-2, 2])
+                    plt.hist(d[cat]["mean_mass_ratio"].values())
+                    plt.savefig(create_file_dir(self.output()[feature_name][f"mean_mass_ratio"][cat]["pdf"].path),
+                        bbox_inches='tight')
+                    plt.close()
+                    with open(create_file_dir(self.output()[feature_name][f"mean_mass_ratio"][cat]["json"].path), "w+") as f:
+                        json.dump({str(key): val for key, val in d[cat]["mean_mass_ratio"].items()}, f, indent=4)
+
+                    ax = plt.subplot()
+                    # plt.hist(d[cat]["sigma_mean_mass_ratio"].values(), bins=80, range=[-40, 40])
+                    plt.hist(d[cat]["sigma_mean_mass_ratio"].values())
+                    plt.savefig(create_file_dir(self.output()[feature_name][f"sigma_mean_mass_ratio"][cat]["pdf"].path),
+                        bbox_inches='tight')
+                    plt.close()
+                    with open(create_file_dir(self.output()[feature_name][f"sigma_mean_mass_ratio"][cat]["json"].path), "w+") as f:
+                        json.dump({str(key): val for key, val in d[cat]["sigma_mean_mass_ratio"].items()}, f, indent=4)
+
+            # ax = plt.subplot()
+            # ax.set_xticks(list(range(len(self.category_names))))
+            # ax.set_xticklabels(self.category_names, rotation=60, rotation_mode="anchor", ha="right")
+            # im = plt.hist2d([elem[0] for elem in plot], [elem[1] for elem in plot],
+                # bins=(len(self.category_names), 12),
+                # range=[[-0.5, len(self.category_names) - 0.5],[-1.5, 10.5]])
+            # ax.set_xbound(-0.5, len(self.category_names) - 0.5)
+            # ax.set_ybound(-1.5, 10.5)
+            # plt.colorbar(im[3])
+            # plt.yscale("linear")
+            # plt.ylabel(f"chi2/ndf")
+            # plt.savefig(create_file_dir(self.output()[feature_name]["chi2"].path), bbox_inches='tight')
 
 
 class ReFitDQCD(Fit):
-    def requires(self):
-        reqs = {
-            "histos": super(ReFitDQCD, self).requires(),
-            "base_fit": Fit.vreq(self, category_name="base")
-        }
-        return reqs
+    # def requires(self):
+        # reqs = {
+            # "histos": super(ReFitDQCD, self).requires(),
+            # "base_fit": Fit.vreq(self, category_name="base")
+        # }
+        # return reqs
 
-    def get_input(self):
-        return self.input()["histos"]["histo"]
+    # def get_input(self):
+        # return self.input()["histos"]["histo"]
 
     def run(self):
-        inp = self.input()["base_fit"]
-        for feature in self.features:
-            with open(inp[feature.name]["json"].path) as f:
-                d = json.load(f)
-            self.fit_parameters = dict(self.fit_parameters)
+        # inp = self.input()["base_fit"]
+        # for feature in self.features:
+            # with open(inp[feature.name]["json"].path) as f:
+                # d = json.load(f)
+            # self.fit_parameters = dict(self.fit_parameters)
             # self.fit_parameters["sigma"] = (d[""]["sigma"],)
+
+        mass_point = ProcessGroupNameWrapper.get_mass_point(self, self.process_group_name)
+        sigma = mass_point * 0.0085
+        self.fit_parameters = {
+            "gamma": (0.005,),
+            "sigma": (sigma, 0.9 * sigma, 1.1 * sigma),
+            "mean": (mass_point, 0.99 * mass_point, 1.01 * mass_point)
+        }
 
         super(ReFitDQCD, self).run()
 
@@ -1014,7 +1066,12 @@ class ReFitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
         "multiv_cat4", "multiv_cat5", "multiv_cat6",
     )
     # feature_names = ("muonSV_bestchi2_mass_fullrange",)
-    feature_names = ("muonSV_bestchi2_mass_fullrange_bdt_0p98",)
+    # feature_names = ("muonSV_bestchi2_mass_fullrange_bdt_0p98",)
+
+    feature_names = ("muonSV_bestchi2_mass",)
+    # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
+
     params = ["integral", "mean", "sigma", "gamma", "chi2"]
 
     def requires(self):
@@ -1034,13 +1091,13 @@ class ReFitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
                 reqs["new"][process_group_name][category_name] = ReFitDQCD.vreq(
                     self, process_group_name="sig_" + process_group_name, region_name=tight_region,
                     category_name=category_name, x_range=fit_range, method="voigtian",
-                    process_name=process_group_name, feature_names=self.feature_names,
-                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
-                        "gamma": (0.005,)})
+                    process_name=process_group_name,
+                    feature_names=self.features_to_compute(mass_point))
                 reqs["old"][process_group_name][category_name] = Fit.vreq(
                     self, process_group_name="sig_" + process_group_name, region_name=tight_region,
                     category_name=category_name, x_range=fit_range, method="voigtian",
-                    process_name=process_group_name, feature_names=self.feature_names,
+                    process_name=process_group_name,
+                    feature_names=self.features_to_compute(mass_point),
                     fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
                         "gamma": (0.005,)})
         return reqs
@@ -1078,17 +1135,19 @@ class ReFitStudyDQCD(ProcessGroupNameWrapper, DQCDBaseTask, FitBase):
             chi2_old[cat] = {}
             chi2_new[cat] = {}
             for pgn in self.process_group_names:
-                with open(inp["old"][pgn][cat][self.feature_names[0]]["json"].path) as f:
+                mass_point = self.get_mass_point(pgn)
+                input_feature = eval(self.features_to_compute(mass_point)[0])
+                with open(inp["old"][pgn][cat][input_feature.name]["json"].path) as f:
                     d = json.load(f)
                 chi2_old[cat][pgn] = d[""]["chi2"]
-                with open(inp["new"][pgn][cat][self.feature_names[0]]["json"].path) as f:
+                with open(inp["new"][pgn][cat][input_feature.name]["json"].path) as f:
                     d = json.load(f)
                 chi2_new[cat][pgn] = d[""]["chi2"]
 
             npoints = len(self.process_group_names)
             ax = plt.subplot()
-            plt.plot(list(range(npoints)), chi2_old[cat].values(), color="b", label="Categ-custom fit")
-            plt.plot(list(range(npoints)), chi2_new[cat].values(), color="r", label="No-categ fit")
+            plt.plot(list(range(npoints)), chi2_old[cat].values(), color="b", label="Custom fit")
+            plt.plot(list(range(npoints)), chi2_new[cat].values(), color="r", label="Standard fit")
 
             plt.legend(title=cat)
             plt.xlabel("(mass, ctau)")
