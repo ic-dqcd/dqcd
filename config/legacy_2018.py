@@ -1453,6 +1453,7 @@ class Config(cmt_config):
             ),
 
             Feature("bdt_vector", "bdt_vector_onlymu", binning=(20, 0, 1),
+            # Feature("bdt_vector", "bdt_vector_final", binning=(20, 0, 1),
                 x_title=Label("BDT score (vector portal)"),
             ),
 
@@ -1844,13 +1845,16 @@ class Config(cmt_config):
 
             Feature("puWeight", "puWeight", binning=(20, 0, 2),
                 x_title=Label("puWeight"),
-                systematics=["CMS_parking_pileup_2018"]),
+                # systematics=["CMS_parking_pileup_2018"]),
+                systematics=["pu"]),
             Feature("idWeight", "idWeight", binning=(20, 0, 2),
                 x_title=Label("idWeight"),
-                systematics=["CMS_m_displaced_id_2018"]),
+                # systematics=["CMS_m_displaced_id_2018"]),
+                systematics=["id"]),
             Feature("trigSF", "trigSF", binning=(20, 0, 2),
                 x_title=Label("trigSF"),
-                systematics=["CMS_eff_parking_trigger_2018"]),
+                # systematics=["CMS_eff_parking_trigger_2018"]),
+                systematics=["trig"]),
             # Feature("ctau_reweighing", "ctau_reweighing", binning=(20, 0, 10),
             Feature("ctau_reweighing", "muonSV_ctau_rew.at(min_chi2_index)", binning=(20, 0, 10),
                 x_title=Label("ctau_reweighing")),
@@ -1877,9 +1881,10 @@ class Config(cmt_config):
         systematics = [
             Systematic("jet_smearing", "_nom"),
             # Systematic("met_smearing", ("MET", "MET_smeared")),
-            Systematic("CMS_parking_pileup_2018", "", up="Up", down="Down"),
-            Systematic("CMS_m_displaced_id_2018", ""),
-            Systematic("CMS_eff_parking_trigger_2018", ""),
+            # Systematic("CMS_parking_pileup_2018", "", up="Up", down="Down"),
+            Systematic("pu", "", up="Up", down="Down", alias="CMS_parking_pileup_2018"),
+            Systematic("id", "", alias="CMS_m_displaced_id_2018"),
+            Systematic("trig", "", alias="CMS_eff_parking_trigger_2018"),
             Systematic("jer", "_smeared", affected_categories=self.categories.names(),
                 module_syst_type={
                     "jet_syst": {"up": "smeared_up", "down": "smeared_down"},

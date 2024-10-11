@@ -1359,10 +1359,11 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
     def load_inputs(self, feature, cat):
         values = {}
         for pgn in self.process_group_names:
-            feature_to_use = self.requires()[pgn][cat].features[self.features.index(feature)]
+            mass_point = self.get_mass_point(pgn)
+            # feature_to_use = self.requires()[pgn][cat].features[self.features.index(feature)]
+            feature_to_use = eval(self.features_to_compute(mass_point)[self.features.index(feature)])
             with open(self.input()[pgn][cat][feature_to_use.name]["json"].path) as f:
                 d = json.load(f)
-            mass_point = self.get_mass_point(pgn)
             ctau = pgn.split("_ctau_")[1].replace("p", ".")
             try:
                 ctau = float(ctau)
@@ -1385,8 +1386,8 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
         for feature in self.features:
             for cat in self.category_names:
                 values = self.load_inputs(feature, cat)
-                mass_points = set([elem[0] for elem in values.keys()])
-                ctaus = set([elem[1] for elem in values.keys()])
+                mass_points = set([float(elem[0]) for elem in values.keys()])
+                ctaus = set([float(elem[1]) for elem in values.keys()])
 
                 mass_points = sorted(mass_points)
                 ctaus = sorted(ctaus)
@@ -1496,17 +1497,17 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
                                 self.output()[feature.name][cat][name][(m_skip, ctau_skip)].path),
                             bbox_inches='tight')
                         plt.close()
-
                 # from pprint import pprint
                 # pprint(diffs)
                 # pprint(diffs_clough)
 
                 grid_z = func(grid_x, grid_y)
-                @np.vectorize
+                @np.vectorize(otypes=[float])
                 def func_interp(x, y):
                     return res_interp[(x, y)]
                 grid_z_interp = func_interp(grid_x, grid_y)
-                @np.vectorize
+
+                @np.vectorize(otypes=[float])
                 def func_interp2d(x, y):
                     return res_interp2d[(x, y)]
                 grid_z_interp2d = func_interp2d(grid_x, grid_y)
@@ -1536,8 +1537,9 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
                         plt.pcolor(grid_x, grid_y, z, shading='auto', vmin=0, vmax=2)
                     for ix, iy in itertools.product(range(grid_x.shape[0]), range(grid_x.shape[1])):
                         plt.text(grid_x[ix, iy], grid_y[ix, iy],
-                            '%.4f->%.4f' % (
-                                values[(grid_x[ix, iy], grid_y[ix, iy])][0], z[ix, iy]),
+                            ('%.4f->%.4f' % (
+                                values[(grid_x[ix, iy], grid_y[ix, iy])][0], z[ix, iy])
+                                if "ratio" not in name else '%.4f' % z[ix, iy]),
                             horizontalalignment='center',
                             verticalalignment='center',
                             fontsize=5
