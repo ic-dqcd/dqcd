@@ -422,6 +422,8 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
         matplotlib.use("Agg")
         from matplotlib import pyplot as plt
         plt.rcParams['text.usetex'] = True
+        # import mplhep as hep
+        # hep.style.use("CMS")
 
         ax = plt.subplot()
 
@@ -432,7 +434,8 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             results.keys(),
             [scale(elem["16.0"]) for elem in results.values()],
             [scale(elem["84.0"]) for elem in results.values()],
-            color="#607641"
+            color="#607641",
+            label="68\% expected"
         )
         plt.fill_between(
             results.keys(),
@@ -444,12 +447,21 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             results.keys(),
             [scale(elem["16.0"]) for elem in results.values()],
             [scale(elem["2.5"]) for elem in results.values()],
-            color="#F5BB54"
+            color="#F5BB54",
+            label="95\% expected"
         )
         plt.plot(
             results.keys(),
             [scale(elem["50.0"]) for elem in results.values()],
-            color="r", linestyle="dashed"
+            color="r", linestyle="dashed",
+            label="Median expected"
+        )
+        if "observed" in list(results.values())[0]:
+            plt.plot(
+            results.keys(),
+            [scale(elem["observed"]) for elem in results.values()],
+            "o-", color="k",
+            label="Observed"
         )
 
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
@@ -465,6 +477,8 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             self.config.year, self.config.lumi_fb),
             transform=ax.transAxes, ha="right")
 
+        # hep.cms.label("Private Work", data=True, lumi=self.config.lumi_fb, year=self.config.year)
+
         inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
             else f"$c\\tau={self.fixed_ctau}$ mm")
         inner_text_height = 0.95
@@ -474,6 +488,8 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             if add_obj == "pi":
                 inner_text += f"\n$m_\\pi={add_mass}$ GeV"
         plt.text(0.5, inner_text_height, inner_text, transform=ax.transAxes, ha="center")
+
+        leg = ax.legend()
 
         plt.yscale('log')
         if self.fixed_ctau == law.NO_FLOAT:
