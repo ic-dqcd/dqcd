@@ -84,7 +84,6 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
 
         # data_obs
         if bkg_process_name != "background":
-            fit_params["x_range"] = str(self.blind_range)[1:-1]
             del fit_params["blind_range"]
             params = ", ".join([f"{param}='{value}'"
                 for param, value in fit_params.items() if param != "fit_parameters"])
@@ -124,6 +123,34 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
                 return float(self.interpolation_model(self.mass_point, self.ctau)[0])
             except IndexError:  # interp
                 return float(self.interpolation_model(self.mass_point, self.ctau))
+
+    def get_signal_type(self, process):
+        tmp = process.split("_")
+        if tmp[0].startswith("scenario") or tmp[0].startswith("vector"):
+            return tmp[0]
+        raise Exception("CreateDatacardsGridDQCD.get_signal_type is not implemented for processes "
+            "other than scenario* or vector portal")
+
+    def get_norm_systematics(self):
+        from analysis_tools import Process
+        from plotting_tools import Label
+        # look for the signal
+        for model, fit_params in self.models.items():
+            is_signal = False
+            try:
+                is_signal = self.config.processes.get(fit_params["process_name"]).isSignal
+            except ValueError:
+                is_signal = True and "data" not in fit_params["process_name"]
+            if not is_signal:
+                continue
+            return self.config.get_norm_systematics(
+                {Process(fit_params["process_name"], Label(latex="Dummy label"),
+                    isSignal=True,
+                    parent_process=self.get_signal_type(fit_params["process_name"])): []},
+                self.region
+            )
+        # should never reach this point unless buggy, so let's raise an exception
+        raise Exception("No signal model has been found, so something went wrong elsewhere.")
 
     def get_norm_systematics_from_inspect(self, feature_name):
         # structure: systematics[syst_name][process_name] = syst_value

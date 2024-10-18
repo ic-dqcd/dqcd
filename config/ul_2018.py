@@ -6,6 +6,9 @@ from collections import OrderedDict
 
 from config.legacy_2018 import Config as legacy_config
 
+signal_xs = 43.9 * 0.01
+
+
 class Config(legacy_config):
 
     def add_regions(self, **kwargs):
@@ -209,7 +212,6 @@ class Config(legacy_config):
             "qcd_1000toInf": 1.078,
         }
 
-        signal_xs = 43.9 * 0.01
 
         datasets = [
             Dataset("qcd_1000toInf",
@@ -551,15 +553,15 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10_short"),
-                check_empty=False,
-                skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_10/nanotron/231124_165003/0000/nano_{i}.root"
-                    for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_10",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10_short"),
+                # check_empty=False,
+                # skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_10/nanotron/231124_165003/0000/nano_{i}.root"
+                    # for i in range(1, 21)],
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+            # ),
 
             Dataset("scenarioA_mpi_4_mA_1p33_ctau_0p1",
                 dataset = "/scenarioA_mpi_4_mA_1p33_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
@@ -581,15 +583,15 @@ class Config(legacy_config):
                 xs=signal_xs,
             ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_100",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_100_short"),
-                check_empty=False,
-                skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_100/nanotron/231124_165326/0000/nano_{i}.root"
-                    for i in range(1, 21)],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_100",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_100_short"),
+                # check_empty=False,
+                # skipFiles=[f"/store/user/jleonhol/samples/nanotron/scenarioA_mpi_4_mA_1p33_ctau_100/nanotron/231124_165326/0000/nano_{i}.root"
+                    # for i in range(1, 21)],
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+            # ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_0p1",
                 dataset = "/scenarioA_mpi_4_mA_0p40_ctau_0p1/jleonhol-nanotron-3b50327cf5b3a9483d26e0670720126c/USER",
@@ -808,32 +810,32 @@ class Config(legacy_config):
                 tags=["ext", "rew", "rewtest"],
             ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_8p0_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_8p0"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_8p0_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_8p0"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_5p0_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_5p0"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_5p0_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_5p0"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_2p0_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_2p0"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_2p0_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_2p0"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
             # Dataset("scenarioA_mpi_4_mA_1p33_ctau_3p33_rew_large_ext",
                 # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
@@ -943,32 +945,32 @@ class Config(legacy_config):
                 tags=["ext"]
             ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_20_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_20"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_20_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_20"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_50_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_50"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_50_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_50"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_1p33_ctau_80_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_80"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_80_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_1p33_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_80"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_1p0_ext",
                 dataset = "/scenarioA_mpi_4_mA_0p40_ctau_1p0/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
@@ -988,32 +990,32 @@ class Config(legacy_config):
                 tags=["ext"]
             ),
 
-            Dataset("scenarioA_mpi_4_mA_0p40_ctau_8p0_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_8p0"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_0p40_ctau_8p0_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_8p0"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_0p40_ctau_5p0_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_5p0"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_0p40_ctau_5p0_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_5p0"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_0p40_ctau_2p0_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_2p0"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_0p40_ctau_2p0_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_0p40_ctau_10/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_2p0"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
             Dataset("scenarioA_mpi_4_mA_0p40_ctau_100_ext",
                 dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
@@ -1024,32 +1026,32 @@ class Config(legacy_config):
                 tags=["ext"]
             ),
 
-            Dataset("scenarioA_mpi_4_mA_0p40_ctau_80_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_80"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_0p40_ctau_80_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_80"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_0p40_ctau_50_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_50"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_0p40_ctau_50_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_50"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
-            Dataset("scenarioA_mpi_4_mA_0p40_ctau_20_rew_ext",
-                dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
-                process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_20"),
-                check_empty=False,
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                xs=signal_xs,
-                tags=["ext", "rew"]
-            ),
+            # Dataset("scenarioA_mpi_4_mA_0p40_ctau_20_rew_ext",
+                # dataset = "/scenarioA_mpi_4_mA_0p40_ctau_100/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
+                # process=self.processes.get("scenarioA_mpi_4_mA_0p40_ctau_20"),
+                # check_empty=False,
+                # prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                # xs=signal_xs,
+                # tags=["ext", "rew"]
+            # ),
 
             Dataset("scenarioA_mpi_1_mA_0p33_ctau_0p1_ext",
                 dataset = "/scenarioA_mpi_1_mA_0p33_ctau_0p1/jleonhol-nanotron_ext-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
@@ -1959,20 +1961,57 @@ class Config(legacy_config):
         for name, dataset in signal_samples.items():
             datasets.append(self.create_signal_dataset(name + "_ext", dataset, signal_xs,
                 tags=["ext", "ul"]))
-            if name.endswith("10"):
-                input_ctau = "ctau_10"
-                ctaus = ["2p0", "5p0", "8p0"]
-            elif name.endswith("100"):
-                input_ctau = "ctau_100"
-                ctaus = ["20", "50", "80"]
-            else:
-                ctaus = []
-            for ctau in ctaus:
-                datasets.append(self.create_signal_dataset(
-                    name.replace(input_ctau, "ctau_%s_rew" % ctau) + "_ext",
-                    dataset, signal_xs, tags=["ext", "ul", "rew"]))
+            # if name.endswith("10"):
+                # input_ctau = "ctau_10"
+                # ctaus = ["2p0", "5p0", "8p0"]
+            # elif name.endswith("100"):
+                # input_ctau = "ctau_100"
+                # ctaus = ["20", "50", "80"]
+            # else:
+                # ctaus = []
+            # for ctau in ctaus:
+                # datasets.append(self.create_signal_dataset(
+                    # name.replace(input_ctau, "ctau_%s_rew" % ctau) + "_ext",
+                    # dataset, signal_xs, tags=["ext", "ul", "rew"]))
 
-        return ObjectCollection(datasets)
+        datasets = ObjectCollection(datasets)
+        
+        datasets = self.add_rew_datasets(datasets)
+
+        return datasets
+
+
+    def add_rew_datasets(self, datasets):
+        d = {
+            "A": {
+                "4": {
+                    "masses": ["0p40", "0p80", "1p33", "1p90"],
+                    "ctaus": {
+                        "1p0": ["0p12", "0p13", "0p15", "0p18", "0p2", "0p3", "0p5", "0p8"],
+                        "10": ["1p1", "1p3", "1p5", "1p8", "2p0", "3p0", "5p0", "8p0"],
+                        "100": ["11", "13", "15", "18", "20", "30", "50", "80"],
+                    }
+                }
+            }
+        }
+
+        for scenario in d:
+            for m1 in d[scenario]:
+                for m2 in d[scenario][m1]["masses"]:
+                    for ctau_orig, new_ctaus in d[scenario][m1]["ctaus"].items():
+                        orig_dataset = datasets.get(
+                            f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_orig}_ext")
+                        for ctau_rew in new_ctaus:
+                            datasets.add(Dataset(
+                                f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew_ext",
+                                dataset = orig_dataset.dataset,
+                                process=self.processes.get(f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}"),
+                                check_empty=False,
+                                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                                xs=signal_xs,
+                                tags=["ext", "rew"]
+                            ))
+        return datasets
 
     def add_weights(self):
         weights = DotDict()
@@ -2007,6 +2046,7 @@ class Config(legacy_config):
 
     # other methods
 
-#config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
-config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
+# config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+# config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
+config = Config("base", year=2018, ecm=13, lumi_pb=4184, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')
