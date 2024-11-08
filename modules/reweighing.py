@@ -137,10 +137,10 @@ class DQCDRecoReweighingRDFProducer():
                                 auto muon1_phi = muonSV_mu1phi[elem.first];
                                 auto muon2_eta = muonSV_mu2eta[elem.first];
                                 auto muon2_phi = muonSV_mu2phi[elem.first];
-                                
+
                                 // std::cout << muon1_eta << " " << muon1_phi << " ";
                                 // std::cout << muon2_eta << " " << muon2_phi << std::endl;
-                                
+
                                 int saved_mother_index = -1;
                                 std::vector<float> dR = {999., 999.,};
                                 std::vector<int> genmuon_indexes = {-1, -1,};
@@ -337,7 +337,7 @@ class DQCDGenEffRDFProducer():
                             continue;
                         if ((reco::deltaR(mu1eta, mu1phi,
                             MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]) < 0.1)
-                            || 
+                            ||
                             (reco::deltaR(mu2eta, mu2phi,
                             MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]) < 0.1)
                         ) {
@@ -355,7 +355,7 @@ class DQCDGenEffRDFProducer():
                     good_muonSV_vertex_z.push_back(muonSV_z[imuonSV]);
                     good_muonSV_triggered.push_back(is_triggersv);
                 }
-                
+
                 std::vector <int> is_muon_decay;
                 std::vector <int> is_sv_efficient;
                 std::vector <int> is_triggersv_efficient;
@@ -395,7 +395,7 @@ class DQCDGenEffRDFProducer():
                                 found_sv = true;
                                 if (good_muonSV_triggered[imuonSV])
                                     found_triggered_sv = true;
-                                
+
                                 if (imuonSV == ibestchi2)
                                     found_bestchi2_triggered_sv = true;
                                 break;
@@ -503,7 +503,8 @@ class DQCDGenVarRDFProducer():
                                     (GenPart_vertex_y[idau] - GenPart_vertex_y[i]) * py
                                 );
                                 auto ct = GenPart_mass[i] * 10 * lxyz / p;
-                                gen_ct.push_back(lxy_pt * GenPart_mass[i] / std::pow(GenPart_pt[i], 2));
+                                // gen_ct.push_back(lxy_pt * GenPart_mass[i] / std::pow(GenPart_pt[i], 2));
+                                gen_ct.push_back(ct);
                                 mumatched = true;
                                 if (do_reweighing) {
                                     auto weight = ((1. / output_ctau) * std::exp(-ct/output_ctau)) /
@@ -701,7 +702,7 @@ class DQCDMuonSVGenMatchedRDFProducer():
                         }
                         return are_muonSV_gen_matched;
                     }
-                    
+
                 """)
 
     def run(self, df):
@@ -750,10 +751,11 @@ class DQCDReweighingWithRecoRDFProducer():
                             auto muon1_phi = muonSV_mu1phi[i];
                             auto muon2_eta = muonSV_mu2eta[i];
                             auto muon2_phi = muonSV_mu2phi[i];
-                            
+
                             int saved_mother_index = -1;
-                            std::vector<float> dR = {999., 999.,};
-                            std::vector<int> genmuon_indexes = {-1, -1,};
+                            // std::vector<float> dR = {999., 999.,};
+                            std::vector<int> genmuon_indexes = {-1, -1};
+                            /*
                             for (size_t i = 0; i < GenPart_pdgId.size(); i++) {
                                 // std::cout << "Matching, iGenPart: " << i << std::endl;
                                 if (abs(GenPart_pdgId[i]) != 13) {
@@ -777,6 +779,39 @@ class DQCDReweighingWithRecoRDFProducer():
                                     genmuon_indexes[1] = i;
                                 }
                             }
+                            */
+
+                            for (size_t i = 0; i < GenPart_pdgId.size(); i++) {
+                                if (abs(GenPart_pdgId[i]) != displaced_pdgid) {
+                                    continue;
+                                }
+                                // Found an LLP, look for its muons
+                                for (size_t imuon = 0; imuon < GenPart_pdgId.size(); imuon++) {
+                                    if (abs(GenPart_pdgId[imuon]) != 13) {
+                                        continue;
+                                    }
+                                    if (abs(GenPart_genPartIdxMother[imuon]) != i) {
+                                        continue;
+                                    }
+                                    auto dR_mu1 = reco::deltaR(muon1_eta, muon1_phi,
+                                        GenPart_eta[imuon], GenPart_phi[imuon]);
+                                    auto dR_mu2 = reco::deltaR(muon2_eta, muon2_phi,
+                                        GenPart_eta[imuon], GenPart_phi[imuon]);
+
+                                    // std::cout << "LLP " << i << " " << imuon << " " << dR_mu1 << " " << dR_mu2 << std::endl;
+
+                                    if ((dR_mu1 < 0.1) && (genmuon_indexes[0] == -1)) {
+                                        genmuon_indexes[0] = imuon;
+                                    } else if ((dR_mu2 < 0.1) && (genmuon_indexes[1] == -1)) {
+                                        genmuon_indexes[1] = imuon;
+                                    }
+                                }
+                                // std::cout << "Intermediate indexes " << genmuon_indexes[0] << " " << genmuon_indexes[1] << std::endl;
+                                if (genmuon_indexes[0] != -1 && genmuon_indexes[1] != -1)
+                                    break;
+                                genmuon_indexes = {-1, -1};
+                            }
+
                             // std::cout << "Final indexes " << genmuon_indexes[0] << " " << genmuon_indexes[1] << std::endl;
                             if ((genmuon_indexes[0] != -1) &&
                                 (genmuon_indexes[1] != -1) &&
@@ -785,7 +820,7 @@ class DQCDReweighingWithRecoRDFProducer():
                                 auto mother_index = GenPart_genPartIdxMother[genmuon_indexes[0]];
                                 if (mother_index != GenPart_genPartIdxMother[genmuon_indexes[1]]) {
                                     // std::cout << "Wrong muonSV assignment" << std::endl;
-                                    weights.push_back(1.);
+                                    weights.push_back(0.);
                                     continue;
                                 }
                                 // both muons belong to the same muonSV and gen particle
@@ -794,10 +829,12 @@ class DQCDReweighingWithRecoRDFProducer():
                                 // find the corresponding LLP
                                 while (true) {
                                     if (mother_index == -1) {
-                                        weights.push_back(1.);
+                                        weights.push_back(0.);
                                         break;
                                     } else if (abs(GenPart_pdgId[mother_index]) == displaced_pdgid) {
-                                    
+                                        // std::cout << GenPart_vertex_x[genmuon_indexes[0]] << " " << GenPart_vertex_x[mother_index] << " ";
+                                        // std::cout << GenPart_vertex_y[genmuon_indexes[0]] << " " << GenPart_vertex_y[mother_index] << " ";
+                                        // std::cout << GenPart_vertex_z[genmuon_indexes[0]] << " " << GenPart_vertex_z[mother_index] << std::endl;
                                         auto lxyz = std::sqrt(
                                             std::pow(GenPart_vertex_x[genmuon_indexes[0]] - GenPart_vertex_x[mother_index], 2) +
                                             std::pow(GenPart_vertex_y[genmuon_indexes[0]] - GenPart_vertex_y[mother_index], 2) +
@@ -814,7 +851,7 @@ class DQCDReweighingWithRecoRDFProducer():
                                     }
                                 }
                             } else {
-                                weights.push_back(1.);
+                                weights.push_back(0.);
                             }
                         }
                         return weights;
@@ -833,7 +870,7 @@ class DQCDReweighingWithRecoRDFProducer():
                 """)
 
     def run(self, df):
-        # df = df.Filter("event == 970004")
+        # df = df.Filter("event == 970373")
         if not self.do_reweighing:
             df = df.Define("muonSV_ctau_rew", "get_dummy_reco_weights(muonSV_chi2)")
         else:
