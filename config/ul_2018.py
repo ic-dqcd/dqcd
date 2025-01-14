@@ -69,6 +69,7 @@ class Config(legacy_config):
             Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("medium_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.75"),
             Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
             Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
             # Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
 
@@ -104,6 +105,7 @@ class Config(legacy_config):
             Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.55"),
             Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9945"),
             Category("tight_bdt_vector_1", "BDT > 0.9", selection="{{bdt_vector}} > 0.9"),
+            Category("tight_bdt_vector_custom", "Custom BDT", selection="(({{bdt_vector}} > 0.998) && (muonSV_bestchi2_mass <= 5)) || (({{bdt_vector}} > 0.993) && (muonSV_bestchi2_mass > 5))"),
 
             # for the B->PhiX samples
             Category("loose_bdt_btophi", "Loose bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.65"),
@@ -1977,9 +1979,9 @@ class Config(legacy_config):
         datasets = ObjectCollection(datasets)
         
         datasets = self.add_rew_datasets(datasets)
+        datasets = self.add_rew_test_datasets(datasets)
 
         return datasets
-
 
     def add_rew_datasets(self, datasets):
         d = {
@@ -2013,6 +2015,44 @@ class Config(legacy_config):
                             ))
         return datasets
 
+    def add_rew_test_datasets(self, datasets):
+        ctaus = {
+            "1p0": ["0p1"],
+            "10": ["1p0"],
+            "100": ["10"],
+        }
+        d = {
+            "A": {
+                "4": {
+                    "masses": ["0p40", "0p80", "1p90"],
+                },
+                "10": {
+                    "masses": ["3p33"],
+                },
+                "2": {
+                    "masses": ["0p25"],
+                },
+            }
+        }
+
+        for scenario in d:
+            for m1 in d[scenario]:
+                for m2 in d[scenario][m1]["masses"]:
+                    for ctau_orig, new_ctaus in ctaus.items():
+                        orig_dataset = datasets.get(
+                            f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_orig}_ext")
+                        for ctau_rew in new_ctaus:
+                            datasets.add(Dataset(
+                                f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew_ext",
+                                dataset = orig_dataset.dataset,
+                                process=self.processes.get(f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew"),
+                                check_empty=False,
+                                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                                xs=signal_xs,
+                                tags=["ext", "rew", "rewtest"]
+                            ))
+        return datasets
+
     def add_weights(self):
         weights = DotDict()
         weights.default = "1"
@@ -2021,15 +2061,15 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
+        weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing", "prescaleWeight"]
         # weights.base = ["puWeight", "BDT_SF", "idWeight", "ctau_reweighing"]
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:
             weights[category.name] = weights.base
 
-        weights.nosel = ["puWeight"]
-        weights.trigsel = ["puWeight", ]#"ctau_reweighing"]
+        weights.nosel = ["puWeight", "ctau_reweighing"]
+        weights.trigsel = ["puWeight", "ctau_reweighing"]
         weights.base_puw = ["puWeight", "ctau_reweighing"]
         # weights.gen = ["puWeight", "idWeight", "trigSF", "ctau_reweighing"]  # others needed
         weights.gen0 = ["GenDark_rew_weight_0"]  # others needed
@@ -2046,7 +2086,7 @@ class Config(legacy_config):
 
     # other methods
 
-# config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
 # config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
-config = Config("base", year=2018, ecm=13, lumi_pb=4184, isUL=True)
+# config = Config("base", year=2018, ecm=13, lumi_pb=4184, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')

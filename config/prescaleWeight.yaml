@@ -1,0 +1,5 @@
+prescaleWeight:
+    name: DQCDPrescaleWeight_RDF
+    path: modules.prescaleWeight
+    parameters:
+        isMC: self.dataset.process.isMC
