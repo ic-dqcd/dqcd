@@ -48,7 +48,7 @@ idsf:
 
 
 trigsf:
-    name: DQCDTrigSF_RDF
+    name: DQCDTrigSF_alltriggers_RDF
     path: modules.DQCD_SF
     parameters:
         isMC: self.dataset.process.isMC
