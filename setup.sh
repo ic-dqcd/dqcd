@@ -264,7 +264,7 @@ action() {
 
         if [ "$compile" == "1" ]
         then
-            scram b
+            scram b -j8
         fi
 
         if [ "$add_sltools_path" == "1" ]
@@ -303,6 +303,7 @@ action() {
             cmt_pip_install flake8
             cmt_pip_install luigi==2.8.13
             cmt_pip_install tabulate
+            cmt_pip_install setuptools==70.0.0
             cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/analysis_tools.git
             cmt_pip_install git+https://gitlab.cern.ch/cms-phys-ciemat/plotting_tools.git
             cmt_pip_install --no-deps git+https://github.com/riga/law
@@ -314,6 +315,7 @@ action() {
             cmt_pip_install sphinx_design
             cmt_pip_install envyaml
             cmt_pip_install matplotlib==3.4.3
+            cmt_pip_install numpy==1.26.4
         fi
 
         # gfal python bindings
