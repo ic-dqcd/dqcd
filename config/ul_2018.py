@@ -66,15 +66,27 @@ class Config(legacy_config):
 
             Category("vvloose_bdt_scenarioA", "VVLoose bdt (A) region", selection="{{bdt_scenarioA}} > 0.55"),
             Category("vloose_bdt_scenarioA", "VLoose bdt (A) region", selection="{{bdt_scenarioA}} > 0.6"),
-            Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
+            #Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
+            Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.6"),
+            #Category("loose_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"),
             Category("medium_bdt_scenarioA", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.75"),
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
-            Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
-            # Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.15"),   #1E-1 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.2"),    #between 1E-1 and 1E-2 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.6"),    #1E-2 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"),    #between 1E-2 and 1E-3 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.92"),   #1E-3 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.945"),   #between 1E-3 and 1E-4 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),   #1E-4 threshold
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.985"),   #1E-5 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.987"),
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
 
-            Category("bdt_scenarioA_0_0p2", "bdt (A) < 0.2 region",
-                selection="{{bdt_scenarioA}} < 0.2"),
+            Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
+
+            Category("bdt_scenarioA_0_0p05", "bdt (A) < 0.05 region",
+                selection="{{bdt_scenarioA}} < 0.05"),
+            Category("bdt_scenarioA_0p05_0p2", "0.05 < bdt (A) < 0.2 region",
+                selection="{{bdt_scenarioA}} > 0.05 && {{bdt_scenarioA}} < 0.2"),
             Category("bdt_scenarioA_0p2_0p4", "0.2 < bdt (A) < 0.4 region",
                 selection="{{bdt_scenarioA}} > 0.2 && {{bdt_scenarioA}} < 0.4"),
             Category("bdt_scenarioA_0p4_0p6", "0.4 < bdt (A) < 0.6 region",
@@ -83,9 +95,54 @@ class Config(legacy_config):
                 selection="{{bdt_scenarioA}} > 0.6 && {{bdt_scenarioA}} < 0.8"),
             Category("bdt_scenarioA_0p8_1p0", "0.8 < bdt (A) < 1.0 region",
                 selection="{{bdt_scenarioA}} > 0.8 && {{bdt_scenarioA}} < 1.0"),
+            Category("bdt_scenarioA_0p8_0p9", "0.8 < bdt (A) < 0.9 region",
+                selection="{{bdt_scenarioA}} > 0.8 && {{bdt_scenarioA}} < 0.9"),
+            Category("bdt_scenarioA_0p9_0p95", "0.9 < bdt (A) < 0.95 region",
+                selection="{{bdt_scenarioA}} > 0.9 && {{bdt_scenarioA}} < 0.95"),
+            Category("bdt_scenarioA_0p95_1p0", "0.95 < bdt (A) < 1.0 region",
+                selection="{{bdt_scenarioA}} > 0.95 && {{bdt_scenarioA}} < 1.0"),
 
-            Category("loose_bdt_scenarioB1", "Loose bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.7"),
-            Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.97"),
+            Category("bdt_vector_0_0p05", "bdt (vector) < 0.05 region",
+                selection="{{bdt_vector}} < 0.05"),
+            Category("bdt_vector_0p05_0p2", "0.05 < bdt (vector) < 0.2 region",
+                selection="{{bdt_vector}} > 0.05 && {{bdt_vector}} < 0.2"),
+            Category("bdt_vector_0p2_0p4", "0.2 < bdt (vector) < 0.4 region",
+                selection="{{bdt_vector}} > 0.2 && {{bdt_vector}} < 0.4"),
+            Category("bdt_vector_0p4_0p6", "0.4 < bdt (vector) < 0.6 region",
+                selection="{{bdt_vector}} > 0.4 && {{bdt_vector}} < 0.6"),
+            Category("bdt_vector_0p6_0p8", "0.6 < bdt (vector) < 0.8 region",
+                selection="{{bdt_vector}} > 0.6 && {{bdt_vector}} < 0.8"),
+            Category("bdt_vector_0p8_1p0", "0.8 < bdt (vector) < 1.0 region",
+                selection="{{bdt_vector}} > 0.8 && {{bdt_vector}} < 1.0"),
+            Category("bdt_vector_0p8_0p9", "0.8 < bdt (vector) < 0.9 region",
+                selection="{{bdt_vector}} > 0.8 && {{bdt_vector}} < 0.9"),
+            Category("bdt_vector_0p9_0p95", "0.9 < bdt (vector) < 0.95 region",
+                selection="{{bdt_vector}} > 0.9 && {{bdt_vector}} < 0.95"),
+            Category("bdt_vector_0p95_1p0", "0.95 < bdt (vector) < 1.0 region",
+                selection="{{bdt_vector}} > 0.95 && {{bdt_vector}} < 1.0"),
+            Category("bdt_vector_1E-1_1E-2", "0.1 < bdt (vector) < 0.7 region",
+                selection="{{bdt_vector}} > 0.1 && {{bdt_vector}} < 0.7"),
+            Category("bdt_vector_1E-2_1E-3", "0.7 < bdt (vector) < 0.955 region",
+                selection="{{bdt_vector}} > 0.7 && {{bdt_vector}} < 0.955"),
+            Category("bdt_vector_1E-3_1E-4", "0.955 < bdt (vector) < 0.993 region",
+                selection="{{bdt_vector}} > 0.955 && {{bdt_vector}} < 0.993"),
+            Category("bdt_vector_1E-4_1E-5", "0.993 < bdt (vector) < 0.998 region",
+                selection="{{bdt_vector}} > 0.993 && {{bdt_vector}} < 0.998"),
+            
+            
+            
+
+            Category("loose_bdt_scenarioB1", "Loose bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.5"),
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.15"),   #1E-1 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.2"),   #between 1E-1 and 1E-2 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.5"),   #1E-2 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.65"),   #between 1E-2 and 1E-3 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.8"),   #1E-3 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.9"),   #between 1E-3 and 1E-4 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.97"),   #1E-4 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.98"),   #in between 1E-4 and 1E-5 threshold
+            Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.99"),   #1E-5 threshold
+            #Category("tight_bdt_scenarioB1", "Tight bdt (B1) region", selection="{{bdt_scenarioB1}} > 0.99"),
 
             Category("loose_bdt_scenarioB2", "Loose bdt (B2) region", selection="{{bdt_scenarioB2}} > 0.55"),
             Category("tight_bdt_scenarioB2", "Tight bdt (B2) region", selection="{{bdt_scenarioB2}} > 0.92"),
@@ -94,22 +151,60 @@ class Config(legacy_config):
             Category("tight_bdt_scenarioC", "Tight bdt (C) region", selection="{{bdt_scenarioC}} > 0.8"),
 
             # for the new H->ZdZd samples, using scenario A since the signature in similar
-            Category("loose_bdt_hzdzd", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
-            Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            #Category("loose_bdt_hzdzd", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
+            Category("loose_bdt_hzdzd", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"), #old BDT
+            #Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.93"),
+            Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.96"), #old BDT optimal
+            #Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
+            #Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.985"),
+            #Category("tight_bdt_hzdzd", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.994"),
+
+            #try using vector portal BDT for H->ZdZd
+            #Category("loose_bdt_hzdzd", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.6"),
+            #Category("tight_bdt_hzdzd", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.993"),
 
             # for the new Z' samples, using scenario A since the signature in similar
             Category("loose_bdt_zprime", "Loose bdt (A) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("tight_bdt_zprime", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),
 
             # for the vector portal samples, using dedicated BDT
-            Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.55"),
-            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9945"),
+            Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.7"),     #1E-2 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.1"),  #1E-1 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.15"),   #between 1E-1 and 1E-2 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.7"),   #1E-2 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.75"),   #between 1E-2 and 1E-3 threshold
+            #Category("tight_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.955"),    #1E-3 threshold
+            #Category("tight_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.97"),    #between 1E-3 and 1E-4 threshold
+            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.993"),  #1E-4 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.994"),  #7E-5 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.996"),   #between 1E-4 and 1E-5
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.997"),   #3E-5 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.998"),  #1E-5 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9993"),  #1E-6 threshold
+            #Category("loose_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.55"),
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9945"),
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9985"),
+
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9995"),
+            #Category("tight_bdt_vector_1E-3", "bdt (VP) 10^-3 WP", selection="{{bdt_vector}} > 0.955"),
+            #Category("tight_bdt_vector_1E-5", "bdt (VP) 10^-5 WP", selection="{{bdt_vector}} > 0.9985"),
+            #Category("tight_bdt_vector_1E-6", "bdt (VP) 10^-6 WP", selection="{{bdt_vector}} > 0.9995"),
+
             Category("tight_bdt_vector_1", "BDT > 0.9", selection="{{bdt_vector}} > 0.9"),
-            Category("tight_bdt_vector_custom", "Custom BDT", selection="(({{bdt_vector}} > 0.998) && (muonSV_bestchi2_mass <= 5)) || (({{bdt_vector}} > 0.993) && (muonSV_bestchi2_mass > 5))"),
+            Category("tight_bdt_vector_2", "BDT > 0.95", selection="{{bdt_vector}} > 0.95"),
+            Category("tight_bdt_vector_3", "BDT > 0.99", selection="{{bdt_vector}} > 0.99"),
 
             # for the B->PhiX samples
             Category("loose_bdt_btophi", "Loose bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("tight_bdt_btophi", "Tight bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.98"),
+            Category("bdt_preselections", "Basic selections",
+            selection="""
+            (HLT_Mu9_IP6_part0 || HLT_Mu9_IP6_part1 || HLT_Mu9_IP6_part2 || HLT_Mu9_IP6_part3 || HLT_Mu9_IP6_part4) &&
+            (nmuonSV > 0) &&
+            (Sum(muonSV_mu1pt > 5.0)  > 0 || Sum(muonSV_mu2pt > 5.0) > 0)
+            """),
+            Category("tight_bdt_vector_custom", "Custom BDT", selection="(({{bdt_vector}} > 0.998) && (muonSV_bestchi2_mass <= 5)) || (({{bdt_vector}} > 0.993) && (muonSV_bestchi2_mass > 5))"),
+
         ]
         return ObjectCollection(regions)
 
@@ -490,7 +585,19 @@ class Config(legacy_config):
                 ],
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 250,
+                    "singlev_cat1": 250,
+                    "singlev_cat2": 75,
+                    "singlev_cat3": 50,
+                    "singlev_cat4": 50,
+                    "singlev_cat5": 50,
+                    "singlev_cat6": 50,
+                    "multiv_cat1": 50,
+                    "multiv_cat2": 50,
+                    "multiv_cat3": 50,
+                    "multiv_cat4": 50,
+                    "multiv_cat5": 50,
+                    "multiv_cat6": 50,
                 },
                 tags=["ul"],
             ),
@@ -499,7 +606,10 @@ class Config(legacy_config):
                 dataset="/ParkingBPH1/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 25,
+                    "singlev_cat1": 45,
+                    "singlev_cat2": 15,
+                    "singlev_cat3": 9,
                 },
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -509,7 +619,10 @@ class Config(legacy_config):
                 dataset="/ParkingBPH2/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 25,
+                    "singlev_cat1": 45,
+                    "singlev_cat2": 15,
+                    "singlev_cat3": 9,
                 },
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -519,7 +632,10 @@ class Config(legacy_config):
                 dataset="/ParkingBPH3/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 25,
+                    "singlev_cat1": 45,
+                    "singlev_cat2": 15,
+                    "singlev_cat3": 9,
                 },
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -529,7 +645,10 @@ class Config(legacy_config):
                 dataset="/ParkingBPH4/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 25,
+                    "singlev_cat1": 45,
+                    "singlev_cat2": 15,
+                    "singlev_cat3": 9,
                 },
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -539,7 +658,11 @@ class Config(legacy_config):
                 dataset="/ParkingBPH5/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 25,
+                    "singlev_cat1": 125,
+                    "singlev_cat2": 25,
+                    "singlev_cat3": 25,
+                    "singlev_cat4": 5,
                 },
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -549,7 +672,7 @@ class Config(legacy_config):
                 dataset="/ParkingBPH6/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
                 merging={
-                    "base": 20,
+                    "base": 25,
                 },
                 tags=["ul"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
@@ -1659,6 +1782,16 @@ class Config(legacy_config):
                 xs=signal_xs
             ),
 
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_old",
+                folder="/vols/cms/mc3909/bparkProductionV3/HiddenValley_vector_m_2_ctau_10_xiO_1_xiL_1_privateMC_11X_NANOAODSIM_v3_generationForBParking",
+                skipFiles=["{}/output_{}.root".format(
+                    "/vols/cms/mc3909/bparkProductionV3/HiddenValley_vector_m_2_ctau_10_xiO_1_xiL_1_privateMC_11X_NANOAODSIM_v3_generationForBParking", i)
+                    for i in range(1, 51)],
+                process=self.processes.get("vector_m_2_ctau_10_xiO_1_xiL_1_old"),
+                xs=signal_xs,
+                skipped_files_must_be_in_dataset=False,
+            ),
+            
             Dataset("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1",
                 dataset="/hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1/jleonhol-nanotron-571c6e4dc467acb2f3a7892cb8ebd34e/USER",
                 process=self.processes.get("vector_m_10_ctau_100_xiO_1_xiL_1"),
@@ -1934,6 +2067,281 @@ class Config(legacy_config):
                     for i in range(1, 21)],
             ),
 
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-10_ctau-100_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_10_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-10_ctau-100_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111130/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_10_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-10_ctau-10_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_10_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-10_ctau-10_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111152/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_1_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-10_ctau-1_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_10_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-10_ctau-1_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111213/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_500_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-10_ctau-500_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_10_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-10_ctau-500_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111236/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_10_ctau_50_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-10_ctau-50_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_10_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-10_ctau-50_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111258/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_100_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-15_ctau-100_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_15_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-15_ctau-100_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111319/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_10_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-15_ctau-10_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_15_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-15_ctau-10_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111342/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_1_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-15_ctau-1_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_15_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-15_ctau-1_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111404/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_500_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-15_ctau-500_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_15_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-15_ctau-500_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111425/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_15_ctau_50_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-15_ctau-50_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_15_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-15_ctau-50_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111448/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_100_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-20_ctau-100_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_20_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-20_ctau-100_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111509/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_10_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-20_ctau-10_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_20_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-20_ctau-10_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111530/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_1_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-20_ctau-1_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_20_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-20_ctau-1_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111554/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_500_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-20_ctau-500_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_20_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-20_ctau-500_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111616/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_20_ctau_50_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-20_ctau-50_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_20_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-20_ctau-50_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111640/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_100_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-2_ctau-100_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_2_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-2_ctau-100_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111704/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_10_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-2_ctau-10_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_2_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-2_ctau-10_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111726/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_1_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-2_ctau-1_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_2_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-2_ctau-1_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111802/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_500_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-2_ctau-500_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_2_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-2_ctau-500_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111825/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_2_ctau_50_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-2_ctau-50_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_2_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-2_ctau-50_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111845/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_100_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-5_ctau-100_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_5_ctau_100_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-5_ctau-100_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111905/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_10_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-5_ctau-10_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_5_ctau_10_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-5_ctau-10_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111929/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_1_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-5_ctau-1_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_5_ctau_1_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-5_ctau-1_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_111951/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_500_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-5_ctau-500_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_5_ctau_500_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-5_ctau-500_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_112013/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
+            Dataset("hiddenValleyGridPack_vector_m_5_ctau_50_xiO_1_xiL_1_new",
+                dataset="/GluGluHToDarkShowers_VP_mA-5_ctau-50_TuneCP5_13TeV_pythia8/jleonhol-nanotron_ext_off-03c1abd2c21af5f26f47f89f556a9cfa/USER",
+                process=self.processes.get("vector_m_5_ctau_50_xiO_1_xiL_1"),
+                check_empty=False,
+                tags=["ul"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
+                xs=signal_xs,
+                skipFiles=[f"/store/user/jleonhol/samples/nanotron/GluGluHToDarkShowers_VP_mA-5_ctau-50_TuneCP5_13TeV_pythia8/nanotron_ext_off/250212_112036/0000/nano_{i}.root"
+                    for i in range(1, 7)],
+            ),
+
             Dataset("BuToJpsiK",
                 dataset = "/BuToJpsiK_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/jleonhol-BuToKJPsiMC-f7d89a2f103706ffd8ab9007e324774d/USER",
                 process=self.processes.get("BuToJpsiK"),
@@ -1979,7 +2387,7 @@ class Config(legacy_config):
         datasets = ObjectCollection(datasets)
         
         datasets = self.add_rew_datasets(datasets)
-        datasets = self.add_rew_test_datasets(datasets)
+        #datasets = self.add_rew_test_datasets(datasets)
 
         return datasets
 
@@ -2062,7 +2470,10 @@ class Config(legacy_config):
         # weights.total_events_weights = ["1"]
 
         weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing", "prescaleWeight"]
-        # weights.base = ["puWeight", "BDT_SF", "idWeight", "ctau_reweighing"]
+        #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
+        #weights.base = ["puWeight", "idWeight", "trigSF", "ctau_reweighing", "prescaleWeight"]
+        #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
+        #weights.base = ["puWeight", "idWeight", "BDT_SF"]
         # weights.base = ["1"]  # others needed
 
         for category in self.categories:
@@ -2082,11 +2493,15 @@ class Config(legacy_config):
         weights.gen7 = ["GenDark_rew_weight_7"]  # others needed
         weights.gen8 = ["GenDark_rew_weight_8"]  # others needed
 
+        weights.muonSV_simple_sel = ["puWeight"]
+
         return weights
 
     # other methods
 
-config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
-# config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
-# config = Config("base", year=2018, ecm=13, lumi_pb=4184, isUL=True)
+config = Config("base", year=2018, ecm=13, lumi_pb=41600, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=13000, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=4184, isUL=True)
+#config = Config("base", year=2018, ecm=13, lumi_pb=1000, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True, xrd_redir='gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms')
