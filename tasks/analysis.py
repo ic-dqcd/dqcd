@@ -9,7 +9,7 @@ from collections import OrderedDict
 from analysis_tools.utils import create_file_dir, import_root
 
 from cmt.base_tasks.base import DatasetWrapperTask, HTCondorWorkflow, SGEWorkflow, SlurmWorkflow
-from cmt.base_tasks.plotting import FeaturePlot
+from cmt.base_tasks.plotting import FeaturePlot, BasePlotTask
 from cmt.base_tasks.analysis import (
     FitBase, CombineBase, CombineCategoriesTask, Fit, InspectFitSyst, CreateDatacards,
     CombineDatacards, CreateWorkspace, RunCombine, PullsAndImpacts, MergePullsAndImpacts,
@@ -130,6 +130,11 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
         self.blind_range = (self.mass_point - 2 * self.sigma, self.mass_point + 2 * self.sigma)
         # if self.process_group_name != "default":
+        self.custom_signal_fit_parameters = {
+            "mean": self.mass_point,
+            "sigma": 0.0075 * self.mass_point,
+            "gamma": 0.005 * self.mass_point
+        }
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
 
@@ -332,6 +337,12 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         return super(CreateDatacardsDQCD, self).get_shape_line(
             process_in_datacard, bin_name, process_name, feature)
 
+    def get_shape_systematics_from_inspect(self, feature_name):
+        systematics = {}
+        for name in self.non_data_names:
+            systematics[name] = {"sigma": {"modelling": 0.001 * self.mass_point}}
+        return systematics
+
     def run(self):
         # assert "tight" in self.region_name
         # self.get_additional_scaling()
@@ -441,12 +452,7 @@ class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
         return CreateWorkspaceDQCD.vreq(self)
 
 
-class ProcessGroupNameWrapper(FitConfigBaseTask):
-    process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
-        "empty means all scenarios, default: empty")
-    use_data = luigi.BoolParameter(default=True, description="whether to extract the background from "
-        "the data sidebands, default: True")
-
+class SignalMassTask():
     def get_mass_point(self, process_group_name, signal_tag=None):
         if signal_tag:
             signal_tag = signal_tag
@@ -476,6 +482,13 @@ class ProcessGroupNameWrapper(FitConfigBaseTask):
         except ValueError:  # vector portal has _xiO_1_xiL_1 after ctau, need to remove it
             ctau = float(ctau.split("_")[0])
         return ctau
+
+
+class ProcessGroupNameWrapper(SignalMassTask, FitConfigBaseTask):
+    process_group_names = law.CSVParameter(default=(), description="process_group_names to be used, "
+        "empty means all scenarios, default: empty")
+    use_data = luigi.BoolParameter(default=True, description="whether to extract the background from "
+        "the data sidebands, default: True")
 
     def __init__(self, *args, **kwargs):
         super(ProcessGroupNameWrapper, self).__init__(*args, **kwargs)
@@ -1269,7 +1282,7 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
     ]
     feature_names = ("muonSV_bestchi2_mass",)
     # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
-    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
+    features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyz_lowdxy_cut({m})",)
 
     def __init__(self, *args, **kwargs):
         super(InterpolationTestDQCD, self).__init__(*args, **kwargs)
@@ -1841,7 +1854,6 @@ class SummariseSystResultsDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
 #--MergeCategorizationStats-version prod_1201_bdt0p45
 #--MergeCategorization-version prod_1302_nojet_nosel --PrePlot-workflow htcondor
 #--PrePlot-preplot-modules-file chi2_nobdt --PrePlot-transfer-logs --PrePlot-allow-redefinition
-from cmt.base_tasks.plotting import BasePlotTask
 class BDTRatioTest(BasePlotTask):
     category_names=["base",
         "singlev_cat1", "singlev_cat2", "singlev_cat3",
@@ -1924,3 +1936,94 @@ class BDTRatioTest(BasePlotTask):
             plt.savefig(create_file_dir(self.output()[self.region_names[iregion]].path),
                 bbox_inches='tight')
             plt.close()
+
+
+class InterpIntegralTest(SignalMassTask, FeaturePlot):
+    category_name = "base"
+    category_names = ["base",
+        # "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        # "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        # "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        # "multiv_cat4", "multiv_cat5", "multiv_cat6",
+    ]
+    feature_names = ("muonSV_bestchi2_mass",)
+    # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
+    features_to_compute = lambda self, m: (f"self..config.get_feature_mass_dxyzcut({m})",)
+    # features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyz_lowdxy_cut({m})",)
+
+    def requires(self):
+        reqs = {}
+        for cat in self.category_names:
+            reqs[cat] = {}
+            for p in self.config.process_group_names[self.process_group_name]:
+                mass_point = self.get_mass_point(p)
+                sigma = mass_point * 0.01
+                fit_range = (mass_point - 5 * sigma, mass_point + 5 * sigma)
+                reqs[cat][p] = Fit.vreq(self, category_name=cat,
+                    process_group_name="sig_" + p,
+                    feature_names=self.features_to_compute(mass_point),
+                    hide_data=True, method="voigtian", process_name=p, x_range=fit_range,
+                    fit_parameters={"mean": (mass_point, mass_point - 0.1, mass_point + 0.1),
+                        "gamma": (0.005,)}
+                )
+        return reqs
+
+    def output(self):
+        return {
+            cat: self.local_target(f"ratio__{self.process_group_name}__{cat}.pdf")
+            for cat in self.category_names
+        }
+
+    def run(self):
+        import matplotlib
+        matplotlib.use("Agg")
+        from matplotlib import pyplot as plt
+
+        inp = self.input()
+        results = {}
+        for cat in self.category_names:
+            results = {"no_rew": {}, "rew": {}, "ratios": {}}
+            for p in self.config.process_group_names[self.process_group_name]:
+                mass_point = self.get_mass_point(p)
+                feature = eval(self.features_to_compute(mass_point)[0])
+                with open(inp[cat][p][feature.name]["json"].path) as f:
+                    d = json.load(f)
+                ctau = self.get_ctau(p)
+                if ctau not in results["no_rew"]:
+                    results["no_rew"][ctau] = {}
+                    results["rew"][ctau] = {}
+                    results["ratios"][ctau] = {}
+                if "rew" not in p:
+                    results["no_rew"][ctau][p] = (d[""]["integral"], d[""]["integral_error"])
+                else:
+                    results["rew"][ctau][p[:p.find("_rew")]] = (d[""]["integral"], d[""]["integral_error"])
+
+            separation = 2 * max([len(results["rew"][ctau]) for ctau in results["rew"]])
+
+            x_values = []
+            y_values = []
+            y_errors = []
+            labels = ["" for i in range(separation * (2 * len(results["rew"]) - 1) // 2)]
+            ictau = -1
+            for ctau in results["no_rew"]:
+                ip = -1
+                ictau += 1
+                for p in results["no_rew"][ctau]:
+                    ip += 1
+                    value = results["no_rew"][ctau][p][0] / results["rew"][ctau][p][0]
+                    error = value * math.sqrt(
+                            (results["no_rew"][ctau][p][1]/results["no_rew"][ctau][p][0])**2 +
+                        (results["rew"][ctau][p][1]/results["rew"][ctau][p][0])**2)
+
+                    labels[ip + ictau * separation] = self.config.processes.get(p).label.latex
+                    x_values.append(ip + ictau * separation)
+                    y_values.append(value)
+                    y_errors.append(error)
+            ax = plt.subplot()
+            plt.ylabel("(No rew / rew) yield ratio")
+            ax.errorbar(x_values, y_values, y_errors, fmt='.')
+            ax.set_xticks(list(range(len(labels))))
+            ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
+            plt.savefig(create_file_dir(self.output()[cat].path), bbox_inches='tight')
+
+            
