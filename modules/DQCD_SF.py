@@ -444,69 +444,6 @@ class DQCDFilterEfficiencyRDFProducer():
             "scenarioA_mpi_1_mA_0p25_ctau_10": 0.779906,
             "scenarioA_mpi_1_mA_0p25_ctau_100": 0.779666,
 
-            # grid in ctau
-            # vector portal
-            "vector_m_10_ctau_0p1_xiO_1_xiL_1": 0.52535,
-            "vector_m_10_ctau_0p3_xiO_1_xiL_1": 0.52557,
-            "vector_m_10_ctau_6_xiO_1_xiL_1": 0.52491,
-            "vector_m_10_ctau_75_xiO_1_xiL_1": 0.52603,
-            "vector_m_15_ctau_0p1_xiO_1_xiL_1": 0.47283,
-            "vector_m_15_ctau_0p3_xiO_1_xiL_1": 0.47208,
-            "vector_m_15_ctau_0p65_xiO_1_xiL_1": 0.47134,
-            "vector_m_15_ctau_200_xiO_1_xiL_1": 0.47076,
-            "vector_m_15_ctau_20_xiO_1_xiL_1": 0.47309,
-            "vector_m_15_ctau_2_xiO_1_xiL_1": 0.47311,
-            "vector_m_15_ctau_350_xiO_1_xiL_1": 0.4686,
-            "vector_m_15_ctau_35_xiO_1_xiL_1": 0.47014,
-            "vector_m_10_ctau_0p65_xiO_1_xiL_1": 0.52645,
-            "vector_m_15_ctau_4_xiO_1_xiL_1": 0.46891,
-            "vector_m_15_ctau_60_xiO_1_xiL_1": 0.46992,
-            "vector_m_15_ctau_6_xiO_1_xiL_1": 0.47274,
-            "vector_m_15_ctau_75_xiO_1_xiL_1": 0.47187,
-            "vector_m_20_ctau_0p1_xiO_1_xiL_1": 0.42632,
-            "vector_m_20_ctau_0p3_xiO_1_xiL_1": 0.42459,
-            "vector_m_20_ctau_0p65_xiO_1_xiL_1": 0.42751,
-            "vector_m_20_ctau_200_xiO_1_xiL_1": 0.42532,
-            "vector_m_20_ctau_20_xiO_1_xiL_1": 0.42802,
-            "vector_m_20_ctau_2_xiO_1_xiL_1": 0.42874,
-            "vector_m_10_ctau_200_xiO_1_xiL_1": 0.52818,
-            "vector_m_20_ctau_350_xiO_1_xiL_1": 0.42959,
-            "vector_m_20_ctau_35_xiO_1_xiL_1": 0.42888,
-            "vector_m_20_ctau_4_xiO_1_xiL_1": 0.42981,
-            "vector_m_20_ctau_60_xiO_1_xiL_1": 0.427,
-            "vector_m_20_ctau_6_xiO_1_xiL_1": 0.42912,
-            "vector_m_20_ctau_75_xiO_1_xiL_1": 0.42513,
-            "vector_m_2_ctau_0p1_xiO_1_xiL_1": 0.78131,
-            "vector_m_2_ctau_0p3_xiO_1_xiL_1": 0.78148,
-            "vector_m_2_ctau_0p65_xiO_1_xiL_1": 0.77889,
-            "vector_m_2_ctau_200_xiO_1_xiL_1": 0.780616,
-            "vector_m_10_ctau_20_xiO_1_xiL_1": 0.52219,
-            "vector_m_2_ctau_20_xiO_1_xiL_1": 0.78213,
-            "vector_m_2_ctau_2_xiO_1_xiL_1": 0.78181,
-            "vector_m_2_ctau_350_xiO_1_xiL_1": 0.78054,
-            "vector_m_2_ctau_35_xiO_1_xiL_1": 0.78132,
-            "vector_m_2_ctau_4_xiO_1_xiL_1": 0.77872,
-            "vector_m_2_ctau_60_xiO_1_xiL_1": 0.78462,
-            "vector_m_2_ctau_6_xiO_1_xiL_1": 0.78039,
-            "vector_m_2_ctau_75_xiO_1_xiL_1": 0.78055,
-            "vector_m_5_ctau_0p1_xiO_1_xiL_1": 0.64237,
-            "vector_m_5_ctau_0p3_xiO_1_xiL_1": 0.64505,
-            "vector_m_10_ctau_2_xiO_1_xiL_1": 0.52757,
-            "vector_m_5_ctau_0p65_xiO_1_xiL_1": 0.64537,
-            "vector_m_5_ctau_200_xiO_1_xiL_1": 0.6453,
-            "vector_m_5_ctau_20_xiO_1_xiL_1": 0.64688,
-            "vector_m_5_ctau_2_xiO_1_xiL_1": 0.64396,
-            "vector_m_5_ctau_350_xiO_1_xiL_1": 0.64539,
-            "vector_m_5_ctau_35_xiO_1_xiL_1": 0.64529,
-            "vector_m_5_ctau_4_xiO_1_xiL_1": 0.64329,
-            "vector_m_5_ctau_60_xiO_1_xiL_1": 0.64534,
-            "vector_m_5_ctau_6_xiO_1_xiL_1": 0.64331,
-            "vector_m_5_ctau_75_xiO_1_xiL_1": 0.64391,
-            "vector_m_10_ctau_350_xiO_1_xiL_1": 0.52376,
-            "vector_m_10_ctau_35_xiO_1_xiL_1": 0.52396,
-            "vector_m_10_ctau_4_xiO_1_xiL_1": 0.52732,
-            "vector_m_10_ctau_60_xiO_1_xiL_1": 0.52586,
-
             # scenarioB1
             # "scenarioB1_mpi_1_mA_0p33_ctau_0p1": 0.83669,
             "scenarioB1_mpi_1_mA_0p33_ctau_0p25": 0.83442,
@@ -681,6 +618,11 @@ class DQCDFilterEfficiencyRDFProducer():
             "scenarioA_mpi_1_mA_0p33_ctau_3p0": 0.838677,
             "scenarioA_mpi_1_mA_0p33_ctau_60p0": 0.836974,
         }
+
+        # vector portal grid in ctau and mass
+        from vp_filter_effs import d as effs_vp
+        efficiencies.update(effs_vp)
+
         eff = efficiencies.get(self.process_name, 1.)
         df = df.Define("filter_efficiency", "1./%s" % eff)
         return df, ["filter_efficiency"]
