@@ -3316,6 +3316,7 @@ class Config(legacy_config):
         from config.datasets_vp_grid import d
         for key, dataset in d.items():
             # naming bug
+            key = key.replace("m_11_", "m_11p5_")
             key = key.replace("ctau_6_", "ctau_6p5_")
             
             datasets.add(

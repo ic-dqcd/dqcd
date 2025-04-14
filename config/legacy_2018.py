@@ -854,6 +854,7 @@ class Config(cmt_config):
         for key in d:
             # naming bug
             key = key.replace("ctau_6_", "ctau_6p5_")
+            key = key.replace("m_11_", "m_11p5_")
             m = key.split("m_")[1].split("_")[0].replace("p", ".")
             ctau = key.split("ctau_")[1].split("_")[0]
 
