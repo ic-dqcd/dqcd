@@ -1501,8 +1501,8 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
                                 fontsize=5
                             )
                         plt.colorbar()
-                        ax.set_ybound(0.05, 120)
-                        ax.set_ylim(0.05, 120)
+                        ax.set_ybound(0.05, 100 * max(ctaus))
+                        ax.set_ylim(0.05, 100 * max(ctaus))
                         # ax.set_zbound(0, 100)
                         # ax.set_zlim(0, 100)
                         plt.yscale('log')
@@ -1558,14 +1558,15 @@ class InterpolationTestDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
                             fontsize=5
                         )
                     plt.colorbar()
-                    ax.set_ybound(0.05, 120)
-                    ax.set_ylim(0.05, 120)
+                    ax.set_ybound(0.05, 100 * max(ctaus))
+                    ax.set_ylim(0.05, 100 * max(ctaus))
                     # ax.set_zbound(0, 100)
                     # ax.set_zlim(0, 100)
                     plt.yscale('log')
                     plt.savefig(create_file_dir(self.output()[feature.name][cat][name].path),
                         bbox_inches='tight')
                     plt.close()
+                del values
 
 
 class InterpolationGPDQCD(InterpolationTestDQCD):
@@ -1592,9 +1593,10 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
         return {
             feature.name: {
                 cat: {
-                    "values": self.local_target(f"values_{feature.name}_{cat}.pdf"),
+                    #"values": self.local_target(f"values_{feature.name}_{cat}.pdf"),
                     "interp": self.local_target(f"interp_{feature.name}_{cat}.pdf"),
                     "interp1d": self.local_target(f"interp1d_{feature.name}_{cat}.pdf"),
+                    "interp_model": self.local_target(f"interp_{feature.name}_{cat}_model.pkl"),
                     "m": {
                         m: self.local_target(f"interp_per_mass/{feature.name}_{cat}_{m}.pdf")
                         for m in mass_points
@@ -1609,20 +1611,24 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
 
     def run(self):
         from sklearn.gaussian_process import GaussianProcessRegressor
-        from sklearn.gaussian_process.kernels import RBF, RationalQuadratic, DotProduct, Exponentiation, Matern
+        from sklearn.gaussian_process.kernels import (
+            RBF, WhiteKernel, ConstantKernel as C
+            # RationalQuadratic, DotProduct, Exponentiation, Matern
+        )
         import numpy as np
         import matplotlib
         matplotlib.use("Agg")
         from matplotlib import pyplot as plt
+        import pickle
 
-        kernel = 1 * RBF(length_scale=1.0, length_scale_bounds=(1e-2, 1e2))
+        kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=1.0, length_scale_bounds=(0.01, 1)) \
+            + WhiteKernel(noise_level=1.0)
         # kernel = 1 * RBF(length_scale=1.0)
         # kernel = 1 * RBF(length_scale=1.4)
         # kernel = 1 * Matern()
         # kernel = 1 * RationalQuadratic(length_scale=100)
         # kernel = Exponentiation(DotProduct(), exponent=4)
         # gaussian_process = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9)
-        gaussian_process = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=100)
 
         for feature in self.features:
             for cat in self.category_names:
@@ -1632,11 +1638,24 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
 
                 grid_x, grid_y = np.meshgrid(sorted(mass_points), sorted(ctaus))
 
-                X = np.array(list(values.keys()))
+                X = np.array([(np.log10(m), np.log10(ctau)) for (m, ctau) in values.keys()])             
                 Y = np.array(list([e[0] for e in values.values()]))
+                Y_err = np.array(list([e[1] for e in values.values()]))
+
+                gaussian_process = GaussianProcessRegressor(
+                    kernel=kernel,
+                    n_restarts_optimizer=100,
+                    normalize_y=True,
+                    #alpha=Y_err ** 2
+                )
 
                 # train with the whole sample
                 gaussian_process.fit(X, Y)
+                with open(create_file_dir(
+                        self.output()[feature.name][cat]["interp_model"].path), 'wb') as f:
+                    pickle.dump(gaussian_process, f)
+
+                print("KERNEL =", gaussian_process.kernel_)
                 ctau_range = (min(ctaus), max(ctaus))
                 m_range = (min(mass_points), max(mass_points))
                 n_points = 100
@@ -1644,17 +1663,23 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
                     ax = plt.subplot()
                     X_to_plot = np.array([e[1] for e in values.keys() if e[0] == m])
                     Y_to_plot = np.array([v[0] for e, v in values.items() if e[0] == m])
-                    plt.scatter(X_to_plot, Y_to_plot, label="Observations")
+                    Yerr_to_plot = np.array([v[1] for e, v in values.items() if e[0] == m])
+                    
+                    plt.errorbar(X_to_plot, Y_to_plot, yerr=Yerr_to_plot, label="Observations",
+                        fmt='none')
                     x_m = np.geomspace(start=ctau_range[0], stop=ctau_range[1], num=n_points)
-                    X_m = np.array(list(itertools.product([m], x_m)))
+                    X_m_to_plot = np.array(list(itertools.product([m], x_m)))
+                    X_m = np.array(list(itertools.product([np.log10(m)], np.log10(x_m))))
                     mean_prediction, std_prediction = gaussian_process.predict(X_m, return_std=True)
-                    plt.plot(X_m[:, 1], mean_prediction, label="Mean prediction")
+                    
+                    plt.plot(X_m_to_plot[:, 1], mean_prediction, label="Mean prediction", color="black")
                     plt.fill_between(
                         x_m,
                         mean_prediction - 1.96 * std_prediction,
                         mean_prediction + 1.96 * std_prediction,
                         alpha=0.5,
                         label=r"95% confidence interval",
+                        color="orange"
                     )
                     plt.legend(title=f"Mass = {m} GeV")
                     plt.xscale('log')
@@ -1662,8 +1687,35 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
                         bbox_inches='tight')
                     plt.close()
 
+                for ctau in ctaus:
+                    ax = plt.subplot()
+                    X_to_plot = np.array([e[0] for e in values.keys() if e[1] == ctau])
+                    Y_to_plot = np.array([v[0] for e, v in values.items() if e[1] == ctau])
+                    Yerr_to_plot = np.array([v[1] for e, v in values.items() if e[1] == ctau])
+
+                    plt.errorbar(X_to_plot, Y_to_plot, yerr=Yerr_to_plot, label="Observations",
+                        fmt='none')
+                    x_m = np.linspace(start=m_range[0], stop=m_range[1], num=n_points)
+                    X_m_to_plot = np.array(list(itertools.product(x_m, [ctau])))
+                    X_m = np.array(list(itertools.product(np.log10(x_m), [np.log10(ctau)])))
+                    mean_prediction, std_prediction = gaussian_process.predict(X_m, return_std=True)
+                    plt.plot(X_m_to_plot[:, 0], mean_prediction, label="Mean prediction", color="black")
+                    plt.fill_between(
+                        x_m,
+                        mean_prediction - 1.96 * std_prediction,
+                        mean_prediction + 1.96 * std_prediction,
+                        alpha=0.5,
+                        label=r"95% confidence interval",
+                        color="orange"
+                    )
+                    plt.legend(title=f"ctau = {ctau} mm")
+                    #plt.xscale('log')
+                    plt.savefig(create_file_dir(self.output()[feature.name][cat]["ctau"][ctau].path),
+                        bbox_inches='tight')
+                    plt.close()
+
                 output = {}
-                for i, (m_skip, ctau_skip) in enumerate(X):
+                for i, (m_skip, ctau_skip) in enumerate(values.keys()):
                     # avoid skipping the corners of the grid
                     if m_skip in [min(mass_points), max(mass_points)] and \
                             ctau_skip in [min(ctaus), max(ctaus)]:
@@ -1671,17 +1723,28 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
                         continue
                     # print(X)
 
-                    X_train = np.array([e for e in values.keys() if e != (m_skip, ctau_skip)])
-                    Y_train = np.array([v[0] for e, v in values.items() if e != (m_skip, ctau_skip)])
+                    X_train = np.array([(np.log10(e[0]), np.log10(e[1])) for e in values.keys()
+                        if e != (m_skip, ctau_skip)])
+                    Y_train = np.array([v[0] for e, v in values.items()
+                        if e != (m_skip, ctau_skip)])
 
                     # X_train = np.ma.array(X, mask=False)
                     # X_train.mask[i]
                     # Y_train = np.ma.array(Y, mask=False)
                     # Y_train.mask[i]
 
+                    gaussian_process = GaussianProcessRegressor(
+                        kernel=kernel,
+                        n_restarts_optimizer=100,
+                        normalize_y=True,
+                        # alpha=Y_err ** 2
+                    )
+
                     gaussian_process.fit(X_train, Y_train)
-                    output[(m_skip, ctau_skip)] = gaussian_process.predict(np.array([X[i]]),
+                    output[(m_skip, ctau_skip)] = gaussian_process.predict(
+                        np.array([np.log10([m_skip, ctau_skip])]),
                         return_std=True)
+                    
                     res = gaussian_process.predict(X, return_std=True)
 
                 @np.vectorize
@@ -1703,8 +1766,8 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
                         fontsize=5
                     )
                 plt.colorbar()
-                ax.set_ybound(0.05, 120)
-                ax.set_ylim(0.05, 120)
+                ax.set_ybound(0.05, 100 * max(ctaus))
+                ax.set_ylim(0.05, 100 * max(ctaus))
                 # ax.set_zbound(0, 100)
                 # ax.set_zlim(0, 100)
                 plt.yscale('log')
@@ -1714,16 +1777,15 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
 
                 ax = plt.subplot()
 
-                keys = [(m, ctau) for (m, ctau) in itertools.product(mass_points, ctaus)]
-                for i, (m, ctau) in enumerate(keys):
+                for i, (m, ctau) in enumerate(values.keys()):
                     plt.fill_between((i - 0.25, i + 0.25),
                         output[(m, ctau)][0] + 1.96 * output[(m, ctau)][1],
                         output[(m, ctau)][0] - 1.96 * output[(m, ctau)][1],
                         color="g",
                     )
                     plt.errorbar(i, values[(m, ctau)][0], yerr=values[(m, ctau)][1], color="k", marker="o")
-                ax.set_xticks(list(range(len(keys))))
-                ax.set_xticklabels(keys, rotation=60, rotation_mode="anchor", ha="right")
+                ax.set_xticks(list(range(len(values.keys()))))
+                ax.set_xticklabels(values.keys(), rotation=60, rotation_mode="anchor", ha="right")
                 plt.savefig(create_file_dir(self.output()[feature.name][cat]["interp1d"].path),
                     bbox_inches='tight')
                 plt.close('all')
@@ -1745,7 +1807,7 @@ class SummariseSystResultsDQCD(ProcessGroupNameWrapper, CombineCategoriesTask):
         # "multiv_cat4", "multiv_cat5", "multiv_cat6",
     # ]
     default_categories = [
-        "singlev_cat3", "multiv_cat3"
+        "singlev_cat3", "multiv_cat3", "multiv_cat1"
     ]
     params = ["sigma", "mean", "integral"]
 
