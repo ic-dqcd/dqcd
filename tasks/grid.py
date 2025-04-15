@@ -14,8 +14,9 @@ from cmt.base_tasks.analysis import (
     Fit, InspectFitSyst, CombineCategoriesTask, CreateWorkspace, RunCombine
 )
 from tasks.analysis import (
-    DQCDBaseTask, CreateDatacardsDQCD, CombineDatacardsDQCD, InterpolationTestDQCD,
-    ProcessGroupNameWrapper, FitConfigBaseTask, BaseScanTask, FitDQCD
+    DQCDBaseTask, CreateDatacardsDQCD, CombineDatacardsDQCD,
+    ProcessGroupNameWrapper, FitConfigBaseTask, BaseScanTask, FitDQCD,
+    InterpolationTestDQCD, InterpolationGPDQCD,
 )
 from tasks.plotting import PlotCombineDQCD
 from collections import OrderedDict
@@ -29,6 +30,10 @@ class BaseDQCDGridTask(DQCDBaseTask, ProcessGroupNameWrapper):
 
 
 class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
+
+    interpolation_method = luigi.ChoiceParameter(default="gpr", choices=("gpr", "linear"),
+        significant=False, description="interpolation method to be used, default: GPR")
+
     refit_signal_with_syst = False
     feature_name_general = "muonSV_bestchi2_mass"
 
@@ -95,9 +100,14 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
             "process_group_name='data', _exclude=['include_fit', 'save_pdf', 'save_png'])")
 
         interp_version = "_".join(self.version.split("_")[:-1])
-        reqs["signal"] = InterpolationTestDQCD.vreq(self, version=interp_version,
-            category_names=(self.category_name,),
-            process_group_names=self.process_group_names)
+        if self.interpolation_method == "linear":
+            reqs["signal"] = InterpolationTestDQCD.vreq(self, version=interp_version,
+                category_names=(self.category_name,),
+                process_group_names=self.process_group_names)
+        else:
+            reqs["signal"] = InterpolationGPDQCD.vreq(self, version=interp_version,
+                category_names=(self.category_name,),
+                process_group_names=self.process_group_names)
 
         return reqs
 
@@ -107,6 +117,12 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         except:
             return True
 
+    def get_interpolation_model(self):
+        import pickle
+        # with open(self.input()["signal"][feature.name][self.category_name]["interp2d_model"].path, "rb") as f:
+        with open(self.input()["signal"][self.feature_name_general][self.category_name]["interp_model"].path, "rb") as f:
+            self.interpolation_model = pickle.load(f)
+
     def get_rate_from_process_in_fit(self, feature, p_name):
         try:
             if not self.config.processes.get(p_name).isSignal:
@@ -115,14 +131,16 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
                 raise ValueError
         except ValueError:
             if self.interpolation_model == None:
-                import pickle
-                # with open(self.input()["signal"][feature.name][self.category_name]["interp2d_model"].path, "rb") as f:
-                with open(self.input()["signal"][self.feature_name_general][self.category_name]["interp_model"].path, "rb") as f:
-                    self.interpolation_model = pickle.load(f)
-            try:  # interp2d
-                return float(self.interpolation_model(self.mass_point, self.ctau)[0])
-            except IndexError:  # interp
-                return float(self.interpolation_model(self.mass_point, self.ctau))
+                self.get_interpolation_model()
+            if self.interpolation_method == "linear":
+                try:  # interp2d
+                    return float(self.interpolation_model(self.mass_point, self.ctau)[0])
+                except IndexError:  # interp
+                    return float(self.interpolation_model(self.mass_point, self.ctau))
+            else:
+                return round(100 * float(self.interpolation_model.predict(
+                    [[np.log10(self.mass_point), np.log10(self.ctau)]], return_std=True)[0]
+                )) / 100.
 
     def get_signal_type(self, process):
         tmp = process.split("_")
@@ -185,6 +203,13 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
                 systematics["pu"] = {name: "1.04"}
                 systematics["id"] = {name: "1.07"}
                 systematics["trig"] = {name: "1.04"}
+                if self.interpolation_method == "gpr":
+                    if self.interpolation_model == None:
+                        self.get_interpolation_model()
+                    mean, std_deviation = self.interpolation_model.predict(
+                        [[np.log10(self.mass_point), np.log10(self.ctau)]], return_std=True)
+                    unc = round(100. * (1 + 0.995 * std_deviation[0] / mean[0])) / 100.
+                    systematics["norm_" + name] = {name: f"{unc}"}
         return systematics
 
     def get_shape_systematics_from_inspect(self, feature_name):
@@ -241,7 +266,11 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
             return super(CreateDatacardsGridDQCD, self).update_parameters_for_fitting_signal(
                 feature, fit_params, fit_parameters, workspace_is_available
             )
-        fit_parameters.update({"sigma": (0.01 * self.mass_point,), "gamma": (0.005,)})
+        fit_parameters.update({
+            "mean": self.mass_point,
+            "sigma": 0.0075 * self.mass_point,
+            "gamma": 0.005 * self.mass_point
+        })
         return fit_parameters
 
 
@@ -306,10 +335,11 @@ class ScanCombineGridDQCD(BaseScanTask, PlotGridBaseDQCD):
     feature_names = ("muonSV_bestchi2_mass",)
     features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
     category_names = (
-        "singlev_cat1", "singlev_cat2", "singlev_cat3",
-        "singlev_cat4", "singlev_cat5", "singlev_cat6",
-        "multiv_cat1", "multiv_cat2", "multiv_cat3",
-        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+        # "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        # "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        # "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        # "multiv_cat4", "multiv_cat5", "multiv_cat6",
+        "singlev_cat3", "multiv_cat3"
     )
 
     def __init__(self, *args, **kwargs):
