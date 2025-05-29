@@ -622,6 +622,9 @@ class DQCDFilterEfficiencyRDFProducer():
         # vector portal grid in ctau and mass
         from vp_filter_effs import d as effs_vp
         efficiencies.update(effs_vp)
+        
+        from scenario_filter_effs import d as effs_sc
+        efficiencies.update(effs_sc)
 
         eff = efficiencies.get(self.process_name, 1.)
         df = df.Define("filter_efficiency", "1./%s" % eff)
