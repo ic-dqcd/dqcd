@@ -68,6 +68,8 @@ class FeaturePlotDQCDWrapper(CategoryWrapperTask):
 
 class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTask, FitConfigBaseTask):
 
+    feature_names = ("muonSV_bestchi2_mass",)
+
     def requires(self):
         return ScanCombineDQCD.vreq(self, combine_categories=True)
 
