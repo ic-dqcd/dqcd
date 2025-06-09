@@ -235,7 +235,7 @@ class Config(cmt_config):
             Process("scenarioA_mpi_1_mA_0p33_ctau_10", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.33$, $c\\tau=10mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_1_mA_0p33_ctau_100", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.33$, $c\\tau=100mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_1_mA_0p33_ctau_1p0", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.33$, $c\\tau=1.0mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
-            Process("scenarioA_mpi_1_mA_0p45_ctau_0p1", Label(latex="sc.A, $m_{\cpi}=1$, $m_{A}=0.45$, $c\\tau=0.1mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
+            Process("scenarioA_mpi_1_mA_0p45_ctau_0p1", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.45$, $c\\tau=0.1mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_1_mA_0p45_ctau_10", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.45$, $c\\tau=10mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_1_mA_0p45_ctau_100", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.45$, $c\\tau=100mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
             Process("scenarioA_mpi_1_mA_0p45_ctau_1p0", Label(latex="sc.A, $m_{\pi}=1$, $m_{A}=0.45$, $c\\tau=1.0mm$"), color=(255, 0, 0), isSignal=True, parent_process="scenarioA"),
