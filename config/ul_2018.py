@@ -1053,7 +1053,7 @@ class Config(legacy_config):
                 check_empty=False,
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 xs=signal_xs,
-                tags=["ext"]
+                tags=["ext", "ul", "limits_scA", "third"]
             ),
 
             # # Dataset("scenarioA_mpi_4_mA_1p33_ctau_33p3_rew_large_ext",
