@@ -140,6 +140,18 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
 
         self.use_data = any("data" in model["process_name"] for model in self.models.values())
 
+        try:
+            # if it's a signal coming from the grid, it won't be defined as a process_group_name
+            # in the config, so we don't have to look for it
+            for process in self.config.process_group_names[self.process_group_name.replace("data_", "")]:
+                if self.config.processes.get(process).isSignal:
+                    signal_process = process
+                    break
+        except KeyError:
+            signal_process = self.process_group_name.replace("data_", "")
+
+        self.additional_lines = [f"yieldscale\trateParam\t*\t{signal_process}\t0.01"]
+
     def requires(self):
         reqs = super(CreateDatacardsDQCD, self).requires()
 
@@ -443,13 +455,51 @@ class ValidateDatacardsDQCD(ValidateDatacards, DQCDBaseTask, FitConfigBaseTask):
 
 
 class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
-    method = "limits"
+    #method = "limits"
 
     def workflow_requires(self):
-        return {"data": CreateWorkspaceDQCD.vreq(self)}
+        reqs = {"data": CreateWorkspaceDQCD.vreq(self)}
+        if self.method == "limits_toys":
+            reqs["limits"] = RunCombineDQCD.vreq(self, method="limits")
+        return reqs
 
     def requires(self):
-        return CreateWorkspaceDQCD.vreq(self)
+        reqs = {"data": CreateWorkspaceDQCD.vreq(self)}
+        if self.method == "limits_toys":
+            reqs["limits"] = RunCombineDQCD.vreq(self, method="limits")
+        return reqs
+
+    def get_inputs(self):
+        return self.input()["data"]
+
+    def get_additional_parameters(self, **kwargs):
+        quantiles = [2.5, 16.0, 50.0, 84.0, 97.5]
+        additional_parameters = "--freezeParameters yieldscale --cminDefaultMinimizerStrategy 0 "
+        feature_name = kwargs.pop("feature_name")
+        quantile = kwargs.pop("quantile", None)
+        if quantile:
+            quantile = 100 * quantile
+            if "obs" not in str(quantile):
+                index_q = quantiles.index(quantile)
+                if index_q == 0:
+                    left_th = 0.1 * self.limits[feature_name][quantiles[index_q]]
+                    right_th = max(10 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
+                elif index_q == len(quantiles) - 1:
+                    left_th = min(0.1 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
+                    right_th = 10 * self.limits[feature_name][quantiles[index_q]]
+                else:
+                    left_th = min(0.1 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
+                    right_th = max(10 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
+                additional_parameters += f"--setParameterRanges r={left_th},{right_th} "
+        return additional_parameters
+
+    def run(self):
+        if self.method == "limits_toys":
+            self.limits = {}
+            for feature in self.features:
+                self.limits[feature.name] = self.combine_parser(
+                    self.input()["limits"][feature.name]["txt"].path)
+        super(RunCombineDQCD, self).run()
 
 
 class SignalMassTask():
@@ -505,52 +555,43 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
     def get_processes_to_scan(self):
         return self.process_group_names
 
-    def combine_parser(self, filename):
-        import os
-        res = {}
-        with open(os.path.expandvars(filename), "r") as f:
-            lines = f.readlines()
-            for line in lines:
-                if line.startswith("Observed"):
-                    res["observed"] = float(line.split(" ")[-1][0:-1])
-                elif line.startswith("Expected"):
-                    index = line.find("%")
-                    res[float(line[index - 4: index])] = float(line.split(" ")[-1][0:-1])
-        if len(res) <= 1:
+    def get_limits(self, filename_dict):
+        if self.method == "limits":
+            res = self.combine_parser(filename_dict["txt"].path)
+        else:
             res = {}
+            keys = [2.5, 16, 50, 84, 97.5, "obs"]
+            for key in keys:
+                if key == "obs":
+                    tFile = ROOT.TFile.Open(filename_dict[key]["root"].path)
+                    tTree = tFile.Get("limit")
+                    res["observed"] = tTree.GetMaximum("limit")
+                else:
+                    tFile = ROOT.TFile.Open(filename_dict[str(key / 100).replace(".", "p")]["root"].path)
+                    tTree = tFile.Get("limit")
+                    res[str(float(key))] = tTree.GetMaximum("limit")
+        if not res:
+            print("Fit did not converge. Filling with dummy values.")
+            res = {
+                "2.5": 1.,
+                "16.0": 1.,
+                "50.0": 1.,
+                "84.0": 1.,
+                "97.5": 1.
+            }
         return res
 
     def run(self):
         for pgn in self.get_processes_to_scan():
             for feature, feature_to_save in zip(self.requires()[pgn].features, self.features):
                 if self.combine_categories:
-                    res = self.combine_parser(
-                        self.input()[pgn]["collection"].targets[0][feature.name]["txt"].path)
-                    if not res:
-                        print("Fit did not converge. Filling with dummy values.")
-                        res = {
-                            "2.5": 1.,
-                            "16.0": 1.,
-                            "50.0": 1.,
-                            "84.0": 1.,
-                            "97.5": 1.
-                        }
+                    res = self.get_limits(self.input()[pgn]["collection"].targets[0][feature.name])
                     with open(create_file_dir(
                             self.output()[pgn][feature_to_save.name].path), "w+") as f:
                         json.dump(res, f, indent=4)
                 else:
                     for icat, cat in enumerate(self.fit_config[pgn].keys()):
-                        res = self.combine_parser(
-                            self.input()[pgn]["collection"].targets[icat][feature.name]["txt"].path)
-                        if not res:
-                            print("Fit did not converge. Filling with dummy values.")
-                            res = {
-                                "2.5": 1.,
-                                "16.0": 1.,
-                                "50.0": 1.,
-                                "84.0": 1.,
-                                "97.5": 1.
-                            }
+                        res = self.get_limits(self.input()[pgn]["collection"].targets[icat][feature.name])
                         with open(create_file_dir(
                                 self.output()[pgn][cat][feature_to_save.name].path), "w+") as f:
                             json.dump(res, f, indent=4)
@@ -560,6 +601,8 @@ class ScanCombineDQCD(BaseScanTask):
     feature_names = ("muonSV_bestchi2_mass",)
     # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
     features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
+    # method = "limits"
+    method = "limits_toys"
 
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)
@@ -574,6 +617,7 @@ class ScanCombineDQCD(BaseScanTask):
             mass_point = self.get_mass_point(pgn)
             mass_point_str = str(mass_point).replace(".", "p")
             signal = pgn[:pgn.find("_")]
+
             reqs[pgn] = RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point_str}",
                 feature_names=self.features_to_compute(mass_point),
                 mass_point=mass_point,
@@ -581,7 +625,8 @@ class ScanCombineDQCD(BaseScanTask):
                 region_name=f"tight_bdt_{signal}",
                 tight_region=f"tight_bdt_{signal}",
                 loose_region=f"loose_bdt_{signal}",
-                category_names=list(self.fit_config[pgn].keys()))
+                category_names=list(self.fit_config[pgn].keys()),
+                method=self.method)
         return reqs
 
 
@@ -1638,7 +1683,7 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
 
                 grid_x, grid_y = np.meshgrid(sorted(mass_points), sorted(ctaus))
 
-                X = np.array([(np.log10(m), np.log10(ctau)) for (m, ctau) in values.keys()])             
+                X = np.array([(np.log10(m), np.log10(ctau)) for (m, ctau) in values.keys()])
                 Y = np.array(list([e[0] for e in values.values()]))
                 Y_err = np.array(list([e[1] for e in values.values()]))
 
@@ -1664,14 +1709,14 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
                     X_to_plot = np.array([e[1] for e in values.keys() if e[0] == m])
                     Y_to_plot = np.array([v[0] for e, v in values.items() if e[0] == m])
                     Yerr_to_plot = np.array([v[1] for e, v in values.items() if e[0] == m])
-                    
+
                     plt.errorbar(X_to_plot, Y_to_plot, yerr=Yerr_to_plot, label="Observations",
                         fmt='none')
                     x_m = np.geomspace(start=ctau_range[0], stop=ctau_range[1], num=n_points)
                     X_m_to_plot = np.array(list(itertools.product([m], x_m)))
                     X_m = np.array(list(itertools.product([np.log10(m)], np.log10(x_m))))
                     mean_prediction, std_prediction = gaussian_process.predict(X_m, return_std=True)
-                    
+
                     plt.plot(X_m_to_plot[:, 1], mean_prediction, label="Mean prediction", color="black")
                     plt.fill_between(
                         x_m,
@@ -1744,7 +1789,7 @@ class InterpolationGPDQCD(InterpolationTestDQCD):
                     output[(m_skip, ctau_skip)] = gaussian_process.predict(
                         np.array([np.log10([m_skip, ctau_skip])]),
                         return_std=True)
-                    
+
                     res = gaussian_process.predict(X, return_std=True)
 
                 @np.vectorize
@@ -2088,4 +2133,4 @@ class InterpIntegralTest(SignalMassTask, FeaturePlot):
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
             plt.savefig(create_file_dir(self.output()[cat].path), bbox_inches='tight')
 
-            
+
