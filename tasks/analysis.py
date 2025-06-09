@@ -482,14 +482,14 @@ class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
             if "obs" not in str(quantile):
                 index_q = quantiles.index(quantile)
                 if index_q == 0:
-                    left_th = 0.01 * self.limits[feature_name][quantiles[index_q]]
-                    right_th = max(100 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
+                    left_th = 0.1 * self.limits[feature_name][quantiles[index_q]]
+                    right_th = max(10 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
                 elif index_q == len(quantiles) - 1:
-                    left_th = min(0.01 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
-                    right_th = 100 * self.limits[feature_name][quantiles[index_q]]
+                    left_th = min(0.1 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
+                    right_th = 10 * self.limits[feature_name][quantiles[index_q]]
                 else:
-                    left_th = min(0.01 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
-                    right_th = max(100 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
+                    left_th = min(0.1 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
+                    right_th = max(10 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
                 additional_parameters += f"--setParameterRanges r={left_th},{right_th} "
         return additional_parameters
 
