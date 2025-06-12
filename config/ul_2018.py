@@ -1580,7 +1580,7 @@ class Config(legacy_config):
                 skipFiles = [files_to_skip[key] + f"/nano_{i}.root" for i in range(1, 21)]
 
             datasets.add(
-                Dataset(key + "_ext",
+                Dataset(key + ("_ext" if sc == "A" else ""),
                     dataset=dataset,
                     process=self.processes.get(key),
                     check_empty=False,
