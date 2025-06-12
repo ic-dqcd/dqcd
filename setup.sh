@@ -9,8 +9,7 @@ action() {
     cd nanoaod_base_analysis
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
-    #export CMT_BASE=$PWD
-    export CMT_BASE="DUMMY"
+    export CMT_BASE="/vols/cms/khl216/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis"
     if [[ "$CMT_BASE" == "DUMMY" ]]; then
         echo "Need to change the path stored in CMT_BASE to the present folder"
         return "1"
@@ -101,10 +100,14 @@ action() {
        mkdir -p "$TMPDIR"
     fi
 
-    #if [[ $CMT_IC_USER == jleonhol ]]; then
-    #    echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
-    #    export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
-    #fi
+    if [[ $CMT_IC_USER == jleonhol ]]; then
+        echo "running export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt..."
+        #export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/khl216/cmt
+    fi
+
+    #export CMT_STORE_EOS_MERGECATEGORIZATION=/vols/cms/jleonhol/cmt
+    #export CMT_STORE_EOS_PREPROCESSING=/vols/cms/jleonhol/cmt
+    #export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/jleonhol/cmt
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"

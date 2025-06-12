@@ -175,10 +175,10 @@ class Config(legacy_config):
             #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9"),   #between 1E-2 and 1E-3 threshold
             #Category("tight_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.98"),    #1E-3 threshold
             #Category("tight_bdt_vector", "Loose bdt (VP) region", selection="{{bdt_vector}} > 0.99"),    #between 1E-3 and 1E-4 threshold
-            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.997"),  #1E-4 threshold
+            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.997"),  #1E-4 threshold
             #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9975"),   #between 1E-4 and 1E-5
             #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9985"),   #3E-5 threshold
-            #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.999"),  #1E-5 threshold
+            Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.999"),  #1E-5 threshold
             #Category("tight_bdt_vector", "Tight bdt (VP) region", selection="{{bdt_vector}} > 0.9998"),  #1E-6 threshold
             
             
@@ -1580,7 +1580,7 @@ class Config(legacy_config):
                 skipFiles = [files_to_skip[key] + f"/nano_{i}.root" for i in range(1, 21)]
 
             datasets.add(
-                Dataset(key + "_ext",
+                Dataset(key + ("_ext" if sc == "A" else ""),
                     dataset=dataset,
                     process=self.processes.get(key),
                     check_empty=False,

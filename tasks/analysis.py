@@ -3,6 +3,7 @@ import luigi
 import law
 import math
 import itertools
+import os
 from copy import deepcopy as copy
 from collections import OrderedDict
 
@@ -130,11 +131,19 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         self.fit_range = (self.mass_point - 5 * self.sigma, self.mass_point + 5 * self.sigma)
         self.blind_range = (self.mass_point - 2 * self.sigma, self.mass_point + 2 * self.sigma)
         # if self.process_group_name != "default":
+        #Vector portal
         self.custom_signal_fit_parameters = {
             "mean": self.mass_point,
             "sigma": 0.0075 * self.mass_point,
             "gamma": 0.005 * self.mass_point
         }
+        
+        #Scenario A/B1
+        #self.custom_signal_fit_parameters = {
+            #"mean": self.mass_point,
+            #"sigma": 0.0085 * self.mass_point,
+            #"gamma": 0.005
+        #}
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
 
@@ -352,7 +361,10 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
     def get_shape_systematics_from_inspect(self, feature_name):
         systematics = {}
         for name in self.non_data_names:
+            #Vector portal
             systematics[name] = {"sigma": {"modelling": 0.001 * self.mass_point}}
+            #Scenario A/B1
+            #systematics[name] = {"sigma": {"modelling": 0.0015 * self.mass_point}}
         return systematics
 
     def run(self):
@@ -381,6 +393,61 @@ class FitConfigBaseTask(DatasetWrapperTask):
 
 
 class CombineDatacardsDQCD(CombineDatacards, DQCDBaseTask, FitConfigBaseTask):
+    def run(self):
+        """
+        Combines all datacards using combine's combineCards.py
+        """
+
+        inputs = self.input()
+        for feature in self.features:
+            cmd = "combineCards.py "
+            force_shape = self.force_shape
+            for category_name in self.category_names:
+                # First, check if this category has all signals or all backgrounds with 0 expectation
+                if self.avoid_empty_processes:
+                    small_signal = True 
+                    null_signal = True
+                    null_bkg = True
+                    with open(inputs[category_name][feature.name]['json'].path) as f:
+                        yields = json.load(f)
+                    is_background_from_data = any(["data" in key for key in yields.keys()])
+                    for process_name, value in yields.items():
+                        if value != 0:
+                            try:
+                                if self.config.processes.get(process_name).isSignal:
+                                    null_signal = False
+                                    #print("json path = ", self.requires()[category_name].requires()["fits"][process_name].output())
+                                    with open(self.requires()[category_name].requires()["fits"][process_name].output()[feature.name]["json"].path) as g:
+                                        
+                                        fit_params = json.load(g)
+                                        if fit_params[""]["Number of non-zero bins"] > 5:
+                                            small_signal = False
+                                # data appearing here means background estimated from data, no need
+                                # to remove it
+                                # elif not self.config.processes.get(process_name).isData:
+                                else:
+                                    null_bkg = False
+                            except:  # signal not included as a process
+                                null_signal = False
+                                small_signal = False
+                    # print(inputs[category_name][feature.name]['json'].path, null_signal, null_bkg)
+                    # if null_signal or null_bkg:
+                    #if null_signal or (null_bkg and not is_background_from_data) or small_signal:
+                    if null_signal or (null_bkg and not is_background_from_data):
+                        continue
+
+                cmd += f"{category_name}={inputs[category_name][feature.name]['txt'].path} "
+                with open(inputs[category_name][feature.name]['txt'].path) as f:
+                    text = f.read()
+                if "shapes" in text:
+                    force_shape = True
+            if force_shape:
+                cmd += "--force-shape "
+            cmd += f"> {self.output()[feature.name].path}"
+            create_file_dir(f"{self.output()[feature.name].path}")
+            os.system(cmd)
+            #import sys
+            #sys.exit()
 
     def requires(self):
         reqs = {}
@@ -548,6 +615,33 @@ class ProcessGroupNameWrapper(SignalMassTask, FitConfigBaseTask):
         # self.category_names = list(self.fit_config[self.process_group_name].keys())
         # self.category_name = self.category_names[0]
 
+class SignalMassFitPlotWrapper(ProcessGroupNameWrapper):
+    def requires(self):
+        reqs = {}
+
+        for process_group_name in self.process_group_names:    
+            reqs[process_group_name] = {}
+            mass_point = self.get_mass_point(process_group_name)
+            signal = process_group_name[:process_group_name.find("_")]
+            for cat_name in self.fit_config[process_group_name].keys():
+                print("mass_point = ", mass_point)
+                #get_feature_mass(self, float(mass_point))
+                self.config.get_feature_mass(float(mass_point))
+                reqs[process_group_name][cat_name] = FeaturePlot.vreq(self, category_name=cat_name,
+                    feature_names=(f"self.config.get_feature_mass({mass_point})",),
+                    process_group_name=process_group_name,
+                    region_name=f"tight_bdt_{signal}",
+                    include_fit=f"sig_fit_{mass_point}",
+                    stack=True)
+                
+        return reqs
+    
+    def complete(self):
+        return False
+
+    def run(self):
+        pass
+
 
 class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWorkflow,
         # HTCondorWorkflow, SGEWorkflow, SlurmWorkflow):
@@ -555,10 +649,60 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
     def get_processes_to_scan(self):
         return self.process_group_names
 
+    '''
+    def combine_parser(self, filename_dict):
+        #def combine_parser(self, filename):
+        import os
+        res = {}
+        
+        
+        with open(os.path.expandvars(filename), "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                if line.startswith("Observed"):
+                    res["observed"] = float(line.split(" ")[-1][0:-1])
+                elif line.startswith("Expected"):
+                    index = line.find("%")
+                    res[float(line[index - 4: index])] = float(line.split(" ")[-1][0:-1])
+        
+        
+        
+        tFile_obs = ROOT.TFile(filename_dict["obs"]["root"].path)
+        tFile_0p5 = ROOT.TFile(filename_dict['0.5']["root"].path)
+        tFile_0p84 = ROOT.TFile(filename_dict['0.84']["root"].path)
+        tFile_0p16 = ROOT.TFile(filename_dict['0.16']["root"].path)
+        tFile_0p975 = ROOT.TFile(filename_dict['0.975']["root"].path)
+        tFile_0p025 = ROOT.TFile(filename_dict['0.025']["root"].path)
+
+        tTree_obs = tFile_obs.Get("limit")
+        tTree_0p5 = tFile_0p5.Get("limit")
+        tTree_0p84 = tFile_0p84.Get("limit")
+        tTree_0p16 = tFile_0p16.Get("limit")
+        tTree_0p975 = tFile_0p975.Get("limit")
+        tTree_0p025 = tFile_0p025.Get("limit")
+
+        print("tTree_obs type = ", type(tTree_obs))
+        print("tTree_0p025 type = ", type(tTree_0p025))
+
+        res = {
+            "observed": tTree_obs.GetMaximum("limit"),
+            "2.5": tTree_0p025.GetMaximum("limit"),
+            "16.0": tTree_0p16.GetMaximum("limit"),
+            "50.0": tTree_0p5.GetMaximum("limit"),
+            "84.0": tTree_0p84.GetMaximum("limit"),
+            "97.5": tTree_0p975.GetMaximum("limit")
+        }
+        
+
+
+        if len(res) <= 1:
+    '''
+
     def get_limits(self, filename_dict):
         if self.method == "limits":
             res = self.combine_parser(filename_dict["txt"].path)
         else:
+
             res = {}
             keys = [2.5, 16, 50, 84, 97.5, "obs"]
             for key in keys:
@@ -586,6 +730,26 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
             for feature, feature_to_save in zip(self.requires()[pgn].features, self.features):
                 if self.combine_categories:
                     res = self.get_limits(self.input()[pgn]["collection"].targets[0][feature.name])
+                    
+                    '''
+                    res = self.combine_parser(
+                        self.input()[pgn]["collection"].targets[0][feature.name]["txt"].path)
+                    
+                    
+                    res = self.combine_parser(
+                        self.input()[pgn]["collection"].targets[0][feature.name])
+                    
+                    if not res:
+                        print("Fit did not converge. Filling with dummy values.")
+                        res = {
+                            "2.5": 1.,
+                            "16.0": 1.,
+                            "50.0": 1.,
+                            "84.0": 1.,
+                            "97.5": 1.
+                        }
+                    '''
+
                     with open(create_file_dir(
                             self.output()[pgn][feature_to_save.name].path), "w+") as f:
                         json.dump(res, f, indent=4)

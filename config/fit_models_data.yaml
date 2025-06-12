@@ -13,6 +13,10 @@ signal:
     process_name: signal
     method: voigtian
     x_range: 1.2635, 1.3965
+    fit_parameters:
+        sigma: 0.001, 0.0, 1.0
+        #gamma: 0.001, 0.0, 1.0
+        gamma: 0.005
 
 
 # process_name: background

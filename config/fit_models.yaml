@@ -4,6 +4,7 @@ background:
     functions: polynomial,exponential,powerlaw
     # method: polynomial
     x_range: 1.2635, 1.3965
+    #x_range: 1.9, 2.1
     fit_parameters:
         polynomial_order: 1
         p0: 0, -5, 5
@@ -12,7 +13,7 @@ signal:
     process_name: signal
     method: voigtian
     x_range: 1.2635, 1.3965
-
+    #x_range: 1.9, 2.1
 
 # process_name: background
 # method: exponential

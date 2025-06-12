@@ -65,6 +65,9 @@ class FeaturePlotDQCDWrapper(CategoryWrapperTask):
     def atomic_requires(self, category_name):
         return FeaturePlotDQCD.req(self, category_name=category_name)
 
+class FeaturePlotWrapper(CategoryWrapperTask):
+    def atomic_requires(self, category_name):
+        return FeaturePlot.req(self, category_name=category_name)
 
 class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTask, FitConfigBaseTask):
 
@@ -98,67 +101,150 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
 
     def get_y_axis_label(self, process_group_name):
         if process_group_name.startswith("btophi"):
-            return r"95$\%$ CL on BR(pp$\to$B$\to\phi$X$\to2\mu$X)"
+            return r"95$\%$ CL upper limit on BR(pp$\to$B$\to\phi$X$\to2\mu$X)"
         elif process_group_name.startswith("scenario"):
-            return r"95$\%$ CL on BR(H$\to\Psi\Psi$)"
-        return r"95$\%$ CL on BR"
+            return r"95$\%$ CL upper limit on BR(H$\to\psi\psi$)"
+            #return r"BR(H$\to\psi\psi$)"
+        return r"95$\%$ CL upper limit on BR(H$\to\psi\psi$)"
+        #return r"BR(H$\to\psi\psi$)"
 
     def set_cms_labels(self, plt, ax):
-        plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
-        plt.text(1., 1.01, r"%s%s, %s fb${}^{-1} (%s $TeV)" % (
-            self.config.year,
+        plt.text(0, 1.01, r"\textbf{CMS} \textit{Preliminary", transform=ax.transAxes, fontsize = 16)
+        #plt.text(0, 1.01, r"\textbf{CMS}", transform=ax.transAxes, fontsize = 16)
+        plt.text(1., 1.01, r"%s %s fb${}^{-1} (%s\:$TeV)" % (
+            #self.config.year,
             (" Simulation" if not self.unblind and "data" not in self.fit_models else ""),
             self.config.lumi_fb,
             self.config.ecm),
-            transform=ax.transAxes, ha="right")
+            transform=ax.transAxes, ha="right", fontsize = 16)
 
     def plot(self, results, output_file):
         import matplotlib
-        matplotlib.use("Agg")
+        import mplhep as hep
+        #matplotlib.use("Agg")
         from matplotlib import pyplot as plt
-        plt.rcParams['text.usetex'] = True
-
-        ax = plt.subplot()
+        #plt.rcParams['text.usetex'] = True
+        #plt.rcParams["font.family"] = "Arial"
+        hep.style.use("CMS")
+        f, ax = plt.subplots(figsize=(10, 8))
 
         def scale(val):
             return val * 0.01
 
         for ival, values in enumerate(results.values()):
+
+            if ival == 3:
+                plt.fill_between((ival - 0.25, ival + 0.25),
+                    scale(values["16.0"]), scale(values["84.0"]),
+                    # color="g", alpha=.5)
+                    color="#607641",
+                    label="68% expected")
+                plt.fill_between((ival - 0.25, ival + 0.25),
+                    scale(values["84.0"]), scale(values["97.5"]),
+                    # color="y", alpha=.5)
+                    color="#F5BB54",
+                    label="95% expected")
+                plt.fill_between((ival - 0.25, ival + 0.25),
+                    scale(values["16.0"]), scale(values["2.5"]),
+                    # color="y", alpha=.5)
+                    color="#F5BB54")
+
+                plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
+                    "--", color="k", label="Median expected")
+
+                if "observed" in values and self.unblind:
+                    plt.plot([ival - 0.25, ival + 0.25],
+                        [scale(values["observed"]), scale(values["observed"])], "-", color="k")
+                    plt.plot(ival, scale(values["observed"]), "o-", color="k", label="Observed")
+            else:    
+                plt.fill_between((ival - 0.25, ival + 0.25),
+                    scale(values["16.0"]), scale(values["84.0"]),
+                    # color="g", alpha=.5)
+                    color="#607641")
+                    #label="68\% expected")
+                plt.fill_between((ival - 0.25, ival + 0.25),
+                    scale(values["84.0"]), scale(values["97.5"]),
+                    # color="y", alpha=.5)
+                    color="#F5BB54")
+                    #label="95\% expected")
+                plt.fill_between((ival - 0.25, ival + 0.25),
+                    scale(values["16.0"]), scale(values["2.5"]),
+                    # color="y", alpha=.5)
+                    color="#F5BB54")
+
+                plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
+                    "--", color="k")
+
+                if "observed" in values and self.unblind:
+                    plt.plot([ival - 0.25, ival + 0.25],
+                        [scale(values["observed"]), scale(values["observed"])], "-", color="k")
+                    plt.plot(ival, scale(values["observed"]), "o", color="k")
+
+        '''
+        for ival, values in enumerate(results.values()):
             plt.fill_between((ival - 0.25, ival + 0.25),
                 scale(values["16.0"]), scale(values["84.0"]),
                 # color="g", alpha=.5)
-                color="#607641")
+                color="#607641",
+                label="68\% expected")
             plt.fill_between((ival - 0.25, ival + 0.25),
                 scale(values["84.0"]), scale(values["97.5"]),
                 # color="y", alpha=.5)
-                color="#F5BB54")
+                color="#F5BB54",
+                label="95\% expected")
             plt.fill_between((ival - 0.25, ival + 0.25),
                 scale(values["16.0"]), scale(values["2.5"]),
                 # color="y", alpha=.5)
                 color="#F5BB54")
 
             plt.plot([ival - 0.25, ival + 0.25], [scale(values["50.0"]), scale(values["50.0"])],
-                "--", color="k")
+                "--", color="k", label="Median expected")
 
             if "observed" in values and self.unblind:
                 plt.plot([ival - 0.25, ival + 0.25],
-                    [scale(values["observed"]), scale(values["observed"])], "-", color="k")
+                    [scale(values["observed"]), scale(values["observed"])], "-", color="k", label="Observed")
                 plt.plot(ival, scale(values["observed"]), "o", color="k")
+            
+            break
+        '''
+
+        leg = ax.legend(fontsize=16, loc="upper right")
 
         labels = ["%s" % self.config.processes.get(key).label.latex for key in results]
         ax.set_xticks(list(range(len(labels))))
 
-        if len(labels) <= 4:
+        if len(labels) <= 5:
             for ilabel, label in enumerate(labels):
                 signal_tag = self.get_signal_tag(results, ilabel)
-                index = label.find("$m%s" % signal_tag)
-                labels[ilabel] = label[:index] + "\n" + label[index:]
-            ax.set_xticklabels(labels)
+                #index = label.find("$m%s" % signal_tag)
+                #labels[ilabel] = label[:index] + "\n" + label[index:]
+                labels[ilabel] = label
+            
+            labels=[r"$c\tau=1$ mm", r"$c\tau=10$ mm", r"$c\tau=50$ mm", r"$c\tau=100$ mm", r"$c\tau=500$ mm"]
+
+            ax.set_xticklabels(labels, fontsize=18)
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
 
-        self.set_cms_labels(plt, ax)
-        plt.ylabel(self.get_y_axis_label(self.fit_config_file))
+        #self.set_cms_labels(plt, ax)
+        plt.ylim(5E-6, 1E0)
+        plt.ylabel(self.get_y_axis_label(self.fit_config_file), fontsize=24)
+        
+        hep.cms.label(loc=0, data=True, lumi=41.6, label = "Preliminary")
+        
+        inner_text = ["Scenario A",
+                      r"$m_{\pi 3}$=4 GeV",
+                      r"$m_{A'}$=1.33 GeV",
+                      r"$\mathcal{B}(A'\rightarrow\mu\mu)=0.305$"]
+    
+        '''
+        inner_text = ["Vector portal",
+                      r"$m_{\tilde{\omega}}$=20 GeV",
+                      r"$\mathcal{B}(\tilde{\omega}\rightarrow\mu\mu)=0.15$"]
+        '''
+        inner_text_height = 1.0 - 0.05 * len(inner_text)
+        plt.text(0.05, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="left", fontsize = 16)
+
         if True:
             plt.yscale('log')
         plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
@@ -173,6 +259,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
                 with open(inputs[process_group_name][feature.name].path) as f:
                     results[process_group_name] = json.load(f)
             self.plot(results, self.output()[feature.name])
+        
 
 
 class ParamPlotDQCD(PlotCombineDQCD):
@@ -189,7 +276,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
             elif "vector" in pgn:
                 pattern = r"vector_m_(.*)_ctau_(.*)_xiO_1_xiL_1"
                 match = re.fullmatch(pattern, pgn)
-                masses.append(float(match.group(1)))
+                masses.append(float(match.group(1).replace("p", ".")))
                 ctaus.append(self.get_ctau(pgn))
             else:
                 raise ValueError(f"{pgn} can't be considered as a process_group_name")
@@ -245,28 +332,31 @@ class ParamPlotDQCD(PlotCombineDQCD):
 
     def plot(self, results, output_file, **kwargs):
         import matplotlib
-        matplotlib.use("Agg")
+        #matplotlib.use("Agg")
         from matplotlib import pyplot as plt
-        plt.rcParams['text.usetex'] = True
+        #plt.rcParams['text.usetex'] = True
+        import mplhep as hep
+        hep.style.use("CMS")
 
-        ax = plt.subplot()
+        f, ax = plt.subplots(figsize=(10, 8))
 
         def scale(val):
-            return val * 0.01
+            #return val * 0.01
+            return val * 0.0001
 
         plt.fill_between(
             results.keys(),
             [scale(elem["16.0"]) for elem in results.values()],
             [scale(elem["84.0"]) for elem in results.values()],
             color="#607641",
-            label="68\% expected"
+            label="68% expected"
         )
         plt.fill_between(
             results.keys(),
             [scale(elem["84.0"]) for elem in results.values()],
             [scale(elem["97.5"]) for elem in results.values()],
             color="#F5BB54",
-            label="95\% expected"
+            label="95% expected"
         )
         plt.fill_between(
             results.keys(),
@@ -280,28 +370,36 @@ class ParamPlotDQCD(PlotCombineDQCD):
             color="k", linestyle="dashed",
             label="Median expected"
         )
-        plt.plot(
-            results.keys(),
-            [scale(elem["observed"]) for elem in results.values()],
-            "o-", color="k",
-            label="Observed"
-        )
+        if self.unblind:
+            plt.plot(
+                results.keys(),
+                [scale(elem["observed"]) for elem in results.values()],
+                "-", color="k",
+                label="Observed"
+            )
 
-        plt.ylabel(self.get_y_axis_label(self.fit_config_file))
+        plt.ylabel(self.get_y_axis_label(self.fit_config_file), fontsize=28)
+        #plt.ylabel(r"95% CL on BR(H)\rightarrow\psi\psi" fontsize=16)
 
         x_label = kwargs.pop("x_label")
-        plt.xlabel(x_label)
-        self.set_cms_labels(plt, ax)
+        plt.xlabel(x_label, fontsize=28)
+        #self.set_cms_labels(plt, ax)
+
+        hep.cms.label(loc=0, data=True, lumi=41.6, label = "Preliminary", fontsize=28)
 
         # inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
             # else f"$c\\tau={self.fixed_ctau}$ mm")
         inner_text = kwargs.pop("inner_text")
         inner_text_height = 1.0 - 0.05 * len(inner_text)
-        plt.text(0.5, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="center")
+        plt.text(0.05, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="left", fontsize=20)
 
-        leg = ax.legend()
+        leg = ax.legend(fontsize=20, framealpha=0.8, loc="lower right")
 
+        plt.xticks(fontsize=24)
+        plt.yticks(fontsize=24)
         plt.yscale('log')
+        plt.ylim(1E-5, 1E0)
+        plt.xlim(1E-1, 500)
         if kwargs.pop("log", False):
             plt.xscale('log')
         plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
@@ -376,9 +474,14 @@ class ParamPlotDQCD(PlotCombineDQCD):
                         x_label="$c\\tau$ [mm]",
                         log=True,
                         inner_text=[
+                            #f"Scenario {match.group(1)}",
+                            #f"$m_\\pi$={key[0]} GeV",
+                            #f"$m{llp_type}$={key[1]} GeV"
                             f"Scenario {match.group(1)}",
-                            f"$m_\\pi$={key[0]} GeV",
-                            f"$m{llp_type}$={key[1]} GeV"]
+                            r"$m_{\pi3}=2$ GeV",
+                            r"$m_{A'}=0.67$ GeV",
+                            r"$\mathcal{B}(A'\rightarrow\mu\mu)=0.17$"
+                            ]
                     )
                 for key, val in d_ctau.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],
@@ -399,14 +502,17 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     ctau = float(match.group(2).replace("p", "."))
                     d_mass[m][ctau] = value
                     d_ctau[ctau][m] = value
-
+                
+                mass_label = r"$m_{\tilde{\omega}}$"
                 for key, val in d_mass.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
                         x_label="$c\\tau$ [mm]",
                         log=True,
                         inner_text=[
                             f"Vector portal",
-                            f"$m$={key} GeV"]
+                            f"{mass_label}={key} GeV",
+                            #r"$m_{\tilde{\omega}}$=2 GeV",
+                            r"$\mathcal{B}(\tilde{\omega}\rightarrow\mu\mu)=0.25$"]
                     )
                 for key, val in d_ctau.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],
@@ -489,7 +595,7 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
         ax.set_ylim(0.5 * min_val, 2 * max_val)
         ax.set_xbound(-0.5, len(labels) - 0.5)
         ax.set_xlim(-0.5, len(labels) - 0.5)
-
+        '''
         if len(labels) <= 4:
             for ilabel, label in enumerate(labels):
                 signal_tag = self.get_signal_tag(results, ilabel)
@@ -498,7 +604,8 @@ class PlotCombinePerCategoryDQCD(PlotCombineDQCD):
             ax.set_xticklabels(labels)
         else:
             ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
-
+        '''
+        ax.set_xticklabels(labels, rotation=60, rotation_mode="anchor", ha="right")
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
         self.set_cms_labels(plt, ax)
         plt.text(0.5, 0.95, inner_text, transform=ax.transAxes, ha="center")

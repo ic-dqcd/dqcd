@@ -11,7 +11,7 @@ from analysis_tools.utils import create_file_dir, import_root
 from cmt.base_tasks.base import DatasetWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import (
-    Fit, InspectFitSyst, CombineCategoriesTask, CreateWorkspace, RunCombine
+    Fit, InspectFitSyst, CombineCategoriesTask, CreateWorkspace, RunCombine, CombineDatacards
 )
 from tasks.analysis import (
     DQCDBaseTask, CreateDatacardsDQCD, CombineDatacardsDQCD,
@@ -274,7 +274,7 @@ class CreateDatacardsGridDQCD(BaseDQCDGridTask, CreateDatacardsDQCD):
         return fit_parameters
 
 
-class CombineDatacardsGridDQCD(BaseDQCDGridTask, CombineDatacardsDQCD):
+class CombineDatacardsGridDQCD(BaseDQCDGridTask, CombineDatacards):
     def requires(self):
         reqs = {}
         for category_name in self.category_names:
@@ -335,11 +335,11 @@ class ScanCombineGridDQCD(BaseScanTask, PlotGridBaseDQCD):
     feature_names = ("muonSV_bestchi2_mass",)
     features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
     category_names = (
-        # "singlev_cat1", "singlev_cat2", "singlev_cat3",
-        # "singlev_cat4", "singlev_cat5", "singlev_cat6",
-        # "multiv_cat1", "multiv_cat2", "multiv_cat3",
-        # "multiv_cat4", "multiv_cat5", "multiv_cat6",
-        "singlev_cat3", "multiv_cat3"
+        "singlev_cat1", "singlev_cat2", "singlev_cat3",
+        "singlev_cat4", "singlev_cat5", "singlev_cat6",
+        "multiv_cat1", "multiv_cat2", "multiv_cat3",
+        "multiv_cat4", "multiv_cat5", "multiv_cat6",
+        #"singlev_cat3", "multiv_cat3"
     )
 
     def __init__(self, *args, **kwargs):
@@ -494,6 +494,20 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             label="Observed"
         )
 
+        if self.unblind:
+            plt.plot(
+                results.keys(),
+                [scale(elem["observed"]) for elem in results.values()], 
+                "-", color="k")
+            plt.plot(
+                results.keys(), 
+                [scale(elem["observed"]) for elem in results.values()], 
+                "o", color="k")
+
+        for resonance_mass_range in self.config.resonance_masses.values():
+            if resonance_mass_range[0] >= self.min_mass:
+                ax.axvspan(resonance_mass_range[0], resonance_mass_range[1], alpha=1.0, color='gray', zorder = 10)        
+
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
 
         llp_type = ""
@@ -503,7 +517,7 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
         x_label = f"$m{llp_type}$ [GeV]" if self.fixed_ctau != law.NO_FLOAT else "$c\\tau$ [mm]"
         plt.xlabel(x_label)
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
-        plt.text(1., 1.01, r"%s Simulation, %s fb${}^{-1}$" % (
+        plt.text(1., 1.01, r"%s, %s fb${}^{-1}$ (13TeV)" % (
             self.config.year, self.config.lumi_fb),
             transform=ax.transAxes, ha="right")
 
@@ -517,7 +531,7 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             inner_text_height -= 0.05
             if add_obj == "pi":
                 inner_text += f"\n$m_\\pi={add_mass}$ GeV"
-        plt.text(0.5, inner_text_height, inner_text, transform=ax.transAxes, ha="center")
+        plt.text(0.58, inner_text_height, inner_text, transform=ax.transAxes, ha="center")
 
         leg = ax.legend()
 

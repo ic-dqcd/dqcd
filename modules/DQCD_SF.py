@@ -620,10 +620,10 @@ class DQCDFilterEfficiencyRDFProducer():
         }
 
         # vector portal grid in ctau and mass
-        from vp_filter_effs import d as effs_vp
+        from modules.vp_filter_effs import d as effs_vp
         efficiencies.update(effs_vp)
         
-        from scenario_filter_effs import d as effs_sc
+        from modules.scenario_filter_effs import d as effs_sc
         efficiencies.update(effs_sc)
 
         eff = efficiencies.get(self.process_name, 1.)
@@ -653,9 +653,9 @@ class DQCDBDTSFRDFProducer():
 
     def run(self, df):
         sfs = {
-            "scenarioA": 0.983,
-            "scenarioB1": 0.690,
-            "vector": 0.966, 
+            "scenarioA": 1.0,
+            "scenarioB1": 1.0,
+            "vector": 1.0, 
         }
         sf = sfs.get(self.process_name.split("_")[0], 1.)
         print("BDT_SF", self.process_name, sf)

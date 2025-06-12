@@ -10,12 +10,12 @@ from cmt.base_tasks.base import Task
 
 class Config(cmt_config):
     def __init__(self, *args, **kwargs):
-        self.dxy_cut_all = ("!((muonSV_dxy >= 6.7 && muonSV_dxy <= 7.3) || "
+        self.dxy_cut_all = ("!((muonSV_dxy >= 6.4 && muonSV_dxy <= 7.3) || "
             "(muonSV_dxy >= 10.5 && muonSV_dxy <= 11.5) || "
             "(muonSV_dxy >= 15.6 && muonSV_dxy <= 16.6))")
-        self.dxy_cut = ("!((muonSV_bestchi2_dxy > 6.7 && muonSV_bestchi2_dxy < 7.3) || "
-            "(muonSV_bestchi2_dxy > 10.5 && muonSV_bestchi2_dxy < 11.5) || "
-            "(muonSV_bestchi2_dxy > 15.6 && muonSV_bestchi2_dxy < 16.6))")
+        self.dxy_cut = ("!((muonSV_bestchi2_dxy >= 6.4 && muonSV_bestchi2_dxy <= 7.3) || "
+            "(muonSV_bestchi2_dxy >= 10.5 && muonSV_bestchi2_dxy <= 11.5) || "
+            "(muonSV_bestchi2_dxy >= 15.6 && muonSV_bestchi2_dxy <= 16.6))")
         self.dz_cut = "abs(muonSV_bestchi2_z) < 27 || abs(muonSV_bestchi2_z) > 52"
 
         super(Config, self).__init__(*args, **kwargs)
@@ -225,6 +225,8 @@ class Config(cmt_config):
             Process("scenarioA", Label("scenarioA"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
 
             Process("scenarioB1", Label("scenarioB1"), color=(0, 0, 255), isSignal=True, parent_process="signal"),
+            Process("scenarioB2", Label("scenarioB2"), color=(0, 0, 255), isSignal=True, parent_process="signal"),
+            Process("scenarioC", Label("scenarioC"), color=(0, 0, 255), isSignal=True, parent_process="signal"),
             
             Process("vector", Label(latex="vector"), color=(0, 0, 0), isSignal=True, parent_process="signal"),
             Process("vector_m_10_ctau_100_xiO_1_xiL_1", Label(latex="vector, $m=10$, $c\\tau=100$"), color=(0, 0, 0), isSignal=True, parent_process="vector"),
@@ -2228,9 +2230,9 @@ class Config(cmt_config):
         return Feature(f"muonSV_bestchi2_mass_{str(mass).replace('.', 'p')}",
             "muonSV_bestchi2_mass", binning=(50, 0.95 * mass, 1.05 * mass),
             blinded_range=(0.98 * mass, 1.02 * mass),
-            selection = jrs([self.dxy_cut, self.dz_cut,
-                "(({{bdt_vector}} > 0.998) && (%s <= 5)) || (({{bdt_vector}} > 0.993) && (%s > 5))" % (mass, mass)
-            ]),
+            selection = jrs([self.dxy_cut, self.dz_cut]),
+                #"(({{bdt_vector}} > 0.998) && (%s <= 5)) || (({{bdt_vector}} > 0.993) && (%s > 5))" % (mass, mass)
+            #]),
             x_title=Label("muonSV mass (Min. #chi^{2})"),
             units="GeV")
 

@@ -57,6 +57,11 @@ class Config(legacy_config):
                 process=self.processes.get("BuToJpsiK"),
                 check_empty=False,
             ),
+            Dataset("BuToJpsiK_inclusive_muonSV_new",
+                dataset = "/BuToJpsiK_BMuonFilter_SoftQCDnonD_TuneCP5_13TeV-pythia8-evtgen/jleonhol-nanotronv2_v3-209802c58913bedf9ef81b726e08129a/USER",
+                process=self.processes.get("BuToJpsiK"),
+                check_empty=False,
+            ),
         ]
         return ObjectCollection(datasets)
 
