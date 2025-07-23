@@ -449,23 +449,23 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
 
     def plot(self, results, output_file):
         import matplotlib
-        matplotlib.use("Agg")
+        #matplotlib.use("Agg")
         from matplotlib import pyplot as plt
-        plt.rcParams['text.usetex'] = True
-        # import mplhep as hep
-        # hep.style.use("CMS")
+        #plt.rcParams['text.usetex'] = True
+        import mplhep as hep
+        hep.style.use("CMS")
 
         ax = plt.subplot()
 
         def scale(val):
-            return val * 0.01
+            return val * 0.0001
 
         plt.fill_between(
             results.keys(),
             [scale(elem["16.0"]) for elem in results.values()],
             [scale(elem["84.0"]) for elem in results.values()],
             color="#607641",
-            label="68\% expected"
+            label="68% expected"
         )
         plt.fill_between(
             results.keys(),
@@ -478,12 +478,12 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
             [scale(elem["16.0"]) for elem in results.values()],
             [scale(elem["2.5"]) for elem in results.values()],
             color="#F5BB54",
-            label="95\% expected"
+            label="95% expected"
         )
         plt.plot(
             results.keys(),
             [scale(elem["50.0"]) for elem in results.values()],
-            color="r", linestyle="dashed",
+            color="k", linestyle="dashed",
             label="Median expected"
         )
         if "observed" in list(results.values())[0]:
@@ -506,7 +506,7 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
 
         for resonance_mass_range in self.config.resonance_masses.values():
             if resonance_mass_range[0] >= self.min_mass:
-                ax.axvspan(resonance_mass_range[0], resonance_mass_range[1], alpha=1.0, color='gray', zorder = 10)        
+                ax.axvspan(resonance_mass_range[0], resonance_mass_range[1], alpha=1.0, color='silver', zorder = 10)        
 
         plt.ylabel(self.get_y_axis_label(self.fit_config_file))
 
@@ -516,12 +516,14 @@ class PlotDQCDGrid1D(PlotGridBaseDQCD, PlotCombineDQCD):
 
         x_label = f"$m{llp_type}$ [GeV]" if self.fixed_ctau != law.NO_FLOAT else "$c\\tau$ [mm]"
         plt.xlabel(x_label)
+        
+        '''
         plt.text(0, 1.01, r"\textbf{CMS} \textit{Private Work}", transform=ax.transAxes)
         plt.text(1., 1.01, r"%s, %s fb${}^{-1}$ (13TeV)" % (
             self.config.year, self.config.lumi_fb),
             transform=ax.transAxes, ha="right")
-
-        # hep.cms.label("Private Work", data=True, lumi=self.config.lumi_fb, year=self.config.year)
+        '''
+        hep.cms.label(loc=0, data=True, lumi=41.6, label = "Work in Progress", fontsize=28)
 
         inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
             else f"$c\\tau={self.fixed_ctau}$ mm")

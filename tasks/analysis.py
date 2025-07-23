@@ -132,18 +132,18 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         self.blind_range = (self.mass_point - 2 * self.sigma, self.mass_point + 2 * self.sigma)
         # if self.process_group_name != "default":
         #Vector portal
-        self.custom_signal_fit_parameters = {
-            "mean": self.mass_point,
-            "sigma": 0.0075 * self.mass_point,
-            "gamma": 0.005 * self.mass_point
-        }
-        
-        #Scenario A/B1
         #self.custom_signal_fit_parameters = {
             #"mean": self.mass_point,
-            #"sigma": 0.0085 * self.mass_point,
-            #"gamma": 0.005
+            #"sigma": 0.0075 * self.mass_point,
+            #"gamma": 0.005 * self.mass_point
         #}
+        
+        #Scenario A/B1
+        self.custom_signal_fit_parameters = {
+            "mean": self.mass_point,
+            "sigma": 0.0085 * self.mass_point,
+            "gamma": 0.005
+        }
         self.models = self.modify_models()
         self.cls = Fit if not self.use_refit else ReFitDQCD
 
@@ -362,9 +362,9 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
         systematics = {}
         for name in self.non_data_names:
             #Vector portal
-            systematics[name] = {"sigma": {"modelling": 0.001 * self.mass_point}}
+            #systematics[name] = {"sigma": {"modelling": 0.001 * self.mass_point}}
             #Scenario A/B1
-            #systematics[name] = {"sigma": {"modelling": 0.0015 * self.mass_point}}
+            systematics[name] = {"sigma": {"modelling": 0.0015 * self.mass_point}}
         return systematics
 
     def run(self):
@@ -523,6 +523,8 @@ class ValidateDatacardsDQCD(ValidateDatacards, DQCDBaseTask, FitConfigBaseTask):
 
 class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
     #method = "limits"
+    workflow = "htcondor"
+    max_runtime = "3h"
 
     def workflow_requires(self):
         reqs = {"data": CreateWorkspaceDQCD.vreq(self)}
@@ -551,12 +553,18 @@ class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
                 if index_q == 0:
                     left_th = 0.1 * self.limits[feature_name][quantiles[index_q]]
                     right_th = max(10 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
+                    #left_th = self.limits[feature_name][quantiles[index_q]] - (self.limits[feature_name][quantiles[index_q + 1]] - self.limits[feature_name][quantiles[index_q]])
+                    #right_th = self.limits[feature_name][quantiles[index_q + 1]]
                 elif index_q == len(quantiles) - 1:
                     left_th = min(0.1 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
                     right_th = 10 * self.limits[feature_name][quantiles[index_q]]
                 else:
                     left_th = min(0.1 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q - 1]])
                     right_th = max(10 * self.limits[feature_name][quantiles[index_q]], self.limits[feature_name][quantiles[index_q + 1]])
+                additional_parameters += f"--setParameterRanges r={left_th},{right_th} "
+            else:
+                left_th = min(0.1 * self.limits[feature_name][quantiles[2]], self.limits[feature_name][quantiles[1]])
+                right_th = max(10 * self.limits[feature_name][quantiles[2]], self.limits[feature_name][quantiles[3]])
                 additional_parameters += f"--setParameterRanges r={left_th},{right_th} "
         return additional_parameters
 
@@ -705,15 +713,19 @@ class BaseScanTask(CombineCategoriesTask, ProcessGroupNameWrapper): #law.LocalWo
 
             res = {}
             keys = [2.5, 16, 50, 84, 97.5, "obs"]
+            #keys = ["obs"]
             for key in keys:
                 if key == "obs":
                     tFile = ROOT.TFile.Open(filename_dict[key]["root"].path)
                     tTree = tFile.Get("limit")
                     res["observed"] = tTree.GetMaximum("limit")
                 else:
+                    '''
                     tFile = ROOT.TFile.Open(filename_dict[str(key / 100).replace(".", "p")]["root"].path)
                     tTree = tFile.Get("limit")
                     res[str(float(key))] = tTree.GetMaximum("limit")
+                    '''
+                    res[str(float(key))] = 1.
         if not res:
             print("Fit did not converge. Filling with dummy values.")
             res = {
@@ -765,7 +777,7 @@ class ScanCombineDQCD(BaseScanTask):
     feature_names = ("muonSV_bestchi2_mass",)
     # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
     features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
-    # method = "limits"
+    #method = "limits"
     method = "limits_toys"
 
     def __init__(self, *args, **kwargs):

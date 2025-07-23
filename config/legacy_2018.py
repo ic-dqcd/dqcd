@@ -505,6 +505,26 @@ class Config(cmt_config):
             "test":  [
                 "vector_m_2_ctau_10_xiO_1_xiL_1",
                 "scenarioB1_mpi_1_mA_0p33_ctau_1p0_new"
+            ],
+            "scenarioA_one_third_vs_one_tenth": [
+                "scenarioA_mpi_1_mA_0p33_ctau_10",
+                "scenarioA_mpi_3p33_mA_0p33_ctau_10"
+            ],
+            "scenarioA_one_third_vs_one_tenth_2": [
+                "scenarioA_mpi_1p50_mA_0p50_ctau_10",
+                "scenarioA_mpi_5_mA_0p50_ctau_10"
+            ],
+            "scenarioB1_one_third_vs_one_tenth": [
+                "scenarioB1_mpi_1_mA_0p33_ctau_10",
+                "scenarioB1_mpi_3p33_mA_0p33_ctau_10"
+            ],
+            "scenarioB1_one_third_vs_one_tenth_2": [
+                "scenarioB1_mpi_1p50_mA_0p50_ctau_10",
+                "scenarioB1_mpi_5_mA_0p50_ctau_10"
+            ],
+            "scenarioB1_one_third_vs_one_tenth_3": [
+                "scenarioB1_mpi_1_mA_0p33_ctau_100",
+                "scenarioB1_mpi_3p33_mA_0p33_ctau_100"
             ]
         }
 
@@ -555,11 +575,19 @@ class Config(cmt_config):
             mA = key.split("mA_")[1].split("_")[0].replace("p", ".")
             ctau = key.split("ctau_")[1].split("_")[0].replace("p", ".")
 
-            processes.add(
-                Process(key,
-                    Label(latex="sc.%s, $m_{\pi}=%s$, $m_A=%s$, $c\\tau=%s$" % (sc, mpi, mA, ctau)),
-                    color=(0, 0, 0), isSignal=True, parent_process=f"scenario{sc}"),
-            )
+            if abs(float(mA) / float(mpi) - 1./3.) < 0.01:
+                processes.add(
+                    Process(key,
+                        Label(latex="sc.%s, $m_{\pi}=%s$, $m_A=%s$, $c\\tau=%s$" % (sc, mpi, mA, ctau)),
+                        color=(255, 0, 0), isSignal=True, parent_process=f"scenario{sc}"),
+                )
+
+            else:
+                processes.add(
+                    Process(key,
+                        Label(latex="sc.%s, $m_{\pi}=%s$, $m_A=%s$, $c\\tau=%s$" % (sc, mpi, mA, ctau)),
+                        color=(0, 255, 0), isSignal=True, parent_process=f"scenario{sc}"),
+                )
 
         return processes
 
@@ -1180,7 +1208,7 @@ class Config(cmt_config):
                 x_title=Label("muonSV_dlen_0")),
             Feature("muonSV_dlenSig", "muonSV_dlenSig", binning=(100, 0, 1500),
                 x_title=Label("muonSV dlenSig"), tags=["bdt"]),
-            Feature("muonSV_dxy_with_material_veto", "muonSV_dxy.at(ArgMin(muonSV_chi2))", binning=(1000, 0, 50), 
+            Feature("muonSV_dxy_with_material_veto", "muonSV_dxy.at(ArgMin(muonSV_chi2))", binning=(100, 0, 50), 
                 selection = "(muonSV_bestchi2_dxy > 0.0 && muonSV_bestchi2_dxy < 6.7) ||"
                          "(muonSV_bestchi2_dxy > 7.3 && muonSV_bestchi2_dxy < 10.5) ||" 
                          "(muonSV_bestchi2_dxy > 11.5 && muonSV_bestchi2_dxy < 15.6) ||" 
@@ -1695,6 +1723,13 @@ class Config(cmt_config):
                          "(muonSV_bestchi2_dxy > 11.5 && muonSV_bestchi2_dxy < 15.6 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0))||" 
                          "(muonSV_bestchi2_dxy > 16.6 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0))"),
             Feature("muonSV_bestchi2_mass_fullrange_100_bins", "muonSV_bestchi2_mass", binning=(100, 0, 22),
+                x_title=Label("muonSV mass (Min. #chi^{2})"),
+                units="GeV",
+                selection = "(muonSV_bestchi2_dxy > 0.0 && muonSV_bestchi2_dxy < 6.4 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0)) ||"
+                         "(muonSV_bestchi2_dxy > 7.3 && muonSV_bestchi2_dxy < 10.5 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0))||" 
+                         "(muonSV_bestchi2_dxy > 11.5 && muonSV_bestchi2_dxy < 15.6 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0))||" 
+                         "(muonSV_bestchi2_dxy > 16.6 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0))"),
+            Feature("muonSV_bestchi2_mass_fullrange_ScA_ScB1_100_bins", "muonSV_bestchi2_mass", binning=(100, 0, 2.5),
                 x_title=Label("muonSV mass (Min. #chi^{2})"),
                 units="GeV",
                 selection = "(muonSV_bestchi2_dxy > 0.0 && muonSV_bestchi2_dxy < 6.4 && (abs(muonSV_bestchi2_z) < 27.0 || abs(muonSV_bestchi2_z) > 52.0)) ||"

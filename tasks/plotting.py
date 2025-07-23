@@ -103,9 +103,9 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
         if process_group_name.startswith("btophi"):
             return r"95$\%$ CL upper limit on BR(pp$\to$B$\to\phi$X$\to2\mu$X)"
         elif process_group_name.startswith("scenario"):
-            return r"95$\%$ CL upper limit on BR(H$\to\psi\psi$)"
+            return r"95$\%$ CL upper limit on BR$\left(H\to\psi\overline{\psi}\right)$"
             #return r"BR(H$\to\psi\psi$)"
-        return r"95$\%$ CL upper limit on BR(H$\to\psi\psi$)"
+        return r"95$\%$ CL upper limit on BR$\left(H\to\psi\overline{\psi}\right)$"
         #return r"BR(H$\to\psi\psi$)"
 
     def set_cms_labels(self, plt, ax):
@@ -271,7 +271,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
             if "scenario" in pgn:
                 pattern = r"scenario(.*)_mpi_(.*)_mA_(.*)_ctau_(.*)"
                 match = re.fullmatch(pattern, pgn)
-                masses.append((float(match.group(2)), float(match.group(3).replace("p", "."))))
+                masses.append((float(match.group(2).replace("p", ".")), float(match.group(3).replace("p", "."))))
                 ctaus.append(self.get_ctau(pgn))
             elif "vector" in pgn:
                 pattern = r"vector_m_(.*)_ctau_(.*)_xiO_1_xiL_1"
@@ -364,12 +364,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
             [scale(elem["2.5"]) for elem in results.values()],
             color="#F5BB54"
         )
-        plt.plot(
-            results.keys(),
-            [scale(elem["50.0"]) for elem in results.values()],
-            color="k", linestyle="dashed",
-            label="Median expected"
-        )
+
         if self.unblind:
             plt.plot(
                 results.keys(),
@@ -378,6 +373,13 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 label="Observed"
             )
 
+        plt.plot(
+            results.keys(),
+            [scale(elem["50.0"]) for elem in results.values()],
+            color="k", linestyle="dashed",
+            label="Median expected"
+        )
+        
         plt.ylabel(self.get_y_axis_label(self.fit_config_file), fontsize=28)
         #plt.ylabel(r"95% CL on BR(H)\rightarrow\psi\psi" fontsize=16)
 
@@ -385,7 +387,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
         plt.xlabel(x_label, fontsize=28)
         #self.set_cms_labels(plt, ax)
 
-        hep.cms.label(loc=0, data=True, lumi=41.6, label = "Preliminary", fontsize=28)
+        hep.cms.label(loc=0, data=True, lumi=41.6, fontsize=28)
 
         # inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
             # else f"$c\\tau={self.fixed_ctau}$ mm")
@@ -399,7 +401,10 @@ class ParamPlotDQCD(PlotCombineDQCD):
         plt.yticks(fontsize=24)
         plt.yscale('log')
         plt.ylim(1E-5, 1E0)
-        plt.xlim(1E-1, 500)
+        if "scenario" in self.fit_config_file:
+            plt.xlim(1E-1, 100)
+        else:    
+            plt.xlim(1E-1, 500)
         if kwargs.pop("log", False):
             plt.xscale('log')
         plt.savefig(create_file_dir(output_file["pdf"].path), bbox_inches='tight')
@@ -433,6 +438,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     results[process_group_name]["50.0"], results[process_group_name]["84.0"],
                     results[process_group_name]["97.5"],
                 ]
+                #res = []
                 if self.unblind and "observed" in results[process_group_name]:
                     observed_is_available = True
                     res.append(results[process_group_name]["observed"])
@@ -460,7 +466,7 @@ class ParamPlotDQCD(PlotCombineDQCD):
                     for mm, ctau in itertools.product([elem[0] for elem in self.masses], self.ctaus)}
                 for pgn, value in results.items():
                     match = re.fullmatch(pattern, pgn)
-                    mm = float(match.group(2))
+                    mm = float(match.group(2).replace("p", "."))
                     m = float(match.group(3).replace("p", "."))
                     ctau = float(match.group(4).replace("p", "."))
                     d_mass[(mm, m)][ctau] = value
@@ -469,6 +475,8 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 # llp_type = ""
                 # if self.fit_config_file.startswith("scenario"):
                 llp_type="_{A'}"
+                m_pion_label = r"$m_{\pi_{3}}$"
+                m_A_label = r"$m_{A'}$"
                 for key, val in d_mass.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
                         x_label="$c\\tau$ [mm]",
@@ -478,8 +486,8 @@ class ParamPlotDQCD(PlotCombineDQCD):
                             #f"$m_\\pi$={key[0]} GeV",
                             #f"$m{llp_type}$={key[1]} GeV"
                             f"Scenario {match.group(1)}",
-                            r"$m_{\pi3}=2$ GeV",
-                            r"$m_{A'}=0.67$ GeV",
+                            f"{m_pion_label}$=2$ GeV",
+                            f"{m_A_label}$=0.67$ GeV",
                             r"$\mathcal{B}(A'\rightarrow\mu\mu)=0.17$"
                             ]
                     )
@@ -510,9 +518,9 @@ class ParamPlotDQCD(PlotCombineDQCD):
                         log=True,
                         inner_text=[
                             f"Vector portal",
-                            f"{mass_label}={key} GeV",
-                            #r"$m_{\tilde{\omega}}$=2 GeV",
-                            r"$\mathcal{B}(\tilde{\omega}\rightarrow\mu\mu)=0.25$"]
+                            #f"{mass_label}={key} GeV",
+                            r"$m_{\tilde{\omega}}=20$ GeV",
+                            r"$\mathcal{B}(\tilde{\omega}\rightarrow\mu\mu)=0.15$"]
                     )
                 for key, val in d_ctau.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],
