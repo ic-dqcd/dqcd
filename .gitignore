@@ -4,3 +4,4 @@ x509up
 correctionlib*
 docs/build
 __pycache__/
+nanoaod_base_analysis

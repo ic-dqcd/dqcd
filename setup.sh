@@ -9,7 +9,7 @@ action() {
     cd nanoaod_base_analysis
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
-    export CMT_BASE="/vols/cms/khl216/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis"
+    export CMT_BASE="/home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis"
     if [[ "$CMT_BASE" == "DUMMY" ]]; then
         echo "Need to change the path stored in CMT_BASE to the present folder"
         return "1"

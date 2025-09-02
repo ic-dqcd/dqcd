@@ -6,7 +6,8 @@ met:
         year: self.config.year
 
 muon:
-    name: DQCDMuonSelectionRDF
+#    name: DQCDMuonSelectionRDF
+    name: DQCDMuonSelection2024RDF
     path: modules.muon_selection
     parameters:
         year: self.config.year

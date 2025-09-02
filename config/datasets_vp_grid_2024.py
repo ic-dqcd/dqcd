@@ -1,0 +1,4 @@
+# TODO must add eventually 2024 samples. Using 2018 as place holders
+d = {'hiddenValleyGridPack_vector_m_0p3_ctau_100_xiO_1_xiL_1': '/hiddenValleyGridPack_vector_m_0p3_ctau_100_xiO_1_xiL_1/jleonhol-nanotron_grid-03c1abd2c21af5f26f47f89f556a9cfa/USER',
+ 'hiddenValleyGridPack_vector_m_0p3_ctau_200_xiO_1_xiL_1': '/hiddenValleyGridPack_vector_m_0p3_ctau_200_xiO_1_xiL_1/jleonhol-nanotron_grid-03c1abd2c21af5f26f47f89f556a9cfa/USER',
+ 'hiddenValleyGridPack_vector_m_9_ctau_75p0_xiO_1_xiL_1': '/hiddenValleyGridPack_vector_m_9_ctau_75p0_xiO_1_xiL_1/jleonhol-nanotron_grid-03c1abd2c21af5f26f47f89f556a9cfa/USER'}
