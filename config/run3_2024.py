@@ -454,7 +454,7 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
@@ -470,7 +470,7 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="output_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root"
@@ -482,7 +482,7 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
@@ -503,7 +503,7 @@ class Config(legacy_config):
                     "base": 20,
                     "singlev_cat1": 30
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
             ),
 
             Dataset("data_2018d_bph1_full_matveto",
@@ -512,7 +512,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -524,7 +524,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -536,7 +536,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -548,7 +548,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -577,7 +577,7 @@ class Config(legacy_config):
                     "multiv_cat5": 50,
                     "multiv_cat6": 50,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
             ),
 
             Dataset("data_2018_bph1",
@@ -589,7 +589,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -602,7 +602,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -615,7 +615,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -628,7 +628,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -642,7 +642,7 @@ class Config(legacy_config):
                     "singlev_cat3": 25,
                     "singlev_cat4": 5,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -652,7 +652,7 @@ class Config(legacy_config):
                 merging={
                     "base": 25,
                 },
-                tags=["ul_2024"],
+                tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -679,13 +679,13 @@ class Config(legacy_config):
             # Pending DATA GOES HERE
             #Dataset("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1",
 #            Dataset("GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8",
-#                dataset="/GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8/tafoyava-RunIII2024Summer24_nanotron_v15-150X_mcul_2024_realistic-435ba2bfbd0ec63e168d4b47aa00e957/USER",
+#                dataset="/GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8/tafoyava-RunIII2024Summer24_nanotron_v15-150X_mcrun3_2024_realistic-435ba2bfbd0ec63e168d4b47aa00e957/USER",
 #                process=self.processes.get("GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8"),
 #                check_empty=False,
-#                tags=["ul_2024"],
+#                tags=["run3_2024"],
 #                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
 #                xs=signal_xs,
-#                skipFiles=[f"/ceph/cms/store/user/tafoyava/samples/nanotron/GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24_nanotron_v15-150X_mcul_2024_realistic/250812_093711/0000/nano_{i}.root"
+#                skipFiles=[f"/ceph/cms/store/user/tafoyava/samples/nanotron/GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24_nanotron_v15-150X_mcrun3_2024_realistic/250812_093711/0000/nano_{i}.root"
 #                    for i in range(1, 1)],
 #                    #for i in range(1, 21)],
 #            ),
@@ -694,7 +694,7 @@ class Config(legacy_config):
 
         # for name, dataset in signal_samples.items():
         #     datasets.append(self.create_signal_dataset(name + "_ext", dataset, signal_xs,
-        #         tags=["ext", "ul_2024", "limits_scA", "third"]))
+        #         tags=["ext", "run3_2024", "limits_scA", "third"]))
         #     if name.endswith("10"):
         #         input_ctau = "ctau_10"
         #         ctaus = ["2p0", "5p0", "8p0"]
@@ -706,7 +706,7 @@ class Config(legacy_config):
         #     for ctau in ctaus:
         #         datasets.append(self.create_signal_dataset(
         #             name.replace(input_ctau, "ctau_%s_rew" % ctau) + "_ext",
-        #             dataset, signal_xs, tags=["ext", "ul_2024", "rew"]))
+        #             dataset, signal_xs, tags=["ext", "run3_2024", "rew"]))
 
         datasets = ObjectCollection(datasets)
         
@@ -731,7 +731,7 @@ class Config(legacy_config):
                     dataset=dataset,
                     process=self.processes.get(key.replace("hiddenValleyGridPack_", "")),
                     check_empty=False,
-                    tags=["ul_2024", "limits_vp"],
+                    tags=["run3_2024", "limits_vp"],
                     prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                     #prefix="redirector.t2.ucsd.edu:1095", #TODO use this redirect when 2024 are ready
                     xs=signal_xs,
@@ -750,7 +750,7 @@ class Config(legacy_config):
             mA = key.split("mA_")[1].split("_")[0].replace("p", ".")
             ctau = key.split("ctau_")[1].split("_")[0]
 
-            tags = ["ul_2024", f"limits_sc{sc}"]
+            tags = ["run3_2024", f"limits_sc{sc}"]
             if abs(float(mA) / float(mpi) - 1./3.) < 0.01:
                 tags.append("third")
             elif abs(float(mA) / float(mpi) - 1./10.) < 0.01:
