@@ -392,3 +392,4 @@ action() {
 action "$@"
 cd ..
 #voms-proxy-init --voms cms -valid 192:0
+voms-proxy-init --rfc --voms cms -valid 192:00

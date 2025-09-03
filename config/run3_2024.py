@@ -6,7 +6,7 @@ from collections import OrderedDict
 
 from config.legacy_2018 import Config as legacy_config
 
-signal_xs = 43.9 * 0.01
+signal_xs = 43.9 * 0.01 #TODO what's this doing
 
 
 class Config(legacy_config):
@@ -741,8 +741,6 @@ class Config(legacy_config):
 
 
     def add_scenario_grid_datasets_2024(self, datasets):
-        from config.files_to_skip import d as files_to_skip
-
         from config.datasets_scenario_2024 import d
         for key, dataset in d.items():
             sc = key.split("scenario")[1].split("_")[0]
@@ -756,11 +754,6 @@ class Config(legacy_config):
             elif abs(float(mA) / float(mpi) - 1./10.) < 0.01:
                 tags.append("tenth")
 
-            if key not in files_to_skip:
-                skipFiles = None
-            else:
-                skipFiles = [files_to_skip[key] + f"/nano_{i}.root" for i in range(1, 21)]
-
             datasets.add(
                 Dataset(key + ("_ext" if sc == "A" else ""),
                     dataset=dataset,
@@ -770,7 +763,6 @@ class Config(legacy_config):
                     #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                     prefix="redirector.t2.ucsd.edu:1095",
                     xs=signal_xs,
-                    skipFiles=skipFiles
                 )
             )
         return datasets

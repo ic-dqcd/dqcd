@@ -202,12 +202,13 @@ class DQCDMuonSelection2024RDFProducer():
 
     # TODO must modify pT thresholds to match 2024 triggers
     def run(self, df):
-        df = df.Define("MuonBPark_isLooseMuon", """(MuonBPark_looseId == 1) &&
-            (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.5)""")
-        df = df.Define("MuonBPark_isMuonWithEtaAndPtReq", """(MuonBPark_isLooseMuon == 1) &&
-            (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 2.4)""")
-        df = df.Define("MuonBPark_isTriggeringMuon", """(MuonBPark_isLooseMuon == 1) &&
-            (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)""")
+        # per-muon definitions
+        df = df.Define("MuonBPark_isLooseMuon",
+            "(MuonBPark_looseId == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.5)")
+        df = df.Define("MuonBPark_isMuonWithEtaAndPtReq",
+            "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 2.4)")
+        df = df.Define("MuonBPark_isTriggeringMuon",
+            "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)")
 
         # filtering
         df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
@@ -215,11 +216,12 @@ class DQCDMuonSelection2024RDFProducer():
         df = df.Filter("MuonBPark_pt[MuonBPark_isMuonWithEtaAndPtReq == 1].size() > 0", ">= 1 muon with pt and eta req")
         df = df.Filter("MuonBPark_pt[MuonBPark_isTriggeringMuon == 1].size() > 0", ">= 1 triggering muon")
 
-        # trigger flag
+        # trigger flags
+        # separating into single- and double-muon triggers
         if self.year == 2024:
-            df = df.Define("DisplacedMuonTrigger_flag", " || ".join([
-                "HLT_DoubleMu4_3_LowMass",
-                "HLT_DoubleMu4_LowMass_Displaced",
+
+            # single-muon displaced triggers
+            df = df.Define("SingleMuonTrigger_flag", " || ".join([
                 "HLT_Mu10_Barrel_L1HP11_IP6",
                 "HLT_Mu9_Barrel_L1HP10_IP6",
                 "HLT_Mu8_Barrel_L1HP9_IP6",
@@ -234,7 +236,36 @@ class DQCDMuonSelection2024RDFProducer():
                 "HLT_Mu0_Barrel_L1HP7",
                 "HLT_Mu0_Barrel_L1HP6"
             ]))
-        
+
+            # double-muon displaced triggers
+            df = df.Define("DoubleMuonTrigger_flag", " || ".join([
+                "HLT_DoubleMu4_3_LowMass",
+                "HLT_DoubleMu4_LowMass_Displaced"
+            ]))
+
+            # combine in a general "pass trigger" filter
+            df = df.Define("DisplacedMuonTrigger_flag",
+               "SingleMuonTrigger_flag || DoubleMuonTrigger_flag")
+
+        # single-muon: require >= 1 muon with pT > 10 and |eta| < 1.5
+        #TODO adjust thresholds better (?)
+        df = df.Define("MuonBPark_passSingleMuonSel",
+            "(SingleMuonTrigger_flag && Sum(MuonBPark_pt > 10. && abs(MuonBPark_eta) < 1.5) >= 1)")
+
+        # double-muon: require >= 2 muons with asymmetric thresholds (leading > 4, subleading > 3) (i.e. at least one muon > 4GeV, and at least 2 muons > 3GeV)
+        #TODO adjust thresholds better (?)
+        df = df.Define("MuonBPark_passDoubleMuonSel",
+            """DoubleMuonTrigger_flag && (
+               (Sum(MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.4) >= 1 &&
+                Sum(MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.4) >= 2)
+               )""")
+
+        # overall selection-based pass
+        df = df.Filter("MuonBPark_passSingleMuonSel || MuonBPark_passDoubleMuonSel",
+                       "Pass muon pT/eta cuts matching trigger")
+
+        #df = df.Filter("SingleMuonTrigger_flag > 0", "Pass trigger") #TODO keep?
+        #df = df.Filter("DoubleMuonTrigger_flag > 0", "Pass trigger") #TODO keep?
         df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger")
 
         # cpf candidates
@@ -248,25 +279,96 @@ class DQCDMuonSelection2024RDFProducer():
         #     cpf_pt, cpf_eta, cpf_phi,
         #     0.1, 0.02)""")
 
-        df = df.Define("leading", "get_leading_elems(MuonBPark_pt)").Define(
-            "MuonBPark_isLeading", "leading[0]").Define("MuonBPark_isSubleading", "leading[1]")
+        df = df.Define("leading", "get_leading_elems(MuonBPark_pt)") \
+            .Define("MuonBPark_isLeading", "leading[0]") \
+            .Define("MuonBPark_isSubleading", "leading[1]")
 
         # match to trigger muons
+        # for 2024, we want:
+        #    - single-muon triggers to require at least 1 trigger-matched muon
+        #    - double-muon triggers to require at least 2 trigger0matched muons
         # trigger matched
-        df = df.Define("MuonBPark_trigger_matched", """(MuonBPark_isTriggeringMuon > 0) &&
-            (MuonBPark_isTriggering > 0) && 
-            (MuonBPark_fired_HLT_DoubleMu4_3_LowMass > 0 || MuonBPark_fired_HLT_DoubleMu4_LowMass_Displaced > 0 || MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6_v > 0 || MuonBPark_fired_HLT_Mu9_Barrel_L1HP10_IP6_v > 0 || MuonBPark_fired_HLT_Mu8_Barrel_L1HP9_IP6_v > 0 || MuonBPark_fired_HLT_Mu7_Barrel_L1HP8_IP6_v > 0 || MuonBPark_fired_HLT_Mu6_Barrel_L1HP7_IP6_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_IP6_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP11_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP10_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP9_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP8_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP7_v > 0 || MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_v > 0 ||)""")
-        df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0", ">= 1 trigger-matched muon")
+        # per-muon matching
+        df = df.Define("MuonBPark_trigger_matched", """
+            (MuonBPark_isTriggeringMuon > 0) &&
+            (MuonBPark_isTriggering > 0) &&
+            (
+                MuonBPark_fired_HLT_DoubleMu4_3_LowMass > 0 ||
+                MuonBPark_fired_HLT_DoubleMu4_LowMass_Displaced > 0 ||
+                MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu9_Barrel_L1HP10_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu8_Barrel_L1HP9_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu7_Barrel_L1HP8_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu6_Barrel_L1HP7_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP11_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP10_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP9_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP8_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP7_v > 0 ||
+                MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_v > 0
+            )
+        """)
+
+        # event-level requirements
+        df = df.Define("MuonBPark_passSingleMuonMatch",
+            "SingleMuonTrigger_flag && Sum(MuonBPark_trigger_matched) >= 1")
+
+        df = df.Define("MuonBPark_passDoubleMuonMatch",
+            "DoubleMuonTrigger_flag && Sum(MuonBPark_trigger_matched) >= 2")
+
+        # TODO may need to remove since below I definve a filter taking into cosideration priority ordering. To be checked
+        df = df.Filter("MuonBPark_passSingleMuonMatch || MuonBPark_passDoubleMuonMatch",
+            "Pass trigger-matching requirement")
+
+        #df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0", ">= 1 trigger-matched muon") #TODO not needed anymore (?)
+
+        # mutually-exclusive categories
+        #     priority 1: single-muon category (harder trigger, higher pt threhsholds). N.B. many less single-muon than double-muons
+        #     priority 2: double-muon category (only gets events not taken by the single-muon category)
+        # TODO may need to check priority order or if we want them mutually exclussive even
+        # TODO an alternative is to remove this, and generate 2 separate datasets for single- and double-muon candidates
+        df = df.Define("passSingleMuonExclusive",
+            "MuonBPark_passSingleMuonSel && MuonBPark_passSingleMuonMatch")
+
+        df = df.Define("passDoubleMuonExclusive",
+            "(!passSingleMuonExclusive) && MuonBPark_passDoubleMuonSel && MuonBPark_passDoubleMuonMatch")
+
+        # filter taking into cosideration priority ordering
+        df = df.Filter("passSingleMuonExclusive || passDoubleMuonExclusive",
+            "Pass trigger-matching with priority")
 
         # tighter eta and pt reqs
         df = df.Define("MuonBPark_isMuonWithTighterEtaAndPtReq", """MuonBPark_isLooseMuon == 1 &&
             MuonBPark_pt > 10. && abs(MuonBPark_eta) < 1.5""")
 
-        return df, ["MuonBPark_isLooseMuon", "MuonBPark_isTriggeringMuon",
+        return df, [
+            # per-muon flags
+            "MuonBPark_isLooseMuon",
+            "MuonBPark_isTriggeringMuon",
             "MuonBPark_isMuonWithEtaAndPtReq",
             #"MuonBPark_isMuonWithEtaAndPtReq", "MuonBPark_cpf_match",
-            "MuonBPark_isLeading", "MuonBPark_isSubleading",
-            "MuonBPark_trigger_matched", "MuonBPark_isMuonWithTighterEtaAndPtReq"]
+            "MuonBPark_isLeading",
+            "MuonBPark_isSubleading",
+            "MuonBPark_trigger_matched",
+            "MuonBPark_isMuonWithTighterEtaAndPtReq",
+
+            # trigger flags
+            "SingleMuonTrigger_flag",
+            "DoubleMuonTrigger_flag",
+            "DisplacedMuonTrigger_flag",
+
+            # event-level selections
+            "MuonBPark_passSingleMuonSel",
+            "MuonBPark_passDoubleMuonSel",
+            "MuonBPark_passSingleMuonMatch",
+            "MuonBPark_passDoubleMuonMatch",
+
+            # priority categories
+            "passSingleMuonExclusive",
+            "passDoubleMuonExclusive"
+        ]
 
 
 def DQCDMuonSelectionRDF(*args, **kwargs):
