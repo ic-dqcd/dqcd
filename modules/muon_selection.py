@@ -283,6 +283,19 @@ class DQCDMuonSelection2024RDFProducer():
             .Define("MuonBPark_isLeading", "leading[0]") \
             .Define("MuonBPark_isSubleading", "leading[1]")
 
+        # Single-muon-style tighter cuts (per-muon flag)
+        df = df.Define("MuonBPark_passSingleMuonLike",
+            "MuonBPark_isLooseMuon && MuonBPark_pt > 10. && abs(MuonBPark_eta) < 1.5")
+
+        # Double-muon-style lower and asymmetric cuts (per-muon flag)
+        df = df.Define("MuonBPark_passDoubleMuonLike", """MuonBPark_isLooseMuon == 1 &&
+            (
+              (MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.4) ||
+              (MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.4)
+            )
+        """)
+
+
         # match to trigger muons
         # for 2024, we want:
         #    - single-muon triggers to require at least 1 trigger-matched muon
@@ -353,6 +366,8 @@ class DQCDMuonSelection2024RDFProducer():
             "MuonBPark_isSubleading",
             "MuonBPark_trigger_matched",
             "MuonBPark_isMuonWithTighterEtaAndPtReq",
+            "MuonBPark_passSingleMuonLike",
+            "MuonBPark_passDoubleMuonLike",
 
             # trigger flags
             "SingleMuonTrigger_flag",
@@ -365,7 +380,7 @@ class DQCDMuonSelection2024RDFProducer():
             "MuonBPark_passSingleMuonMatch",
             "MuonBPark_passDoubleMuonMatch",
 
-            # priority categories
+            # mutually-exclusive priority-based categories
             "passSingleMuonExclusive",
             "passDoubleMuonExclusive"
         ]
