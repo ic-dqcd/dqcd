@@ -73,7 +73,8 @@ jet:
 
 
 # # trig:
-    # # name: DQCDTriggerSelectionRDF
+#    # # name: DQCDTriggerSelectionRDF
+    # # name: DQCDTriggerSelection2024RDF
     # # path: modules.muonsv_selection
     # # parameters:
         # # gen_mass: 2
