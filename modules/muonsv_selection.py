@@ -392,7 +392,6 @@ class DQCDTriggerSelection2024RDFProducer():
                     Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
                     Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
                     int nMuonBPark, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi,
- #                   Vbool MuonBPark_trigger_matched,
                     Vbool MuonBPark_SingleMuon_trigger_matched, Vbool MuonBPark_DoubleMuon_trigger_matched,
                     Vbool MuonBPark_isMuonWithTighterEtaAndPtReq,
                     Vbool MuonBPark_passSingleMuonLike, Vbool MuonBPark_passDoubleMuonLike,
@@ -423,7 +422,7 @@ class DQCDTriggerSelection2024RDFProducer():
                         float mindeltaR2 = 999.;
 
                         for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
-                            if (!MuonBPark_SingleMuon_trigger_matched[iMuonBPark] || !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark] || !MuonBPark_DoubleMuon_trigger_matched[iMuonBPark] ||)
+                            if (!MuonBPark_SingleMuon_trigger_matched[iMuonBPark] || !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark] || !MuonBPark_DoubleMuon_trigger_matched[iMuonBPark])
                                 continue;
 
                             // Select based on category

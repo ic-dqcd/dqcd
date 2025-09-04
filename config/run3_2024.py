@@ -215,8 +215,10 @@ class Config(legacy_config):
             Category("loose_bdt_btophi", "Loose bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("tight_bdt_btophi", "Tight bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.98"),
             Category("bdt_preselections", "Basic selections",
+            #TODO must define selection for 2024. For now, using all of the relevant triggers in an OR just to fill the space
             selection="""
-            (HLT_Mu9_IP6_part0 || HLT_Mu9_IP6_part1 || HLT_Mu9_IP6_part2 || HLT_Mu9_IP6_part3 || HLT_Mu9_IP6_part4) &&
+            (HLT_Mu10_Barrel_L1HP11_IP6 || HLT_Mu9_Barrel_L1HP10_IP6 || HLT_Mu8_Barrel_L1HP9_IP6 || HLT_Mu7_Barrel_L1HP8_IP6 || HLT_Mu6_Barrel_L1HP7_IP6 || HLT_Mu0_Barrel_L1HP6_IP6 || HLT_Mu0_Barrel_L1HP11 || HLT_Mu0_Barrel || HLT_Mu0_Barrel_L1HP10 || HLT_Mu0_Barrel_L1HP9 || HLT_Mu0_Barrel_L1HP8 || HLT_Mu0_Barrel_L1HP7 || HLT_Mu0_Barrel_L1HP6 ||
+            HLT_DoubleMu4_3_LowMass || HLT_DoubleMu4_LowMass_Displaced) &&
             (nmuonSV > 0) &&
             (Sum(muonSV_mu1pt > 5.0)  > 0 || Sum(muonSV_mu2pt > 5.0) > 0)
             """),

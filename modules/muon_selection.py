@@ -112,7 +112,7 @@ class DQCDMuonSelectionRDFProducer():
                 "HLT_Mu12_IP6_part3",
                 "HLT_Mu12_IP6_part4"
             ]))
-        
+
         df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger")
 
         # cpf candidates
@@ -132,7 +132,7 @@ class DQCDMuonSelectionRDFProducer():
         # match to trigger muons
         # trigger matched
         df = df.Define("MuonBPark_trigger_matched", """(MuonBPark_isTriggeringMuon > 0) &&
-            (MuonBPark_isTriggering > 0) && 
+            (MuonBPark_isTriggering > 0) &&
             (MuonBPark_fired_HLT_Mu9_IP6 > 0 || MuonBPark_fired_HLT_Mu7_IP4 > 0 || MuonBPark_fired_HLT_Mu8_IP3 > 0 || MuonBPark_fired_HLT_Mu8_IP5 > 0 || MuonBPark_fired_HLT_Mu8_IP6 > 0 || MuonBPark_fired_HLT_Mu9_IP4 > 0 || MuonBPark_fired_HLT_Mu9_IP5 > 0 || MuonBPark_fired_HLT_Mu12_IP6 > 0)""")
         df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0", ">= 1 trigger-matched muon")
 
@@ -210,8 +210,8 @@ class DQCDMuonSelection2024RDFProducer():
         df = df.Define("MuonBPark_isTriggeringSingleMuon",
             "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)")
         df = df.Define("MuonBPark_isTriggeringDoubleMuon",
-            """( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.) ||
-                 (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)
+            """((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)) ||
+               ((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.))
                 """)
 
         # filtering
@@ -309,21 +309,37 @@ class DQCDMuonSelection2024RDFProducer():
             (MuonBPark_isTriggeringSingleMuon > 0) &&
             (MuonBPark_isTriggering > 0) &&
             (
-                MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6_v > 0 ||
+                MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6_V > 0 ||
                 MuonBPark_fired_HLT_Mu9_Barrel_L1HP10_IP6_v > 0 ||
                 MuonBPark_fired_HLT_Mu8_Barrel_L1HP9_IP6_v > 0 ||
                 MuonBPark_fired_HLT_Mu7_Barrel_L1HP8_IP6_v > 0 ||
-                MuonBPark_fired_HLT_Mu6_Barrel_L1HP7_IP6_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_IP6_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP11_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP10_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP9_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP8_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP7_v > 0 ||
-                MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_v > 0
+                MuonBPark_fired_HLT_Mu6_Barrel_L1HP7_IP6_V > 0 ||
+                MuonBPark_fired_HLT_MuO_Barrel_L1HP6_IP6_v > 0 ||
+                MuonBPark_fired_HLT_MuO_Barrel_L1HP11_v > 0 ||
+                MuonBPark_fired_HLT_MuO_BarreLv > 0 ||
+                MuonBPark_fired_HLT_MuO_Barrel_L1HP10_v > 0 ||
+                MuonBPark_fired_HLT_Muo_Barrel_L1HP9_v > 0 ||
+                MuonBPark_fired_HLT_MuO_Barrel_L1HP8_v > 0 ||
+                MuonBPark_fired_HLT_MuO_Barrel_L1HP7_v > 0 ||
+                MuonBPark_fired_HLT_MuO_Barrel_L1HP6_v > 0
             )
         """)
+#TODO SingleMuon triggers seem to have typos...
+# The lines above are typo-consistent
+# To change eventually for the folloring (corrected) list
+#                MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6_V > 0 ||
+#                MuonBPark_fired_HLT_Mu9_Barrel_L1HP10_IP6_V > 0 ||
+#                MuonBPark_fired_HLT_Mu8_Barrel_L1HP9_IP6_V > 0 ||
+#                MuonBPark_fired_HLT_Mu7_Barrel_L1HP8_IP6_V > 0 ||
+#                MuonBPark_fired_HLT_Mu6_Barrel_L1HP7_IP6_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_IP6_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP11_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP10_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP9_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP8_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP7_V > 0 ||
+#                MuonBPark_fired_HLT_Mu0_Barrel_L1HP6_V > 0
 
         df = df.Define("MuonBPark_DoubleMuon_trigger_matched", """
             (MuonBPark_isTriggeringDoubleMuon > 0) &&
