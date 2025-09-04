@@ -392,7 +392,9 @@ class DQCDTriggerSelection2024RDFProducer():
                     Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
                     Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
                     int nMuonBPark, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi,
-                    Vbool MuonBPark_trigger_matched, Vbool MuonBPark_isMuonWithTighterEtaAndPtReq,
+ #                   Vbool MuonBPark_trigger_matched,
+                    Vbool MuonBPark_SingleMuon_trigger_matched, Vbool MuonBPark_DoubleMuon_trigger_matched,
+                    Vbool MuonBPark_isMuonWithTighterEtaAndPtReq,
                     Vbool MuonBPark_passSingleMuonLike, Vbool MuonBPark_passDoubleMuonLike,
                     bool passSingleMuonExclusive, bool passDoubleMuonExclusive,
                     int nMuon, Vfloat Muon_eta, Vfloat Muon_phi,
@@ -421,7 +423,7 @@ class DQCDTriggerSelection2024RDFProducer():
                         float mindeltaR2 = 999.;
 
                         for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
-                            if (!MuonBPark_trigger_matched[iMuonBPark] || !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark])
+                            if (!MuonBPark_SingleMuon_trigger_matched[iMuonBPark] || !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark] || !MuonBPark_DoubleMuon_trigger_matched[iMuonBPark] ||)
                                 continue;
 
                             // Select based on category
@@ -467,8 +469,6 @@ class DQCDTriggerSelection2024RDFProducer():
                         indexes[1] = muonsvs[0].muonBPark_trigger_index_1;
                         indexes[2] = muonsvs[0].muonBPark_trigger_index_2;
 
-                        //auto MuonBPark2_trig_eta = MuonBPark_eta[indexes[2]]; //TODO remove? I think leaving it could lead do out-of-bounds issues if there's no second trigger-matched muon
-                        //auto MuonBPark2_trig_phi = MuonBPark_phi[indexes[2]]; //TODO remove? I think leaving it could lead do out-of-bounds issues if there's no second trigger-matched muon
                         float mindeltaR1 = 999.;
                         float mindeltaR2 = 999.;
 
@@ -507,12 +507,14 @@ class DQCDTriggerSelection2024RDFProducer():
             "muonSV_chi2_trig_muon2_index"
         ]
 
+        #TODO for the future (e.g. to apply triggerSF), should store whether the vertex was accepted because it passes SingleMuon or DoubleMuon
         df = df.Define("muonsv_indexes", """get_triggering_muonsv_and_muon_indexes(
             nmuonSV, muonSV_chi2, muonSV_dR,
             muonSV_mu1eta, muonSV_mu1phi,
             muonSV_mu2eta, muonSV_mu2phi,
             nMuonBPark, MuonBPark_eta, MuonBPark_phi,
-            MuonBPark_trigger_matched,
+            MuonBPark_SingleMuon_trigger_matched,
+            MuonBPark_DoubleMuon_trigger_matched,
             MuonBPark_isMuonWithTighterEtaAndPtReq,
             MuonBPark_passSingleMuonLike, MuonBPark_passDoubleMuonLike,
             passSingleMuonExclusive, passDoubleMuonExclusive,

@@ -207,14 +207,19 @@ class DQCDMuonSelection2024RDFProducer():
             "(MuonBPark_looseId == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.5)")
         df = df.Define("MuonBPark_isMuonWithEtaAndPtReq",
             "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 2.4)")
-        df = df.Define("MuonBPark_isTriggeringMuon",
+        df = df.Define("MuonBPark_isTriggeringSingleMuon",
             "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)")
+        df = df.Define("MuonBPark_isTriggeringDoubleMuon",
+            """( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.) ||
+                 (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)
+                """)
 
         # filtering
-        df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
-        #df = df.Filter("All(MuonBPark_isLooseMuon == 1)", "ALL muons in the event are loose muon")
-        df = df.Filter("MuonBPark_pt[MuonBPark_isMuonWithEtaAndPtReq == 1].size() > 0", ">= 1 muon with pt and eta req")
-        df = df.Filter("MuonBPark_pt[MuonBPark_isTriggeringMuon == 1].size() > 0", ">= 1 triggering muon")
+        #TODO these may not be useful. Remnants of the original class, to be deleted once confirmed their uselessness
+        #df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
+        ##df = df.Filter("All(MuonBPark_isLooseMuon == 1)", "ALL muons in the event are loose muon")
+        #df = df.Filter("MuonBPark_pt[MuonBPark_isMuonWithEtaAndPtReq == 1].size() > 0", ">= 1 muon with pt and eta req")
+        #df = df.Filter("MuonBPark_pt[MuonBPark_isTriggeringSingleMuon == 1].size() > 0", ">= 1 triggering muon")
 
         # trigger flags
         # separating into single- and double-muon triggers
@@ -264,8 +269,6 @@ class DQCDMuonSelection2024RDFProducer():
         df = df.Filter("MuonBPark_passSingleMuonSel || MuonBPark_passDoubleMuonSel",
                        "Pass muon pT/eta cuts matching trigger")
 
-        #df = df.Filter("SingleMuonTrigger_flag > 0", "Pass trigger") #TODO keep?
-        #df = df.Filter("DoubleMuonTrigger_flag > 0", "Pass trigger") #TODO keep?
         df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger")
 
         # cpf candidates
@@ -302,12 +305,10 @@ class DQCDMuonSelection2024RDFProducer():
         #    - double-muon triggers to require at least 2 trigger0matched muons
         # trigger matched
         # per-muon matching
-        df = df.Define("MuonBPark_trigger_matched", """
-            (MuonBPark_isTriggeringMuon > 0) &&
+        df = df.Define("MuonBPark_SingleMuon_trigger_matched", """
+            (MuonBPark_isTriggeringSingleMuon > 0) &&
             (MuonBPark_isTriggering > 0) &&
             (
-                MuonBPark_fired_HLT_DoubleMu4_3_LowMass > 0 ||
-                MuonBPark_fired_HLT_DoubleMu4_LowMass_Displaced > 0 ||
                 MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6_v > 0 ||
                 MuonBPark_fired_HLT_Mu9_Barrel_L1HP10_IP6_v > 0 ||
                 MuonBPark_fired_HLT_Mu8_Barrel_L1HP9_IP6_v > 0 ||
@@ -324,18 +325,28 @@ class DQCDMuonSelection2024RDFProducer():
             )
         """)
 
+        df = df.Define("MuonBPark_DoubleMuon_trigger_matched", """
+            (MuonBPark_isTriggeringDoubleMuon > 0) &&
+            (MuonBPark_isTriggering > 0) &&
+            (
+                MuonBPark_fired_HLT_DoubleMu4_3_LowMass > 0 ||
+                MuonBPark_fired_HLT_DoubleMu4_LowMass_Displaced > 0
+            )
+        """)
+
+
         # event-level requirements
         df = df.Define("MuonBPark_passSingleMuonMatch",
-            "SingleMuonTrigger_flag && Sum(MuonBPark_trigger_matched) >= 1")
+            "SingleMuonTrigger_flag && Sum(MuonBPark_SingleMuon_trigger_matched) >= 1")
 
         df = df.Define("MuonBPark_passDoubleMuonMatch",
-            "DoubleMuonTrigger_flag && Sum(MuonBPark_trigger_matched) >= 2")
+            "DoubleMuonTrigger_flag && Sum(MuonBPark_DoubleMuon_trigger_matched) >= 2")
 
         # TODO may need to remove since below I definve a filter taking into cosideration priority ordering. To be checked
         df = df.Filter("MuonBPark_passSingleMuonMatch || MuonBPark_passDoubleMuonMatch",
             "Pass trigger-matching requirement")
 
-        #df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0", ">= 1 trigger-matched muon") #TODO not needed anymore (?)
+        #df = df.Filter("MuonBPark_pt[MuonBPark_trigger_matched > 0].size() > 0", ">= 1 trigger-matched muon") #TODO not needed anymore (?) -> now split into MuonBPark_SingleMuon_trigger_matched and MuonBPark_DoubleMuon_trigger_matched
 
         # mutually-exclusive categories
         #     priority 1: single-muon category (harder trigger, higher pt threhsholds). N.B. many less single-muon than double-muons
@@ -359,12 +370,14 @@ class DQCDMuonSelection2024RDFProducer():
         return df, [
             # per-muon flags
             "MuonBPark_isLooseMuon",
-            "MuonBPark_isTriggeringMuon",
+            "MuonBPark_isTriggeringSingleMuon",
+            "MuonBPark_isTriggeringDoubleMuon",
             "MuonBPark_isMuonWithEtaAndPtReq",
             #"MuonBPark_isMuonWithEtaAndPtReq", "MuonBPark_cpf_match",
             "MuonBPark_isLeading",
             "MuonBPark_isSubleading",
-            "MuonBPark_trigger_matched",
+            "MuonBPark_SingleMuon_trigger_matched",
+            "MuonBPark_DoubleMuon_trigger_matched",
             "MuonBPark_isMuonWithTighterEtaAndPtReq",
             "MuonBPark_passSingleMuonLike",
             "MuonBPark_passDoubleMuonLike",

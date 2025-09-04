@@ -9,7 +9,7 @@ action() {
     cd nanoaod_base_analysis
     #local this_file="$( [ ! -z "$ZSH_VERSION" ] && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
     #local this_dir="$( cd "$( dirname "$this_file" )" && pwd )"
-    export CMT_BASE="/home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis"
+    export CMT_BASE="/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis"
     if [[ "$CMT_BASE" == "DUMMY" ]]; then
         echo "Need to change the path stored in CMT_BASE to the present folder"
         return "1"
@@ -37,6 +37,7 @@ action() {
     fi
 
     # default cern name
+    export CMT_CERN_USER="tafoyava"
     if [ -z "$CMT_CERN_USER" ]; then
         if [ "$CMT_ON_LXPLUS" = "1" ]; then
             export CMT_CERN_USER="$( whoami )"
@@ -108,6 +109,9 @@ action() {
     #export CMT_STORE_EOS_MERGECATEGORIZATION=/vols/cms/jleonhol/cmt
     #export CMT_STORE_EOS_PREPROCESSING=/vols/cms/jleonhol/cmt
     #export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/jleonhol/cmt
+    export CMT_STORE_EOS_MERGECATEGORIZATION=/vols/cms/jtafoyav/cmt
+    export CMT_STORE_EOS_PREPROCESSING=/vols/cms/jtafoyav/cmt
+    export CMT_STORE_EOS_CATEGORIZATION=/vols/cms/jtafoyav/cmt
 
     # create some dirs already
     mkdir -p "$CMT_TMP_DIR"

@@ -454,7 +454,7 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
@@ -470,7 +470,7 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="output_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root"
@@ -482,7 +482,7 @@ class Config(legacy_config):
                 merging={
                     "base": 20,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
                 file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
@@ -503,7 +503,7 @@ class Config(legacy_config):
                     "base": 20,
                     "singlev_cat1": 30
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
             ),
 
             Dataset("data_2018d_bph1_full_matveto",
@@ -512,7 +512,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -524,7 +524,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -536,7 +536,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -548,7 +548,7 @@ class Config(legacy_config):
                 merging={
                     "base": 40,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                 check_empty=False
@@ -577,7 +577,7 @@ class Config(legacy_config):
                     "multiv_cat5": 50,
                     "multiv_cat6": 50,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
             ),
 
             Dataset("data_2018_bph1",
@@ -589,7 +589,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -602,7 +602,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -615,7 +615,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -628,7 +628,7 @@ class Config(legacy_config):
                     "singlev_cat2": 15,
                     "singlev_cat3": 9,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -642,7 +642,7 @@ class Config(legacy_config):
                     "singlev_cat3": 25,
                     "singlev_cat4": 5,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -652,7 +652,7 @@ class Config(legacy_config):
                 merging={
                     "base": 25,
                 },
-                tags=["run3_2024"],
+                tags=["ul_2018"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
@@ -733,7 +733,7 @@ class Config(legacy_config):
                     check_empty=False,
                     tags=["run3_2024", "limits_vp"],
                     prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                    #prefix="redirector.t2.ucsd.edu:1095", #TODO use this redirect when 2024 are ready
+                    #prefix="redirector.t2.ucsd.edu:1095/", #TODO use this redirect when 2024 are ready
                     xs=signal_xs,
                 )
             )
@@ -761,7 +761,7 @@ class Config(legacy_config):
                     check_empty=False,
                     tags=tags,
                     #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                    prefix="redirector.t2.ucsd.edu:1095",
+                    prefix="redirector.t2.ucsd.edu:1095/",
                     xs=signal_xs,
                 )
             )
@@ -794,7 +794,7 @@ class Config(legacy_config):
                                 process=self.processes.get(f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}"),
                                 check_empty=False,
                                 #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                                prefix="redirector.t2.ucsd.edu:1095",
+                                prefix="redirector.t2.ucsd.edu:1095/",
                                 xs=signal_xs,
                                 tags=["ext", "rew"]
                             ))
@@ -833,7 +833,7 @@ class Config(legacy_config):
                                 process=self.processes.get(f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew"),
                                 check_empty=False,
                                 #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                                prefix="redirector.t2.ucsd.edu:1095",
+                                prefix="redirector.t2.ucsd.edu:1095/",
                                 xs=signal_xs,
                                 tags=["ext", "rew", "rewtest"]
                             ))
