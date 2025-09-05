@@ -269,7 +269,7 @@ class DQCDMuonSelection2024RDFProducer():
         df = df.Filter("MuonBPark_passSingleMuonSel || MuonBPark_passDoubleMuonSel",
                        "Pass muon pT/eta cuts matching trigger")
 
-        df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger")
+        df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass displaced muon trigger")
 
         # cpf candidates
         #df = df.Define("cpf_pt", "sqrt(cpf_px * cpf_px + cpf_py * cpf_py)")
