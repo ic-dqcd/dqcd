@@ -217,8 +217,7 @@ class Config(legacy_config):
             Category("bdt_preselections", "Basic selections",
             #TODO must define selection for 2024. For now, using all of the relevant triggers in an OR just to fill the space
             selection="""
-            (HLT_Mu10_Barrel_L1HP11_IP6 || HLT_Mu9_Barrel_L1HP10_IP6 || HLT_Mu8_Barrel_L1HP9_IP6 || HLT_Mu7_Barrel_L1HP8_IP6 || HLT_Mu6_Barrel_L1HP7_IP6 || HLT_Mu0_Barrel_L1HP6_IP6 || HLT_Mu0_Barrel_L1HP11 || HLT_Mu0_Barrel || HLT_Mu0_Barrel_L1HP10 || HLT_Mu0_Barrel_L1HP9 || HLT_Mu0_Barrel_L1HP8 || HLT_Mu0_Barrel_L1HP7 || HLT_Mu0_Barrel_L1HP6 ||
-            HLT_DoubleMu4_3_LowMass || HLT_DoubleMu4_LowMass_Displaced) &&
+            (HLT_Mu10_Barrel_L1HP11_IP6 || HLT_Mu9_Barrel_L1HP10_IP6 || HLT_Mu8_Barrel_L1HP9_IP6 || HLT_Mu7_Barrel_L1HP8_IP6 || HLT_Mu6_Barrel_L1HP7_IP6 || HLT_Mu0_Barrel_L1HP6_IP6 || HLT_Mu0_Barrel_L1HP11 || HLT_Mu0_Barrel || HLT_Mu0_Barrel_L1HP10 || HLT_Mu0_Barrel_L1HP9 || HLT_Mu0_Barrel_L1HP8 || HLT_Mu0_Barrel_L1HP7 || HLT_Mu0_Barrel_L1HP6) &&
             (nmuonSV > 0) &&
             (Sum(muonSV_mu1pt > 5.0)  > 0 || Sum(muonSV_mu2pt > 5.0) > 0)
             """),
@@ -740,7 +739,7 @@ class Config(legacy_config):
 
     # TODO this function overwrites the one in legacy_2018 and loads the 2024 processes. May need to look for a better place to put it
     def add_scenario_grid_processes(self, processes):
-        from config.datasets_scenario_2024 import d
+        from config.datasets_scenario_2024_small import d
         for key in d:
             sc = key.split("scenario")[1].split("_")[0]
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
@@ -765,7 +764,7 @@ class Config(legacy_config):
 
 
     def add_scenario_grid_datasets_2024(self, datasets):
-        from config.datasets_scenario_2024 import d
+        from config.datasets_scenario_2024_small import d
         for key, dataset in d.items():
             sc = key.split("scenario")[1].split("_")[0]
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")

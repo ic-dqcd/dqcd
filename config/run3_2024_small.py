@@ -740,7 +740,7 @@ class Config(legacy_config):
 
     # TODO this function overwrites the one in legacy_2018 and loads the 2024 processes. May need to look for a better place to put it
     def add_scenario_grid_processes(self, processes):
-        from config.datasets_scenario_2024 import d
+        from config.datasets_scenario_2024_small import d
         for key in d:
             sc = key.split("scenario")[1].split("_")[0]
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
@@ -765,7 +765,7 @@ class Config(legacy_config):
 
 
     def add_scenario_grid_datasets_2024(self, datasets):
-        from config.datasets_scenario_2024 import d
+        from config.datasets_scenario_2024_small import d
         for key, dataset in d.items():
             sc = key.split("scenario")[1].split("_")[0]
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
