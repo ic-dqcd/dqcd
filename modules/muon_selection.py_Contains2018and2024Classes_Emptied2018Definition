@@ -60,7 +60,7 @@ class DQCDMuonSelectionRDFProducer():
         df = df.Define("MuonBPark_isMuonWithEtaAndPtReq", """(MuonBPark_isLooseMuon == 1) &&
             (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 2.4)""")
         df = df.Define("MuonBPark_isTriggeringMuon", """(MuonBPark_isLooseMuon == 1) &&
-            (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)""")
+            (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)""")
 
         # filtering
         df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
@@ -160,7 +160,7 @@ class DQCDMuonSelection2024RDFProducer():
 #        df = df.Define("MuonBPark_isTriggeringDoubleMuon",
 #            "((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.)) || ((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 1.5 && abs(MuonBPark_sip3d) > 6.))")
         df = df.Define("MuonBPark_isTriggeringSingleMuon",
-            "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 0.8)")
+            "(MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 0.8)")
         df = df.Define("MuonBPark_isTriggeringDoubleMuon",
             """((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 1.5)) ||
                ((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 1.5))

@@ -422,7 +422,7 @@ class DQCDTriggerSelection2024RDFProducer():
                         float mindeltaR2 = 999.;
 
                         for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
-                            if (!MuonBPark_SingleMuon_trigger_matched[iMuonBPark] || !MuonBPark_isMuonWithTighterEtaAndPtReq[iMuonBPark] || !MuonBPark_DoubleMuon_trigger_matched[iMuonBPark])
+                            if (!MuonBPark_SingleMuon_trigger_matched[iMuonBPark] && !MuonBPark_DoubleMuon_trigger_matched[iMuonBPark])
                                 continue;
 
                             // Select based on category

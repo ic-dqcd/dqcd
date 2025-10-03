@@ -60,10 +60,8 @@ class DQCDMuonSelectionRDFProducer():
             (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.5)""")
         df = df.Define("MuonBPark_isMuonWithEtaAndPtReq", """(MuonBPark_isLooseMuon == 1) &&
             (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 2.4)""")
-        # TODO currently applying pt > 10 GeV cut since HLT_Mu10_Barrel_L1HP11_IP6 has the bulk of the sample.
-        # TODO add dedicated selection conditions for each trigger's pt, eta (all of them < 0.8, no biggy here), and impact parameter (all are IP > 6?)
         df = df.Define("MuonBPark_isTriggeringMuon", """(MuonBPark_isLooseMuon == 1) &&
-            (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)""")
+            (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)""")
 
         # filtering
         df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
@@ -75,7 +73,6 @@ class DQCDMuonSelectionRDFProducer():
 #        if self.year == 2018:
         if self.year == 2024:
             df = df.Define("DisplacedMuonTrigger_flag", " || ".join([
-                "HLT_Mu10_Barrel_L1HP11_IP6",
                 "HLT_Mu9_Barrel_L1HP10_IP6",
                 "HLT_Mu8_Barrel_L1HP9_IP6",
                 "HLT_Mu7_Barrel_L1HP8_IP6",
@@ -148,7 +145,6 @@ class DQCDMuonSelectionRDFProducer():
         df = df.Define("MuonBPark_trigger_matched", """(MuonBPark_isTriggeringMuon > 0) &&
             (MuonBPark_isTriggering > 0) &&
             (
-                MuonBPark_fired_HLT_Mu10_Barrel_L1HP11_IP6 > 0 ||
                 MuonBPark_fired_HLT_Mu9_Barrel_L1HP10_IP6 > 0 ||
                 MuonBPark_fired_HLT_Mu8_Barrel_L1HP9_IP6 > 0 ||
                 MuonBPark_fired_HLT_Mu7_Barrel_L1HP8_IP6 > 0 ||
@@ -168,7 +164,7 @@ class DQCDMuonSelectionRDFProducer():
 
         # tighter eta and pt reqs
         df = df.Define("MuonBPark_isMuonWithTighterEtaAndPtReq", """MuonBPark_isLooseMuon == 1 &&
-            MuonBPark_pt > 10. && abs(MuonBPark_eta) < 0.8""")
+            MuonBPark_pt > 9. && abs(MuonBPark_eta) < 0.8""")
 
         return df, ["MuonBPark_isLooseMuon", "MuonBPark_isTriggeringMuon",
             "MuonBPark_isMuonWithEtaAndPtReq",
