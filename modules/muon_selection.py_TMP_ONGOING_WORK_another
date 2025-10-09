@@ -228,75 +228,47 @@ class DQCDMuonSelection2024RDFProducer():
         # separating into single- and double-muon triggers
         if self.year == 2024:
 
-            # technically, there's no pT requirement for the HLT_Mu0_Barrel trigger seed. However, stating a pT cut at 5 to prevent possible issues at low pT. N.B. this trigger is extremely prescaled
+            # single-muon displaced triggers
+#            df = df.Define("SingleMuonTrigger_flag", " || ".join([
+#                "(MuonBPark_isTriggering__HLT_Mu10_Barrel_L1HP11_IP6)",
+#                "(MuonBPark_isTriggering__HLT_Mu9_Barrel_L1HP10_IP6)",
+#                "(MuonBPark_isTriggering__HLT_Mu8_Barrel_L1HP9_IP6)",
+#                "(MuonBPark_isTriggering__HLT_Mu7_Barrel_L1HP8_IP6)",
+#                "(MuonBPark_isTriggering__HLT_Mu6_Barrel_L1HP7_IP6)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP6_IP6)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP11)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP10)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP9)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP8)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP7)",
+#                "(MuonBPark_isTriggering__HLT_Mu0_Barrel_L1HP6)"
+#            ]))
+
+            # technically, there's no pT requirement for this trigger seed. However, stating a pT cut at 5 to prevent possible issues at low pT. N.B. this trigger is extremely prescaled
             #TODO decide whether it's worth reducing the threshold to 0
 
-            df = df.Define("SingleMuonTrigger_flag", """
-                   ((HLT_Mu10_Barrel_L1HP11_IP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu9_Barrel_L1HP10_IP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu8_Barrel_L1HP9_IP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 8.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu7_Barrel_L1HP8_IP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 7.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu6_Barrel_L1HP7_IP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 6.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP6_IP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP11) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 0.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP10) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP9) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 8.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP8) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 7.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP7) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 6.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 )) ||
-                   ((HLT_Mu0_Barrel_L1HP6) && ( Sum( (MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) > 0 ))
-                """)
-
-
+            df = df.Define("SingleMuonTrigger_flag", """((MuonBPark_isLooseMuon == 1) && (
+                   ((HLT_Mu10_Barrel_L1HP11_IP6 == 1) && (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu9_Barrel_L1HP10_IP6 == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu8_Barrel_L1HP9_IP6 == 1) && (MuonBPark_pt > 8.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu7_Barrel_L1HP8_IP6 == 1) && (MuonBPark_pt > 7.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu6_Barrel_L1HP7_IP6 == 1) && (MuonBPark_pt > 6.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP6_IP6 == 1) && (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP11 == 1) && (MuonBPark_pt > 10.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel == 1) && (MuonBPark_pt > 0.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP10 == 1) && (MuonBPark_pt > 9.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP9 == 1) && (MuonBPark_pt > 8.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP8 == 1) && (MuonBPark_pt > 7.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP7 == 1) && (MuonBPark_pt > 6.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)) ||
+                   ((HLT_Mu0_Barrel_L1HP6 == 1) && (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.))
+                ))""")
 
             # double-muon displaced triggers
-
-            # Define an array with the L1 seeds of each of the DoubleMuon triggers, along with the pt and era requirements
-            # For 2024, HLT_DoubleMu4_3_LowMass and HLT_DoubleMu4_LowMass_Displaced have the same seeds
-            doubleMuon__l1_conditions = [
-                # (L1_name, pt_cut, eta_cut)
-                ("L1_DoubleMu0er1p4_SQ_OS_dEta_Max1p2", 0.0, 1.4),
-                ("L1_DoubleMu4er2p0_SQ_OS_dR_Max1p6",      3.0, 2.0),
-                ("L1_DoubleMu5_SQ_OS_dR_Max1p6",           4.0, 2.5),
-                ("L1_DoubleMu3er2p0_SQ_OS_dR_Max1p6",      2.0, 2.0),
-                ("L1_DoubleMu0er1p5_SQ_OS_dEta_Max1p2",    0.0, 1.5),
-                ("L1_DoubleMu0er2p0_SQ_OS_dEta_Max1p6",    0.0, 2.0),
-                ("L1_DoubleMu0er1p4_OQ_OS_dEta_Max1p6",    0.0, 1.4),
-                ("L1_DoubleMu0er2p0_SQ_OS_dEta_Max1p5",    0.0, 2.0),
-                ("L1_DoubleMu0er1p4_SQ_OS_dR_Max1p4",      0.0, 1.4),
-                ("L1_DoubleMu0er1p5_SQ_OS_dR_Max1p4",      0.0, 1.5),
-                ("L1_DoubleMu4p5_SQ_OS_dR_Max1p2",         3.5, 2.5),
-                ("L1_DoubleMu4_SQ_OS_dR_Max1p2",           3.0, 2.5),
-            ]
-
-            # build per-L1 clause that requires at least one MuonBPark muon to satisfy the cuts (i.e. Sum() > 0 )
-            doubleMuon__per_l1_exprs = []
-            for (l1, pt_cut, eta_cut) in doubleMuon__l1_conditions:
-                # include MuonBPark_isLooseMuon == 1 as requested
-                cond = (
-                    f"(({l1}) && (Sum((MuonBPark_isLooseMuon == 1) && "
-                    f"(MuonBPark_pt > {pt_cut:.1f}) && (abs(MuonBPark_eta) < {eta_cut:.1f}) && "
-                    f"(abs(MuonBPark_sip3d) > 6.)) > 0))"
-                )
-                doubleMuon__per_l1_exprs.append(cond)
-
-            # inner OR of all L1 clauses
-            doubleMuon__inner_or = " || ".join(doubleMuon__per_l1_exprs)
-
-            # now build full DoubleMuon HLT expression: HLT_DoubleMu4_3_LowMass && (doubleMuon__inner_or)  OR HLT_DoubleMu4_LowMass_Displaced && (doubleMuon__inner_or)
-            expr = (
-                "("
-                f"(HLT_DoubleMu4_3_LowMass && ({doubleMuon__inner_or})) || "
-                f"(HLT_DoubleMu4_LowMass_Displaced && ({doubleMuon__inner_or}))"
-                ")"
-            )
-
-            # debug print to inspect final expression
-            #print("DoubleMuonTrigger_flag expression:\n", expr)
-
-            # define double muon trigger flag
-            df = df.Define("DoubleMuonTrigger_flag", expr)
-
+            df = df.Define("DoubleMuonTrigger_flag", " || ".join([
+                "HLT_DoubleMu4_3_LowMass",
+                "HLT_DoubleMu4_LowMass_Displaced"
+            ]))
 
             # combine in a general "pass trigger" filter
             df = df.Define("DisplacedMuonTrigger_flag",
