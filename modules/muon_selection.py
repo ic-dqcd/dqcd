@@ -202,7 +202,6 @@ class DQCDMuonSelection2024RDFProducer():
             }
         """)
 
-    # TODO must modify pT thresholds to match 2024 triggers
     def run(self, df):
         # per-muon definitions
         df = df.Define("MuonBPark_isLooseMuon", """(MuonBPark_looseId == 1) &&
@@ -212,8 +211,8 @@ class DQCDMuonSelection2024RDFProducer():
         df = df.Define("MuonBPark_isTriggeringSingleMuon", """(MuonBPark_isLooseMuon == 1) &&
             (MuonBPark_pt > 5.) && (abs(MuonBPark_eta) < 0.8 && abs(MuonBPark_sip3d) > 6.)""")
         df = df.Define("MuonBPark_isTriggeringDoubleMuon",
-            """((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 2.0 && abs(MuonBPark_sip3d) > 6.)) ||
-               ((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.0 && abs(MuonBPark_sip3d) > 6.))
+            """((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 4.) && (abs(MuonBPark_eta) < 2.5 && abs(MuonBPark_sip3d) > 6.)) ||
+               ((MuonBPark_isLooseMuon == 1) && (MuonBPark_pt > 3.) && (abs(MuonBPark_eta) < 2.5 && abs(MuonBPark_sip3d) > 6.))
                 """)
 
 
@@ -221,14 +220,12 @@ class DQCDMuonSelection2024RDFProducer():
         df = df.Filter("MuonBPark_pt[MuonBPark_isLooseMuon == 1].size() > 0", ">= 1 loose muon")
         df = df.Filter("MuonBPark_pt[MuonBPark_isTriggeringSingleMuon].size() > 0 || MuonBPark_pt[MuonBPark_isTriggeringDoubleMuon].size() > 1", ">= 1(2) muon(s) with pt and eta trig. req(s)")
 
-        #Debugging
-        print("Starting single muon definitions")
-
         # trigger flags
         # separating into single- and double-muon triggers
         if self.year == 2024:
 
-            # technically, there's no pT requirement for the HLT_Mu0_Barrel trigger seed. However, stating a pT cut at 5 to prevent possible issues at low pT. N.B. this trigger is extremely prescaled
+            # technically, there's no pT requirement for the HLT_Mu0_Barrel trigger seed. However, stating a pT cut at 5 to prevent possible issues at low pT.
+            # N.B. this trigger is extremely prescaled, not expected to contribute considerably
             #TODO decide whether it's worth reducing the threshold to 0
 
             df = df.Define("SingleMuonTrigger_flag", """
@@ -302,8 +299,6 @@ class DQCDMuonSelection2024RDFProducer():
             df = df.Define("DisplacedMuonTrigger_flag",
                "SingleMuonTrigger_flag || DoubleMuonTrigger_flag")
 
-        #Debugging
-        print("Applying displaced muon filter")
 
         df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger(s)")
 
@@ -317,8 +312,8 @@ class DQCDMuonSelection2024RDFProducer():
         #TODO what are the eta requierements from trigger seed?
         df = df.Define("MuonBPark_passDoubleMuonSel",
             """DoubleMuonTrigger_flag && (
-               (Sum(MuonBPark_pt > 4. && abs(MuonBPark_eta) < 1.4) >= 1 &&
-                Sum(MuonBPark_pt > 3. && abs(MuonBPark_eta) < 1.4) >= 2)
+               (Sum(MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.5) >= 1 &&
+                Sum(MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.5) >= 2)
                )""")
 
         # overall selection-based pass
@@ -347,13 +342,10 @@ class DQCDMuonSelection2024RDFProducer():
         #TODO adjust thresholds better (?)
         df = df.Define("MuonBPark_passDoubleMuonLike", """MuonBPark_isLooseMuon == 1 &&
             (
-              (MuonBPark_pt > 4. && abs(MuonBPark_eta) < 1.4) ||
-              (MuonBPark_pt > 3. && abs(MuonBPark_eta) < 1.4)
+              (MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.5) ||
+              (MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.5)
             )
         """)
-
-        #Debugging
-        print("Starting trigger matching on muon_selection")
 
         # match to trigger muons
         # for 2024, we want:
@@ -413,9 +405,6 @@ class DQCDMuonSelection2024RDFProducer():
 
         df = df.Define("passDoubleMuonExclusive",
             "(!passSingleMuonExclusive) && MuonBPark_passDoubleMuonSel && MuonBPark_passDoubleMuonMatch")
-
-        #Debugging
-        print("Filtering pass trigger-matched req")
 
         # filter taking into cosideration priority ordering
         df = df.Filter("passSingleMuonExclusive || passDoubleMuonExclusive",
