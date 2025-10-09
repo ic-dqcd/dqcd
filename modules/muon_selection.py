@@ -302,18 +302,17 @@ class DQCDMuonSelection2024RDFProducer():
 
         df = df.Filter("DisplacedMuonTrigger_flag > 0", "Pass trigger(s)")
 
-        # single-muon: require >= 1 muon with pT > 5 and |eta| < 0.8
+        # single-muon: require >= 1 muon with pT > 5 and |eta| < 0.8. Requiring pT>5 since it accomodates all triggers except for HLT_Mu0_Barrel (which contributes minimally to the entire sample size)
         #TODO adjust thresholds better (?)
         df = df.Define("MuonBPark_passSingleMuonSel",
             "(SingleMuonTrigger_flag && Sum(MuonBPark_pt > 5. && abs(MuonBPark_eta) < 0.8) >= 1)")
 
-        # double-muon: require >= 2 muons with asymmetric thresholds (leading > 4, subleading > 3) (i.e. at least one muon > 4GeV, and at least 2 muons > 3GeV)
+        # double-muon: require >= 2 muons with asymmetric thresholds (leading > 4, subleading > 3) (i.e. at least one muon > 4GeV, and at least 2 muons > 3GeV), both in the |eta| < 2.0 region (most inclusive one given the L1 seeds)
         #TODO adjust thresholds better (?)
-        #TODO what are the eta requierements from trigger seed?
         df = df.Define("MuonBPark_passDoubleMuonSel",
             """DoubleMuonTrigger_flag && (
-               (Sum(MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.5) >= 1 &&
-                Sum(MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.5) >= 2)
+               (Sum(MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.0) >= 1 &&
+                Sum(MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.0) >= 2)
                )""")
 
         # overall selection-based pass
@@ -342,8 +341,8 @@ class DQCDMuonSelection2024RDFProducer():
         #TODO adjust thresholds better (?)
         df = df.Define("MuonBPark_passDoubleMuonLike", """MuonBPark_isLooseMuon == 1 &&
             (
-              (MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.5) ||
-              (MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.5)
+              (MuonBPark_pt > 4. && abs(MuonBPark_eta) < 2.0) ||
+              (MuonBPark_pt > 3. && abs(MuonBPark_eta) < 2.0)
             )
         """)
 
