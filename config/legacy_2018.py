@@ -2208,7 +2208,7 @@ class Config(cmt_config):
             all_signal_names, all_background_names, None)
         syst.writeOutput(False)
         syst.verbose(False)
-        syst.writeSystematics()
+        # syst.writeSystematics() #TODO uncomment for 2024
         for isy, syst_name in enumerate(syst.SystNames):
             if "CMS_scale_t" in syst.SystNames[isy] or "CMS_scale_j" in syst.SystNames[isy]:
                 continue

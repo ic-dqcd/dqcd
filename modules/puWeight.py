@@ -15,6 +15,15 @@ puWeight_parkingUL2018RDF = lambda: puWeightRDFProducer(
     pufile_mcUL2018, pufile_dataParking2018, "pu_mc", "pileup", verbose=False, doSysVar=True)
 
 
+# TODO must adapt for Run3
+# puWeight_parking2024RDF
+pufile_dataParking2018 = "%s/../modules/data_parking18_with_var.root" % os.environ['CMT_BASE']
+pufile_mc2018 = "%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/mcPileup2018.root" % os.environ[
+    'CMSSW_BASE']
+puWeight_parking2024RDF = lambda: puWeightRDFProducer(
+    pufile_mc2018, pufile_dataParking2018, "pu_mc", "pileup", verbose=False, doSysVar=True)
+
+
 def puWeightParkingRDF(**kwargs):
     isMC = kwargs.pop("isMC")
     year = int(kwargs.pop("year"))

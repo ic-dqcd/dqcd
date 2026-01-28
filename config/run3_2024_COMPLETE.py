@@ -229,52 +229,14 @@ class Config(legacy_config):
 
 
     def add_datasets(self):
-        sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p3/tmp/"
 
-        samples = {
-            "qcd_1000toInf": ("QCD_Pt-1000_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_120to170": ("QCD_Pt-120To170_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_15to20": ("QCD_Pt-15To20_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_170to300": ("QCD_Pt-170To300_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_20to30": ("QCD_Pt-20To30_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            # "qcd_20toInf": ("QCD_Pt-20toInf_MuEnrichedPt15_TuneCP5_13TeV_pythia8"
-                # "_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1"
-                # "_MINIAODSIM_v1p0_generationSync"),
-            "qcd_300to470": ("QCD_Pt-300To470_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_30to50": ("QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_470to600": ("QCD_Pt-470To600_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_50to80": ("QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_600to800": ("QCD_Pt-600To800_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_800to1000": ("QCD_Pt-800To1000_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-            "qcd_80to120": ("QCD_Pt-80To120_MuEnrichedPt5_TuneCP5_13TeV-pythia8"
-                "_RunIISummer20UL18MiniAODv2-106X_upgrade2018_realistic_v16_L1v1-v2"
-                "_MINIAODSIM_v1p1_generationSync"),
-        }
+        sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p3/tmp/"#from 2018
+
+        sample_path_2024 = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/"
+        # ORIGINAL PATH+REDIRECTOR -> davs://gfe02.grid.hep.ph.ic.ac.uk:2880/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/
 
 
-
+        #TODO adjust these
         xs = {
             "qcd_15to20": 2799000,
             "qcd_20to30": 2526000,
@@ -290,166 +252,276 @@ class Config(legacy_config):
             "qcd_1000toInf": 1.078,
         }
 
+        #TODO qcd background needs tags?
+        tags = ["run3_2024", "qcd"]
 
         datasets = [
-            Dataset("qcd_1000toInf",
-                folder=sample_path + samples["qcd_1000toInf"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_1000toInf"], i)
-                    for i in range(1, 51)],
-                process=self.processes.get("qcd_1000toInf"),
-                xs=xs["qcd_1000toInf"],
-                merging={
-                    "base": 10,
-                },
-                skipped_files_must_be_in_dataset=False,
-            ),
-
-            Dataset("qcd_120to170",
-                folder=sample_path + samples["qcd_120to170"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_120to170"], i)
-                    for i in range(1, 51)],
-                process=self.processes.get("qcd_120to170"),
-                xs=xs["qcd_120to170"],
-                merging={
-                    "base": 10,
-                },
-                skipped_files_must_be_in_dataset=False,
-            ),
+        #TODO adjust these
 
             Dataset("qcd_15to20",
-                folder=sample_path + samples["qcd_15to20"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_15to20"], i)
-                    for i in range(1, 51)],
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_15to20"], i)
+                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_15to20"),
+                check_empty=False,
                 xs=xs["qcd_15to20"],
-                skipped_files_must_be_in_dataset=False,
-            ),
-
-            Dataset("qcd_170to300",
-                folder=sample_path + samples["qcd_170to300"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_170to300"], i)
-                    for i in range(1, 51)],
-                process=self.processes.get("qcd_170to300"),
-                xs=xs["qcd_170to300"],
                 merging={
                     "base": 10,
                 },
-                skipped_files_must_be_in_dataset=False,
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
             ),
 
             Dataset("qcd_20to30",
-                folder=sample_path + samples["qcd_20to30"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_20to30"], i)
-                    for i in range(1, 51)],
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_20to30"], i)
+                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_20to30"),
+                check_empty=False,
                 xs=xs["qcd_20to30"],
-                skipped_files_must_be_in_dataset=False,
-            ),
-
-            # Dataset("qcd_20toInf",
-                # folder=sample_path + samples["qcd_20toInf"],
-                # # skipFiles=["{}/output_{}.root".format(
-                    # # sample_path + samples["qcd_20toInf"], i)
-                    # # for i in range(1, 11)],
-                # process=self.processes.get("qcd"),
-                # xs=0.03105, # FIXME
-                # friend_datasets="qcd_20toInf_friend"),
-            # Dataset("qcd_20toInf_friend",
-                # folder=bdt_path + samples["qcd_20toInf"],
-                # process=self.processes.get("dum"),
-                # xs=0.03105, # FIXME
-                # tags=["friend"]),
-
-            Dataset("qcd_300to470",
-                folder=sample_path + samples["qcd_300to470"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_300to470"], i)
-                    for i in range(1, 51)],
-                process=self.processes.get("qcd_300to470"),
-                xs=xs["qcd_300to470"],
                 merging={
                     "base": 10,
                 },
-                skipped_files_must_be_in_dataset=False,
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
             ),
 
             Dataset("qcd_30to50",
-                folder=sample_path + samples["qcd_30to50"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_30to50"], i)
-                    for i in range(1, 51)],
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_30to50"], i)
+                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_30to50"),
+                check_empty=False,
                 xs=xs["qcd_30to50"],
-                skipped_files_must_be_in_dataset=False,
-            ),
-
-            Dataset("qcd_470to600",
-                folder=sample_path + samples["qcd_470to600"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_470to600"], i)
-                    for i in range(1, 51)],
-                process=self.processes.get("qcd_470to600"),
-                xs=xs["qcd_470to600"],
                 merging={
                     "base": 10,
                 },
-                skipped_files_must_be_in_dataset=False,
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
             ),
 
             Dataset("qcd_50to80",
-                folder=sample_path + samples["qcd_50to80"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_50to80"], i)
-                    for i in range(1, 51)],
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_50to80"], i)
+                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_50to80"),
+                check_empty=False,
                 xs=xs["qcd_50to80"],
-                skipped_files_must_be_in_dataset=False,
-            ),
-
-            Dataset("qcd_600to800",
-                folder=sample_path + samples["qcd_600to800"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_600to800"], i)
-                    for i in range(1, 51)],
-                process=self.processes.get("qcd_600to800"),
-                xs=xs["qcd_600to800"],
                 merging={
                     "base": 10,
                 },
-                skipped_files_must_be_in_dataset=False,
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
             ),
 
             Dataset("qcd_80to120",
-                folder=sample_path + samples["qcd_80to120"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_80to120"], i)
-                    for i in range(1, 51)],
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_80to120"], i)
+                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_80to120"),
+                check_empty=False,
                 xs=xs["qcd_80to120"],
                 merging={
                     "base": 10,
                 },
-                skipped_files_must_be_in_dataset=False,
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
+            ),
+
+            Dataset("qcd_120to170",
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_120to170"], i)
+                #    for i in range(1, 51)],
+                process=self.processes.get("qcd_120to170"),
+                check_empty=False,
+                xs=xs["qcd_120to170"],
+                merging={
+                    "base": 10,
+                },
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
+            ),
+
+            Dataset("qcd_170to300",
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_170to300"], i)
+                #    for i in range(1, 51)],
+                process=self.processes.get("qcd_170to300"),
+                check_empty=False,
+                xs=xs["qcd_170to300"],
+                merging={
+                    "base": 10,
+                },
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
+            ),
+
+            Dataset("qcd_300to470",
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_300to470"], i)
+                #    for i in range(1, 51)],
+                process=self.processes.get("qcd_300to470"),
+                check_empty=False,
+                xs=xs["qcd_300to470"],
+                merging={
+                    "base": 10,
+                },
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
+            ),
+
+            Dataset("qcd_470to600",
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_470to600"], i)
+                #    for i in range(1, 51)],
+                process=self.processes.get("qcd_470to600"),
+                check_empty=False,
+                xs=xs["qcd_470to600"],
+                merging={
+                    "base": 10,
+                },
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
+            ),
+
+            Dataset("qcd_600to800",
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_600to800"], i)
+                #    for i in range(1, 51)],
+                process=self.processes.get("qcd_600to800"),
+                check_empty=False,
+                xs=xs["qcd_600to800"],
+                merging={
+                    "base": 10,
+                },
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
             ),
 
             Dataset("qcd_800to1000",
-                folder=sample_path + samples["qcd_800to1000"],
-                skipFiles=["{}/output_{}.root".format(
-                    sample_path + samples["qcd_800to1000"], i)
-                    for i in range(1, 51)],
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_800to1000"], i)
+                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_800to1000"),
+                check_empty=False,
                 xs=xs["qcd_800to1000"],
                 merging={
                     "base": 10,
-                    "singlev_cat3": 10
                 },
-                skipped_files_must_be_in_dataset=False,
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
             ),
+
+            Dataset("qcd_1000toInf",
+                 ### Read from GRID
+                #dataset="/QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8/tafoyava-nanotron-v15_2024-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2-31b42c6e5c2cc21a79e8dc5d0bc54970/USER",
+                #prefix="redirector.t2.ucsd.edu:1095/",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                # TODO must adapt next lines to work on GRID
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_1000toInf"], i)
+                #    for i in range(1, 51)],
+                process=self.processes.get("qcd_1000toInf"),
+                check_empty=False,
+                xs=xs["qcd_1000toInf"],
+                merging={
+                    "base": 10,
+                },
+                #tags=tags,
+                #skipped_files_must_be_in_dataset=False,
+            ),
+
+
+
+
+
+
+
+
+
+
+
+        #TODO adjust these
+
 
             Dataset("data_2018d_bph1",
                 dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
@@ -714,7 +786,10 @@ class Config(legacy_config):
         datasets = ObjectCollection(datasets)
         
         #datasets = self.add_vp_grid_datasets_2024(datasets)
+
         datasets = self.add_scenario_grid_datasets_2024(datasets)
+        #datasets = self.add_scenario_dcache_datasets_2024(datasets)
+
         #datasets = self.add_rew_datasets(datasets)
         #datasets = self.add_rew_test_datasets(datasets)
 
@@ -740,7 +815,7 @@ class Config(legacy_config):
 
     # TODO this function overwrites the one in legacy_2018 and loads the 2024 processes. May need to look for a better place to put it
     def add_scenario_grid_processes(self, processes):
-        from config.datasets_scenario_2024_single import d
+        from config.datasets_scenario_2024 import d
         for key in d:
             sc = key.split("scenario")[1].split("_")[0]
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
@@ -765,7 +840,7 @@ class Config(legacy_config):
 
 
     def add_scenario_grid_datasets_2024(self, datasets):
-        from config.datasets_scenario_2024_single import d
+        from config.datasets_scenario_2024 import d
         for key, dataset in d.items():
             sc = key.split("scenario")[1].split("_")[0]
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
@@ -787,6 +862,39 @@ class Config(legacy_config):
                     #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                     prefix="redirector.t2.ucsd.edu:1095/",
                     xs=signal_xs,
+                    #TODO remove pattern when not useful anymore
+                    file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
+                )
+            )
+        return datasets
+
+    def add_scenario_dcache_datasets_2024(self, datasets):
+        sample_path_2024 = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/"
+
+        from config.datasets_scenario_2024 import d
+        for key, dataset in d.items():
+            sc = key.split("scenario")[1].split("_")[0]
+            mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
+            mA = key.split("mA_")[1].split("_")[0].replace("p", ".")
+            ctau = key.split("ctau_")[1].split("_")[0]
+
+            tags = ["run3_2024", f"limits_sc{sc}"]
+            if abs(float(mA) / float(mpi) - 1./3.) < 0.01:
+                tags.append("third")
+            elif abs(float(mA) / float(mpi) - 1./10.) < 0.01:
+                tags.append("tenth")
+
+            datasets.add(
+                Dataset(key + ("_ext" if sc == "A" else ""),
+                    sample_name_2024=dataset.split("/")[1],
+                    folder=sample_path_2024 + sample_name_2024,
+                    prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                    process=self.processes.get(key),
+                    check_empty=False,
+                    tags=tags,
+                    xs=signal_xs,
+                    #TODO remove pattern when not useful anymore
+                    file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
                 )
             )
         return datasets
@@ -896,14 +1004,12 @@ class Config(legacy_config):
         # weights.total_events_weights = ["genWeight"]
         # weights.total_events_weights = ["1"]
 
-        #TODO removing weights for now
         #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing", "prescaleWeight"]#TODO enable for 2024
         #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
         #weights.base = ["puWeight", "idWeight", "trigSF", "ctau_reweighing", "prescaleWeight"]
         #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
         #weights.base = ["puWeight", "idWeight", "BDT_SF"]
-        #weights.base = ["puWeight", "idWeight"]
-        weights.base = ["1"]  # TODO others needed
+        weights.base = ["1"]  # others needed
 
         for category in self.categories:
             weights[category.name] = weights.base

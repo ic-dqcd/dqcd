@@ -146,35 +146,15 @@ class DQCDMuonSVSelectionRDFProducer():
 
     def run(self, df):
 
-        # Filter out events that have *no* neutral SVs
-        df = df.Define("MuonSV_isNeutral", "muonSV_charge == 0")
-        df = df.Filter("Sum(MuonSV_isNeutral) > 0", "Require at least one neutral muonSV")
+        df = df.Filter("nmuonSV > 0")
 
-        # Redifining variables so that only neutral SVs from all collections are kept
-        df = df.Define("muonSVNeutral_charge", "muonSV_charge[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mass",   "muonSV_mass[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_chi2",   "muonSV_chi2[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mu1eta", "muonSV_mu1eta[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mu1phi", "muonSV_mu1phi[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mu2eta", "muonSV_mu2eta[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mu2phi", "muonSV_mu2phi[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mu1index", "muonSV_mu1index[MuonSV_isNeutral]")
-        df = df.Define("muonSVNeutral_mu2index", "muonSV_mu2index[MuonSV_isNeutral]")
-        df = df.Define("nmuonSVNeutral", "Sum(MuonSV_isNeutral)")  # update the count
-
-
-        #df = df.Filter("nmuonSV > 0")
-        df = df.Filter("nmuonSVNeutral > 0")
-
-        #TODO testing neutral SV variables
         sigma = self.gen_mass * 0.01
         df = df.Define("nmuonSV_3sigma",
-            f"muonSVNeutral_mass[abs(muonSVNeutral_mass - {self.gen_mass}) < 3 * {sigma}].size()")
+            f"muonSV_mass[abs(muonSV_mass - {self.gen_mass}) < 3 * {sigma}].size()")
 
-        #TODO testing neutral SV variables
-        df = df.Define("multivertices_vars", """get_multivertices(nmuonSVNeutral, muonSVNeutral_mass, muonSVNeutral_chi2,
-            muonSVNeutral_mu1eta, muonSVNeutral_mu1phi, muonSVNeutral_mu2eta, muonSVNeutral_mu2phi,
-            muonSVNeutral_mu1index, muonSVNeutral_mu2index)""")
+        df = df.Define("multivertices_vars", """get_multivertices(nmuonSV, muonSV_mass, muonSV_chi2,
+            muonSV_mu1eta, muonSV_mu1phi, muonSV_mu2eta, muonSV_mu2phi,
+            muonSV_mu1index, muonSV_mu2index)""")
         df = df.Define("mass_multivertices", "multivertices_vars.mass")
         df = df.Define("chi2_multivertices", "multivertices_vars.chi2")
         df = df.Define("indexes_multivertices", "multivertices_vars.indexes")
