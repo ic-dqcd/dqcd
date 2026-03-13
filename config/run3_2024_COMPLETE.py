@@ -787,8 +787,8 @@ class Config(legacy_config):
         
         #datasets = self.add_vp_grid_datasets_2024(datasets)
 
-        datasets = self.add_scenario_grid_datasets_2024(datasets)
-        #datasets = self.add_scenario_dcache_datasets_2024(datasets)
+        #datasets = self.add_scenario_grid_datasets_2024(datasets)
+        datasets = self.add_scenario_dcache_datasets_2024(datasets)
 
         #datasets = self.add_rew_datasets(datasets)
         #datasets = self.add_rew_test_datasets(datasets)
@@ -877,6 +877,7 @@ class Config(legacy_config):
             mpi = key.split("mpi_")[1].split("_")[0].replace("p", ".")
             mA = key.split("mA_")[1].split("_")[0].replace("p", ".")
             ctau = key.split("ctau_")[1].split("_")[0]
+            sample_name_2024 = dataset.split("/")[1]
 
             tags = ["run3_2024", f"limits_sc{sc}"]
             if abs(float(mA) / float(mpi) - 1./3.) < 0.01:
@@ -886,7 +887,6 @@ class Config(legacy_config):
 
             datasets.add(
                 Dataset(key + ("_ext" if sc == "A" else ""),
-                    sample_name_2024=dataset.split("/")[1],
                     folder=sample_path_2024 + sample_name_2024,
                     prefix="gfe02.grid.hep.ph.ic.ac.uk",
                     process=self.processes.get(key),
