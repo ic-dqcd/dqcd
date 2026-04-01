@@ -1,0 +1,35 @@
+JobBatchName = dqcd_MergeCat_DoubleMu
+
+universe = vanilla
+executable = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/run_MergeCategorization_DoubleMu.sh
+arguments  = $(category)
+output = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/MergeCategorization_DoubleMu_$(category)_$(ClusterId).$(ProcId).out
+error  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/MergeCategorization_DoubleMu_$(category)_$(ClusterId).$(ProcId).err
+log    = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/MergeCategorization_DoubleMu_$(ClusterId).log
+
+request_cpus   = 1
+request_memory = 8000
+request_disk   = 5000000
+
+#+MaxRuntime = 86400
++MaxRuntime = 43200
+
+notify_user = j.tafoya.vargas@cern.ch
+notification = Complete
+
+getenv = True
+
+queue category from (
+    singlev_cat1
+    singlev_cat2
+    singlev_cat3
+    singlev_cat4
+    singlev_cat5
+    singlev_cat6
+    multiv_cat1
+    multiv_cat2
+    multiv_cat3
+    multiv_cat4
+    multiv_cat5
+    multiv_cat6
+)

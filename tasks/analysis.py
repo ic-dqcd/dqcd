@@ -122,7 +122,11 @@ class CreateDatacardsDQCD(DQCDBaseTask, CreateDatacards):
     refit_signal_with_syst = False
     min_events_for_fitting = 10
     norm_bkg_to_data = True
-    save_proper_norm = False
+    #TODO originally it was set to save_proper_norm = False.
+    #  TODO Kai used True for MC, which sets the background normalisation floating in the fit)
+    #  TODO False means sets the background normalisation floating in the fit
+    #save_proper_norm = False
+    save_proper_norm = True
 
     def __init__(self, *args, **kwargs):
         super(CreateDatacardsDQCD, self).__init__(*args, **kwargs)
@@ -522,7 +526,9 @@ class ValidateDatacardsDQCD(ValidateDatacards, DQCDBaseTask, FitConfigBaseTask):
 
 
 class RunCombineDQCD(RunCombine, DQCDBaseTask, FitConfigBaseTask):
-    #method = "limits"
+    #TODO method="limits" runs asymptotic limits (much faster, though less precise than toys)
+    # method is inherited from RunCombine as luigi.ChoiceParameter(default="limits")
+    #method="limits"
     workflow = "htcondor"
     max_runtime = "3h"
 
@@ -777,8 +783,9 @@ class ScanCombineDQCD(BaseScanTask):
     feature_names = ("muonSV_bestchi2_mass",)
     # features_to_compute = lambda self, m: (f"self.config.get_feature_mass({m})",)
     features_to_compute = lambda self, m: (f"self.config.get_feature_mass_dxyzcut({m})",)
-    #method = "limits"
-    method = "limits_toys"
+    #TODO method="limits" runs asymptotic limits (much faster, though less precise than toys)
+    method = "limits"
+    #method = "limits_toys"
 
     def __init__(self, *args, **kwargs):
         super(ScanCombineDQCD, self).__init__(*args, **kwargs)

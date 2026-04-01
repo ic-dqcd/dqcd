@@ -77,22 +77,12 @@ bdtsf:
 
 ########################################
 
-#bdt_inference_a:
-    #name: DQCDULBDTOnlyMu
-    #path: DQCD.Modules.BDTULinferenceOnlyMu
-    #parameters:
-        #isMC: self.dataset.process.isMC
-        #year: self.config.year
-        #scenario: A
-        #bdt_name: bdt_scenarioA_onlymu
-
 bdt_inference_a:
     name: DQCDULBDTNoJet
-    path: DQCD.Modules.BDTULinferenceFinal
+    path: DQCD.Modules.BDTULinference2024_Mu10orDoubleMu_withMET
     parameters:
         isMC: self.dataset.process.isMC
         year: self.config.year
-        scenario: A
         bdt_name: bdt_scenarioA_onlymu
         met_smear_tag: ""
         met_prefix: "PFMET"

@@ -6,6 +6,7 @@ from collections import OrderedDict
 
 from config.legacy_2018 import Config as legacy_config
 
+#signal_xs = 43.9 * 0.01 # 2018
 signal_xs = 43.9 * 0.01 #TODO what's this doing
 
 
@@ -76,10 +77,25 @@ class Config(legacy_config):
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"),    #between 1E-2 and 1E-3 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.92"),   #1E-3 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.945"),   #between 1E-3 and 1E-4 threshold
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),   #1E-4 threshold
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),   #1E-4 threshold #TODO original default
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.985"),   #1E-5 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.987"),
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
+
+            #TODO 2024, no MET
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9971"),   #1E-4 threshold #TODO Mu10 || DoubleMu, noMET; v1 (before: 0.9959)
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9969"),   #1E-4 threshold #TODO Mu10, noMET; v1 (before: 0.9958)
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9978"),   #1E-4 threshold #TODO DoubleMu, noMET; v1 (before: 0.9962)
+
+            #TODO 2024, with MET, v1
+            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.99"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v1 (before: 0.9968)
+            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.99"),   #1E-4 threshold #TODO Mu10, withMET; v1 (before: 0.9924)
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9980"),   #1E-4 threshold #TODO DoubleMu, withMET; v1 (before: 0.9946)
+
+            #TODO 2024, with MET and muonSV_delta_phi_MET, v2
+            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9949"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v2 (threshold estimated from training)
+            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9945"),   #1E-4 threshold #TODO Mu10, withMET; v2 (threshold estimated from training)
+            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9954"),   #1E-4 threshold #TODO DoubleMu, withMET; v2 (threshold estimated from training)
 
             Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
 
