@@ -88,9 +88,9 @@ class Config(legacy_config):
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9978"),   #1E-4 threshold #TODO DoubleMu, noMET; v1 (before: 0.9962)
 
             #TODO 2024, with MET, v1
-            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.99"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v1 (before: 0.9968)
-            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.99"),   #1E-4 threshold #TODO Mu10, withMET; v1 (before: 0.9924)
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9980"),   #1E-4 threshold #TODO DoubleMu, withMET; v1 (before: 0.9946)
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9975"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v1 (before: 0.9968)
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9971"),   #1E-4 threshold #TODO Mu10, withMET; v1 (before: 0.9924)
+            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9980"),   #1E-4 threshold #TODO DoubleMu, withMET; v1 (before: 0.9946)
 
             #TODO 2024, with MET and muonSV_delta_phi_MET, v2
             ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9949"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v2 (threshold estimated from training)

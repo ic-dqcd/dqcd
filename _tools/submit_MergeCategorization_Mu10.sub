@@ -7,12 +7,18 @@ output = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/Merg
 error  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/MergeCategorization_Mu10_$(category)_$(ClusterId).$(ProcId).err
 log    = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/MergeCategorization_Mu10_$(ClusterId).log
 
-request_cpus   = 1
-request_memory = 8000
-request_disk   = 5000000
+request_gpus    = 1
+request_memory  = 100G
+#request_cpus   = 5
+#request_memory = 4 GB
+#request_memory = 8 GB
+#request_memory = 16 GB
+#request_memory = 15 GB
+#request_memory = 20 GB
+request_disk   = 5 GB
 
-#+MaxRuntime = 86400
-+MaxRuntime = 43200
+##+MaxRuntime = 43200
++MaxRuntime = 86400
 
 notify_user = j.tafoya.vargas@cern.ch
 notification = Complete

@@ -16,5 +16,5 @@ law run MergeCategorizationWrapper \
     --config-name run3_2024_COMPLETE \
     --dataset-names "scenarioA_mpi_4_mA_1p33_ctau_*,scenarioA_mpi_4_mA_0p40_ctau_*,qcd*" \
     --MergeCategorization-workflow htcondor \
-    --workers 20 \
+    --workers 40 \
     --Categorization-base-category-name base
