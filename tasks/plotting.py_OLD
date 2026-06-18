@@ -12,7 +12,6 @@ from cmt.base_tasks.base import CategoryWrapperTask
 from cmt.base_tasks.plotting import FeaturePlot
 from cmt.base_tasks.analysis import Fit, CombineCategoriesTask
 from tasks.analysis import ProcessGroupNameWrapper, ScanCombineDQCD, DQCDBaseTask, FitConfigBaseTask
-from config.datasets_scenario_2024_BR import d as scenario_br_2024
 
 
 class FeaturePlotDQCD(FeaturePlot):
@@ -104,11 +103,9 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
         if process_group_name.startswith("btophi"):
             return r"95$\%$ CL upper limit on BR(pp$\to$B$\to\phi$X$\to2\mu$X)"
         elif process_group_name.startswith("scenario"):
-            #return r"95$\%$ CL upper limit on $\mathit{B}\left(H\to\psi\overline{\psi}\right)$"
-            return r"Upper limit on $\mathit{B}\left(H\to\psi\overline{\psi}\right)$"
+            return r"95$\%$ CL upper limit on BR$\left(H\to\psi\overline{\psi}\right)$"
             #return r"BR(H$\to\psi\psi$)"
-        #return r"95$\%$ CL upper limit on $\mathit{B}\left(H\to\psi\overline{\psi}\right)$"
-        return r"Upper limit on $\mathit{B}\left(H\to\psi\overline{\psi}\right)$"
+        return r"95$\%$ CL upper limit on BR$\left(H\to\psi\overline{\psi}\right)$"
         #return r"BR(H$\to\psi\psi$)"
 
     def set_cms_labels(self, plt, ax):
@@ -132,7 +129,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
         f, ax = plt.subplots(figsize=(10, 8))
 
         def scale(val):
-            return val * 0.0001
+            return val * 0.01
 
         for ival, values in enumerate(results.values()):
 
@@ -233,8 +230,7 @@ class PlotCombineDQCD(ProcessGroupNameWrapper, CombineCategoriesTask, DQCDBaseTa
         plt.ylim(5E-6, 1E0)
         plt.ylabel(self.get_y_axis_label(self.fit_config_file), fontsize=24)
         
-        #hep.cms.label(loc=0, data=True, lumi=41.6, label = "Preliminary")
-        hep.cms.label(loc=0, data=True, lumi=self.config.lumi_fb, com=self.config.ecm, label="Preliminary")
+        hep.cms.label(loc=0, data=True, lumi=41.6, label = "Preliminary")
         
         inner_text = ["Scenario A",
                       r"$m_{\pi 3}$=4 GeV",
@@ -391,17 +387,15 @@ class ParamPlotDQCD(PlotCombineDQCD):
         plt.xlabel(x_label, fontsize=28)
         #self.set_cms_labels(plt, ax)
 
-        #hep.cms.label(loc=1, data=True, lumi=41.6, fontsize=28)
-        hep.cms.label(loc=1, data=True, lumi=self.config.lumi_fb, com=self.config.ecm, fontsize=28)
+        hep.cms.label(loc=0, data=True, lumi=41.6, fontsize=28)
 
         # inner_text = (f"$m{llp_type}={self.fixed_mass}$ GeV" if self.fixed_mass != law.NO_FLOAT
             # else f"$c\\tau={self.fixed_ctau}$ mm")
         inner_text = kwargs.pop("inner_text")
-        #inner_text_height = 0.02 * len(inner_text)
-        inner_text_height = 1.0 - 0.1 * len(inner_text)
-        plt.text(0.05, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="left", fontsize=22)
+        inner_text_height = 1.0 - 0.05 * len(inner_text)
+        plt.text(0.05, inner_text_height, "\n".join(inner_text), transform=ax.transAxes, ha="left", fontsize=20)
 
-        leg = ax.legend(fontsize=20, framealpha=0.8, loc="upper right")
+        leg = ax.legend(fontsize=20, framealpha=0.8, loc="lower right")
 
         plt.xticks(fontsize=24)
         plt.yticks(fontsize=24)
@@ -481,29 +475,20 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 # llp_type = ""
                 # if self.fit_config_file.startswith("scenario"):
                 llp_type="_{A'}"
-                m_pion_label = r"$m_{\tilde{\pi}_{3}}$"
+                m_pion_label = r"$m_{\pi_{3}}$"
                 m_A_label = r"$m_{A'}$"
                 for key, val in d_mass.items():
-                    br = next(
-                        (scenario_br_2024.get(pgn.replace("_ext", ""))
-                         for pgn in results
-                         if re.fullmatch(pattern, pgn.replace("_ext", ""))
-                         and float(re.fullmatch(pattern, pgn.replace("_ext", "")).group(2).replace("p", ".")) == key[0]
-                         and float(re.fullmatch(pattern, pgn.replace("_ext", "")).group(3).replace("p", ".")) == key[1]),
-                        None
-                    )
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
-                        x_label=r"$c\tau$ [mm] of $A'$",
+                        x_label="$c\\tau$ [mm]",
                         log=True,
                         inner_text=[
                             #f"Scenario {match.group(1)}",
                             #f"$m_\\pi$={key[0]} GeV",
-                            #f"$m{llp_type}$={key[1]} GeV",
-                            #r"$\mathit{B}(A'\rightarrow\mu\mu)=0.418$"
+                            #f"$m{llp_type}$={key[1]} GeV"
                             f"Scenario {match.group(1)}",
-                            f"{m_pion_label}={key[0]} GeV",
-                            f"{m_A_label}={key[1]} GeV",
-                            f"$\\mathit{{B}}(A'\\rightarrow\\mu\\mu)={br:.3f}$" if br is not None else r"$\mathit{B}(A'\rightarrow\mu\mu)=?$",
+                            f"{m_pion_label}$=2$ GeV",
+                            f"{m_A_label}$=0.67$ GeV",
+                            r"$\mathcal{B}(A'\rightarrow\mu\mu)=0.17$"
                             ]
                     )
                 for key, val in d_ctau.items():
@@ -529,13 +514,13 @@ class ParamPlotDQCD(PlotCombineDQCD):
                 mass_label = r"$m_{\tilde{\omega}}$"
                 for key, val in d_mass.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["mass"][key],
-                        x_label=r"$c\tau$ [mm] of $\tilde{\omega}$ meson",
+                        x_label="$c\\tau$ [mm]",
                         log=True,
                         inner_text=[
                             f"Vector portal",
                             #f"{mass_label}={key} GeV",
-                            r"$m_{\tilde{\omega}}=2$ GeV",
-                            r"$\mathit{B}(\tilde{\omega}\rightarrow\mu\mu)=0.25$"]
+                            r"$m_{\tilde{\omega}}=20$ GeV",
+                            r"$\mathcal{B}(\tilde{\omega}\rightarrow\mu\mu)=0.15$"]
                     )
                 for key, val in d_ctau.items():
                     self.plot(dict(sorted(val.items())), self.output()[feature.name]["ctau"][key],

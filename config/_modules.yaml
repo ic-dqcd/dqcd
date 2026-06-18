@@ -21,6 +21,11 @@ muonsv:
         gen_mass: 2
 
 
+fourmuonsv:
+    name: DQCDFourMuonSVSelectionRDF
+    path: modules.muonsv_selection
+
+
 jet_smearing:
     name: jetSmearerRDF
     path: Corrections.JME.smearing

@@ -20,6 +20,11 @@ muonsv:
     parameters:
         gen_mass: 2
 
+
+fourmuonsv:
+    name: DQCDFourMuonSVSelectionRDF
+    path: modules.muonsv_selection
+
 rew:
     name: DQCDReweighingWithRecoRDF
     path: modules.reweighing

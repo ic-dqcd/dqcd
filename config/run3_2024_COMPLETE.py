@@ -7,7 +7,7 @@ from collections import OrderedDict
 from config.legacy_2018 import Config as legacy_config
 
 #signal_xs = 43.9 * 0.01 # 2018
-signal_xs = 43.9 * 0.01 #TODO what's this doing
+signal_xs = 52.23 * 0.01 #TODO what's this doing
 
 
 class Config(legacy_config):
@@ -83,19 +83,9 @@ class Config(legacy_config):
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
 
             #TODO 2024, no MET
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9971"),   #1E-4 threshold #TODO Mu10 || DoubleMu, noMET; v1 (before: 0.9959)
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9971"),   #1E-4 threshold #TODO Mu10 || DoubleMu, noMET; v1 (before: 0.9959)
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9969"),   #1E-4 threshold #TODO Mu10, noMET; v1 (before: 0.9958)
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9978"),   #1E-4 threshold #TODO DoubleMu, noMET; v1 (before: 0.9962)
-
-            #TODO 2024, with MET, v1
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9975"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v1 (before: 0.9968)
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9971"),   #1E-4 threshold #TODO Mu10, withMET; v1 (before: 0.9924)
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9980"),   #1E-4 threshold #TODO DoubleMu, withMET; v1 (before: 0.9946)
-
-            #TODO 2024, with MET and muonSV_delta_phi_MET, v2
-            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9949"),   #1E-4 threshold #TODO Mu10 || DoubleMu, withMET; v2 (threshold estimated from training)
-            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9945"),   #1E-4 threshold #TODO Mu10, withMET; v2 (threshold estimated from training)
-            ##Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9954"),   #1E-4 threshold #TODO DoubleMu, withMET; v2 (threshold estimated from training)
 
             Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
 
@@ -249,23 +239,23 @@ class Config(legacy_config):
         sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p3/tmp/"#from 2018
 
         sample_path_2024 = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/"
-        # ORIGINAL PATH+REDIRECTOR -> davs://gfe02.grid.hep.ph.ic.ac.uk:2880/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/
+        # FULL PATH+REDIRECTOR -> davs://gfe02.grid.hep.ph.ic.ac.uk:2880/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/
 
 
-        #TODO adjust these
+        #From https://xsecdb-xsdb-official.app.cern.ch/xsdb/?columns=67108863&currentPage=0&ordDirection=1&ordFieldName=process_name&pageSize=10&searchQuery=DAS%3DQCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
         xs = {
-            "qcd_15to20": 2799000,
-            "qcd_20to30": 2526000,
-            "qcd_30to50": 1362000,
-            "qcd_50to80": 376600,
-            "qcd_80to120": 88930,
-            "qcd_120to170": 21230,
-            "qcd_170to300": 7055,
-            "qcd_300to470": 619,
-            "qcd_470to600": 59.24,
-            "qcd_600to800": 18.21,
-            "qcd_800to1000": 3.275,
-            "qcd_1000toInf": 1.078,
+            "qcd_15to20": 3018000,
+            "qcd_20to30": 2701000,
+            "qcd_30to50": 1461000,
+            "qcd_50to80": 407600,
+            "qcd_80to120": 96070,
+            "qcd_120to170": 23140,
+            "qcd_170to300": 7754,
+            "qcd_300to470": 699.6,
+            "qcd_470to600": 67.67,
+            "qcd_600to800": 21.27,
+            "qcd_800to1000": 3.89,
+            "qcd_1000toInf": 1.323,
         }
 
         #TODO qcd background needs tags?
@@ -528,16 +518,99 @@ class Config(legacy_config):
 
 
 
+            # DATA datasets to use in intermediate studies, account for ~1% of the samples
 
+            Dataset("data_2024_singlemu_1percent",
+                folder=[
+                    sample_path_2024 + "ParkingSingleMuon0",
+                    sample_path_2024 + "ParkingSingleMuon1",
+                    sample_path_2024 + "ParkingSingleMuon2",
+                    sample_path_2024 + "ParkingSingleMuon3",
+                    sample_path_2024 + "ParkingSingleMuon4",
+                    sample_path_2024 + "ParkingSingleMuon5",
+                    sample_path_2024 + "ParkingSingleMuon6",
+                    sample_path_2024 + "ParkingSingleMuon7",
+                    sample_path_2024 + "ParkingSingleMuon8",
+                    sample_path_2024 + "ParkingSingleMuon9",
+                    sample_path_2024 + "ParkingSingleMuon10",
+                    sample_path_2024 + "ParkingSingleMuon11",
+                ],
+                process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                file_pattern="nano_([1-9]|1[0-5]).root",
+                merging={
+                    "base": 20,
+                },
+            ),
 
+            Dataset("data_2024_doublemu_1percent",
+                folder=[
+                    sample_path_2024 + "ParkingDoubleMuonLowMass0",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass1",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass2",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass3",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass4",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass5",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass6",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass7",
+                ],
+                process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                file_pattern="nano_([1-9]|1[0-5]).root",
+                merging={
+                    "base": 20,
+                },
+            ),
 
+            Dataset("data_2024_singlemu_singleFile",
+                folder=[
+                    sample_path_2024 + "ParkingSingleMuon0",
+                    sample_path_2024 + "ParkingSingleMuon1",
+                    sample_path_2024 + "ParkingSingleMuon2",
+                    sample_path_2024 + "ParkingSingleMuon3",
+                    sample_path_2024 + "ParkingSingleMuon4",
+                    sample_path_2024 + "ParkingSingleMuon5",
+                    sample_path_2024 + "ParkingSingleMuon6",
+                    sample_path_2024 + "ParkingSingleMuon7",
+                    sample_path_2024 + "ParkingSingleMuon8",
+                    sample_path_2024 + "ParkingSingleMuon9",
+                    sample_path_2024 + "ParkingSingleMuon10",
+                    sample_path_2024 + "ParkingSingleMuon11",
+                ],
+                process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                file_pattern="nano_1.root",
+                merging={
+                    "base": 1,
+                },
+            ),
 
-
-
-
-
-        #TODO adjust these
-
+            Dataset("data_2024_doublemu_singleFile",
+                folder=[
+                    sample_path_2024 + "ParkingDoubleMuonLowMass0",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass1",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass2",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass3",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass4",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass5",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass6",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass7",
+                ],
+                process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                file_pattern="nano_1.root",
+                merging={
+                    "base": 1,
+                },
+            ),
 
             Dataset("data_2018d_bph1",
                 dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
@@ -550,221 +623,77 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
 
-            Dataset("data_2018d_bph1_1fb",
-                folder=[
-                    sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    # sample_path + "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    # sample_path + "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    # sample_path + "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                ],
-                process=self.processes.get("data"),
-                merging={
-                    "base": 20,
-                },
-                tags=["ul_2018"],
-                runPeriod="D",
-                # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
-                file_pattern="output_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root"
-            ),
-
-            Dataset("data_2018d_bph1_1fb_v2",
-                dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 20,
-                },
-                tags=["ul_2018"],
-                runPeriod="D",
-                # file_pattern="output_(.{1}|.{2}|.{3}|100.{1}|101.{1}|102.{1}|103.{1}|104.{1}|1050|1051|1052|1053).root"
-                file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
-                check_empty=False,
-            ),
 
             # DATA datasets to use in final unblinding
 
-             Dataset("data_2018d_bph1_full",
+            Dataset("data_2024_singlemu",
                 folder=[
-                    sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    # sample_path + "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    # sample_path + "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    # sample_path + "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    sample_path_2024 + "ParkingSingleMuon0",
+                    sample_path_2024 + "ParkingSingleMuon1",
+                    sample_path_2024 + "ParkingSingleMuon2",
+                    sample_path_2024 + "ParkingSingleMuon3",
+                    sample_path_2024 + "ParkingSingleMuon4",
+                    sample_path_2024 + "ParkingSingleMuon5",
+                    sample_path_2024 + "ParkingSingleMuon6",
+                    sample_path_2024 + "ParkingSingleMuon7",
+                    sample_path_2024 + "ParkingSingleMuon8",
+                    sample_path_2024 + "ParkingSingleMuon9",
+                    sample_path_2024 + "ParkingSingleMuon10",
+                    sample_path_2024 + "ParkingSingleMuon11",
                 ],
                 process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 merging={
-                    "base": 20,
-                    "singlev_cat1": 30
+                    "base": 750,
+                    "singlev_cat1": 750,
+                    "singlev_cat2": 225,
+                    "singlev_cat3": 150,
+                    "singlev_cat4": 150,
+                    "singlev_cat5": 150,
+                    "singlev_cat6": 150,
+                    "multiv_cat1": 150,
+                    "multiv_cat2": 150,
+                    "multiv_cat3": 150,
+                    "multiv_cat4": 150,
+                    "multiv_cat5": 150,
+                    "multiv_cat6": 150,
                 },
-                tags=["ul_2018"],
             ),
 
-            Dataset("data_2018d_bph1_full_matveto",
-                dataset="/ParkingBPH1/jleonhol-nanotron_mv-8570e29278f985b83289e6d44303ab3a/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 40,
-                },
-                tags=["ul_2018"],
-                runPeriod="D",
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                check_empty=False
-            ),
-
-            Dataset("data_2018d_bph1_full_matveto_v2",
-                dataset="/ParkingBPH1/jleonhol-nanotron_mv_v2-8570e29278f985b83289e6d44303ab3a/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 40,
-                },
-                tags=["ul_2018"],
-                runPeriod="D",
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                check_empty=False
-            ),
-
-            Dataset("data_2018d_bph1_full_matveto_v3",
-                dataset="/ParkingBPH1/jleonhol-nanotron_mv_v3-8570e29278f985b83289e6d44303ab3a/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 40,
-                },
-                tags=["ul_2018"],
-                runPeriod="D",
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                check_empty=False
-            ),
-
-            Dataset("data_2018d_bph1_full_matveto_v4",
-                dataset="/ParkingBPH1/jleonhol-nanotron_mv_v4-8570e29278f985b83289e6d44303ab3a/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 40,
-                },
-                tags=["ul_2018"],
-                runPeriod="D",
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-                check_empty=False
-            ),
-
-            Dataset("data_2018d_bph1234",
+            Dataset("data_2024_doublemu",
                 folder=[
-                    sample_path + "ParkingBPH1_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p3_generationSync",
-                    sample_path + "ParkingBPH2_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    sample_path + "ParkingBPH3_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
-                    sample_path + "ParkingBPH4_Run2018D-UL2018_MiniAODv2-v1_MINIAOD_v1p5_generationSync",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass0",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass1",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass2",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass3",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass4",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass5",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass6",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass7",
                 ],
                 process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 merging={
-                    "base": 250,
-                    "singlev_cat1": 250,
-                    "singlev_cat2": 75,
-                    "singlev_cat3": 50,
-                    "singlev_cat4": 50,
-                    "singlev_cat5": 50,
-                    "singlev_cat6": 50,
-                    "multiv_cat1": 50,
-                    "multiv_cat2": 50,
-                    "multiv_cat3": 50,
-                    "multiv_cat4": 50,
-                    "multiv_cat5": 50,
-                    "multiv_cat6": 50,
+                    "base": 500,
+                    "singlev_cat1": 500,
+                    "singlev_cat2": 150,
+                    "singlev_cat3": 100,
+                    "singlev_cat4": 100,
+                    "singlev_cat5": 100,
+                    "singlev_cat6": 100,
+                    "multiv_cat1": 100,
+                    "multiv_cat2": 100,
+                    "multiv_cat3": 100,
+                    "multiv_cat4": 100,
+                    "multiv_cat5": 100,
+                    "multiv_cat6": 100,
                 },
-                tags=["ul_2018"],
             ),
 
-            Dataset("data_2018_bph1",
-                dataset="/ParkingBPH1/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 25,
-                    "singlev_cat1": 45,
-                    "singlev_cat2": 15,
-                    "singlev_cat3": 9,
-                },
-                tags=["ul_2018"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            ),
-
-            Dataset("data_2018_bph2",
-                dataset="/ParkingBPH2/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 25,
-                    "singlev_cat1": 45,
-                    "singlev_cat2": 15,
-                    "singlev_cat3": 9,
-                },
-                tags=["ul_2018"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            ),
-
-            Dataset("data_2018_bph3",
-                dataset="/ParkingBPH3/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 25,
-                    "singlev_cat1": 45,
-                    "singlev_cat2": 15,
-                    "singlev_cat3": 9,
-                },
-                tags=["ul_2018"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            ),
-
-            Dataset("data_2018_bph4",
-                dataset="/ParkingBPH4/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 25,
-                    "singlev_cat1": 45,
-                    "singlev_cat2": 15,
-                    "singlev_cat3": 9,
-                },
-                tags=["ul_2018"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            ),
-
-            Dataset("data_2018_bph5",
-                dataset="/ParkingBPH5/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 25,
-                    "singlev_cat1": 125,
-                    "singlev_cat2": 25,
-                    "singlev_cat3": 25,
-                    "singlev_cat4": 5,
-                },
-                tags=["ul_2018"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            ),
-
-            Dataset("data_2018_bph6",
-                dataset="/ParkingBPH6/jleonhol-nanotron-205145b8a3c6bd3ea858a0dbe549c313/USER",
-                process=self.processes.get("data"),
-                merging={
-                    "base": 25,
-                },
-                tags=["ul_2018"],
-                prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            ),
-
-            
-            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_10_ext_nocp5",
-            #     dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-noCP5-00000000000000000000000000000000/USER",
-            #     process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10_nocp5"),
-            #     check_empty=False,
-            #     prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            #     xs=signal_xs,
-            #     tags=["ext"]
-            # ),
-
-            # Dataset("scenarioA_mpi_4_mA_1p33_ctau_10_ext_nofilter",
-            #     dataset = "/scenarioA_mpi_4_mA_1p33_ctau_10/jleonhol-noFilter-00000000000000000000000000000000/USER",
-            #     process=self.processes.get("scenarioA_mpi_4_mA_1p33_ctau_10_nofilter"),
-            #     check_empty=False,
-            #     prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
-            #     xs=signal_xs,
-            #     tags=["ext"]
-            # ),
 
 
             # Pending DATA GOES HERE
@@ -1025,7 +954,7 @@ class Config(legacy_config):
         #weights.base = ["puWeight", "idWeight", "trigSF", "ctau_reweighing", "prescaleWeight"]
         #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
         #weights.base = ["puWeight", "idWeight", "BDT_SF"]
-        weights.base = ["1"]  # others needed
+        weights.base = ["1"]  # others needed, TODO enabled for 2024
 
         for category in self.categories:
             weights[category.name] = weights.base
@@ -1050,7 +979,7 @@ class Config(legacy_config):
 
     # other methods
 
-config = Config("base", year=2024, ecm=13.6, lumi_pb=1000)
+config = Config("base", year=2024, ecm=13.6, lumi_pb=109950)
 #config = Config("base", year=2018, ecm=13, lumi_pb=41600, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=13000, isUL=True)

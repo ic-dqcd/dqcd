@@ -44,7 +44,8 @@ class DQCDMuonSVSelectionRDFProducer():
                                         muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 1.2)
                                 continue;
 
-                            if ((fabs(muonSV_mass[imuonSV] - muonSV_mass[imuonSV1]) / muonSV_mass[imuonSV]) < 3 * 0.01 * muonSV_mass[imuonSV]) {
+                            // fractional mass difference within 3 sigma (sigma = 1% of the mass)
+                            if ((fabs(muonSV_mass[imuonSV] - muonSV_mass[imuonSV1]) / muonSV_mass[imuonSV]) < 3 * 0.01) {
                                 if (muonSV_mu1index[imuonSV] != muonSV_mu1index[imuonSV1] &&
                                         muonSV_mu1index[imuonSV] != muonSV_mu2index[imuonSV1] &&
                                         muonSV_mu2index[imuonSV] != muonSV_mu1index[imuonSV1] &&
@@ -142,6 +143,24 @@ class DQCDMuonSVSelectionRDFProducer():
                 }
                 return dR;
             }
+
+            //
+            // get_multivertices returns positions WITHIN the neutral subset of muonSVs.
+            // This helper maps those neutral-subset positions back to positions in the
+            // FULL muonSV_* collection, so all downstream consumers (which index the full
+            // arrays) read the correct vertex.
+            //
+            using Vbool = const ROOT::RVec<bool>&;
+            ROOT::RVec<int> remap_neutral_to_full(Vint neutral_indexes, Vbool isNeutral) {
+                ROOT::RVec<int> full_positions;
+                for (size_t i = 0; i < isNeutral.size(); i++)
+                    if (isNeutral[i])
+                        full_positions.push_back((int) i);
+                ROOT::RVec<int> out;
+                for (auto ni: neutral_indexes)
+                    out.push_back(full_positions[ni]);
+                return out;
+            }
         """)
 
     def run(self, df):
@@ -177,7 +196,15 @@ class DQCDMuonSVSelectionRDFProducer():
             muonSVNeutral_mu1index, muonSVNeutral_mu2index)""")
         df = df.Define("mass_multivertices", "multivertices_vars.mass")
         df = df.Define("chi2_multivertices", "multivertices_vars.chi2")
-        df = df.Define("indexes_multivertices", "multivertices_vars.indexes")
+        # multivertices_vars.indexes are positions WITHIN the neutral subset (the arrays
+        # passed to get_multivertices). Remap them to positions in the FULL muonSV_*
+        # collection, because every downstream consumer (min_chi2_index, DummyMinChi2RDF's
+        # .at(), the trigger/loose modules' std::find, AdditionalMuonDQCDRDF, and the
+        # category selections) indexes the full muonSV_* arrays. Without this remap, any
+        # event with a charged muonSV ordered before the selected neutral one reads the
+        # wrong (possibly charged) vertex.
+        df = df.Define("indexes_multivertices",
+            "remap_neutral_to_full(multivertices_vars.indexes, MuonSV_isNeutral)")
 
         # chi2_multivertices should have at least 1 element
         df = df.Filter("chi2_multivertices.size() > 0", "muonSV selection")
@@ -201,6 +228,149 @@ class DQCDMuonSVSelectionRDFProducer():
 
 def DQCDMuonSVSelectionRDF(*args, **kwargs):
     return lambda: DQCDMuonSVSelectionRDFProducer(*args, **kwargs)
+
+
+class DQCDFourMuonSVSelectionRDFProducer():
+    """Identifies a four-muon vertex (fourmuonSV) whose four muons are reconstructed as two
+    charge-neutral dimuon vertices (muonSV) -- the "quadv" group.
+
+    Defines the per-event flag isFourMuonPlusDimuonSV, the indices of the selected
+    fourmuonSV and its two dimuon vertices, and flat fourmuonSV_selected_* variables
+    (mass/chi2/dxy/pAngle) of the selected four-muon vertex.
+
+    The four-muon vertex must be charge neutral (fourmuonSV_charge == 0) and each of the two
+    dimuon vertices must be charge neutral (muonSV_charge == 0). The module does NOT filter
+    events: events without such a configuration get isFourMuonPlusDimuonSV == 0 and
+    fourmuonSV_selected_* == -1. Selection follows
+    https://github.com/ponvie/EXO/blob/main/analysis/4flags_inclusive.py#L82-L189
+    """
+    def __init__(self, *args, **kwargs):
+        if not os.getenv("_DQCDFourMuonSVSelection"):
+            os.environ["_DQCDFourMuonSVSelection"] = "DQCDFourMuonSVSelection"
+            ROOT.gInterpreter.Declare("""
+                #include <set>
+                #include <cmath>
+                #include <algorithm>
+                #include "DataFormats/Math/interface/deltaR.h"
+                using Vfloat = const ROOT::RVec<float>&;
+                using Vint = const ROOT::RVec<int>&;
+
+                struct fourmuon_dimuon_t {
+                    int is_quadv;
+                    int fourmuonSV_index;
+                    int muonSV1_index;
+                    int muonSV2_index;
+                };
+
+                fourmuon_dimuon_t select_fourmuon_plus_dimuon(
+                        Vfloat fourmuonSV_chi2, Vint fourmuonSV_charge,
+                        Vint fourmuonSV_mu1index, Vint fourmuonSV_mu2index,
+                        Vint fourmuonSV_mu3index, Vint fourmuonSV_mu4index,
+                        Vfloat muonSV_chi2, Vfloat muonSV_mass, Vint muonSV_charge,
+                        Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
+                        Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
+                        Vint muonSV_mu1index, Vint muonSV_mu2index) {
+
+                    fourmuon_dimuon_t res({0, -1, -1, -1});
+                    for (size_t i = 0; i < fourmuonSV_chi2.size(); ++i) {
+                        // four-muon vertex: quality + charge neutrality
+                        if (fourmuonSV_chi2[i] >= 10 || fourmuonSV_charge[i] != 0)
+                            continue;
+                        ROOT::RVec<int> fourMuons = {
+                            fourmuonSV_mu1index[i], fourmuonSV_mu2index[i],
+                            fourmuonSV_mu3index[i], fourmuonSV_mu4index[i]};
+
+                        for (size_t a = 0; a < muonSV_mu1index.size(); ++a) {
+                            if (muonSV_charge[a] != 0 || muonSV_chi2[a] >= 10)
+                                continue;
+                            if (reco::deltaR(muonSV_mu1eta[a], muonSV_mu1phi[a],
+                                    muonSV_mu2eta[a], muonSV_mu2phi[a]) >= 1.2)
+                                continue;
+                            int mu1a = muonSV_mu1index[a], mu2a = muonSV_mu2index[a];
+                            if (std::find(fourMuons.begin(), fourMuons.end(), mu1a) == fourMuons.end() ||
+                                    std::find(fourMuons.begin(), fourMuons.end(), mu2a) == fourMuons.end())
+                                continue;
+
+                            for (size_t b = a + 1; b < muonSV_mu1index.size(); ++b) {
+                                if (muonSV_charge[b] != 0 || muonSV_chi2[b] >= 10)
+                                    continue;
+                                if (reco::deltaR(muonSV_mu1eta[b], muonSV_mu1phi[b],
+                                        muonSV_mu2eta[b], muonSV_mu2phi[b]) >= 1.2)
+                                    continue;
+                                int mu1b = muonSV_mu1index[b], mu2b = muonSV_mu2index[b];
+                                if (std::find(fourMuons.begin(), fourMuons.end(), mu1b) == fourMuons.end() ||
+                                        std::find(fourMuons.begin(), fourMuons.end(), mu2b) == fourMuons.end())
+                                    continue;
+
+                                // the two dimuon vertices must use four distinct muons
+                                // covering exactly the four-muon vertex's muons
+                                std::set<int> combined = {mu1a, mu2a, mu1b, mu2b};
+                                if (combined.size() != 4)
+                                    continue;
+
+                                // mass coherence between the two dimuon vertices (3%)
+                                float mA = muonSV_mass[a], mB = muonSV_mass[b];
+                                if (mA <= 0.f || mB <= 0.f)
+                                    continue;
+                                if (std::fabs(mA - mB) / mA < 0.03f) {
+                                    res.is_quadv = 1;
+                                    res.fourmuonSV_index = (int) i;
+                                    res.muonSV1_index = (int) a;
+                                    res.muonSV2_index = (int) b;
+                                    return res;
+                                }
+                            }
+                        }
+                    }
+                    return res;
+                }
+            """)
+
+    def run(self, df):
+        df = df.Define("fourmuon_dimuon_vars", """select_fourmuon_plus_dimuon(
+            fourmuonSV_chi2, fourmuonSV_charge,
+            fourmuonSV_mu1index, fourmuonSV_mu2index,
+            fourmuonSV_mu3index, fourmuonSV_mu4index,
+            muonSV_chi2, muonSV_mass, muonSV_charge,
+            muonSV_mu1eta, muonSV_mu1phi,
+            muonSV_mu2eta, muonSV_mu2phi,
+            muonSV_mu1index, muonSV_mu2index)""")
+        df = df.Define("isFourMuonPlusDimuonSV", "fourmuon_dimuon_vars.is_quadv")
+        df = df.Define("selected_fourmuonSV_index", "fourmuon_dimuon_vars.fourmuonSV_index")
+        df = df.Define("selected_muonSV1_index", "fourmuon_dimuon_vars.muonSV1_index")
+        df = df.Define("selected_muonSV2_index", "fourmuon_dimuon_vars.muonSV2_index")
+
+        # of the two matched dimuon vertices, pick the one with the smaller chi2
+        # (same convention as multiv's min_chi2_index)
+        df = df.Define("selected_quadv_muonSV_index",
+            "selected_muonSV1_index < 0 ? -1 : ("
+            "muonSV_chi2.at(selected_muonSV1_index) <= muonSV_chi2.at(selected_muonSV2_index)"
+            " ? selected_muonSV1_index : selected_muonSV2_index)")
+
+        branches = ["isFourMuonPlusDimuonSV", "selected_fourmuonSV_index",
+            "selected_muonSV1_index", "selected_muonSV2_index", "selected_quadv_muonSV_index"]
+
+        # flat per-event variables of the selected four-muon vertex (-1 if no quadv);
+        # kept for monitoring and a future fourmuonSV-trained BDT
+        for v in ["mass", "chi2", "dxy", "pAngle"]:
+            df = df.Define("fourmuonSV_selected_%s" % v,
+                "selected_fourmuonSV_index >= 0 ? "
+                "fourmuonSV_%s.at(selected_fourmuonSV_index) : -1.f" % v)
+            branches.append("fourmuonSV_selected_%s" % v)
+
+        # dxy/pAngle from the matched dimuon vertex (used for the quadv category binning,
+        # so all three groups bin on the same muonSV quantity)
+        for v in ["dxy", "pAngle"]:
+            df = df.Define("quadv_muonSV_%s" % v,
+                "selected_quadv_muonSV_index >= 0 ? "
+                "muonSV_%s.at(selected_quadv_muonSV_index) : -1.f" % v)
+            branches.append("quadv_muonSV_%s" % v)
+
+        return df, branches
+
+
+def DQCDFourMuonSVSelectionRDF(*args, **kwargs):
+    return lambda: DQCDFourMuonSVSelectionRDFProducer(*args, **kwargs)
 
 
 class DQCDMuonSVRDFProducer():

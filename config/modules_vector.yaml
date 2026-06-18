@@ -20,6 +20,11 @@ muonsv:
         gen_mass: 2
 
 
+fourmuonsv:
+    name: DQCDFourMuonSVSelectionRDF
+    path: modules.muonsv_selection
+
+
 trig:
 #    name: DQCDTriggerSelectionRDF
     name: DQCDTriggerSelection2024RDF
