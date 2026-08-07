@@ -1,0 +1,73 @@
+
+=== GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 10 files) ===
+  -> 250922_221110/
+    -> 0000/
+         10 .root files collected under 0000 (cap 10)
+       10 .root files collected under 250922_221110 (cap 10)
+     10 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (cap 10)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/10] nano_1.root
+         -> 28,360 events
+  [2/10] nano_10.root
+         -> 43,958 events
+  [3/10] nano_11.root
+         -> 4,254 events
+  [4/10] nano_12.root
+         -> 32,614 events
+  [5/10] nano_13.root
+         -> 24,106 events
+  [6/10] nano_14.root
+         -> 38,286 events
+  [7/10] nano_15.root
+         -> 35,450 events
+  [8/10] nano_16.root
+         -> 46,794 events
+  [9/10] nano_17.root
+         -> 43,958 events
+  [10/10] nano_18.root
+         -> 46,794 events
+  [Signal A: $m_\pi$=4, $m_A$=1.33, $c\tau$=1] 16,052 candidate events (>=1 fourmuonSV & >=2 muonSV) of 344,574
+  [Signal A: $m_\pi$=4, $m_A$=1.33, $c\tau$=1] 59 events with a quadv match
+
+=== GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 (taking 10 files) ===
+  -> 250922_152935/
+    -> 0000/
+         10 .root files collected under 0000 (cap 10)
+       10 .root files collected under 250922_152935 (cap 10)
+     10 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 (cap 10)
+  [1/10] nano_1.root
+         -> 45,440 events
+  [2/10] nano_10.root
+         -> 17,040 events
+  [3/10] nano_11.root
+         -> 37,630 events
+  [4/10] nano_12.root
+         -> 29,820 events
+  [5/10] nano_13.root
+         -> 25,560 events
+  [6/10] nano_14.root
+         -> 34,080 events
+  [7/10] nano_15.root
+         -> 6,390 events
+  [8/10] nano_16.root
+         -> 48,990 events
+  [9/10] nano_17.root
+         -> 43,310 events
+  [10/10] nano_18.root
+         -> 710 events
+  [Signal A: $m_\pi$=10, $m_A$=3.33, $c\tau$=0.1] 5,597 candidate events (>=1 fourmuonSV & >=2 muonSV) of 288,970
+  [Signal A: $m_\pi$=10, $m_A$=3.33, $c\tau$=0.1] 991 events with a quadv match
+
+=== Writing PDF ===
+  page 1: fourmuonSV_dxy vs 2-muonSV dxy
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+  page 2: pointing-angle definitions
+  page 3: pointing-angle ratio (stored / computed)
+
+Saved: _tools/compareAngles_test10x.pdf

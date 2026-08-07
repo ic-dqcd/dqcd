@@ -25,6 +25,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
+import goldenjson as gj
+
 XRD_SERVER = "root://gfe02.grid.hep.ph.ic.ac.uk/"
 PNFS_BASE  = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024__v2_withPuppyMET"
 TREE_NAME  = "Events"
@@ -57,6 +59,11 @@ _MET_FLAGS_REQUIRED = [
 _MET_FLAG_OPTIONAL  = "Flag_ecalBadCalibFilter"
 _MET_FLAG_DATA_ONLY = "Flag_eeBadScFilter"
 
+
+# Golden-JSON mask, set in main(). CERT is None when disabled or unavailable, in which
+# case gj.mask() is never called and every data event is kept.
+CERT = None
+GCOUNT = gj.Counter()
 
 def met_filter_mask(tree):
     """Boolean mask for data events passing Run-3 MET filters (includes eeBadScFilter)."""
@@ -110,6 +117,10 @@ def read_branches(urls):
         try:
             with uproot.open(f"{url}:{TREE_NAME}") as tree:
                 mask = met_filter_mask(tree)
+                if CERT is not None:
+                    r = tree["run"].array(library="np")
+                    l = tree["luminosityBlock"].array(library="np")
+                    mask &= GCOUNT.update(gj.mask(r, l, CERT))
                 for b in BRANCHES:
                     accum[b].append(tree[b].array(library="np")[mask])
         except Exception as exc:
@@ -236,7 +247,10 @@ def main():
                         help="Upper PuppiMET_pt limit in GeV (default: 300)")
     parser.add_argument("--outdir", default=".",
                         help="Output directory for PDFs (default: .)")
+    gj.add_args(parser)
     args = parser.parse_args()
+    global CERT
+    CERT = gj.from_args(args, log)
 
     os.makedirs(args.outdir, exist_ok=True)
 

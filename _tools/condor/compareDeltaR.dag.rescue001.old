@@ -1,0 +1,23 @@
+# Rescue DAG file, created after running
+#   the _tools/condor/compareDeltaR.dag DAG file
+# Created 7/27/2026 12:49:03 UTC
+# Rescue DAG version: 2.0.1 (partial)
+#
+# Total number of Nodes: 14
+# Nodes premarked DONE: 0
+# Nodes that failed: 0
+#   <ENDLIST>
+
+RETRY qcd_PT_15_20 3
+RETRY qcd_PT_20_30 3
+RETRY qcd_PT_30_50 3
+RETRY qcd_PT_50_80 3
+RETRY qcd_PT_80_120 3
+RETRY qcd_PT_120_170 3
+RETRY qcd_PT_170_300 3
+RETRY qcd_PT_300_470 3
+RETRY qcd_PT_470_600 3
+RETRY qcd_PT_600_800 3
+RETRY qcd_PT_800_1000 3
+RETRY qcd_PT_1000 3
+RETRY signal 3

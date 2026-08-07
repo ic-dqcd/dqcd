@@ -1,0 +1,53 @@
+JobBatchName = dqcd_compareDeltaR_AllSamples
+
+universe    = vanilla
+executable  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/run_compareDeltaR.sh
+
+output = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_AllSamples_$(ClusterId).$(ProcId).out
+error  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_AllSamples_$(ClusterId).$(ProcId).err
+log    = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_AllSamples_$(ClusterId).log
+
+# IC pool policy (condor_status -long, Start expression) dictates all three of
+# these -- they are not free choices:
+#
+#   * every node caps TARGET.MaxRuntime. Most of the pool is 3 h (lxb04+) or
+#     10 h (lxb00-03); only the lxa* nodes (48 h, but 4 GB total) and the GPU
+#     nodes (192 h) go longer.
+#   * every node caps RequestMemory <= <ratio> * RequestCpus, ratio 2200-5375
+#     MB/cpu on the GPU nodes. 8 GB therefore needs 4 cpus to clear the
+#     tightest (2200*4 = 8800 >= 8192). This job is single-threaded; the extra
+#     cpus are there to buy the memory, not to be used.
+#   * the GPU nodes reject any job that does NOT request a GPU:
+#     ifThenElse((MY.GPUs > 0) =?= true, (TARGET.RequestGPUs > 0), true)
+#     so request_gpus = 1 is the price of the 192 h runtime tier -- same reason
+#     submit_MergeCategorization_*.sub asks for one.
+#
+# Memory: ~1.6e8 vertices over the full sample; qcd_dr + qcd_w as float64 plus
+# the transient doubling inside np.concatenate peaks near 5 GB. 8 GB is margin.
+# NB the schedd rewrites RequestMemory to (4000 * RequestCpus) and ignores the value
+# below, so cpus is really the memory dial: 2 cpus -> 8000 MB, comfortably above the
+# 4051 MB this job actually used (measured, cluster 4615022). Do NOT raise this to 4:
+# at 4 cpus the site converts the request into a whole-node one
+# (RequestMemory = TARGET.DetectedMemory), which then only matches a fully drained
+# machine and sits idle forever.
+request_gpus   = 1
+request_cpus   = 2
+request_memory = 8 GB
+request_disk   = 5 GB
+
+# 48 h. MEASURED, not guessed: cluster 4615022 got through 31592 of ~38950
+# files in 24 h before SYSTEM_PERIODIC_HOLD killed it, i.e. ~30 h for the full
+# sample -- the xrootd latency over 38.5k files dominates, not the
+# histogramming. 48 h leaves margin without exceeding the GPU nodes' 192 h cap.
+# NB this hold was against our own declared MaxRuntime, not a pool limit.
++MaxRuntime = 172800
+
+# proxy lives on /vols, readable from the worker node
+x509userproxy = /vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/x509up
+
+notify_user  = j.tafoya.vargas@cern.ch
+notification = Complete
+
+getenv = True
+
+queue 1

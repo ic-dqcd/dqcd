@@ -1,0 +1,81 @@
+[TEST MODE] 1 file per sample -> comparePileUp_wiring.pdf
+Central set: Collisions24_CDEFGHI_goldenJSON
+  /cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/puWeights_CDEFGHI.json.gz
+  per-era sets found: B, C, D, E, F, G, H, I
+  corrections applied to MC: central, lumi. corr. repo
+
+=== scA $m_\pi$=4, $m_A$=0.4, $c\tau$=10 mm ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  1 of 35 files, 25,452 events, <n>=45.42, RMS=9.53
+
+=== scA $m_\pi$=10, $m_A$=3.33, $c\tau$=10 mm ===
+  1 of 33 files, 22,072 events, <n>=45.46, RMS=9.55
+
+=== scB1 $m_\pi$=1, $m_A$=0.33, $c\tau$=10 mm ===
+  1 of 36 files, 1,432 events, <n>=44.98, RMS=9.69
+
+=== scB1 $m_\pi$=5, $m_A$=1.67, $c\tau$=10 mm ===
+  1 of 36 files, 22,720 events, <n>=45.44, RMS=9.51
+
+=== QCD, $p_{T}\in(15,20)$ GeV ===
+  1 of 3621 files, 3,202 events, <n>=45.21, RMS=9.46
+
+=== QCD, $p_{T}\in(80,120)$ GeV ===
+  1 of 2947 files, 22,623 events, <n>=45.45, RMS=9.55
+
+=== QCD, $p_{T}\in(170,300)$ GeV ===
+  1 of 3263 files, 2,031 events, <n>=45.45, RMS=9.48
+
+=== QCD, $p_{T}>1000$ GeV ===
+  1 of 3801 files, 19,205 events, <n>=45.53, RMS=9.44
+
+=== MinBias, incl. dilepton ===
+  1 of 1993 files, 209,766 events, <n>=45.42, RMS=9.54
+
+=== DATA (page 6) ===
+  golden JSON: 475 runs, 287,603 lumisections  (Cert_Collisions2024_378981_386951_Golden.json)
+    ParkingDoubleMuonLowMass0         16,276 files
+    ParkingDoubleMuonLowMass1         20,441 files
+    ParkingDoubleMuonLowMass2         19,260 files
+    ParkingDoubleMuonLowMass3         19,215 files
+    ParkingDoubleMuonLowMass4         23,669 files
+    ParkingDoubleMuonLowMass5         11,059 files
+    ParkingDoubleMuonLowMass6         31,668 files
+    ParkingDoubleMuonLowMass7         13,414 files
+    ParkingSingleMuon0                24,594 files
+    ParkingSingleMuon1                30,756 files
+    ParkingSingleMuon10                9,516 files
+    ParkingSingleMuon11                7,123 files
+    ParkingSingleMuon2                16,442 files
+    ParkingSingleMuon3                34,873 files
+    ParkingSingleMuon4                18,200 files
+    ParkingSingleMuon5                16,433 files
+    ParkingSingleMuon6                 8,465 files
+    ParkingSingleMuon7                11,345 files
+    ParkingSingleMuon8                 4,512 files
+    ParkingSingleMuon9                22,974 files
+  360,235 data files total; reading a random 0.001% = 2 of them (seed 20240728)
+  draw composition by stream:
+    ParkingSingleMuon1                      1  (50.00%)
+    ParkingSingleMuon5                      1  (50.00%)
+  draw composition by era:
+    Run2024E                                1  (50.00%)
+    Run2024I                                1  (50.00%)
+  eras represented: 2 of the 18 in the sample area
+  PD split: SingleMuon 2 (100.0%), DoubleMuonLowMass 0 (0.0%)   [--data-streams all]
+    [2/2] 84,669 events so far
+  156,627 data events, <N_PV>=36.62, RMS=9.03
+    Run2024E                       84,669 evt   <N_PV>=32.48  RMS= 8.74
+    Run2024I                       71,958 evt   <N_PV>=41.49  RMS= 6.60
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+  [warn] no era passed the statistics cut -- skipping page 8
+
+Saved: comparePileUp_wiring.pdf

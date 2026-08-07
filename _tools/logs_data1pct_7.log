@@ -1,0 +1,2783 @@
+  golden JSON: 475 runs, 287,603 lumisections (Cert_Collisions2024_378981_386951_Golden.json)
+
+=== Data ===
+
+[Data] listing /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251006_155417/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           419 .root files collected under 0001
+         1418 .root files collected under 251006_155417
+       1418 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_160707/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           495 .root files collected under 0001
+         1494 .root files collected under 251007_160707
+       1494 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_160737/
+      -> 0000/
+           387 .root files collected under 0000
+      -> 0001/
+           10 .root files collected under 0001
+         397 .root files collected under 251007_160737
+    -> 251119_165935/
+      -> 0000/
+           260 .root files collected under 0000
+         260 .root files collected under 251119_165935
+    -> 260327_144506/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           787 .root files collected under 0003
+         3786 .root files collected under 260327_144506
+       4443 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251007_160806/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           216 .root files collected under 0005
+         5215 .root files collected under 251007_160806
+       5215 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_160836/
+      -> 0000/
+           768 .root files collected under 0000
+         768 .root files collected under 251007_160836
+       768 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_160906/
+      -> 0000/
+           816 .root files collected under 0000
+         816 .root files collected under 251007_160906
+       816 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_160936/
+      -> 0000/
+           58 .root files collected under 0000
+         58 .root files collected under 251007_160936
+    -> 251119_170007/
+      -> 0000/
+           786 .root files collected under 0000
+         786 .root files collected under 251119_170007
+    -> 251221_084804/
+      -> 0000/
+           492 .root files collected under 0000
+         492 .root files collected under 251221_084804
+    -> 260327_144537/
+      -> 0000/
+           786 .root files collected under 0000
+         786 .root files collected under 260327_144537
+       2122 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     16276 .root files collected under ParkingDoubleMuonLowMass0
+    ParkingDoubleMuonLowMass0           16,276 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_161008/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           414 .root files collected under 0001
+         1413 .root files collected under 251007_161008
+       1413 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_161038/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           484 .root files collected under 0001
+         1483 .root files collected under 251007_161038
+    -> 251119_170036/
+      -> 0000/
+           996 .root files collected under 0000
+      -> 0001/
+           483 .root files collected under 0001
+         1479 .root files collected under 251119_170036
+    -> 251221_084838/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           486 .root files collected under 0001
+         1485 .root files collected under 251221_084838
+    -> 260327_144609/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           486 .root files collected under 0001
+         1485 .root files collected under 260327_144609
+       5932 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_161108/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           42 .root files collected under 0002
+         2041 .root files collected under 251007_161108
+       2041 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_161137/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           874 .root files collected under 0001
+      -> 0002/
+           445 .root files collected under 0002
+      -> 0003/
+           108 .root files collected under 0003
+         2426 .root files collected under 251007_161137
+    -> 251119_170107/
+      -> 0000/
+           840 .root files collected under 0000
+      -> 0001/
+           335 .root files collected under 0001
+      -> 0002/
+           170 .root files collected under 0002
+      -> 0003/
+           70 .root files collected under 0003
+         1415 .root files collected under 251119_170107
+    -> 260327_144641/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           810 .root files collected under 0003
+         3809 .root files collected under 260327_144641
+       7650 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v1/
+    -> 251007_161236/
+      -> 0000/
+           937 .root files collected under 0000
+         937 .root files collected under 251007_161236
+       937 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_161305/
+      -> 0000/
+           599 .root files collected under 0000
+         599 .root files collected under 251007_161305
+    -> 251119_170208/
+      -> 0000/
+           288 .root files collected under 0000
+         288 .root files collected under 251119_170208
+    -> 260327_144746/
+      -> 0000/
+           796 .root files collected under 0000
+         796 .root files collected under 260327_144746
+       1683 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_161336/
+      -> 0000/
+           785 .root files collected under 0000
+         785 .root files collected under 251007_161336
+       785 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     20441 .root files collected under ParkingDoubleMuonLowMass1
+    ParkingDoubleMuonLowMass1           20,441 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_161405/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           423 .root files collected under 0001
+         1422 .root files collected under 251007_161405
+       1422 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_161434/
+      -> 0000/
+           417 .root files collected under 0000
+      -> 0001/
+           109 .root files collected under 0001
+      -> 0002/
+           1 .root files collected under 0002
+         527 .root files collected under 251007_161434
+    -> 251119_170239/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           41 .root files collected under 0002
+         2040 .root files collected under 251119_170239
+    -> 251221_084917/
+      -> 0000/
+           349 .root files collected under 0000
+      -> 0001/
+           201 .root files collected under 0001
+      -> 0002/
+           14 .root files collected under 0002
+         564 .root files collected under 251221_084917
+    -> 260327_144817/
+      -> 0000/
+           52 .root files collected under 0000
+      -> 0001/
+           7 .root files collected under 0001
+         59 .root files collected under 260327_144817
+       3190 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v2/
+    -> 251007_161503/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           811 .root files collected under 0003
+         3810 .root files collected under 251007_161503
+       3810 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251007_161533/
+      -> 0000/
+           618 .root files collected under 0000
+      -> 0001/
+           130 .root files collected under 0001
+      -> 0002/
+           86 .root files collected under 0002
+      -> 0003/
+           3 .root files collected under 0003
+         837 .root files collected under 251007_161533
+    -> 251119_170312/
+      -> 0000/
+           1 .root files collected under 0000
+      -> 0002/
+           3 .root files collected under 0002
+         4 .root files collected under 251119_170312
+    -> 260327_144849/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           999 .root files collected under 0001
+      -> 0002/
+           999 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           999 .root files collected under 0004
+      -> 0005/
+           203 .root files collected under 0005
+         5199 .root files collected under 260327_144849
+       6040 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_161602/
+      -> 0000/
+           766 .root files collected under 0000
+         766 .root files collected under 251007_161602
+       766 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_161631/
+      -> 0000/
+           813 .root files collected under 0000
+         813 .root files collected under 251007_161631
+    -> 251119_170343/
+      -> 0000/
+           814 .root files collected under 0000
+         814 .root files collected under 251119_170343
+    -> 251221_084953/
+      -> 0000/
+           811 .root files collected under 0000
+         811 .root files collected under 251221_084953
+    -> 260327_144921/
+      -> 0000/
+           814 .root files collected under 0000
+         814 .root files collected under 260327_144921
+       3252 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_161701/
+      -> 0000/
+           780 .root files collected under 0000
+         780 .root files collected under 251007_161701
+       780 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     19260 .root files collected under ParkingDoubleMuonLowMass2
+    ParkingDoubleMuonLowMass2           19,260 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_161730/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           406 .root files collected under 0001
+         1405 .root files collected under 251007_161730
+       1405 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_161800/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           496 .root files collected under 0001
+         1495 .root files collected under 251007_161800
+       1495 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_161829/
+      -> 0000/
+           932 .root files collected under 0000
+      -> 0001/
+           29 .root files collected under 0001
+      -> 0002/
+           62 .root files collected under 0002
+      -> 0003/
+           6 .root files collected under 0003
+         1029 .root files collected under 251007_161829
+    -> 251119_170414/
+      -> 0000/
+           614 .root files collected under 0000
+      -> 0001/
+           292 .root files collected under 0001
+      -> 0002/
+           9 .root files collected under 0002
+      -> 0003/
+           10 .root files collected under 0003
+         925 .root files collected under 251119_170414
+    -> 260327_145024/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           788 .root files collected under 0003
+         3787 .root files collected under 260327_145024
+       5741 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251119_170444/
+      -> 0000/
+           449 .root files collected under 0000
+      -> 0001/
+           27 .root files collected under 0001
+         476 .root files collected under 251119_170444
+    -> 260327_145055/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           217 .root files collected under 0005
+         5216 .root files collected under 260327_145055
+       5692 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_161929/
+      -> 0000/
+           763 .root files collected under 0000
+         763 .root files collected under 251007_161929
+    -> 251119_170515/
+      -> 0000/
+           648 .root files collected under 0000
+         648 .root files collected under 251119_170515
+    -> 251221_085028/
+      -> 0000/
+           656 .root files collected under 0000
+         656 .root files collected under 251221_085028
+    -> 260327_145210/
+      -> 0000/
+           765 .root files collected under 0000
+         765 .root files collected under 260327_145210
+       2832 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_161958/
+      -> 0000/
+           811 .root files collected under 0000
+         811 .root files collected under 251007_161958
+       811 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_162028/
+      -> 0000/
+           451 .root files collected under 0000
+         451 .root files collected under 251007_162028
+    -> 251119_170545/
+      -> 0000/
+           2 .root files collected under 0000
+         2 .root files collected under 251119_170545
+    -> 260327_145242/
+      -> 0000/
+           786 .root files collected under 0000
+         786 .root files collected under 260327_145242
+       1239 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     19215 .root files collected under ParkingDoubleMuonLowMass3
+    ParkingDoubleMuonLowMass3           19,215 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_162057/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           349 .root files collected under 0001
+         1348 .root files collected under 251007_162057
+       1348 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_162127/
+      -> 0000/
+           996 .root files collected under 0000
+      -> 0001/
+           508 .root files collected under 0001
+         1504 .root files collected under 251007_162127
+    -> 251119_170615/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           508 .root files collected under 0001
+         1507 .root files collected under 251119_170615
+    -> 251221_085103/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           506 .root files collected under 0001
+         1505 .root files collected under 251221_085103
+    -> 260405_004031/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           508 .root files collected under 0001
+         1507 .root files collected under 260405_004031
+       6023 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_162157/
+      -> 0000/
+           863 .root files collected under 0000
+      -> 0001/
+           378 .root files collected under 0001
+         1241 .root files collected under 251007_162157
+    -> 251119_170646/
+      -> 0000/
+           473 .root files collected under 0000
+      -> 0001/
+           4 .root files collected under 0001
+         477 .root files collected under 251119_170646
+    -> 260405_004101/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           38 .root files collected under 0002
+         2037 .root files collected under 260405_004101
+       3755 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251007_162256/
+      -> 0000/
+           552 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           602 .root files collected under 0003
+      -> 0004/
+           26 .root files collected under 0004
+         3180 .root files collected under 251007_162256
+    -> 251119_170747/
+      -> 0000/
+           51 .root files collected under 0000
+      -> 0001/
+           16 .root files collected under 0001
+      -> 0002/
+           327 .root files collected under 0002
+      -> 0003/
+           145 .root files collected under 0003
+      -> 0004/
+           194 .root files collected under 0004
+      -> 0005/
+           135 .root files collected under 0005
+         868 .root files collected under 251119_170747
+    -> 260405_004201/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           207 .root files collected under 0005
+         5206 .root files collected under 260405_004201
+       9254 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_162325/
+      -> 0000/
+           457 .root files collected under 0000
+         457 .root files collected under 251007_162325
+    -> 251119_170817/
+      -> 0000/
+           474 .root files collected under 0000
+         474 .root files collected under 251119_170817
+    -> 260405_004231/
+      -> 0000/
+           765 .root files collected under 0000
+         765 .root files collected under 260405_004231
+       1696 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_162355/
+      -> 0000/
+           815 .root files collected under 0000
+         815 .root files collected under 251007_162355
+       815 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_162424/
+      -> 0000/
+           778 .root files collected under 0000
+         778 .root files collected under 251007_162424
+       778 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     23669 .root files collected under ParkingDoubleMuonLowMass4
+    ParkingDoubleMuonLowMass4           23,669 files
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_162454/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           506 .root files collected under 0001
+         1505 .root files collected under 251007_162454
+       1505 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_162524/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           992 .root files collected under 0001
+      -> 0002/
+           958 .root files collected under 0002
+      -> 0003/
+           140 .root files collected under 0003
+         3089 .root files collected under 251007_162524
+    -> 260405_004301/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           787 .root files collected under 0003
+         3786 .root files collected under 260405_004301
+       6875 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_162623/
+      -> 0000/
+           768 .root files collected under 0000
+         768 .root files collected under 251007_162623
+       768 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2/
+    -> 251007_162652/
+      -> 0000/
+           292 .root files collected under 0000
+         292 .root files collected under 251007_162652
+    -> 251119_170948/
+      -> 0000/
+           12 .root files collected under 0000
+         12 .root files collected under 251119_170948
+    -> 260405_004402/
+      -> 0000/
+           817 .root files collected under 0000
+         817 .root files collected under 260405_004402
+       1121 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_162721/
+      -> 0000/
+           790 .root files collected under 0000
+         790 .root files collected under 251007_162721
+       790 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     11059 .root files collected under ParkingDoubleMuonLowMass5
+    ParkingDoubleMuonLowMass5           11,059 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_162751/
+      -> 0000/
+           648 .root files collected under 0000
+      -> 0001/
+           264 .root files collected under 0001
+         912 .root files collected under 251007_162751
+    -> 251119_171017/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           219 .root files collected under 0001
+         1218 .root files collected under 251119_171017
+    -> 251221_085149/
+      -> 0000/
+           774 .root files collected under 0000
+      -> 0001/
+           220 .root files collected under 0001
+         994 .root files collected under 251221_085149
+    -> 260405_004433/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           401 .root files collected under 0001
+         1400 .root files collected under 260405_004433
+       4524 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_162820/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           516 .root files collected under 0001
+         1515 .root files collected under 251007_162820
+       1515 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_162849/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           55 .root files collected under 0002
+         2054 .root files collected under 251007_162849
+       2054 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_162918/
+      -> 0000/
+           453 .root files collected under 0000
+      -> 0001/
+           82 .root files collected under 0001
+      -> 0002/
+           22 .root files collected under 0002
+         557 .root files collected under 251007_162918
+    -> 251119_171047/
+      -> 0000/
+           52 .root files collected under 0000
+      -> 0001/
+           2 .root files collected under 0001
+      -> 0002/
+           1 .root files collected under 0002
+         55 .root files collected under 251119_171047
+    -> 260405_004504/
+      -> 0000/
+           981 .root files collected under 0000
+      -> 0001/
+           999 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           789 .root files collected under 0003
+         3769 .root files collected under 260405_004504
+       4381 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251007_162948/
+      -> 0000/
+           992 .root files collected under 0000
+      -> 0001/
+           887 .root files collected under 0001
+      -> 0002/
+           806 .root files collected under 0002
+      -> 0003/
+           21 .root files collected under 0003
+      -> 0004/
+           428 .root files collected under 0004
+      -> 0005/
+           5 .root files collected under 0005
+         3139 .root files collected under 251007_162948
+    -> 251119_171118/
+      -> 0000/
+           997 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           193 .root files collected under 0005
+         5190 .root files collected under 251119_171118
+    -> 251221_085226/
+      -> 0000/
+           992 .root files collected under 0000
+      -> 0001/
+           508 .root files collected under 0001
+      -> 0002/
+           157 .root files collected under 0002
+      -> 0003/
+           670 .root files collected under 0003
+      -> 0004/
+           825 .root files collected under 0004
+      -> 0005/
+           158 .root files collected under 0005
+         3310 .root files collected under 251221_085226
+    -> 260405_004536/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           193 .root files collected under 0005
+         5192 .root files collected under 260405_004536
+       16831 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_163017/
+      -> 0000/
+           765 .root files collected under 0000
+         765 .root files collected under 251007_163017
+       765 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2/
+    -> 251007_163046/
+      -> 0000/
+           817 .root files collected under 0000
+         817 .root files collected under 251007_163046
+       817 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_163116/
+      -> 0000/
+           781 .root files collected under 0000
+         781 .root files collected under 251007_163116
+       781 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     31668 .root files collected under ParkingDoubleMuonLowMass6
+    ParkingDoubleMuonLowMass6           31,668 files
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_163145/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           51 .root files collected under 0002
+         2050 .root files collected under 251007_163145
+       2050 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_163214/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           804 .root files collected under 0003
+         3803 .root files collected under 251007_163214
+       3803 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4/
+    -> 251007_163244/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           188 .root files collected under 0005
+         5187 .root files collected under 251007_163244
+       5187 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_163313/
+      -> 0000/
+           767 .root files collected under 0000
+         767 .root files collected under 251007_163313
+       767 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_163343/
+      -> 0000/
+           814 .root files collected under 0000
+         814 .root files collected under 251007_163343
+       814 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_163412/
+      -> 0000/
+           793 .root files collected under 0000
+         793 .root files collected under 251007_163412
+       793 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     13414 .root files collected under ParkingDoubleMuonLowMass7
+    ParkingDoubleMuonLowMass7           13,414 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251006_155341/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           475 .root files collected under 0001
+         1474 .root files collected under 251006_155341
+       1474 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_153043/
+      -> 0000/
+           752 .root files collected under 0000
+      -> 0001/
+           567 .root files collected under 0001
+         1319 .root files collected under 251007_153043
+    -> 251119_163706/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           567 .root files collected under 0001
+         1566 .root files collected under 251119_163706
+    -> 251221_085259/
+      -> 0000/
+           991 .root files collected under 0000
+      -> 0001/
+           564 .root files collected under 0001
+         1555 .root files collected under 251221_085259
+    -> 260218_135609/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           567 .root files collected under 0001
+         1566 .root files collected under 260218_135609
+       6006 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_153113/
+      -> 0000/
+           85 .root files collected under 0000
+      -> 0001/
+           3 .root files collected under 0001
+      -> 0002/
+           67 .root files collected under 0002
+         155 .root files collected under 251007_153113
+    -> 251119_163738/
+      -> 0000/
+           719 .root files collected under 0000
+      -> 0001/
+           133 .root files collected under 0001
+      -> 0002/
+           41 .root files collected under 0002
+         893 .root files collected under 251119_163738
+    -> 260218_135641/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           904 .root files collected under 0002
+         2903 .root files collected under 260218_135641
+       3951 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4/
+    -> 251007_153143/
+      -> 0000/
+           118 .root files collected under 0000
+      -> 0001/
+           261 .root files collected under 0001
+      -> 0002/
+           9 .root files collected under 0002
+      -> 0003/
+           3 .root files collected under 0003
+      -> 0004/
+           11 .root files collected under 0004
+      -> 0005/
+           19 .root files collected under 0005
+         421 .root files collected under 251007_153143
+    -> 251119_163811/
+      -> 0000/
+           997 .root files collected under 0000
+      -> 0001/
+           970 .root files collected under 0001
+      -> 0002/
+           446 .root files collected under 0002
+      -> 0004/
+           7 .root files collected under 0004
+      -> 0005/
+           4 .root files collected under 0005
+         2424 .root files collected under 251119_163811
+    -> 260218_135712/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           569 .root files collected under 0006
+         6568 .root files collected under 260218_135712
+       9413 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v1/
+    -> 251007_153241/
+      -> 0000/
+           720 .root files collected under 0000
+         720 .root files collected under 251007_153241
+       720 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_153311/
+      -> 0000/
+           44 .root files collected under 0000
+         44 .root files collected under 251007_153311
+    -> 251119_163916/
+      -> 0000/
+           667 .root files collected under 0000
+         667 .root files collected under 251119_163916
+    -> 251221_085338/
+      -> 0000/
+           100 .root files collected under 0000
+         100 .root files collected under 251221_085338
+    -> 260218_135814/
+      -> 0000/
+           668 .root files collected under 0000
+         668 .root files collected under 260218_135814
+       1479 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251119_163949/
+      -> 0000/
+           610 .root files collected under 0000
+         610 .root files collected under 251119_163949
+    -> 251221_085410/
+      -> 0000/
+           331 .root files collected under 0000
+         331 .root files collected under 251221_085410
+    -> 260218_135846/
+      -> 0000/
+           610 .root files collected under 0000
+         610 .root files collected under 260218_135846
+       1551 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     24594 .root files collected under ParkingSingleMuon0
+    ParkingSingleMuon0                  24,594 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_153413/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           397 .root files collected under 0001
+         1396 .root files collected under 251007_153413
+       1396 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_153443/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           542 .root files collected under 0001
+         1541 .root files collected under 251007_153443
+       1541 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4/
+    -> 251007_153512/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           999 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           578 .root files collected under 0006
+         6576 .root files collected under 251007_153512
+    -> 251119_164021/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           578 .root files collected under 0006
+         6577 .root files collected under 251119_164021
+    -> 251221_085519/
+      -> 0000/
+           978 .root files collected under 0000
+      -> 0001/
+           875 .root files collected under 0001
+      -> 0002/
+           665 .root files collected under 0002
+      -> 0003/
+           618 .root files collected under 0003
+      -> 0004/
+           846 .root files collected under 0004
+      -> 0005/
+           603 .root files collected under 0005
+      -> 0006/
+           386 .root files collected under 0006
+         4971 .root files collected under 251221_085519
+    -> 260218_135917/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           578 .root files collected under 0006
+         6577 .root files collected under 260218_135917
+       24701 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_153612/
+      -> 0000/
+           30 .root files collected under 0000
+         30 .root files collected under 251007_153612
+    -> 251119_164128/
+      -> 0000/
+           226 .root files collected under 0000
+         226 .root files collected under 251119_164128
+    -> 260218_140019/
+      -> 0000/
+           587 .root files collected under 0000
+         587 .root files collected under 260218_140019
+       843 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v4/
+    -> 251007_153641/
+      -> 0000/
+           59 .root files collected under 0000
+         59 .root files collected under 251007_153641
+    -> 251119_164203/
+      -> 0000/
+           663 .root files collected under 0000
+         663 .root files collected under 251119_164203
+    -> 251221_085557/
+      -> 0000/
+           266 .root files collected under 0000
+         266 .root files collected under 251221_085557
+    -> 260218_140050/
+      -> 0000/
+           663 .root files collected under 0000
+         663 .root files collected under 260218_140050
+       1651 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v3/
+    -> 251007_153711/
+      -> 0000/
+           624 .root files collected under 0000
+         624 .root files collected under 251007_153711
+       624 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v3
+     30756 .root files collected under ParkingSingleMuon1
+    ParkingSingleMuon1                  30,756 files
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251007_153741/
+      -> 0000/
+           656 .root files collected under 0000
+         656 .root files collected under 251007_153741
+    -> 251119_164235/
+      -> 0000/
+           171 .root files collected under 0000
+      -> 0002/
+           12 .root files collected under 0002
+         183 .root files collected under 251119_164235
+    -> 260218_140120/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           172 .root files collected under 0005
+         5171 .root files collected under 260218_140120
+       6010 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4/
+    -> 251007_153811/
+      -> 0000/
+           586 .root files collected under 0000
+         586 .root files collected under 251007_153811
+       586 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_153841/
+      -> 0000/
+           2 .root files collected under 0000
+         2 .root files collected under 251007_153841
+    -> 251119_164306/
+      -> 0000/
+           663 .root files collected under 0000
+         663 .root files collected under 251119_164306
+    -> 251221_085444/
+      -> 0000/
+           295 .root files collected under 0000
+         295 .root files collected under 251221_085444
+    -> 260218_140151/
+      -> 0000/
+           664 .root files collected under 0000
+         664 .root files collected under 260218_140151
+       1624 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_153912/
+      -> 0000/
+           170 .root files collected under 0000
+         170 .root files collected under 251007_153912
+    -> 251119_164336/
+      -> 0000/
+           502 .root files collected under 0000
+         502 .root files collected under 251119_164336
+    -> 260218_140224/
+      -> 0000/
+           624 .root files collected under 0000
+         624 .root files collected under 260218_140224
+       1296 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     9516 .root files collected under ParkingSingleMuon10
+    ParkingSingleMuon10                  9,516 files
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4/
+    -> 251007_153941/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           175 .root files collected under 0005
+         5174 .root files collected under 251007_153941
+       5174 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_154011/
+      -> 0000/
+           585 .root files collected under 0000
+         585 .root files collected under 251007_154011
+       585 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_154040/
+      -> 0000/
+           30 .root files collected under 0000
+         30 .root files collected under 251007_154040
+    -> 251119_164407/
+      -> 0000/
+           58 .root files collected under 0000
+         58 .root files collected under 251119_164407
+    -> 260218_140256/
+      -> 0000/
+           662 .root files collected under 0000
+         662 .root files collected under 260218_140256
+       750 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_154109/
+      -> 0000/
+           614 .root files collected under 0000
+         614 .root files collected under 251007_154109
+       614 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     7123 .root files collected under ParkingSingleMuon11
+    ParkingSingleMuon11                  7,123 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_154139/
+      -> 0000/
+           33 .root files collected under 0000
+      -> 0001/
+           7 .root files collected under 0001
+         40 .root files collected under 251007_154139
+    -> 251119_164437/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           475 .root files collected under 0001
+         1474 .root files collected under 251119_164437
+    -> 251221_085628/
+      -> 0000/
+           201 .root files collected under 0000
+      -> 0001/
+           46 .root files collected under 0001
+         247 .root files collected under 251221_085628
+    -> 260218_140327/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           475 .root files collected under 0001
+         1474 .root files collected under 260218_140327
+       3235 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_154209/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           926 .root files collected under 0002
+         2925 .root files collected under 251007_154209
+       2925 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_154238/
+      -> 0000/
+           50 .root files collected under 0000
+      -> 0002/
+           1 .root files collected under 0002
+         51 .root files collected under 251007_154238
+    -> 260218_140358/
+      -> 0000/
+           998 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           537 .root files collected under 0006
+         6535 .root files collected under 260218_140358
+       6586 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_154338/
+      -> 0000/
+           588 .root files collected under 0000
+         588 .root files collected under 251007_154338
+       588 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_154408/
+      -> 0000/
+           1 .root files collected under 0000
+         1 .root files collected under 251007_154408
+    -> 251119_164541/
+      -> 0000/
+           88 .root files collected under 0000
+         88 .root files collected under 251119_164541
+    -> 260218_140429/
+      -> 0000/
+           662 .root files collected under 0000
+         662 .root files collected under 260218_140429
+       751 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_154437/
+      -> 0000/
+           561 .root files collected under 0000
+         561 .root files collected under 251007_154437
+    -> 251119_164613/
+      -> 0000/
+           616 .root files collected under 0000
+         616 .root files collected under 251119_164613
+    -> 251221_085705/
+      -> 0000/
+           564 .root files collected under 0000
+         564 .root files collected under 251221_085705
+    -> 260218_140501/
+      -> 0000/
+           616 .root files collected under 0000
+         616 .root files collected under 260218_140501
+       2357 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     16442 .root files collected under ParkingSingleMuon2
+    ParkingSingleMuon2                  16,442 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_154506/
+      -> 0000/
+           9 .root files collected under 0000
+      -> 0001/
+           26 .root files collected under 0001
+         35 .root files collected under 251007_154506
+    -> 251119_164645/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           276 .root files collected under 0001
+         1275 .root files collected under 251119_164645
+    -> 260218_140531/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           365 .root files collected under 0001
+         1364 .root files collected under 260218_140531
+       2674 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_154536/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           902 .root files collected under 0002
+         2901 .root files collected under 251007_154536
+    -> 251119_164727/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           903 .root files collected under 0002
+         2902 .root files collected under 251119_164727
+    -> 251221_085740/
+      -> 0000/
+           996 .root files collected under 0000
+      -> 0001/
+           987 .root files collected under 0001
+      -> 0002/
+           872 .root files collected under 0002
+         2855 .root files collected under 251221_085740
+    -> 260218_140603/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           903 .root files collected under 0002
+         2902 .root files collected under 260218_140603
+       11560 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4/
+    -> 251007_154609/
+      -> 0000/
+           159 .root files collected under 0000
+      -> 0002/
+           1 .root files collected under 0002
+         160 .root files collected under 251007_154609
+    -> 251119_164759/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           998 .root files collected under 0002
+      -> 0003/
+           932 .root files collected under 0003
+      -> 0004/
+           859 .root files collected under 0004
+      -> 0005/
+           985 .root files collected under 0005
+      -> 0006/
+           567 .root files collected under 0006
+         6340 .root files collected under 251119_164759
+    -> 260220_101438/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           567 .root files collected under 0006
+         6566 .root files collected under 260220_101438
+       13066 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v2/
+    -> 251007_154640/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           298 .root files collected under 0005
+         5297 .root files collected under 251007_154640
+       5297 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4/
+    -> 251007_154710/
+      -> 0000/
+           592 .root files collected under 0000
+         592 .root files collected under 251007_154710
+       592 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2/
+    -> 251007_154740/
+      -> 0000/
+           669 .root files collected under 0000
+         669 .root files collected under 251007_154740
+       669 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_154810/
+      -> 0000/
+           358 .root files collected under 0000
+         358 .root files collected under 251007_154810
+    -> 251119_164830/
+      -> 0000/
+           51 .root files collected under 0000
+         51 .root files collected under 251119_164830
+    -> 260220_101509/
+      -> 0000/
+           606 .root files collected under 0000
+         606 .root files collected under 260220_101509
+       1015 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     34873 .root files collected under ParkingSingleMuon3
+    ParkingSingleMuon3                  34,873 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_154840/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           459 .root files collected under 0001
+         1458 .root files collected under 251007_154840
+    -> 251119_164901/
+      -> 0000/
+           585 .root files collected under 0000
+      -> 0001/
+           357 .root files collected under 0001
+         942 .root files collected under 251119_164901
+    -> 251221_085815/
+      -> 0000/
+           254 .root files collected under 0000
+      -> 0001/
+           69 .root files collected under 0001
+         323 .root files collected under 251221_085815
+    -> 260303_210456/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           462 .root files collected under 0001
+         1461 .root files collected under 260303_210456
+       4184 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_154910/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           579 .root files collected under 0001
+         1578 .root files collected under 251007_154910
+       1578 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_154940/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           920 .root files collected under 0002
+         2919 .root files collected under 251007_154940
+       2919 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_155010/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           546 .root files collected under 0006
+         6545 .root files collected under 251007_155010
+       6545 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_155109/
+      -> 0000/
+           37 .root files collected under 0000
+         37 .root files collected under 251007_155109
+    -> 251119_165004/
+      -> 0000/
+           588 .root files collected under 0000
+         588 .root files collected under 251119_165004
+    -> 251221_085849/
+      -> 0000/
+           265 .root files collected under 0000
+         265 .root files collected under 251221_085849
+    -> 260303_210609/
+      -> 0000/
+           588 .root files collected under 0000
+         588 .root files collected under 260303_210609
+       1478 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_155138/
+      -> 0000/
+           96 .root files collected under 0000
+         96 .root files collected under 251007_155138
+    -> 251119_165036/
+      -> 0000/
+           662 .root files collected under 0000
+         662 .root files collected under 251119_165036
+    -> 251221_085921/
+      -> 0000/
+           82 .root files collected under 0000
+         82 .root files collected under 251221_085921
+    -> 260303_210642/
+      -> 0000/
+           656 .root files collected under 0000
+         656 .root files collected under 260303_210642
+       1496 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+     18200 .root files collected under ParkingSingleMuon4
+    ParkingSingleMuon4                  18,200 files
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_155238/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           571 .root files collected under 0001
+         1570 .root files collected under 251007_155238
+       1570 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_155308/
+      -> 0000/
+           836 .root files collected under 0000
+      -> 0001/
+           999 .root files collected under 0001
+      -> 0002/
+           890 .root files collected under 0002
+         2725 .root files collected under 251007_155308
+    -> 251119_165137/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           891 .root files collected under 0002
+         2890 .root files collected under 251119_165137
+    -> 251221_085955/
+      -> 0000/
+           578 .root files collected under 0000
+      -> 0001/
+           991 .root files collected under 0001
+      -> 0002/
+           887 .root files collected under 0002
+         2456 .root files collected under 251221_085955
+    -> 260303_210751/
+      -> 0000/
+           960 .root files collected under 0000
+      -> 0001/
+           978 .root files collected under 0001
+      -> 0002/
+           891 .root files collected under 0002
+         2829 .root files collected under 260303_210751
+       10900 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_155440/
+      -> 0000/
+           132 .root files collected under 0000
+         132 .root files collected under 251007_155440
+    -> 251119_165309/
+      -> 0000/
+           594 .root files collected under 0000
+         594 .root files collected under 251119_165309
+    -> 251221_090033/
+      -> 0000/
+           91 .root files collected under 0000
+         91 .root files collected under 251221_090033
+    -> 260303_210926/
+      -> 0000/
+           594 .root files collected under 0000
+         594 .root files collected under 260303_210926
+       1411 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_155509/
+      -> 0000/
+           444 .root files collected under 0000
+         444 .root files collected under 251007_155509
+    -> 251119_165343/
+      -> 0000/
+           664 .root files collected under 0000
+         664 .root files collected under 251119_165343
+    -> 251221_090104/
+      -> 0000/
+           164 .root files collected under 0000
+         164 .root files collected under 251221_090104
+    -> 260303_210958/
+      -> 0000/
+           664 .root files collected under 0000
+         664 .root files collected under 260303_210958
+       1936 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_155540/
+      -> 0000/
+           616 .root files collected under 0000
+         616 .root files collected under 251007_155540
+       616 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     16433 .root files collected under ParkingSingleMuon5
+    ParkingSingleMuon5                  16,433 files
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251007_155609/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           434 .root files collected under 0001
+         1433 .root files collected under 251007_155609
+       1433 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_155639/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           550 .root files collected under 0001
+         1549 .root files collected under 251007_155639
+       1549 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_155709/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           898 .root files collected under 0002
+         2897 .root files collected under 251007_155709
+       2897 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4/
+    -> 251007_155838/
+      -> 0000/
+           588 .root files collected under 0000
+         588 .root files collected under 251007_155838
+       588 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v4/
+    -> 251007_155908/
+      -> 0000/
+           664 .root files collected under 0000
+         664 .root files collected under 251007_155908
+       664 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_155937/
+      -> 0000/
+           26 .root files collected under 0000
+         26 .root files collected under 251007_155937
+    -> 251119_165518/
+      -> 0000/
+           619 .root files collected under 0000
+         619 .root files collected under 251119_165518
+    -> 251221_090142/
+      -> 0000/
+           69 .root files collected under 0000
+         69 .root files collected under 251221_090142
+    -> 260303_211133/
+      -> 0000/
+           620 .root files collected under 0000
+         620 .root files collected under 260303_211133
+       1334 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     8465 .root files collected under ParkingSingleMuon6
+    ParkingSingleMuon6                   8,465 files
+  -> nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/
+    -> 251007_160007/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           902 .root files collected under 0002
+         2901 .root files collected under 251007_160007
+       2901 .root files collected under nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4/
+    -> 251007_160037/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           1000 .root files collected under 0005
+      -> 0006/
+           565 .root files collected under 0006
+         6564 .root files collected under 251007_160037
+       6564 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4/
+    -> 251007_160136/
+      -> 0000/
+           588 .root files collected under 0000
+         588 .root files collected under 251007_160136
+       588 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_160205/
+      -> 0000/
+           672 .root files collected under 0000
+         672 .root files collected under 251007_160205
+       672 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_160235/
+      -> 0000/
+           620 .root files collected under 0000
+         620 .root files collected under 251007_160235
+       620 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     11345 .root files collected under ParkingSingleMuon7
+    ParkingSingleMuon7                  11,345 files
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_160336/
+      -> 0000/
+           314 .root files collected under 0000
+         314 .root files collected under 251007_160336
+    -> 251119_165656/
+      -> 0000/
+           390 .root files collected under 0000
+         390 .root files collected under 251119_165656
+    -> 260303_211310/
+      -> 0000/
+           590 .root files collected under 0000
+         590 .root files collected under 260303_211310
+       1294 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_160406/
+      -> 0000/
+           629 .root files collected under 0000
+         629 .root files collected under 251007_160406
+    -> 251119_165728/
+      -> 0000/
+           326 .root files collected under 0000
+         326 .root files collected under 251119_165728
+    -> 260303_211342/
+      -> 0000/
+           659 .root files collected under 0000
+         659 .root files collected under 260303_211342
+       1614 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_160438/
+      -> 0000/
+           177 .root files collected under 0000
+         177 .root files collected under 251007_160438
+    -> 251119_165801/
+      -> 0000/
+           626 .root files collected under 0000
+         626 .root files collected under 251119_165801
+    -> 251221_090224/
+      -> 0000/
+           181 .root files collected under 0000
+         181 .root files collected under 251221_090224
+    -> 260303_211413/
+      -> 0000/
+           620 .root files collected under 0000
+         620 .root files collected under 260303_211413
+       1604 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     4512 .root files collected under ParkingSingleMuon8
+    ParkingSingleMuon8                   4,512 files
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4/
+    -> 251007_160508/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           963 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           981 .root files collected under 0004
+      -> 0005/
+           90 .root files collected under 0005
+         5033 .root files collected under 251007_160508
+    -> 251119_165834/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           183 .root files collected under 0005
+         5182 .root files collected under 251119_165834
+    -> 251221_090258/
+      -> 0000/
+           949 .root files collected under 0000
+      -> 0001/
+           748 .root files collected under 0001
+      -> 0002/
+           706 .root files collected under 0002
+      -> 0003/
+           657 .root files collected under 0003
+      -> 0004/
+           667 .root files collected under 0004
+      -> 0005/
+           153 .root files collected under 0005
+         3880 .root files collected under 251221_090258
+    -> 260303_211445/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           183 .root files collected under 0005
+         5182 .root files collected under 260303_211445
+       19277 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_160538/
+      -> 0000/
+           589 .root files collected under 0000
+         589 .root files collected under 251007_160538
+       589 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v1/
+    -> 251007_160607/
+      -> 0000/
+           547 .root files collected under 0000
+         547 .root files collected under 251007_160607
+    -> 251119_165905/
+      -> 0000/
+           811 .root files collected under 0000
+         811 .root files collected under 251119_165905
+    -> 251221_090330/
+      -> 0000/
+           309 .root files collected under 0000
+         309 .root files collected under 251221_090330
+    -> 260303_211517/
+      -> 0000/
+           811 .root files collected under 0000
+         811 .root files collected under 260303_211517
+       2478 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_160637/
+      -> 0000/
+           630 .root files collected under 0000
+         630 .root files collected under 251007_160637
+       630 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     22974 .root files collected under ParkingSingleMuon9
+    ParkingSingleMuon9                  22,974 files
+  3,602 of 360,235 files selected (1.000%, seed 20240729); chunk 7/8 -> 450 files
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/450] nano_58.root
+         -> 67,080 vertices (71,801 trig, 47,712 trig+kin events)
+  [2/450] nano_273.root
+         -> 38,721 vertices (41,382 trig, 27,425 trig+kin events)
+  [3/450] nano_1024.root
+         -> 38,399 vertices (38,295 trig, 26,152 trig+kin events)
+  [4/450] nano_154.root
+         -> 56,626 vertices (61,040 trig, 40,267 trig+kin events)
+  [5/450] nano_323.root
+         -> 65,650 vertices (64,212 trig, 43,653 trig+kin events)
+  [6/450] nano_982.root
+         -> 55,332 vertices (61,917 trig, 40,144 trig+kin events)
+  [7/450] nano_2173.root
+         -> 49,236 vertices (47,248 trig, 32,441 trig+kin events)
+  [8/450] nano_3343.root
+         -> 65,883 vertices (63,654 trig, 43,647 trig+kin events)
+  [9/450] nano_462.root
+         -> 60,826 vertices (63,064 trig, 40,749 trig+kin events)
+  [10/450] nano_1083.root
+         -> 63,223 vertices (64,247 trig, 42,563 trig+kin events)
+  [11/450] nano_1947.root
+         -> 62,395 vertices (66,343 trig, 43,235 trig+kin events)
+  [12/450] nano_2403.root
+         -> 59,650 vertices (63,686 trig, 41,699 trig+kin events)
+  [13/450] nano_3116.root
+         -> 47,602 vertices (61,972 trig, 36,987 trig+kin events)
+  [14/450] nano_3828.root
+         -> 64,680 vertices (64,498 trig, 43,288 trig+kin events)
+  [15/450] nano_4969.root
+         -> 63,697 vertices (64,229 trig, 42,763 trig+kin events)
+  [16/450] nano_694.root
+         -> 63,104 vertices (66,132 trig, 42,382 trig+kin events)
+  [17/450] nano_8.root
+         -> 64,422 vertices (65,217 trig, 42,606 trig+kin events)
+  [18/450] nano_704.root
+         -> 63,568 vertices (63,969 trig, 41,958 trig+kin events)
+  [19/450] nano_21.root
+         -> 56,346 vertices (56,633 trig, 37,173 trig+kin events)
+  [20/450] nano_95.root
+  [21/450] nano_696.root
+         -> 37,459 vertices (37,088 trig, 25,278 trig+kin events)
+  [22/450] nano_408.root
+         -> 66,565 vertices (76,620 trig, 49,169 trig+kin events)
+  [23/450] nano_957.root
+         -> 38,504 vertices (38,236 trig, 26,068 trig+kin events)
+  [24/450] nano_354.root
+         -> 37,097 vertices (38,805 trig, 26,001 trig+kin events)
+  [25/450] nano_1033.root
+         -> 39,530 vertices (38,985 trig, 26,682 trig+kin events)
+  [26/450] nano_918.root
+         -> 38,264 vertices (38,239 trig, 26,121 trig+kin events)
+  [27/450] nano_440.root
+         -> 59,053 vertices (64,807 trig, 42,454 trig+kin events)
+  [28/450] nano_895.root
+         -> 38,459 vertices (39,012 trig, 26,329 trig+kin events)
+  [29/450] nano_263.root
+         -> 68,458 vertices (91,768 trig, 54,102 trig+kin events)
+  [30/450] nano_793.root
+         -> 37,161 vertices (36,418 trig, 24,973 trig+kin events)
+  [31/450] nano_1638.root
+         -> 43,264 vertices (43,142 trig, 29,197 trig+kin events)
+  [32/450] nano_307.root
+         -> 67,214 vertices (64,419 trig, 44,339 trig+kin events)
+  [33/450] nano_577.root
+         -> 64,036 vertices (65,401 trig, 43,694 trig+kin events)
+  [34/450] nano_1023.root
+         -> 58,350 vertices (62,731 trig, 41,263 trig+kin events)
+  [35/450] nano_1696.root
+         -> 58,989 vertices (64,993 trig, 42,168 trig+kin events)
+  [36/450] nano_421.root
+         -> 66,162 vertices (64,137 trig, 43,995 trig+kin events)
+  [37/450] nano_1583.root
+         -> 51,944 vertices (60,641 trig, 38,437 trig+kin events)
+  [38/450] nano_366.root
+         -> 67,705 vertices (63,834 trig, 44,347 trig+kin events)
+  [39/450] nano_812.root
+         -> 64,311 vertices (63,833 trig, 43,152 trig+kin events)
+  [40/450] nano_1526.root
+         -> 65,680 vertices (63,629 trig, 43,681 trig+kin events)
+  [41/450] nano_2279.root
+         -> 65,398 vertices (62,837 trig, 43,170 trig+kin events)
+  [42/450] nano_3007.root
+         -> 64,951 vertices (63,143 trig, 43,300 trig+kin events)
+  [43/450] nano_3722.root
+         -> 61,261 vertices (62,671 trig, 42,123 trig+kin events)
+  [44/450] nano_567.root
+         -> 49,141 vertices (50,794 trig, 32,867 trig+kin events)
+  [45/450] nano_295.root
+         -> 61,592 vertices (64,479 trig, 41,556 trig+kin events)
+  [46/450] nano_9.root
+         -> 61,200 vertices (70,179 trig, 43,506 trig+kin events)
+  [47/450] nano_506.root
+         -> 65,278 vertices (64,715 trig, 43,121 trig+kin events)
+  [48/450] nano_333.root
+         -> 64,157 vertices (64,474 trig, 42,374 trig+kin events)
+  [49/450] nano_190.root
+         -> 36,890 vertices (36,879 trig, 25,157 trig+kin events)
+  [50/450] nano_872.root
+         -> 39,181 vertices (39,334 trig, 26,772 trig+kin events)
+  [51/450] nano_921.root
+         -> 38,709 vertices (38,043 trig, 25,971 trig+kin events)
+  [52/450] nano_1078.root
+         -> 36,989 vertices (38,384 trig, 25,665 trig+kin events)
+  [53/450] nano_1573.root
+         -> 36,722 vertices (36,052 trig, 24,476 trig+kin events)
+  [54/450] nano_477.root
+         -> 57,539 vertices (70,439 trig, 43,401 trig+kin events)
+  [55/450] nano_179.root
+         -> 64,944 vertices (65,665 trig, 44,362 trig+kin events)
+  [56/450] nano_631.root
+         -> 47,599 vertices (62,269 trig, 37,276 trig+kin events)
+  [57/450] nano_1253.root
+         -> 53,610 vertices (63,606 trig, 40,068 trig+kin events)
+  [58/450] nano_1736.root
+         -> 64,430 vertices (64,273 trig, 43,439 trig+kin events)
+  [59/450] nano_2125.root
+         -> 64,448 vertices (62,176 trig, 42,644 trig+kin events)
+  [60/450] nano_2772.root
+         -> 66,060 vertices (63,257 trig, 43,616 trig+kin events)
+  [61/450] nano_811.root
+         -> 49,897 vertices (61,048 trig, 37,608 trig+kin events)
+  [62/450] nano_990.root
+         -> 65,500 vertices (65,841 trig, 44,081 trig+kin events)
+  [63/450] nano_1863.root
+         -> 59,263 vertices (62,375 trig, 41,139 trig+kin events)
+  [64/450] nano_2825.root
+         -> 60,821 vertices (64,025 trig, 42,076 trig+kin events)
+  [65/450] nano_3377.root
+         -> 60,623 vertices (62,973 trig, 40,674 trig+kin events)
+  [66/450] nano_3975.root
+         -> 64,733 vertices (64,615 trig, 43,439 trig+kin events)
+  [67/450] nano_4350.root
+         -> 53,745 vertices (61,856 trig, 39,465 trig+kin events)
+  [68/450] nano_5165.root
+         -> 50,972 vertices (60,636 trig, 37,760 trig+kin events)
+  [69/450] nano_483.root
+         -> 54,908 vertices (62,559 trig, 39,328 trig+kin events)
+  [70/450] nano_430.root
+         -> 65,608 vertices (65,431 trig, 43,027 trig+kin events)
+  [71/450] nano_705.root
+         -> 66,168 vertices (65,714 trig, 43,594 trig+kin events)
+  [72/450] nano_503.root
+         -> 64,973 vertices (65,171 trig, 42,922 trig+kin events)
+  [73/450] nano_394.root
+         -> 48,647 vertices (58,315 trig, 35,807 trig+kin events)
+  [74/450] nano_151.root
+         -> 61,810 vertices (64,771 trig, 41,666 trig+kin events)
+  [75/450] nano_873.root
+         -> 56,951 vertices (57,851 trig, 39,285 trig+kin events)
+  [76/450] nano_1405.root
+         -> 39,729 vertices (39,415 trig, 26,907 trig+kin events)
+  [77/450] nano_832.root
+         -> 38,026 vertices (38,027 trig, 25,816 trig+kin events)
+  [78/450] nano_41.root
+         -> 66,645 vertices (65,642 trig, 44,644 trig+kin events)
+  [79/450] nano_28.root
+         -> 66,515 vertices (64,443 trig, 44,158 trig+kin events)
+  [80/450] nano_1194.root
+         -> 65,802 vertices (63,387 trig, 43,531 trig+kin events)
+  [81/450] nano_756.root
+         -> 60,230 vertices (63,105 trig, 41,864 trig+kin events)
+  [82/450] nano_2304.root
+         -> 57,157 vertices (63,791 trig, 41,206 trig+kin events)
+  [83/450] nano_2650.root
+         -> 51,203 vertices (62,266 trig, 38,701 trig+kin events)
+  [84/450] nano_3510.root
+         -> 51,293 vertices (62,478 trig, 38,769 trig+kin events)
+  [85/450] nano_500.root
+         -> 66,000 vertices (65,611 trig, 44,265 trig+kin events)
+  [86/450] nano_1181.root
+         -> 13,555 vertices (13,440 trig, 9,047 trig+kin events)
+  [87/450] nano_1408.root
+         -> 50,025 vertices (63,087 trig, 38,194 trig+kin events)
+  [88/450] nano_2839.root
+         -> 65,328 vertices (64,947 trig, 43,748 trig+kin events)
+  [89/450] nano_3568.root
+         -> 54,387 vertices (61,082 trig, 39,354 trig+kin events)
+  [90/450] nano_4281.root
+         -> 55,752 vertices (60,604 trig, 39,673 trig+kin events)
+  [91/450] nano_4962.root
+         -> 64,828 vertices (64,631 trig, 43,390 trig+kin events)
+  [92/450] nano_650.root
+         -> 60,116 vertices (63,065 trig, 40,456 trig+kin events)
+  [93/450] nano_276.root
+         -> 63,064 vertices (66,036 trig, 42,420 trig+kin events)
+  [94/450] nano_505.root
+         -> 60,301 vertices (64,759 trig, 41,217 trig+kin events)
+  [95/450] nano_237.root
+         -> 60,122 vertices (62,671 trig, 40,468 trig+kin events)
+  [96/450] nano_192.root
+         -> 64,819 vertices (64,012 trig, 42,818 trig+kin events)
+  [97/450] nano_775.root
+         -> 62,229 vertices (62,573 trig, 41,125 trig+kin events)
+  [98/450] nano_168.root
+         -> 32,217 vertices (35,780 trig, 22,679 trig+kin events)
+  [99/450] nano_256.root
+         -> 36,186 vertices (39,466 trig, 25,855 trig+kin events)
+  [100/450] nano_1143.root
+         -> 60,607 vertices (72,202 trig, 45,402 trig+kin events)
+  [101/450] nano_680.root
+         -> 4,316 vertices (4,205 trig, 2,926 trig+kin events)
+  [102/450] nano_1501.root
+         -> 37,682 vertices (37,883 trig, 25,601 trig+kin events)
+  [103/450] nano_767.root
+         -> 61,050 vertices (80,854 trig, 47,973 trig+kin events)
+  [104/450] nano_1189.root
+         -> 36,594 vertices (39,788 trig, 26,079 trig+kin events)
+  [105/450] nano_199.root
+         -> 55,407 vertices (55,178 trig, 37,830 trig+kin events)
+  [106/450] nano_492.root
+         -> 37,102 vertices (37,661 trig, 25,370 trig+kin events)
+  [107/450] nano_835.root
+         -> 35,770 vertices (35,885 trig, 24,268 trig+kin events)
+  [108/450] nano_344.root
+         -> 42,498 vertices (51,421 trig, 32,032 trig+kin events)
+  [109/450] nano_1115.root
+         -> 36,717 vertices (36,423 trig, 24,899 trig+kin events)
+  [110/450] nano_599.root
+         -> 53,181 vertices (63,696 trig, 39,876 trig+kin events)
+  [111/450] nano_348.root
+         -> 60,779 vertices (63,717 trig, 42,427 trig+kin events)
+  [112/450] nano_62.root
+         -> 63,808 vertices (72,030 trig, 46,707 trig+kin events)
+  [113/450] nano_1013.root
+         -> 59,116 vertices (72,771 trig, 44,995 trig+kin events)
+  [114/450] nano_823.root
+         -> 62,684 vertices (65,278 trig, 43,162 trig+kin events)
+  [115/450] nano_1614.root
+         -> 62,935 vertices (64,014 trig, 42,504 trig+kin events)
+  [116/450] nano_2549.root
+         -> 63,538 vertices (63,544 trig, 42,611 trig+kin events)
+  [117/450] nano_2281.root
+         -> 62,944 vertices (64,223 trig, 42,859 trig+kin events)
+  [118/450] nano_755.root
+         -> 61,474 vertices (62,815 trig, 41,808 trig+kin events)
+  [119/450] nano_1352.root
+         -> 64,408 vertices (64,776 trig, 43,314 trig+kin events)
+  [120/450] nano_2079.root
+         -> 66,176 vertices (65,368 trig, 44,294 trig+kin events)
+  [121/450] nano_2644.root
+         -> 65,516 vertices (65,470 trig, 44,041 trig+kin events)
+  [122/450] nano_3506.root
+         -> 65,358 vertices (65,793 trig, 43,935 trig+kin events)
+  [123/450] nano_4494.root
+         -> 66,123 vertices (66,000 trig, 44,546 trig+kin events)
+  [124/450] nano_118.root
+         -> 61,585 vertices (64,470 trig, 41,494 trig+kin events)
+  [125/450] nano_286.root
+         -> 61,536 vertices (63,351 trig, 41,279 trig+kin events)
+  [126/450] nano_358.root
+         -> 62,632 vertices (63,411 trig, 41,703 trig+kin events)
+  [127/450] nano_275.root
+         -> 64,056 vertices (64,562 trig, 42,484 trig+kin events)
+  [128/450] nano_542.root
+         -> 51,012 vertices (51,140 trig, 34,720 trig+kin events)
+  [129/450] nano_877.root
+         -> 64,864 vertices (71,469 trig, 46,495 trig+kin events)
+  [130/450] nano_1308.root
+         -> 49,701 vertices (65,716 trig, 39,244 trig+kin events)
+  [131/450] nano_64.root
+         -> 68,177 vertices (65,720 trig, 45,092 trig+kin events)
+  [132/450] nano_1506.root
+         -> 64,467 vertices (62,716 trig, 42,869 trig+kin events)
+  [133/450] nano_1939.root
+         -> 65,660 vertices (65,509 trig, 44,181 trig+kin events)
+  [134/450] nano_3002.root
+         -> 61,157 vertices (67,967 trig, 44,191 trig+kin events)
+  [135/450] nano_1578.root
+         -> 66,906 vertices (64,355 trig, 44,095 trig+kin events)
+  [136/450] nano_2177.root
+         -> 52,512 vertices (63,592 trig, 39,584 trig+kin events)
+  [137/450] nano_3126.root
+         -> 51,305 vertices (60,453 trig, 38,320 trig+kin events)
+  [138/450] nano_190.root
+         -> 59,906 vertices (63,916 trig, 40,850 trig+kin events)
+  [139/450] nano_606.root
+         -> 52,207 vertices (62,528 trig, 38,167 trig+kin events)
+  [140/450] nano_93.root
+         -> 65,299 vertices (65,345 trig, 43,120 trig+kin events)
+  [141/450] nano_558.root
+         -> 64,076 vertices (76,722 trig, 48,327 trig+kin events)
+  [142/450] nano_200.root
+         -> 64,166 vertices (66,177 trig, 44,672 trig+kin events)
+  [143/450] nano_484.root
+         -> 66,104 vertices (74,668 trig, 48,497 trig+kin events)
+  [144/450] nano_499.root
+  [warn] skipping nano_499.root: while reading
+
+    TBasket version None as uproot.models.TBasket.Model_TBasket (? bytes)
+        fNbytes: 0
+        fObjlen: 0
+        fDatime: 0
+        fKeylen: 0
+        fCycle: 0
+Members for TBasket: fNbytes?, fObjlen?, fDatime?, fKeylen?, fCycle?
+
+attempting to get bytes 175325021:175325039
+outside expected range 175325040:175325229 for this Chunk
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_499.root
+  [145/450] nano_930.root
+         -> 69,363 vertices (73,615 trig, 48,994 trig+kin events)
+  [146/450] nano_420.root
+         -> 38,410 vertices (38,348 trig, 26,127 trig+kin events)
+  [147/450] nano_1481.root
+         -> 37,495 vertices (37,224 trig, 25,412 trig+kin events)
+  [148/450] nano_757.root
+         -> 65,269 vertices (71,436 trig, 46,907 trig+kin events)
+  [149/450] nano_1071.root
+         -> 58,643 vertices (70,671 trig, 44,106 trig+kin events)
+  [150/450] nano_60.root
+         -> 66,554 vertices (63,875 trig, 44,065 trig+kin events)
+  [151/450] nano_761.root
+         -> 64,561 vertices (62,640 trig, 42,910 trig+kin events)
+  [152/450] nano_1448.root
+         -> 60,913 vertices (58,401 trig, 40,203 trig+kin events)
+  [153/450] nano_2308.root
+         -> 63,377 vertices (66,022 trig, 44,161 trig+kin events)
+  [154/450] nano_3647.root
+         -> 66,609 vertices (63,954 trig, 43,917 trig+kin events)
+  [155/450] nano_205.root
+         -> 64,433 vertices (64,208 trig, 43,240 trig+kin events)
+  [156/450] nano_682.root
+         -> 59,528 vertices (63,524 trig, 41,731 trig+kin events)
+  [157/450] nano_1487.root
+         -> 54,424 vertices (62,666 trig, 39,895 trig+kin events)
+  [158/450] nano_2565.root
+         -> 63,286 vertices (64,649 trig, 43,053 trig+kin events)
+  [159/450] nano_421.root
+         -> 63,249 vertices (63,147 trig, 42,418 trig+kin events)
+  [160/450] nano_1375.root
+         -> 48,977 vertices (61,568 trig, 37,334 trig+kin events)
+  [161/450] nano_2537.root
+         -> 55,096 vertices (62,825 trig, 39,142 trig+kin events)
+  [162/450] nano_3182.root
+         -> 65,106 vertices (65,764 trig, 43,929 trig+kin events)
+  [163/450] nano_3844.root
+         -> 65,817 vertices (65,224 trig, 44,016 trig+kin events)
+  [164/450] nano_5007.root
+         -> 65,528 vertices (65,127 trig, 44,014 trig+kin events)
+  [165/450] nano_785.root
+         -> 62,562 vertices (64,289 trig, 41,825 trig+kin events)
+  [166/450] nano_1251.root
+         -> 62,900 vertices (63,849 trig, 42,600 trig+kin events)
+  [167/450] nano_3857.root
+         -> 51,055 vertices (62,971 trig, 38,582 trig+kin events)
+  [168/450] nano_4878.root
+         -> 64,661 vertices (64,467 trig, 43,218 trig+kin events)
+  [169/450] nano_1339.root
+         -> 56,038 vertices (64,036 trig, 40,772 trig+kin events)
+  [170/450] nano_2245.root
+         -> 64,060 vertices (64,563 trig, 43,157 trig+kin events)
+  [171/450] nano_2852.root
+         -> 61,286 vertices (62,929 trig, 41,871 trig+kin events)
+  [172/450] nano_3869.root
+         -> 61,968 vertices (63,164 trig, 41,853 trig+kin events)
+  [173/450] nano_4431.root
+         -> 60,252 vertices (60,495 trig, 40,315 trig+kin events)
+  [174/450] nano_101.root
+         -> 60,952 vertices (65,834 trig, 41,887 trig+kin events)
+  [175/450] nano_551.root
+         -> 55,237 vertices (58,586 trig, 37,267 trig+kin events)
+  [176/450] nano_800.root
+         -> 51,146 vertices (61,696 trig, 37,566 trig+kin events)
+  [177/450] nano_723.root
+         -> 63,108 vertices (63,834 trig, 41,893 trig+kin events)
+  [178/450] nano_369.root
+         -> 37,844 vertices (36,630 trig, 25,211 trig+kin events)
+  [179/450] nano_1191.root
+         -> 62,927 vertices (71,333 trig, 45,977 trig+kin events)
+  [180/450] nano_1538.root
+         -> 37,548 vertices (36,956 trig, 25,457 trig+kin events)
+  [181/450] nano_387.root
+         -> 61,640 vertices (62,111 trig, 41,866 trig+kin events)
+  [182/450] nano_811.root
+         -> 51,489 vertices (61,490 trig, 38,634 trig+kin events)
+  [183/450] nano_1501.root
+         -> 63,284 vertices (61,615 trig, 42,073 trig+kin events)
+  [184/450] nano_2038.root
+         -> 60,646 vertices (66,647 trig, 43,235 trig+kin events)
+  [185/450] nano_2727.root
+         -> 63,428 vertices (65,860 trig, 43,946 trig+kin events)
+  [186/450] nano_404.root
+         -> 60,971 vertices (63,038 trig, 40,933 trig+kin events)
+  [187/450] nano_1429.root
+         -> 64,597 vertices (63,593 trig, 43,011 trig+kin events)
+  [188/450] nano_2762.root
+         -> 52,418 vertices (57,543 trig, 37,353 trig+kin events)
+  [189/450] nano_3623.root
+         -> 65,703 vertices (64,971 trig, 43,669 trig+kin events)
+  [190/450] nano_4391.root
+         -> 63,788 vertices (64,488 trig, 42,827 trig+kin events)
+  [191/450] nano_4846.root
+         -> 49,241 vertices (63,256 trig, 37,090 trig+kin events)
+  [192/450] nano_360.root
+         -> 62,756 vertices (65,778 trig, 42,106 trig+kin events)
+  [193/450] nano_224.root
+         -> 55,441 vertices (61,499 trig, 38,937 trig+kin events)
+  [194/450] nano_451.root
+         -> 62,732 vertices (63,779 trig, 41,609 trig+kin events)
+  [195/450] nano_935.root
+         -> 6,979 vertices (29,347 trig, 8,776 trig+kin events)
+  [196/450] nano_826.root
+         -> 8,421 vertices (55,631 trig, 11,290 trig+kin events)
+  [197/450] nano_348.root
+         -> 10,117 vertices (58,468 trig, 13,270 trig+kin events)
+  [198/450] nano_1408.root
+         -> 10,524 vertices (61,379 trig, 13,952 trig+kin events)
+  [199/450] nano_56.root
+         -> 6,835 vertices (28,126 trig, 8,486 trig+kin events)
+  [200/450] nano_1138.root
+         -> 8,595 vertices (55,976 trig, 11,393 trig+kin events)
+  [201/450] nano_191.root
+         -> 12,568 vertices (51,724 trig, 15,580 trig+kin events)
+  [202/450] nano_784.root
+         -> 7,290 vertices (29,467 trig, 9,037 trig+kin events)
+  [203/450] nano_171.root
+         -> 7,983 vertices (38,770 trig, 10,235 trig+kin events)
+  [204/450] nano_221.root
+         -> 9,058 vertices (36,766 trig, 11,268 trig+kin events)
+  [205/450] nano_1449.root
+         -> 4,379 vertices (24,345 trig, 5,662 trig+kin events)
+  [206/450] nano_2793.root
+         -> 7,115 vertices (28,435 trig, 8,986 trig+kin events)
+  [207/450] nano_210.root
+         -> 14,487 vertices (55,984 trig, 17,929 trig+kin events)
+  [208/450] nano_754.root
+         -> 11,978 vertices (66,616 trig, 15,507 trig+kin events)
+  [209/450] nano_1481.root
+         -> 6,740 vertices (29,636 trig, 8,370 trig+kin events)
+  [210/450] nano_2071.root
+         -> 2,632 vertices (16,268 trig, 3,329 trig+kin events)
+  [211/450] nano_532.root
+         -> 16,691 vertices (63,991 trig, 20,409 trig+kin events)
+  [212/450] nano_1843.root
+         -> 17,067 vertices (66,530 trig, 21,199 trig+kin events)
+  [213/450] nano_2676.root
+         -> 15,618 vertices (63,020 trig, 19,065 trig+kin events)
+  [214/450] nano_3516.root
+         -> 4,646 vertices (23,288 trig, 5,976 trig+kin events)
+  [215/450] nano_4004.root
+         -> 16,271 vertices (63,183 trig, 20,237 trig+kin events)
+  [216/450] nano_5132.root
+         -> 4,933 vertices (23,496 trig, 6,296 trig+kin events)
+  [217/450] nano_6014.root
+         -> 16,810 vertices (65,951 trig, 20,895 trig+kin events)
+  [218/450] nano_68.root
+         -> 3,105 vertices (14,357 trig, 3,887 trig+kin events)
+  [219/450] nano_19.root
+         -> 4,779 vertices (23,457 trig, 5,987 trig+kin events)
+  [220/450] nano_256.root
+         -> 16,724 vertices (67,292 trig, 20,995 trig+kin events)
+  [221/450] nano_427.root
+         -> 15,857 vertices (65,075 trig, 20,269 trig+kin events)
+  [222/450] nano_577.root
+         -> 10,451 vertices (55,722 trig, 13,596 trig+kin events)
+  [223/450] nano_1156.root
+         -> 9,266 vertices (38,871 trig, 11,693 trig+kin events)
+  [224/450] nano_49.root
+         -> 11,484 vertices (54,435 trig, 14,713 trig+kin events)
+  [225/450] nano_1309.root
+         -> 7,039 vertices (26,701 trig, 8,617 trig+kin events)
+  [226/450] nano_527.root
+         -> 16,408 vertices (63,384 trig, 20,289 trig+kin events)
+  [227/450] nano_1112.root
+         -> 7,437 vertices (33,306 trig, 9,456 trig+kin events)
+  [228/450] nano_1443.root
+         -> 13,476 vertices (53,084 trig, 16,671 trig+kin events)
+  [229/450] nano_1991.root
+         -> 15,916 vertices (63,990 trig, 19,628 trig+kin events)
+  [230/450] nano_2704.root
+         -> 1,776 vertices (9,336 trig, 2,215 trig+kin events)
+  [231/450] nano_3710.root
+         -> 3,013 vertices (10,502 trig, 3,433 trig+kin events)
+  [232/450] nano_4089.root
+         -> 1,829 vertices (10,035 trig, 2,259 trig+kin events)
+  [233/450] nano_4485.root
+         -> 3,786 vertices (17,605 trig, 4,733 trig+kin events)
+  [234/450] nano_5459.root
+         -> 4,797 vertices (23,272 trig, 5,964 trig+kin events)
+  [235/450] nano_6124.root
+         -> 4,467 vertices (22,418 trig, 5,615 trig+kin events)
+  [236/450] nano_406.root
+         -> 4,422 vertices (22,513 trig, 5,708 trig+kin events)
+  [237/450] nano_1545.root
+         -> 6,775 vertices (33,803 trig, 8,729 trig+kin events)
+  [238/450] nano_2146.root
+         -> 16,045 vertices (63,378 trig, 20,092 trig+kin events)
+  [239/450] nano_2672.root
+         -> 1,719 vertices (9,707 trig, 2,097 trig+kin events)
+  [240/450] nano_4258.root
+         -> 2,616 vertices (15,707 trig, 3,370 trig+kin events)
+  [241/450] nano_5399.root
+         -> 2,895 vertices (14,612 trig, 3,569 trig+kin events)
+  [242/450] nano_6231.root
+         -> 620 vertices (3,186 trig, 798 trig+kin events)
+  [243/450] nano_353.root
+         -> 16,880 vertices (66,501 trig, 20,910 trig+kin events)
+  [244/450] nano_985.root
+         -> 3,048 vertices (17,791 trig, 3,703 trig+kin events)
+  [245/450] nano_1930.root
+         -> 16,974 vertices (66,737 trig, 21,268 trig+kin events)
+  [246/450] nano_3942.root
+         -> 10,748 vertices (64,389 trig, 14,350 trig+kin events)
+  [247/450] nano_5347.root
+         -> 17,062 vertices (66,067 trig, 21,085 trig+kin events)
+  [248/450] nano_6168.root
+         -> 16,577 vertices (64,836 trig, 20,552 trig+kin events)
+  [249/450] nano_320.root
+         -> 15,618 vertices (63,170 trig, 19,887 trig+kin events)
+  [250/450] nano_1535.root
+         -> 2,865 vertices (15,419 trig, 3,611 trig+kin events)
+  [251/450] nano_2697.root
+         -> 3,135 vertices (15,316 trig, 3,837 trig+kin events)
+  [252/450] nano_3394.root
+         -> 16,529 vertices (63,435 trig, 20,499 trig+kin events)
+  [253/450] nano_4215.root
+         -> 17,568 vertices (66,482 trig, 21,359 trig+kin events)
+  [254/450] nano_4977.root
+         -> 7,756 vertices (32,889 trig, 9,761 trig+kin events)
+  [255/450] nano_6079.root
+         -> 4,784 vertices (21,599 trig, 5,932 trig+kin events)
+  [256/450] nano_164.root
+         -> 4,700 vertices (23,834 trig, 6,047 trig+kin events)
+  [257/450] nano_213.root
+         -> 17,491 vertices (67,485 trig, 21,577 trig+kin events)
+  [258/450] nano_322.root
+         -> 17,712 vertices (67,049 trig, 21,641 trig+kin events)
+  [259/450] nano_192.root
+         -> 5,029 vertices (22,009 trig, 6,250 trig+kin events)
+  [260/450] nano_284.root
+         -> 16,166 vertices (66,394 trig, 20,356 trig+kin events)
+  [261/450] nano_35.root
+  [warn] skipping nano_35.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon10/nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/251119_164235/0000/nano_35.root
+  [262/450] nano_900.root
+         -> 16,559 vertices (67,679 trig, 20,721 trig+kin events)
+  [263/450] nano_1927.root
+         -> 16,381 vertices (65,792 trig, 20,144 trig+kin events)
+  [264/450] nano_2817.root
+         -> 11,710 vertices (66,240 trig, 15,610 trig+kin events)
+  [265/450] nano_3400.root
+         -> 2,915 vertices (15,758 trig, 3,666 trig+kin events)
+  [266/450] nano_4072.root
+         -> 16,474 vertices (66,705 trig, 20,635 trig+kin events)
+  [267/450] nano_4921.root
+         -> 7,218 vertices (31,815 trig, 9,250 trig+kin events)
+  [268/450] nano_469.root
+         -> 4,708 vertices (23,227 trig, 5,903 trig+kin events)
+  [269/450] nano_454.root
+         -> 3,065 vertices (15,077 trig, 3,778 trig+kin events)
+  [270/450] nano_85.root
+         -> 15,787 vertices (63,054 trig, 19,783 trig+kin events)
+  [271/450] nano_348.root
+         -> 11,247 vertices (44,952 trig, 14,155 trig+kin events)
+  [272/450] nano_655.root
+         -> 2,978 vertices (14,633 trig, 3,693 trig+kin events)
+  [273/450] nano_1112.root
+         -> 3,345 vertices (16,168 trig, 4,130 trig+kin events)
+  [274/450] nano_1583.root
+         -> 2,907 vertices (15,239 trig, 3,598 trig+kin events)
+  [275/450] nano_2698.root
+         -> 2,780 vertices (15,477 trig, 3,568 trig+kin events)
+  [276/450] nano_3378.root
+         -> 16,310 vertices (65,242 trig, 20,356 trig+kin events)
+  [277/450] nano_3825.root
+         -> 4,274 vertices (22,531 trig, 5,570 trig+kin events)
+  [278/450] nano_4559.root
+         -> 16,059 vertices (65,578 trig, 20,183 trig+kin events)
+  [279/450] nano_14.root
+         -> 2,727 vertices (14,328 trig, 3,415 trig+kin events)
+  [280/450] nano_64.root
+         -> 3,283 vertices (16,546 trig, 4,100 trig+kin events)
+  [281/450] nano_569.root
+         -> 17,125 vertices (66,605 trig, 21,161 trig+kin events)
+  [282/450] nano_946.root
+         -> 6,986 vertices (28,674 trig, 8,828 trig+kin events)
+  [283/450] nano_306.root
+         -> 11,116 vertices (56,126 trig, 14,560 trig+kin events)
+  [284/450] nano_1158.root
+         -> 12,376 vertices (49,519 trig, 15,222 trig+kin events)
+  [285/450] nano_225.root
+         -> 8,114 vertices (36,784 trig, 10,244 trig+kin events)
+  [286/450] nano_1004.root
+         -> 9,161 vertices (37,080 trig, 11,492 trig+kin events)
+  [287/450] nano_1923.root
+         -> 10,946 vertices (47,923 trig, 13,680 trig+kin events)
+  [288/450] nano_2577.root
+         -> 4,172 vertices (25,526 trig, 5,393 trig+kin events)
+  [289/450] nano_371.root
+         -> 7,382 vertices (31,867 trig, 9,334 trig+kin events)
+  [290/450] nano_934.root
+         -> 16,872 vertices (65,333 trig, 20,805 trig+kin events)
+  [291/450] nano_1570.root
+         -> 2,991 vertices (13,827 trig, 3,774 trig+kin events)
+  [292/450] nano_2040.root
+         -> 17,115 vertices (64,935 trig, 21,036 trig+kin events)
+  [293/450] nano_2938.root
+         -> 3,614 vertices (11,993 trig, 4,211 trig+kin events)
+  [294/450] nano_3749.root
+         -> 16,176 vertices (63,064 trig, 20,054 trig+kin events)
+  [295/450] nano_4237.root
+         -> 16,736 vertices (64,344 trig, 20,743 trig+kin events)
+  [296/450] nano_5466.root
+         -> 4,631 vertices (22,998 trig, 5,879 trig+kin events)
+  [297/450] nano_5964.root
+         -> 7,591 vertices (34,094 trig, 9,681 trig+kin events)
+  [298/450] nano_47.root
+         -> 4,920 vertices (24,154 trig, 6,255 trig+kin events)
+  [299/450] nano_95.root
+         -> 17,466 vertices (67,481 trig, 21,595 trig+kin events)
+  [300/450] nano_105.root
+         -> 16,684 vertices (66,051 trig, 20,642 trig+kin events)
+  [301/450] nano_487.root
+         -> 7,853 vertices (35,124 trig, 9,941 trig+kin events)
+  [302/450] nano_68.root
+         -> 17,626 vertices (67,530 trig, 21,613 trig+kin events)
+  [303/450] nano_591.root
+         -> 5,451 vertices (24,033 trig, 6,917 trig+kin events)
+  [304/450] nano_440.root
+         -> 11,720 vertices (54,430 trig, 14,851 trig+kin events)
+  [305/450] nano_1087.root
+         -> 13,212 vertices (64,927 trig, 17,123 trig+kin events)
+  [306/450] nano_1020.root
+         -> 6,497 vertices (28,293 trig, 8,121 trig+kin events)
+  [307/450] nano_614.root
+         -> 8,607 vertices (43,331 trig, 10,959 trig+kin events)
+  [308/450] nano_1395.root
+         -> 6,681 vertices (31,659 trig, 8,448 trig+kin events)
+  [309/450] nano_2281.root
+         -> 6,234 vertices (33,971 trig, 8,054 trig+kin events)
+  [310/450] nano_178.root
+         -> 3,885 vertices (26,861 trig, 5,118 trig+kin events)
+  [311/450] nano_1068.root
+         -> 4,350 vertices (23,858 trig, 5,617 trig+kin events)
+  [312/450] nano_1831.root
+         -> 7,732 vertices (35,893 trig, 9,869 trig+kin events)
+  [313/450] nano_2879.root
+         -> 3,642 vertices (19,502 trig, 4,625 trig+kin events)
+  [314/450] nano_630.root
+         -> 4,635 vertices (24,371 trig, 5,782 trig+kin events)
+  [315/450] nano_1359.root
+         -> 10,295 vertices (44,573 trig, 12,941 trig+kin events)
+  [316/450] nano_1907.root
+         -> 5,741 vertices (37,438 trig, 7,401 trig+kin events)
+  [317/450] nano_2585.root
+         -> 8,857 vertices (36,025 trig, 11,028 trig+kin events)
+  [318/450] nano_76.root
+         -> 9,277 vertices (37,667 trig, 11,584 trig+kin events)
+  [319/450] nano_2150.root
+         -> 5,556 vertices (27,137 trig, 7,081 trig+kin events)
+  [320/450] nano_2619.root
+         -> 7,089 vertices (38,647 trig, 9,452 trig+kin events)
+  [321/450] nano_557.root
+         -> 16,543 vertices (64,856 trig, 20,430 trig+kin events)
+  [322/450] nano_560.root
+         -> 5,129 vertices (22,371 trig, 6,383 trig+kin events)
+  [323/450] nano_955.root
+         -> 16,539 vertices (66,577 trig, 20,518 trig+kin events)
+  [324/450] nano_1511.root
+         -> 10,644 vertices (45,919 trig, 13,381 trig+kin events)
+  [325/450] nano_2482.root
+         -> 3,108 vertices (15,109 trig, 3,763 trig+kin events)
+  [326/450] nano_2963.root
+         -> 4,757 vertices (23,193 trig, 5,942 trig+kin events)
+  [327/450] nano_3377.root
+         -> 17,081 vertices (65,714 trig, 21,007 trig+kin events)
+  [328/450] nano_3983.root
+         -> 2,793 vertices (16,105 trig, 3,586 trig+kin events)
+  [329/450] nano_5080.root
+         -> 1,824 vertices (9,777 trig, 2,205 trig+kin events)
+  [330/450] nano_5919.root
+         -> 15,295 vertices (58,909 trig, 18,916 trig+kin events)
+  [331/450] nano_313.root
+         -> 16,406 vertices (63,398 trig, 20,103 trig+kin events)
+  [332/450] nano_1138.root
+         -> 9,603 vertices (39,703 trig, 11,937 trig+kin events)
+  [333/450] nano_2110.root
+         -> 16,385 vertices (63,979 trig, 20,518 trig+kin events)
+  [334/450] nano_2529.root
+         -> 4,781 vertices (21,203 trig, 5,899 trig+kin events)
+  [335/450] nano_2801.root
+         -> 11,232 vertices (65,366 trig, 15,130 trig+kin events)
+  [336/450] nano_3496.root
+         -> 16,044 vertices (62,844 trig, 19,907 trig+kin events)
+  [337/450] nano_4529.root
+         -> 3,124 vertices (15,565 trig, 3,917 trig+kin events)
+  [338/450] nano_5500.root
+         -> 4,628 vertices (21,507 trig, 5,801 trig+kin events)
+  [339/450] nano_142.root
+         -> 12,614 vertices (52,242 trig, 15,947 trig+kin events)
+  [340/450] nano_850.root
+         -> 12,769 vertices (52,363 trig, 16,125 trig+kin events)
+  [341/450] nano_1364.root
+         -> 9,441 vertices (41,596 trig, 11,951 trig+kin events)
+  [342/450] nano_2351.root
+         -> 12,019 vertices (52,107 trig, 15,007 trig+kin events)
+  [343/450] nano_3247.root
+         -> 13,464 vertices (52,628 trig, 16,677 trig+kin events)
+  [344/450] nano_3644.root
+         -> 12,665 vertices (50,700 trig, 15,901 trig+kin events)
+  [345/450] nano_4507.root
+         -> 12,361 vertices (50,246 trig, 15,561 trig+kin events)
+  [346/450] nano_247.root
+         -> 16,432 vertices (67,659 trig, 20,524 trig+kin events)
+  [347/450] nano_330.root
+         -> 17,614 vertices (68,743 trig, 22,032 trig+kin events)
+  [348/450] nano_214.root
+         -> 11,784 vertices (49,049 trig, 14,899 trig+kin events)
+  [349/450] nano_481.root
+         -> 7,024 vertices (27,730 trig, 8,588 trig+kin events)
+  [350/450] nano_1103.root
+         -> 7,304 vertices (39,091 trig, 9,579 trig+kin events)
+  [351/450] nano_641.root
+         -> 11,477 vertices (48,920 trig, 14,466 trig+kin events)
+  [352/450] nano_188.root
+         -> 6,509 vertices (27,719 trig, 8,389 trig+kin events)
+  [353/450] nano_410.root
+         -> 6,651 vertices (27,081 trig, 8,181 trig+kin events)
+  [354/450] nano_1215.root
+  [warn] skipping nano_1215.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon4/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260303_210456/0001/nano_1215.root
+  [355/450] nano_673.root
+         -> 7,092 vertices (29,006 trig, 8,785 trig+kin events)
+  [356/450] nano_205.root
+         -> 5,943 vertices (42,539 trig, 7,616 trig+kin events)
+  [357/450] nano_972.root
+         -> 9,138 vertices (36,735 trig, 11,453 trig+kin events)
+  [358/450] nano_1283.root
+         -> 9,760 vertices (39,642 trig, 12,261 trig+kin events)
+  [359/450] nano_2003.root
+         -> 11,328 vertices (55,789 trig, 14,643 trig+kin events)
+  [360/450] nano_2637.root
+         -> 9,023 vertices (36,538 trig, 11,379 trig+kin events)
+  [361/450] nano_1117.root
+         -> 2,754 vertices (13,309 trig, 3,462 trig+kin events)
+  [362/450] nano_2494.root
+         -> 5,520 vertices (26,594 trig, 6,903 trig+kin events)
+  [363/450] nano_2937.root
+         -> 12,807 vertices (66,459 trig, 16,763 trig+kin events)
+  [364/450] nano_3531.root
+         -> 4,082 vertices (20,186 trig, 5,128 trig+kin events)
+  [365/450] nano_4298.root
+         -> 8,656 vertices (36,536 trig, 10,731 trig+kin events)
+  [366/450] nano_4795.root
+         -> 5,748 vertices (33,210 trig, 7,547 trig+kin events)
+  [367/450] nano_6167.root
+         -> 16,263 vertices (63,033 trig, 20,241 trig+kin events)
+  [368/450] nano_307.root
+         -> 16,743 vertices (66,868 trig, 20,825 trig+kin events)
+  [369/450] nano_302.root
+         -> 15,436 vertices (62,953 trig, 19,301 trig+kin events)
+  [370/450] nano_465.root
+         -> 14,775 vertices (66,907 trig, 18,902 trig+kin events)
+  [371/450] nano_181.root
+         -> 15,684 vertices (65,141 trig, 19,958 trig+kin events)
+  [372/450] nano_726.root
+         -> 11,494 vertices (61,047 trig, 14,888 trig+kin events)
+  [373/450] nano_1451.root
+         -> 12,358 vertices (54,385 trig, 15,550 trig+kin events)
+  [374/450] nano_1313.root
+         -> 5,202 vertices (26,061 trig, 6,688 trig+kin events)
+  [375/450] nano_2526.root
+         -> 4,660 vertices (24,865 trig, 6,022 trig+kin events)
+  [376/450] nano_515.root
+         -> 11,455 vertices (52,252 trig, 14,618 trig+kin events)
+  [377/450] nano_1049.root
+         -> 9,020 vertices (36,852 trig, 11,400 trig+kin events)
+  [378/450] nano_2535.root
+         -> 9,561 vertices (38,341 trig, 11,989 trig+kin events)
+  [379/450] nano_492.root
+         -> 9,493 vertices (37,003 trig, 11,703 trig+kin events)
+  [380/450] nano_1097.root
+         -> 4,375 vertices (30,054 trig, 5,717 trig+kin events)
+  [381/450] nano_2460.root
+         -> 4,381 vertices (24,332 trig, 5,774 trig+kin events)
+  [382/450] nano_750.root
+         -> 8,510 vertices (36,339 trig, 10,893 trig+kin events)
+  [383/450] nano_2064.root
+         -> 8,101 vertices (32,437 trig, 9,996 trig+kin events)
+  [384/450] nano_364.root
+         -> 10,432 vertices (45,266 trig, 12,974 trig+kin events)
+  [385/450] nano_60.root
+         -> 16,139 vertices (66,835 trig, 20,440 trig+kin events)
+  [386/450] nano_159.root
+         -> 17,573 vertices (67,879 trig, 21,683 trig+kin events)
+  [387/450] nano_530.root
+         -> 3,308 vertices (16,706 trig, 4,074 trig+kin events)
+  [388/450] nano_594.root
+         -> 17,162 vertices (67,057 trig, 21,393 trig+kin events)
+  [389/450] nano_151.root
+         -> 11,976 vertices (54,393 trig, 15,434 trig+kin events)
+  [390/450] nano_980.root
+         -> 7,168 vertices (29,464 trig, 9,124 trig+kin events)
+  [391/450] nano_365.root
+         -> 5,192 vertices (36,987 trig, 6,813 trig+kin events)
+  [392/450] nano_1158.root
+         -> 9,589 vertices (39,205 trig, 12,068 trig+kin events)
+  [393/450] nano_2206.root
+         -> 5,093 vertices (25,956 trig, 6,484 trig+kin events)
+  [394/450] nano_2719.root
+         -> 9,124 vertices (37,144 trig, 11,445 trig+kin events)
+  [395/450] nano_261.root
+         -> 16,522 vertices (67,409 trig, 20,829 trig+kin events)
+  [396/450] nano_625.root
+         -> 4,908 vertices (24,149 trig, 6,083 trig+kin events)
+  [397/450] nano_323.root
+         -> 9,971 vertices (39,721 trig, 12,701 trig+kin events)
+  [398/450] nano_217.root
+         -> 9,119 vertices (36,307 trig, 11,365 trig+kin events)
+  [399/450] nano_811.root
+         -> 8,943 vertices (36,717 trig, 11,260 trig+kin events)
+  [400/450] nano_1310.root
+         -> 5,923 vertices (42,921 trig, 7,863 trig+kin events)
+  [401/450] nano_2099.root
+         -> 9,021 vertices (36,759 trig, 11,283 trig+kin events)
+  [402/450] nano_2742.root
+         -> 4,271 vertices (23,479 trig, 5,499 trig+kin events)
+  [403/450] nano_640.root
+         -> 2,852 vertices (14,787 trig, 3,553 trig+kin events)
+  [404/450] nano_1441.root
+         -> 2,588 vertices (14,421 trig, 3,251 trig+kin events)
+  [405/450] nano_2412.root
+         -> 9,681 vertices (39,052 trig, 11,941 trig+kin events)
+  [406/450] nano_2818.root
+         -> 17,008 vertices (66,590 trig, 21,124 trig+kin events)
+  [407/450] nano_3753.root
+         -> 8,959 vertices (38,851 trig, 11,187 trig+kin events)
+  [408/450] nano_4980.root
+         -> 3,104 vertices (13,821 trig, 3,806 trig+kin events)
+  [409/450] nano_5602.root
+         -> 4,879 vertices (23,652 trig, 6,122 trig+kin events)
+  [410/450] nano_6349.root
+         -> 16,847 vertices (66,113 trig, 21,084 trig+kin events)
+  [411/450] nano_5.root
+         -> 16,343 vertices (66,480 trig, 20,446 trig+kin events)
+  [412/450] nano_468.root
+         -> 16,836 vertices (68,334 trig, 21,082 trig+kin events)
+  [413/450] nano_31.root
+         -> 16,543 vertices (68,573 trig, 20,879 trig+kin events)
+  [414/450] nano_104.root
+         -> 16,636 vertices (68,627 trig, 21,047 trig+kin events)
+  [415/450] nano_82.root
+         -> 17,322 vertices (67,455 trig, 21,500 trig+kin events)
+  [416/450] nano_494.root
+         -> 5,028 vertices (23,510 trig, 6,343 trig+kin events)
+  [417/450] nano_529.root
+         -> 14,098 vertices (58,171 trig, 17,987 trig+kin events)
+  [418/450] nano_87.root
+         -> 5,497 vertices (23,731 trig, 6,765 trig+kin events)
+  [419/450] nano_509.root
+         -> 3,139 vertices (16,058 trig, 3,958 trig+kin events)
+  [420/450] nano_1058.root
+         -> 3,813 vertices (19,170 trig, 4,814 trig+kin events)
+  [421/450] nano_1471.root
+         -> 15,873 vertices (64,920 trig, 19,907 trig+kin events)
+  [422/450] nano_2288.root
+         -> 2,710 vertices (15,669 trig, 3,455 trig+kin events)
+  [423/450] nano_2980.root
+         -> 3,181 vertices (16,128 trig, 3,861 trig+kin events)
+  [424/450] nano_3801.root
+         -> 2,863 vertices (14,252 trig, 3,604 trig+kin events)
+  [425/450] nano_4199.root
+         -> 3,191 vertices (16,175 trig, 4,025 trig+kin events)
+  [426/450] nano_104.root
+         -> 16,305 vertices (66,114 trig, 20,533 trig+kin events)
+  [427/450] nano_461.root
+         -> 5,028 vertices (23,243 trig, 6,404 trig+kin events)
+  [428/450] nano_1298.root
+         -> 4,806 vertices (23,886 trig, 6,105 trig+kin events)
+  [429/450] nano_1875.root
+         -> 5,051 vertices (22,998 trig, 6,309 trig+kin events)
+  [430/450] nano_2235.root
+         -> 4,795 vertices (23,714 trig, 6,105 trig+kin events)
+  [431/450] nano_3012.root
+         -> 6,527 vertices (29,529 trig, 8,100 trig+kin events)
+  [432/450] nano_3300.root
+         -> 16,345 vertices (65,526 trig, 20,385 trig+kin events)
+  [433/450] nano_4209.root
+         -> 15,654 vertices (65,188 trig, 19,799 trig+kin events)
+  [434/450] nano_4768.root
+         -> 17,556 vertices (68,716 trig, 21,746 trig+kin events)
+  [435/450] nano_322.root
+         -> 2,569 vertices (14,160 trig, 3,313 trig+kin events)
+  [436/450] nano_1011.root
+         -> 10,800 vertices (47,997 trig, 13,855 trig+kin events)
+  [437/450] nano_2227.root
+         -> 16,412 vertices (67,732 trig, 20,740 trig+kin events)
+  [438/450] nano_3212.root
+         -> 2,805 vertices (14,810 trig, 3,571 trig+kin events)
+  [439/450] nano_5046.root
+         -> 15,784 vertices (65,470 trig, 19,782 trig+kin events)
+  [440/450] nano_508.root
+         -> 16,166 vertices (66,018 trig, 20,197 trig+kin events)
+  [441/450] nano_1689.root
+         -> 2,947 vertices (15,086 trig, 3,618 trig+kin events)
+  [442/450] nano_2429.root
+         -> 15,032 vertices (65,154 trig, 19,099 trig+kin events)
+  [443/450] nano_2896.root
+  [444/450] nano_3828.root
+         -> 15,956 vertices (64,722 trig, 20,021 trig+kin events)
+  [445/450] nano_4554.root
+         -> 4,554 vertices (22,500 trig, 5,728 trig+kin events)
+  [446/450] nano_12.root
+         -> 15,521 vertices (64,711 trig, 19,646 trig+kin events)
+  [447/450] nano_214.root
+         -> 6,538 vertices (25,556 trig, 8,062 trig+kin events)
+  [448/450] nano_29.root
+         -> 13,272 vertices (53,801 trig, 16,661 trig+kin events)
+  [449/450] nano_441.root
+         -> 14,457 vertices (56,513 trig, 17,702 trig+kin events)
+  [450/450] nano_40.root
+         -> 4,570 vertices (23,349 trig, 5,867 trig+kin events)
+
+Saved Data shard: data1pct_chunks/data_7.npz  (chunk 7/8, 13,324,522 vertices)
+[goldenjson] golden JSON: kept 29,549,080 of 30,024,691 data events (1.58% dropped as uncertified)

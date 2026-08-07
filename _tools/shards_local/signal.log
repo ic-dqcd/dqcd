@@ -1,0 +1,1042 @@
+
+=== scA $m_\pi$=4, $m_A$=0.4  ctau=10 ===
+  -> 250926_182532/
+    -> 0000/
+         35 .root files collected under 0000
+       35 .root files collected under 250926_182532
+     35 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/35] nano_1.root
+         -> 4,164 vertices (2,337 trig, 1,912 trig+kin events)
+  [2/35] nano_10.root
+         -> 3,875 vertices (2,188 trig, 1,801 trig+kin events)
+  [3/35] nano_11.root
+         -> 7,769 vertices (4,249 trig, 3,499 trig+kin events)
+  [4/35] nano_12.root
+         -> 4,500 vertices (2,404 trig, 1,997 trig+kin events)
+  [5/35] nano_13.root
+         -> 5,363 vertices (2,901 trig, 2,407 trig+kin events)
+  [6/35] nano_14.root
+         -> 6,801 vertices (3,758 trig, 3,107 trig+kin events)
+  [7/35] nano_15.root
+         -> 5,172 vertices (2,838 trig, 2,366 trig+kin events)
+  [8/35] nano_16.root
+         -> 6,434 vertices (3,572 trig, 2,928 trig+kin events)
+  [9/35] nano_17.root
+         -> 7,665 vertices (4,151 trig, 3,391 trig+kin events)
+  [10/35] nano_18.root
+         -> 2,301 vertices (1,245 trig, 1,027 trig+kin events)
+  [11/35] nano_19.root
+         -> 5,730 vertices (3,131 trig, 2,578 trig+kin events)
+  [12/35] nano_2.root
+         -> 1,775 vertices (1,019 trig, 817 trig+kin events)
+  [13/35] nano_20.root
+         -> 5,635 vertices (3,070 trig, 2,537 trig+kin events)
+  [14/35] nano_21.root
+         -> 7,862 vertices (4,321 trig, 3,569 trig+kin events)
+  [15/35] nano_22.root
+         -> 6,768 vertices (3,621 trig, 2,994 trig+kin events)
+  [16/35] nano_23.root
+         -> 6,666 vertices (3,725 trig, 3,050 trig+kin events)
+  [17/35] nano_24.root
+         -> 4,096 vertices (2,308 trig, 1,880 trig+kin events)
+  [18/35] nano_25.root
+         -> 5,243 vertices (2,925 trig, 2,391 trig+kin events)
+  [19/35] nano_26.root
+         -> 6,284 vertices (3,625 trig, 2,961 trig+kin events)
+  [20/35] nano_27.root
+         -> 5,930 vertices (3,250 trig, 2,668 trig+kin events)
+  [21/35] nano_28.root
+         -> 6,988 vertices (3,854 trig, 3,168 trig+kin events)
+  [22/35] nano_29.root
+         -> 5,491 vertices (3,042 trig, 2,529 trig+kin events)
+  [23/35] nano_3.root
+         -> 3,631 vertices (1,932 trig, 1,563 trig+kin events)
+  [24/35] nano_30.root
+         -> 4,477 vertices (2,548 trig, 2,074 trig+kin events)
+  [25/35] nano_31.root
+         -> 4,354 vertices (2,406 trig, 1,986 trig+kin events)
+  [26/35] nano_32.root
+         -> 718 vertices (397 trig, 323 trig+kin events)
+  [27/35] nano_33.root
+         -> 43 vertices (19 trig, 15 trig+kin events)
+  [28/35] nano_34.root
+         -> 3,787 vertices (2,160 trig, 1,791 trig+kin events)
+  [29/35] nano_35.root
+         -> 1,768 vertices (966 trig, 770 trig+kin events)
+  [30/35] nano_4.root
+         -> 5,023 vertices (2,774 trig, 2,297 trig+kin events)
+  [31/35] nano_5.root
+         -> 5,070 vertices (2,857 trig, 2,366 trig+kin events)
+  [32/35] nano_6.root
+         -> 847 vertices (472 trig, 384 trig+kin events)
+  [33/35] nano_7.root
+         -> 5,474 vertices (3,096 trig, 2,549 trig+kin events)
+  [34/35] nano_8.root
+         -> 4,463 vertices (2,496 trig, 2,044 trig+kin events)
+  [35/35] nano_9.root
+         -> 4,296 vertices (2,388 trig, 1,959 trig+kin events)
+
+=== scA $m_\pi$=4, $m_A$=0.4  ctau=0.1 ===
+  -> 250926_181543/
+    -> 0000/
+         54 .root files collected under 0000
+       54 .root files collected under 250926_181543
+     54 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/54] nano_1.root
+         -> 1,175 vertices (748 trig, 332 trig+kin events)
+  [2/54] nano_10.root
+         -> 499 vertices (305 trig, 145 trig+kin events)
+  [3/54] nano_11.root
+         -> 7,974 vertices (5,374 trig, 2,361 trig+kin events)
+  [4/54] nano_12.root
+         -> 7,470 vertices (4,910 trig, 2,232 trig+kin events)
+  [5/54] nano_13.root
+         -> 10,928 vertices (7,003 trig, 3,182 trig+kin events)
+  [6/54] nano_14.root
+         -> 7,805 vertices (5,059 trig, 2,331 trig+kin events)
+  [7/54] nano_15.root
+         -> 8,372 vertices (5,562 trig, 2,487 trig+kin events)
+  [8/54] nano_16.root
+         -> 223 vertices (149 trig, 70 trig+kin events)
+  [9/54] nano_17.root
+         -> 9,382 vertices (6,127 trig, 2,717 trig+kin events)
+  [10/54] nano_18.root
+         -> 8,699 vertices (5,957 trig, 2,619 trig+kin events)
+  [11/54] nano_19.root
+         -> 4,503 vertices (2,954 trig, 1,321 trig+kin events)
+  [12/54] nano_2.root
+         -> 110 vertices (68 trig, 27 trig+kin events)
+  [13/54] nano_20.root
+         -> 9,672 vertices (6,212 trig, 2,819 trig+kin events)
+  [14/54] nano_21.root
+         -> 11,785 vertices (7,848 trig, 3,481 trig+kin events)
+  [15/54] nano_22.root
+         -> 287 vertices (153 trig, 69 trig+kin events)
+  [16/54] nano_23.root
+         -> 779 vertices (467 trig, 224 trig+kin events)
+  [17/54] nano_24.root
+         -> 2,862 vertices (1,914 trig, 835 trig+kin events)
+  [18/54] nano_25.root
+         -> 237 vertices (138 trig, 68 trig+kin events)
+  [19/54] nano_26.root
+         -> 10,408 vertices (6,662 trig, 3,035 trig+kin events)
+  [20/54] nano_27.root
+         -> 12,337 vertices (8,210 trig, 3,583 trig+kin events)
+  [21/54] nano_28.root
+         -> 985 vertices (695 trig, 304 trig+kin events)
+  [22/54] nano_29.root
+         -> 1,142 vertices (730 trig, 313 trig+kin events)
+  [23/54] nano_3.root
+         -> 8,898 vertices (5,841 trig, 2,594 trig+kin events)
+  [24/54] nano_30.root
+         -> 200 vertices (153 trig, 70 trig+kin events)
+  [25/54] nano_31.root
+         -> 9,008 vertices (5,893 trig, 2,601 trig+kin events)
+  [26/54] nano_32.root
+         -> 7,780 vertices (5,113 trig, 2,262 trig+kin events)
+  [27/54] nano_33.root
+         -> 186 vertices (135 trig, 54 trig+kin events)
+  [28/54] nano_34.root
+         -> 2,546 vertices (1,537 trig, 684 trig+kin events)
+  [29/54] nano_35.root
+         -> 2,813 vertices (1,928 trig, 856 trig+kin events)
+  [30/54] nano_36.root
+         -> 403 vertices (293 trig, 124 trig+kin events)
+  [31/54] nano_37.root
+         -> 10,587 vertices (7,254 trig, 3,191 trig+kin events)
+  [32/54] nano_38.root
+         -> 3,469 vertices (2,314 trig, 1,042 trig+kin events)
+  [33/54] nano_39.root
+         -> 6,042 vertices (4,004 trig, 1,759 trig+kin events)
+  [34/54] nano_4.root
+         -> 7,680 vertices (5,042 trig, 2,268 trig+kin events)
+  [35/54] nano_40.root
+         -> 5,834 vertices (3,657 trig, 1,643 trig+kin events)
+  [36/54] nano_41.root
+         -> 7,515 vertices (5,135 trig, 2,259 trig+kin events)
+  [37/54] nano_42.root
+         -> 8,503 vertices (5,647 trig, 2,523 trig+kin events)
+  [38/54] nano_43.root
+         -> 7,771 vertices (5,083 trig, 2,277 trig+kin events)
+  [39/54] nano_44.root
+         -> 8,205 vertices (5,384 trig, 2,418 trig+kin events)
+  [40/54] nano_45.root
+         -> 3,181 vertices (2,138 trig, 963 trig+kin events)
+  [41/54] nano_46.root
+         -> 13,658 vertices (9,117 trig, 4,110 trig+kin events)
+  [42/54] nano_47.root
+         -> 3,179 vertices (2,061 trig, 902 trig+kin events)
+  [43/54] nano_48.root
+         -> 1,331 vertices (893 trig, 396 trig+kin events)
+  [44/54] nano_49.root
+         -> 10,281 vertices (6,876 trig, 3,086 trig+kin events)
+  [45/54] nano_5.root
+         -> 4,372 vertices (2,907 trig, 1,303 trig+kin events)
+  [46/54] nano_50.root
+         -> 8,204 vertices (5,558 trig, 2,481 trig+kin events)
+  [47/54] nano_51.root
+         -> 5,602 vertices (3,779 trig, 1,667 trig+kin events)
+  [48/54] nano_52.root
+         -> 1,751 vertices (1,186 trig, 519 trig+kin events)
+  [49/54] nano_53.root
+         -> 6,477 vertices (4,064 trig, 1,850 trig+kin events)
+  [50/54] nano_54.root
+         -> 474 vertices (311 trig, 148 trig+kin events)
+  [51/54] nano_6.root
+         -> 12,656 vertices (8,080 trig, 3,622 trig+kin events)
+  [52/54] nano_7.root
+         -> 8,068 vertices (5,048 trig, 2,321 trig+kin events)
+  [53/54] nano_8.root
+         -> 10,789 vertices (7,059 trig, 3,156 trig+kin events)
+  [54/54] nano_9.root
+         -> 8,018 vertices (5,329 trig, 2,353 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=1  ctau=10 ===
+  -> 250922_153005/
+    -> 0000/
+         26 .root files collected under 0000
+       26 .root files collected under 250922_153005
+     26 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/26] nano_1.root
+         -> 3,564 vertices (2,324 trig, 1,912 trig+kin events)
+  [2/26] nano_10.root
+         -> 6,221 vertices (4,092 trig, 3,356 trig+kin events)
+  [3/26] nano_11.root
+         -> 6,533 vertices (4,311 trig, 3,522 trig+kin events)
+  [4/26] nano_12.root
+         -> 6,984 vertices (4,723 trig, 3,852 trig+kin events)
+  [5/26] nano_13.root
+         -> 7,487 vertices (4,903 trig, 4,014 trig+kin events)
+  [6/26] nano_14.root
+         -> 7,720 vertices (4,936 trig, 4,049 trig+kin events)
+  [7/26] nano_15.root
+         -> 7,500 vertices (4,902 trig, 4,031 trig+kin events)
+  [8/26] nano_16.root
+         -> 7,804 vertices (4,932 trig, 4,046 trig+kin events)
+  [9/26] nano_17.root
+         -> 4,546 vertices (2,925 trig, 2,430 trig+kin events)
+  [10/26] nano_18.root
+         -> 8,080 vertices (5,114 trig, 4,223 trig+kin events)
+  [11/26] nano_19.root
+         -> 3,619 vertices (2,322 trig, 1,871 trig+kin events)
+  [12/26] nano_2.root
+         -> 4,176 vertices (2,680 trig, 2,232 trig+kin events)
+  [13/26] nano_20.root
+         -> 7,536 vertices (4,907 trig, 4,041 trig+kin events)
+  [14/26] nano_21.root
+         -> 4,594 vertices (3,040 trig, 2,487 trig+kin events)
+  [15/26] nano_22.root
+         -> 7,472 vertices (4,954 trig, 4,056 trig+kin events)
+  [16/26] nano_23.root
+         -> 7,330 vertices (4,705 trig, 3,909 trig+kin events)
+  [17/26] nano_24.root
+         -> 7,634 vertices (4,947 trig, 4,077 trig+kin events)
+  [18/26] nano_25.root
+         -> 2,056 vertices (1,322 trig, 1,097 trig+kin events)
+  [19/26] nano_26.root
+         -> 46 vertices (38 trig, 29 trig+kin events)
+  [20/26] nano_3.root
+         -> 7,676 vertices (4,911 trig, 4,044 trig+kin events)
+  [21/26] nano_4.root
+         -> 7,728 vertices (4,913 trig, 4,080 trig+kin events)
+  [22/26] nano_5.root
+         -> 7,846 vertices (5,027 trig, 4,188 trig+kin events)
+  [23/26] nano_6.root
+         -> 791 vertices (541 trig, 449 trig+kin events)
+  [24/26] nano_7.root
+         -> 7,277 vertices (4,914 trig, 4,020 trig+kin events)
+  [25/26] nano_8.root
+         -> 7,324 vertices (4,771 trig, 3,914 trig+kin events)
+  [26/26] nano_9.root
+         -> 7,496 vertices (4,838 trig, 3,966 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=1  ctau=0.1 ===
+  -> 250922_152906/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250922_152906
+     36 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/36] nano_1.root
+         -> 493 vertices (399 trig, 201 trig+kin events)
+  [2/36] nano_10.root
+         -> 4,573 vertices (3,595 trig, 1,818 trig+kin events)
+  [3/36] nano_11.root
+         -> 5,797 vertices (4,506 trig, 2,341 trig+kin events)
+  [4/36] nano_12.root
+         -> 8,543 vertices (6,647 trig, 3,392 trig+kin events)
+  [5/36] nano_13.root
+         -> 7,004 vertices (5,498 trig, 2,796 trig+kin events)
+  [6/36] nano_14.root
+         -> 5,004 vertices (3,805 trig, 1,959 trig+kin events)
+  [7/36] nano_15.root
+         -> 6,587 vertices (5,198 trig, 2,653 trig+kin events)
+  [8/36] nano_16.root
+         -> 658 vertices (554 trig, 279 trig+kin events)
+  [9/36] nano_17.root
+         -> 8,058 vertices (6,476 trig, 3,250 trig+kin events)
+  [10/36] nano_18.root
+         -> 8,912 vertices (7,062 trig, 3,511 trig+kin events)
+  [11/36] nano_19.root
+         -> 5,880 vertices (4,792 trig, 2,378 trig+kin events)
+  [12/36] nano_2.root
+         -> 4,393 vertices (3,664 trig, 1,841 trig+kin events)
+  [13/36] nano_20.root
+         -> 7,842 vertices (6,125 trig, 3,093 trig+kin events)
+  [14/36] nano_21.root
+         -> 6,039 vertices (4,842 trig, 2,441 trig+kin events)
+  [15/36] nano_22.root
+         -> 8,147 vertices (6,445 trig, 3,205 trig+kin events)
+  [16/36] nano_23.root
+         -> 5,818 vertices (4,600 trig, 2,368 trig+kin events)
+  [17/36] nano_24.root
+         -> 6,867 vertices (5,517 trig, 2,783 trig+kin events)
+  [18/36] nano_25.root
+         -> 2,322 vertices (1,797 trig, 924 trig+kin events)
+  [19/36] nano_26.root
+         -> 6,505 vertices (5,262 trig, 2,671 trig+kin events)
+  [20/36] nano_27.root
+         -> 4,525 vertices (3,590 trig, 1,801 trig+kin events)
+  [21/36] nano_28.root
+         -> 5,119 vertices (4,011 trig, 2,008 trig+kin events)
+  [22/36] nano_29.root
+         -> 6,992 vertices (5,602 trig, 2,775 trig+kin events)
+  [23/36] nano_3.root
+         -> 4,446 vertices (3,545 trig, 1,800 trig+kin events)
+  [24/36] nano_30.root
+         -> 256 vertices (230 trig, 110 trig+kin events)
+  [25/36] nano_31.root
+         -> 4,516 vertices (3,679 trig, 1,814 trig+kin events)
+  [26/36] nano_32.root
+         -> 6,143 vertices (4,837 trig, 2,378 trig+kin events)
+  [27/36] nano_33.root
+         -> 2,834 vertices (2,220 trig, 1,107 trig+kin events)
+  [28/36] nano_34.root
+         -> 5,304 vertices (4,147 trig, 2,102 trig+kin events)
+  [29/36] nano_35.root
+         -> 5,509 vertices (4,120 trig, 2,148 trig+kin events)
+  [30/36] nano_36.root
+         -> 75 vertices (60 trig, 30 trig+kin events)
+  [31/36] nano_4.root
+         -> 2,679 vertices (2,154 trig, 1,070 trig+kin events)
+  [32/36] nano_5.root
+         -> 4,183 vertices (3,202 trig, 1,639 trig+kin events)
+  [33/36] nano_6.root
+         -> 5,701 vertices (4,469 trig, 2,249 trig+kin events)
+  [34/36] nano_7.root
+         -> 4,883 vertices (3,868 trig, 1,951 trig+kin events)
+  [35/36] nano_8.root
+         -> 5,995 vertices (4,721 trig, 2,365 trig+kin events)
+  [36/36] nano_9.root
+         -> 5,451 vertices (4,129 trig, 2,108 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=3.33  ctau=10 ===
+  -> 250922_153035/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_153035
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/33] nano_1.root
+         -> 2,919 vertices (1,962 trig, 1,650 trig+kin events)
+  [2/33] nano_10.root
+         -> 3,982 vertices (2,660 trig, 2,226 trig+kin events)
+  [3/33] nano_11.root
+         -> 6,074 vertices (4,126 trig, 3,486 trig+kin events)
+  [4/33] nano_12.root
+         -> 6,064 vertices (4,146 trig, 3,462 trig+kin events)
+  [5/33] nano_13.root
+         -> 4,206 vertices (2,858 trig, 2,388 trig+kin events)
+  [6/33] nano_14.root
+         -> 5,945 vertices (4,054 trig, 3,391 trig+kin events)
+  [7/33] nano_15.root
+         -> 6,014 vertices (4,092 trig, 3,413 trig+kin events)
+  [8/33] nano_16.root
+         -> 2,360 vertices (1,568 trig, 1,310 trig+kin events)
+  [9/33] nano_17.root
+         -> 5,090 vertices (3,510 trig, 2,914 trig+kin events)
+  [10/33] nano_18.root
+         -> 3,482 vertices (2,367 trig, 2,005 trig+kin events)
+  [11/33] nano_19.root
+         -> 3,881 vertices (2,650 trig, 2,229 trig+kin events)
+  [12/33] nano_2.root
+         -> 43 vertices (28 trig, 23 trig+kin events)
+  [13/33] nano_20.root
+         -> 3,172 vertices (2,186 trig, 1,801 trig+kin events)
+  [14/33] nano_21.root
+         -> 4,730 vertices (3,235 trig, 2,712 trig+kin events)
+  [15/33] nano_22.root
+         -> 6,117 vertices (4,169 trig, 3,489 trig+kin events)
+  [16/33] nano_23.root
+         -> 4,639 vertices (3,264 trig, 2,697 trig+kin events)
+  [17/33] nano_24.root
+         -> 1,822 vertices (1,148 trig, 987 trig+kin events)
+  [18/33] nano_25.root
+         -> 6,088 vertices (4,080 trig, 3,448 trig+kin events)
+  [19/33] nano_26.root
+         -> 5,892 vertices (4,079 trig, 3,440 trig+kin events)
+  [20/33] nano_27.root
+         -> 6,329 vertices (4,284 trig, 3,599 trig+kin events)
+  [21/33] nano_28.root
+         -> 2,183 vertices (1,492 trig, 1,232 trig+kin events)
+  [22/33] nano_29.root
+         -> 5,958 vertices (4,087 trig, 3,414 trig+kin events)
+  [23/33] nano_3.root
+         -> 3,668 vertices (2,581 trig, 2,174 trig+kin events)
+  [24/33] nano_30.root
+         -> 1,288 vertices (844 trig, 717 trig+kin events)
+  [25/33] nano_31.root
+         -> 2,214 vertices (1,547 trig, 1,268 trig+kin events)
+  [26/33] nano_32.root
+         -> 749 vertices (505 trig, 431 trig+kin events)
+  [27/33] nano_33.root
+         -> 3,666 vertices (2,576 trig, 2,150 trig+kin events)
+  [28/33] nano_4.root
+         -> 97 vertices (68 trig, 54 trig+kin events)
+  [29/33] nano_5.root
+         -> 3,753 vertices (2,629 trig, 2,165 trig+kin events)
+  [30/33] nano_6.root
+         -> 4,252 vertices (2,905 trig, 2,418 trig+kin events)
+  [31/33] nano_7.root
+         -> 3,070 vertices (2,017 trig, 1,698 trig+kin events)
+  [32/33] nano_8.root
+         -> 1,177 vertices (810 trig, 679 trig+kin events)
+  [33/33] nano_9.root
+         -> 2,896 vertices (2,037 trig, 1,712 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=3.33  ctau=0.1 ===
+  -> 250922_152935/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_152935
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/33] nano_1.root
+         -> 4,674 vertices (4,241 trig, 2,118 trig+kin events)
+  [2/33] nano_10.root
+         -> 1,730 vertices (1,581 trig, 785 trig+kin events)
+  [3/33] nano_11.root
+         -> 4,159 vertices (3,524 trig, 1,789 trig+kin events)
+  [4/33] nano_12.root
+         -> 3,284 vertices (2,725 trig, 1,408 trig+kin events)
+  [5/33] nano_13.root
+         -> 2,583 vertices (2,351 trig, 1,182 trig+kin events)
+  [6/33] nano_14.root
+         -> 3,457 vertices (3,089 trig, 1,576 trig+kin events)
+  [7/33] nano_15.root
+         -> 671 vertices (580 trig, 299 trig+kin events)
+  [8/33] nano_16.root
+         -> 5,002 vertices (4,418 trig, 2,293 trig+kin events)
+  [9/33] nano_17.root
+         -> 4,449 vertices (3,989 trig, 2,044 trig+kin events)
+  [10/33] nano_18.root
+         -> 95 vertices (68 trig, 40 trig+kin events)
+  [11/33] nano_19.root
+         -> 4,200 vertices (3,670 trig, 1,888 trig+kin events)
+  [12/33] nano_2.root
+         -> 2,676 vertices (2,450 trig, 1,224 trig+kin events)
+  [13/33] nano_20.root
+         -> 2,543 vertices (2,305 trig, 1,188 trig+kin events)
+  [14/33] nano_21.root
+         -> 2,742 vertices (2,444 trig, 1,229 trig+kin events)
+  [15/33] nano_22.root
+         -> 2,570 vertices (2,399 trig, 1,206 trig+kin events)
+  [16/33] nano_23.root
+         -> 4,170 vertices (3,850 trig, 1,920 trig+kin events)
+  [17/33] nano_24.root
+         -> 4,785 vertices (4,285 trig, 2,185 trig+kin events)
+  [18/33] nano_25.root
+         -> 5,099 vertices (4,390 trig, 2,253 trig+kin events)
+  [19/33] nano_26.root
+         -> 5,244 vertices (4,530 trig, 2,321 trig+kin events)
+  [20/33] nano_27.root
+         -> 5,365 vertices (4,666 trig, 2,402 trig+kin events)
+  [21/33] nano_28.root
+         -> 225 vertices (204 trig, 103 trig+kin events)
+  [22/33] nano_29.root
+         -> 2,436 vertices (2,291 trig, 1,156 trig+kin events)
+  [23/33] nano_3.root
+         -> 2,758 vertices (2,314 trig, 1,216 trig+kin events)
+  [24/33] nano_30.root
+         -> 1,140 vertices (972 trig, 485 trig+kin events)
+  [25/33] nano_31.root
+         -> 1,410 vertices (1,135 trig, 571 trig+kin events)
+  [26/33] nano_32.root
+         -> 621 vertices (538 trig, 273 trig+kin events)
+  [27/33] nano_33.root
+         -> 26 vertices (24 trig, 12 trig+kin events)
+  [28/33] nano_4.root
+         -> 5,259 vertices (4,468 trig, 2,308 trig+kin events)
+  [29/33] nano_5.root
+         -> 4,783 vertices (4,120 trig, 2,107 trig+kin events)
+  [30/33] nano_6.root
+         -> 4,525 vertices (3,877 trig, 2,006 trig+kin events)
+  [31/33] nano_7.root
+         -> 4,375 vertices (3,863 trig, 1,958 trig+kin events)
+  [32/33] nano_8.root
+         -> 4,232 vertices (3,676 trig, 1,848 trig+kin events)
+  [33/33] nano_9.root
+         -> 3,914 vertices (3,449 trig, 1,763 trig+kin events)
+
+=== scB1 $m_\pi$=1, $m_A$=0.33  ctau=10 ===
+  -> 250926_185846/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250926_185846
+     36 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-0p33-mpi-1_TuneCP5_13p6TeV_powheg-pythia8
+  [1/36] nano_1.root
+         -> 195 vertices (106 trig, 88 trig+kin events)
+  [2/36] nano_10.root
+         -> 1,467 vertices (725 trig, 626 trig+kin events)
+  [3/36] nano_11.root
+         -> 3,739 vertices (1,906 trig, 1,629 trig+kin events)
+  [4/36] nano_12.root
+         -> 5,187 vertices (2,543 trig, 2,175 trig+kin events)
+  [5/36] nano_13.root
+         -> 5,893 vertices (2,902 trig, 2,453 trig+kin events)
+  [6/36] nano_14.root
+         -> 5,951 vertices (2,960 trig, 2,529 trig+kin events)
+  [7/36] nano_15.root
+         -> 5,783 vertices (2,842 trig, 2,415 trig+kin events)
+  [8/36] nano_16.root
+         -> 3,587 vertices (1,689 trig, 1,446 trig+kin events)
+  [9/36] nano_17.root
+         -> 3,912 vertices (1,961 trig, 1,686 trig+kin events)
+  [10/36] nano_18.root
+         -> 3,667 vertices (1,733 trig, 1,483 trig+kin events)
+  [11/36] nano_19.root
+         -> 3,494 vertices (1,646 trig, 1,410 trig+kin events)
+  [12/36] nano_2.root
+         -> 3,943 vertices (1,945 trig, 1,678 trig+kin events)
+  [13/36] nano_20.root
+         -> 3,661 vertices (1,763 trig, 1,518 trig+kin events)
+  [14/36] nano_21.root
+         -> 6,640 vertices (3,158 trig, 2,681 trig+kin events)
+  [15/36] nano_22.root
+         -> 468 vertices (242 trig, 203 trig+kin events)
+  [16/36] nano_23.root
+         -> 4,301 vertices (2,126 trig, 1,802 trig+kin events)
+  [17/36] nano_24.root
+         -> 2,018 vertices (1,010 trig, 873 trig+kin events)
+  [18/36] nano_25.root
+         -> 3,174 vertices (1,530 trig, 1,325 trig+kin events)
+  [19/36] nano_26.root
+         -> 3,308 vertices (1,595 trig, 1,362 trig+kin events)
+  [20/36] nano_27.root
+         -> 3,862 vertices (1,882 trig, 1,583 trig+kin events)
+  [21/36] nano_28.root
+         -> 789 vertices (352 trig, 305 trig+kin events)
+  [22/36] nano_29.root
+         -> 6,944 vertices (3,168 trig, 2,760 trig+kin events)
+  [23/36] nano_3.root
+         -> 1,280 vertices (657 trig, 542 trig+kin events)
+  [24/36] nano_30.root
+         -> 4,623 vertices (2,182 trig, 1,869 trig+kin events)
+  [25/36] nano_31.root
+         -> 4,755 vertices (2,237 trig, 1,937 trig+kin events)
+  [26/36] nano_32.root
+         -> 3,350 vertices (1,594 trig, 1,360 trig+kin events)
+  [27/36] nano_33.root
+         -> 4,904 vertices (2,329 trig, 2,039 trig+kin events)
+  [28/36] nano_34.root
+         -> 1,464 vertices (665 trig, 560 trig+kin events)
+  [29/36] nano_35.root
+         -> 4,901 vertices (2,438 trig, 2,083 trig+kin events)
+  [30/36] nano_36.root
+         -> 39 vertices (23 trig, 17 trig+kin events)
+  [31/36] nano_4.root
+         -> 6,652 vertices (3,185 trig, 2,752 trig+kin events)
+  [32/36] nano_5.root
+         -> 6,356 vertices (2,986 trig, 2,541 trig+kin events)
+  [33/36] nano_6.root
+         -> 1,243 vertices (641 trig, 558 trig+kin events)
+  [34/36] nano_7.root
+         -> 6,650 vertices (3,180 trig, 2,700 trig+kin events)
+  [35/36] nano_8.root
+         -> 5,581 vertices (2,696 trig, 2,327 trig+kin events)
+  [36/36] nano_9.root
+         -> 6,392 vertices (3,158 trig, 2,695 trig+kin events)
+
+=== scB1 $m_\pi$=1, $m_A$=0.33  ctau=0.1 ===
+  -> 250926_185129/
+    -> 0000/
+         31 .root files collected under 0000
+       31 .root files collected under 250926_185129
+     31 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-0p33-mpi-1_TuneCP5_13p6TeV_powheg-pythia8
+  [1/31] nano_1.root
+         -> 5,794 vertices (4,004 trig, 1,501 trig+kin events)
+  [2/31] nano_10.root
+         -> 4,938 vertices (3,479 trig, 1,292 trig+kin events)
+  [3/31] nano_11.root
+         -> 5,371 vertices (3,766 trig, 1,427 trig+kin events)
+  [4/31] nano_12.root
+         -> 8,415 vertices (5,940 trig, 2,211 trig+kin events)
+  [5/31] nano_13.root
+         -> 3,106 vertices (2,108 trig, 809 trig+kin events)
+  [6/31] nano_14.root
+         -> 7,269 vertices (5,108 trig, 1,859 trig+kin events)
+  [7/31] nano_15.root
+         -> 4,637 vertices (3,509 trig, 1,262 trig+kin events)
+  [8/31] nano_16.root
+         -> 8,528 vertices (5,949 trig, 2,187 trig+kin events)
+  [9/31] nano_17.root
+         -> 5,961 vertices (4,255 trig, 1,587 trig+kin events)
+  [10/31] nano_18.root
+         -> 8,458 vertices (5,808 trig, 2,172 trig+kin events)
+  [11/31] nano_19.root
+         -> 4,514 vertices (3,385 trig, 1,253 trig+kin events)
+  [12/31] nano_2.root
+         -> 5,014 vertices (3,478 trig, 1,289 trig+kin events)
+  [13/31] nano_20.root
+         -> 4,235 vertices (2,988 trig, 1,121 trig+kin events)
+  [14/31] nano_21.root
+         -> 8,785 vertices (5,794 trig, 2,228 trig+kin events)
+  [15/31] nano_22.root
+         -> 8,231 vertices (5,752 trig, 2,164 trig+kin events)
+  [16/31] nano_23.root
+         -> 6,805 vertices (4,652 trig, 1,783 trig+kin events)
+  [17/31] nano_24.root
+         -> 6,503 vertices (4,300 trig, 1,655 trig+kin events)
+  [18/31] nano_25.root
+         -> 9,156 vertices (5,904 trig, 2,269 trig+kin events)
+  [19/31] nano_26.root
+         -> 128 vertices (60 trig, 31 trig+kin events)
+  [20/31] nano_27.root
+         -> 5,402 vertices (3,605 trig, 1,367 trig+kin events)
+  [21/31] nano_28.root
+         -> 6,151 vertices (4,191 trig, 1,557 trig+kin events)
+  [22/31] nano_29.root
+         -> 4,634 vertices (3,138 trig, 1,206 trig+kin events)
+  [23/31] nano_3.root
+         -> 7,125 vertices (4,933 trig, 1,866 trig+kin events)
+  [24/31] nano_30.root
+         -> 7,297 vertices (4,995 trig, 1,906 trig+kin events)
+  [25/31] nano_31.root
+         -> 4,939 vertices (3,286 trig, 1,270 trig+kin events)
+  [26/31] nano_4.root
+         -> 2,429 vertices (1,644 trig, 638 trig+kin events)
+  [27/31] nano_5.root
+         -> 8,464 vertices (5,629 trig, 2,098 trig+kin events)
+  [28/31] nano_6.root
+         -> 2,081 vertices (1,326 trig, 522 trig+kin events)
+  [29/31] nano_7.root
+         -> 6,474 vertices (4,445 trig, 1,685 trig+kin events)
+  [30/31] nano_8.root
+         -> 8,625 vertices (5,883 trig, 2,250 trig+kin events)
+  [31/31] nano_9.root
+         -> 7,221 vertices (4,978 trig, 1,820 trig+kin events)
+
+=== scB1 $m_\pi$=4, $m_A$=1.33  ctau=10 ===
+  -> 250926_190403/
+    -> 0000/
+         50 .root files collected under 0000
+       50 .root files collected under 250926_190403
+     50 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/50] nano_1.root
+         -> 1,065 vertices (604 trig, 522 trig+kin events)
+  [2/50] nano_10.root
+         -> 8,715 vertices (4,557 trig, 3,979 trig+kin events)
+  [3/50] nano_11.root
+         -> 8,721 vertices (4,556 trig, 3,990 trig+kin events)
+  [4/50] nano_12.root
+         -> 5,624 vertices (2,801 trig, 2,452 trig+kin events)
+  [5/50] nano_13.root
+         -> 7,404 vertices (3,815 trig, 3,333 trig+kin events)
+  [6/50] nano_14.root
+         -> 8,898 vertices (4,626 trig, 4,004 trig+kin events)
+  [7/50] nano_15.root
+         -> 2,905 vertices (1,465 trig, 1,299 trig+kin events)
+  [8/50] nano_16.root
+         -> 4,869 vertices (2,533 trig, 2,188 trig+kin events)
+  [9/50] nano_17.root
+         -> 5,369 vertices (2,738 trig, 2,416 trig+kin events)
+  [10/50] nano_18.root
+         -> 3,879 vertices (2,032 trig, 1,766 trig+kin events)
+  [11/50] nano_19.root
+         -> 7,312 vertices (3,580 trig, 3,135 trig+kin events)
+  [12/50] nano_2.root
+         -> 924 vertices (484 trig, 412 trig+kin events)
+  [13/50] nano_20.root
+         -> 7,299 vertices (3,801 trig, 3,321 trig+kin events)
+  [14/50] nano_21.root
+         -> 2,614 vertices (1,388 trig, 1,221 trig+kin events)
+  [15/50] nano_22.root
+         -> 3,269 vertices (1,709 trig, 1,496 trig+kin events)
+  [16/50] nano_23.root
+         -> 162 vertices (78 trig, 67 trig+kin events)
+  [17/50] nano_24.root
+         -> 9,411 vertices (4,882 trig, 4,243 trig+kin events)
+  [18/50] nano_25.root
+         -> 5,383 vertices (2,814 trig, 2,423 trig+kin events)
+  [19/50] nano_26.root
+         -> 5,884 vertices (2,981 trig, 2,623 trig+kin events)
+  [20/50] nano_27.root
+         -> 7,601 vertices (3,918 trig, 3,446 trig+kin events)
+  [21/50] nano_28.root
+         -> 154 vertices (84 trig, 72 trig+kin events)
+  [22/50] nano_29.root
+         -> 2,237 vertices (1,156 trig, 1,011 trig+kin events)
+  [23/50] nano_3.root
+         -> 5,732 vertices (2,889 trig, 2,518 trig+kin events)
+  [24/50] nano_30.root
+         -> 5,809 vertices (2,904 trig, 2,563 trig+kin events)
+  [25/50] nano_31.root
+         -> 3,339 vertices (1,821 trig, 1,578 trig+kin events)
+  [26/50] nano_32.root
+         -> 131 vertices (70 trig, 58 trig+kin events)
+  [27/50] nano_33.root
+         -> 5,889 vertices (3,003 trig, 2,658 trig+kin events)
+  [28/50] nano_34.root
+         -> 845 vertices (426 trig, 376 trig+kin events)
+  [29/50] nano_35.root
+         -> 56 vertices (33 trig, 27 trig+kin events)
+  [30/50] nano_36.root
+         -> 2,527 vertices (1,266 trig, 1,123 trig+kin events)
+  [31/50] nano_37.root
+         -> 1,418 vertices (719 trig, 622 trig+kin events)
+  [32/50] nano_38.root
+         -> 881 vertices (430 trig, 383 trig+kin events)
+  [33/50] nano_39.root
+         -> 333 vertices (163 trig, 153 trig+kin events)
+  [34/50] nano_4.root
+         -> 5,700 vertices (2,934 trig, 2,571 trig+kin events)
+  [35/50] nano_40.root
+         -> 1,087 vertices (568 trig, 491 trig+kin events)
+  [36/50] nano_41.root
+         -> 289 vertices (152 trig, 130 trig+kin events)
+  [37/50] nano_42.root
+         -> 7,457 vertices (3,836 trig, 3,374 trig+kin events)
+  [38/50] nano_43.root
+         -> 7,501 vertices (3,907 trig, 3,437 trig+kin events)
+  [39/50] nano_44.root
+         -> 7,141 vertices (3,529 trig, 3,120 trig+kin events)
+  [40/50] nano_45.root
+         -> 466 vertices (238 trig, 207 trig+kin events)
+  [41/50] nano_46.root
+         -> 6,855 vertices (3,489 trig, 3,036 trig+kin events)
+  [42/50] nano_47.root
+         -> 7,661 vertices (3,932 trig, 3,457 trig+kin events)
+  [43/50] nano_48.root
+         -> 5,800 vertices (2,872 trig, 2,552 trig+kin events)
+  [44/50] nano_49.root
+         -> 6,063 vertices (3,124 trig, 2,736 trig+kin events)
+  [45/50] nano_5.root
+         -> 5,689 vertices (2,951 trig, 2,620 trig+kin events)
+  [46/50] nano_50.root
+         -> 3,392 vertices (1,747 trig, 1,544 trig+kin events)
+  [47/50] nano_6.root
+         -> 10,418 vertices (5,423 trig, 4,744 trig+kin events)
+  [48/50] nano_7.root
+         -> 340 vertices (168 trig, 147 trig+kin events)
+  [49/50] nano_8.root
+         -> 7,933 vertices (4,054 trig, 3,569 trig+kin events)
+  [50/50] nano_9.root
+         -> 5,587 vertices (2,925 trig, 2,547 trig+kin events)
+
+=== scB1 $m_\pi$=4, $m_A$=1.33  ctau=0.1 ===
+  -> 250926_185640/
+    -> 0000/
+         41 .root files collected under 0000
+       41 .root files collected under 250926_185640
+     41 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/41] nano_1.root
+         -> 2,933 vertices (2,251 trig, 960 trig+kin events)
+  [2/41] nano_10.root
+         -> 4,846 vertices (3,673 trig, 1,587 trig+kin events)
+  [3/41] nano_11.root
+         -> 2,027 vertices (1,629 trig, 699 trig+kin events)
+  [4/41] nano_12.root
+         -> 5,986 vertices (4,654 trig, 1,989 trig+kin events)
+  [5/41] nano_13.root
+         -> 4,375 vertices (3,512 trig, 1,464 trig+kin events)
+  [6/41] nano_14.root
+         -> 6,908 vertices (5,562 trig, 2,370 trig+kin events)
+  [7/41] nano_15.root
+         -> 532 vertices (446 trig, 200 trig+kin events)
+  [8/41] nano_16.root
+         -> 484 vertices (367 trig, 161 trig+kin events)
+  [9/41] nano_17.root
+         -> 4,973 vertices (3,735 trig, 1,611 trig+kin events)
+  [10/41] nano_18.root
+         -> 5,377 vertices (4,265 trig, 1,800 trig+kin events)
+  [11/41] nano_19.root
+         -> 5,233 vertices (4,214 trig, 1,798 trig+kin events)
+  [12/41] nano_2.root
+         -> 6,314 vertices (5,059 trig, 2,144 trig+kin events)
+  [13/41] nano_20.root
+         -> 1,212 vertices (911 trig, 408 trig+kin events)
+  [14/41] nano_21.root
+         -> 4,669 vertices (3,348 trig, 1,477 trig+kin events)
+  [15/41] nano_22.root
+         -> 6,866 vertices (5,267 trig, 2,251 trig+kin events)
+  [16/41] nano_23.root
+         -> 4,091 vertices (3,260 trig, 1,391 trig+kin events)
+  [17/41] nano_24.root
+         -> 7,105 vertices (5,586 trig, 2,355 trig+kin events)
+  [18/41] nano_25.root
+         -> 4,731 vertices (3,867 trig, 1,592 trig+kin events)
+  [19/41] nano_26.root
+         -> 6,466 vertices (5,053 trig, 2,181 trig+kin events)
+  [20/41] nano_27.root
+         -> 4,657 vertices (3,442 trig, 1,501 trig+kin events)
+  [21/41] nano_28.root
+         -> 41 vertices (42 trig, 15 trig+kin events)
+  [22/41] nano_29.root
+         -> 1,161 vertices (959 trig, 409 trig+kin events)
+  [23/41] nano_3.root
+         -> 4,428 vertices (3,449 trig, 1,474 trig+kin events)
+  [24/41] nano_30.root
+         -> 4,271 vertices (3,327 trig, 1,464 trig+kin events)
+  [25/41] nano_31.root
+         -> 402 vertices (296 trig, 127 trig+kin events)
+  [26/41] nano_32.root
+         -> 4,420 vertices (3,267 trig, 1,425 trig+kin events)
+  [27/41] nano_33.root
+         -> 2,921 vertices (2,190 trig, 921 trig+kin events)
+  [28/41] nano_34.root
+         -> 4,824 vertices (3,775 trig, 1,611 trig+kin events)
+  [29/41] nano_35.root
+         -> 503 vertices (376 trig, 157 trig+kin events)
+  [30/41] nano_36.root
+         -> 1,859 vertices (1,402 trig, 589 trig+kin events)
+  [31/41] nano_37.root
+         -> 3,978 vertices (3,304 trig, 1,421 trig+kin events)
+  [32/41] nano_38.root
+         -> 3,458 vertices (2,807 trig, 1,182 trig+kin events)
+  [33/41] nano_39.root
+         -> 4,653 vertices (3,511 trig, 1,531 trig+kin events)
+  [34/41] nano_4.root
+         -> 6,683 vertices (5,067 trig, 2,172 trig+kin events)
+  [35/41] nano_40.root
+         -> 4,390 vertices (3,404 trig, 1,490 trig+kin events)
+  [36/41] nano_41.root
+         -> 4,862 vertices (3,878 trig, 1,608 trig+kin events)
+  [37/41] nano_5.root
+         -> 6,649 vertices (5,403 trig, 2,281 trig+kin events)
+  [38/41] nano_6.root
+         -> 7,664 vertices (5,754 trig, 2,492 trig+kin events)
+  [39/41] nano_7.root
+         -> 4,077 vertices (3,216 trig, 1,372 trig+kin events)
+  [40/41] nano_8.root
+         -> 4,030 vertices (3,345 trig, 1,370 trig+kin events)
+  [41/41] nano_9.root
+         -> 5,867 vertices (4,518 trig, 1,894 trig+kin events)
+
+=== scB1 $m_\pi$=5, $m_A$=1.67  ctau=10 ===
+  -> 250926_190434/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250926_190434
+     36 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p67-mpi-5_TuneCP5_13p6TeV_powheg-pythia8
+  [1/36] nano_1.root
+         -> 3,939 vertices (2,325 trig, 2,002 trig+kin events)
+  [2/36] nano_10.root
+         -> 7,306 vertices (4,257 trig, 3,639 trig+kin events)
+  [3/36] nano_11.root
+         -> 4,354 vertices (2,456 trig, 2,145 trig+kin events)
+  [4/36] nano_12.root
+         -> 5,928 vertices (3,404 trig, 2,945 trig+kin events)
+  [5/36] nano_13.root
+         -> 5,725 vertices (3,388 trig, 2,907 trig+kin events)
+  [6/36] nano_14.root
+         -> 5,311 vertices (3,012 trig, 2,624 trig+kin events)
+  [7/36] nano_15.root
+         -> 7,565 vertices (4,417 trig, 3,776 trig+kin events)
+  [8/36] nano_16.root
+         -> 5,790 vertices (3,346 trig, 2,869 trig+kin events)
+  [9/36] nano_17.root
+         -> 6,548 vertices (3,839 trig, 3,295 trig+kin events)
+  [10/36] nano_18.root
+         -> 4,199 vertices (2,442 trig, 2,109 trig+kin events)
+  [11/36] nano_19.root
+         -> 781 vertices (433 trig, 368 trig+kin events)
+  [12/36] nano_2.root
+         -> 4,325 vertices (2,396 trig, 2,086 trig+kin events)
+  [13/36] nano_20.root
+         -> 5,824 vertices (3,391 trig, 2,943 trig+kin events)
+  [14/36] nano_21.root
+         -> 4,983 vertices (2,877 trig, 2,505 trig+kin events)
+  [15/36] nano_22.root
+         -> 4,024 vertices (2,368 trig, 2,039 trig+kin events)
+  [16/36] nano_23.root
+         -> 4,498 vertices (2,531 trig, 2,175 trig+kin events)
+  [17/36] nano_24.root
+         -> 7,825 vertices (4,608 trig, 3,972 trig+kin events)
+  [18/36] nano_25.root
+         -> 1,812 vertices (1,059 trig, 914 trig+kin events)
+  [19/36] nano_26.root
+         -> 5,000 vertices (3,018 trig, 2,579 trig+kin events)
+  [20/36] nano_27.root
+         -> 4,349 vertices (2,534 trig, 2,192 trig+kin events)
+  [21/36] nano_28.root
+         -> 2,253 vertices (1,337 trig, 1,180 trig+kin events)
+  [22/36] nano_29.root
+         -> 5,137 vertices (2,898 trig, 2,486 trig+kin events)
+  [23/36] nano_3.root
+         -> 4,463 vertices (2,525 trig, 2,207 trig+kin events)
+  [24/36] nano_30.root
+         -> 8,553 vertices (4,956 trig, 4,319 trig+kin events)
+  [25/36] nano_31.root
+         -> 4,886 vertices (2,922 trig, 2,529 trig+kin events)
+  [26/36] nano_32.root
+         -> 4,754 vertices (2,684 trig, 2,326 trig+kin events)
+  [27/36] nano_33.root
+         -> 7,666 vertices (4,449 trig, 3,797 trig+kin events)
+  [28/36] nano_34.root
+         -> 4,236 vertices (2,548 trig, 2,154 trig+kin events)
+  [29/36] nano_35.root
+         -> 7,921 vertices (4,748 trig, 4,062 trig+kin events)
+  [30/36] nano_36.root
+         -> 66 vertices (28 trig, 26 trig+kin events)
+  [31/36] nano_4.root
+         -> 4,054 vertices (2,421 trig, 2,047 trig+kin events)
+  [32/36] nano_5.root
+         -> 4,441 vertices (2,546 trig, 2,189 trig+kin events)
+  [33/36] nano_6.root
+         -> 4,506 vertices (2,573 trig, 2,212 trig+kin events)
+  [34/36] nano_7.root
+         -> 4,471 vertices (2,551 trig, 2,189 trig+kin events)
+  [35/36] nano_8.root
+         -> 4,242 vertices (2,485 trig, 2,140 trig+kin events)
+  [36/36] nano_9.root
+         -> 4,308 vertices (2,519 trig, 2,175 trig+kin events)
+
+=== scB1 $m_\pi$=5, $m_A$=1.67  ctau=0.1 ===
+  -> 250926_185711/
+    -> 0000/
+         65 .root files collected under 0000
+       65 .root files collected under 250926_185711
+     65 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p67-mpi-5_TuneCP5_13p6TeV_powheg-pythia8
+  [1/65] nano_1.root
+         -> 1,123 vertices (1,060 trig, 435 trig+kin events)
+  [2/65] nano_10.root
+         -> 72 vertices (81 trig, 31 trig+kin events)
+  [3/65] nano_11.root
+         -> 3,194 vertices (2,839 trig, 1,215 trig+kin events)
+  [4/65] nano_12.root
+         -> 106 vertices (87 trig, 42 trig+kin events)
+  [5/65] nano_13.root
+         -> 3,139 vertices (2,765 trig, 1,184 trig+kin events)
+  [6/65] nano_14.root
+         -> 3,024 vertices (2,777 trig, 1,198 trig+kin events)
+  [7/65] nano_15.root
+         -> 121 vertices (82 trig, 43 trig+kin events)
+  [8/65] nano_16.root
+         -> 3,874 vertices (3,441 trig, 1,480 trig+kin events)
+  [9/65] nano_17.root
+         -> 3,565 vertices (3,313 trig, 1,389 trig+kin events)
+  [10/65] nano_18.root
+         -> 3,109 vertices (2,848 trig, 1,203 trig+kin events)
+  [11/65] nano_19.root
+         -> 240 vertices (225 trig, 89 trig+kin events)
+  [12/65] nano_2.root
+         -> 2,093 vertices (1,755 trig, 788 trig+kin events)
+  [13/65] nano_20.root
+         -> 169 vertices (146 trig, 65 trig+kin events)
+  [14/65] nano_21.root
+         -> 608 vertices (556 trig, 245 trig+kin events)
+  [15/65] nano_22.root
+         -> 4,151 vertices (3,696 trig, 1,558 trig+kin events)
+  [16/65] nano_23.root
+         -> 191 vertices (154 trig, 66 trig+kin events)
+  [17/65] nano_24.root
+         -> 3,243 vertices (2,893 trig, 1,212 trig+kin events)
+  [18/65] nano_25.root
+         -> 263 vertices (243 trig, 111 trig+kin events)
+  [19/65] nano_26.root
+         -> 318 vertices (323 trig, 139 trig+kin events)
+  [20/65] nano_27.root
+         -> 56 vertices (73 trig, 29 trig+kin events)
+  [21/65] nano_28.root
+         -> 2,897 vertices (2,659 trig, 1,114 trig+kin events)
+  [22/65] nano_29.root
+         -> 331 vertices (271 trig, 115 trig+kin events)
+  [23/65] nano_3.root
+         -> 1,132 vertices (1,051 trig, 442 trig+kin events)
+  [24/65] nano_30.root
+         -> 687 vertices (673 trig, 275 trig+kin events)
+  [25/65] nano_31.root
+         -> 380 vertices (309 trig, 141 trig+kin events)
+  [26/65] nano_32.root
+         -> 6,088 vertices (5,354 trig, 2,305 trig+kin events)
+  [27/65] nano_33.root
+         -> 206 vertices (155 trig, 68 trig+kin events)
+  [28/65] nano_34.root
+         -> 3,436 vertices (3,013 trig, 1,315 trig+kin events)
+  [29/65] nano_35.root
+         -> 1,905 vertices (1,638 trig, 731 trig+kin events)
+  [30/65] nano_36.root
+         -> 1,233 vertices (1,143 trig, 481 trig+kin events)
+  [31/65] nano_37.root
+         -> 1,087 vertices (943 trig, 418 trig+kin events)
+  [32/65] nano_38.root
+         -> 2,669 vertices (2,576 trig, 1,051 trig+kin events)
+  [33/65] nano_39.root
+         -> 3,370 vertices (2,884 trig, 1,279 trig+kin events)
+  [34/65] nano_4.root
+         -> 2,313 vertices (1,899 trig, 835 trig+kin events)
+  [35/65] nano_40.root
+         -> 1,775 vertices (1,444 trig, 674 trig+kin events)
+  [36/65] nano_41.root
+         -> 3,394 vertices (2,782 trig, 1,242 trig+kin events)
+  [37/65] nano_42.root
+         -> 1,695 vertices (1,463 trig, 622 trig+kin events)
+  [38/65] nano_43.root
+         -> 3,570 vertices (3,190 trig, 1,386 trig+kin events)
+  [39/65] nano_44.root
+         -> 1,763 vertices (1,444 trig, 638 trig+kin events)
+  [40/65] nano_45.root
+         -> 3,086 vertices (2,676 trig, 1,167 trig+kin events)
+  [41/65] nano_46.root
+         -> 1,246 vertices (1,022 trig, 462 trig+kin events)
+  [42/65] nano_47.root
+         -> 960 vertices (899 trig, 391 trig+kin events)
+  [43/65] nano_48.root
+         -> 3,096 vertices (2,855 trig, 1,227 trig+kin events)
+  [44/65] nano_49.root
+         -> 3,480 vertices (3,030 trig, 1,345 trig+kin events)
+  [45/65] nano_5.root
+         -> 745 vertices (675 trig, 290 trig+kin events)
+  [46/65] nano_50.root
+         -> 2,950 vertices (2,616 trig, 1,135 trig+kin events)
+  [47/65] nano_51.root
+         -> 3,053 vertices (2,749 trig, 1,213 trig+kin events)
+  [48/65] nano_52.root
+         -> 2,978 vertices (2,724 trig, 1,134 trig+kin events)
+  [49/65] nano_53.root
+         -> 4,192 vertices (3,800 trig, 1,655 trig+kin events)
+  [50/65] nano_54.root
+         -> 3,493 vertices (3,066 trig, 1,348 trig+kin events)
+  [51/65] nano_55.root
+         -> 1,608 vertices (1,467 trig, 608 trig+kin events)
+  [52/65] nano_56.root
+         -> 1,160 vertices (1,032 trig, 444 trig+kin events)
+  [53/65] nano_57.root
+         -> 2,691 vertices (2,336 trig, 1,013 trig+kin events)
+  [54/65] nano_58.root
+         -> 3,034 vertices (2,675 trig, 1,162 trig+kin events)
+  [55/65] nano_59.root
+         -> 942 vertices (802 trig, 348 trig+kin events)
+  [56/65] nano_6.root
+         -> 463 vertices (309 trig, 142 trig+kin events)
+  [57/65] nano_60.root
+         -> 353 vertices (258 trig, 122 trig+kin events)
+  [58/65] nano_61.root
+         -> 3,879 vertices (3,418 trig, 1,484 trig+kin events)
+  [59/65] nano_62.root
+         -> 6,226 vertices (5,455 trig, 2,354 trig+kin events)
+  [60/65] nano_63.root
+         -> 176 vertices (144 trig, 65 trig+kin events)
+  [61/65] nano_64.root
+         -> 481 vertices (495 trig, 193 trig+kin events)
+  [62/65] nano_65.root
+         -> 2,271 vertices (1,962 trig, 879 trig+kin events)
+  [63/65] nano_7.root
+         -> 602 vertices (600 trig, 254 trig+kin events)
+  [64/65] nano_8.root
+         -> 882 vertices (704 trig, 331 trig+kin events)
+  [65/65] nano_9.root
+         -> 90 vertices (76 trig, 31 trig+kin events)
+
+Saved signal shard: /vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/shards_local/.tmp_1222501_signal.npz  (6 mass points)

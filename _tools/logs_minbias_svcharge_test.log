@@ -1,0 +1,216 @@
+  golden JSON: 475 runs, 287,603 lumisections (Cert_Collisions2024_378981_386951_Golden.json)
+Connecting to root://gfe02.grid.hep.ph.ic.ac.uk/
+Listing base /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024
+  173 top-level entries found
+
+[TEST MODE] reading only 1 file of each type (qcd, data, signal)
+
+[QCD] 12 PT-bin directories; taking 1 file(s) total
+  QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  -> 250923_140117/
+    -> 0000/
+         999 .root files collected under 0000
+    -> 0001/
+         1000 .root files collected under 0001
+    -> 0002/
+         1000 .root files collected under 0002
+    -> 0003/
+         802 .root files collected under 0003
+       3801 .root files collected under 250923_140117
+     3801 .root files collected under QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+    subtotal: 1 files
+  => 1 QCD files total
+
+[MinBias] InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_13p6TeV_pythia8
+  -> 0000/
+    -> log/
+         0 .root files collected under log
+       992 .root files collected under 0000
+  -> 0001/
+    -> log/
+         0 .root files collected under log
+       991 .root files collected under 0001
+  -> 0002/
+    -> log/
+         0 .root files collected under log
+       10 .root files collected under 0002
+     1993 .root files collected under 260730_143555
+  => 1 of 1993 MinBias files (0.05%, seed 20260806)
+
+[Data] 20 Parking datasets; taking 1 file(s) total
+  ParkingDoubleMuonLowMass0
+  -> nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/
+    -> 251006_155417/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           419 .root files collected under 0001
+         1418 .root files collected under 251006_155417
+       1418 .root files collected under nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1/
+    -> 251007_160707/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           495 .root files collected under 0001
+         1494 .root files collected under 251007_160707
+       1494 .root files collected under nanotron-v15_2024__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3/
+    -> 251007_160737/
+      -> 0000/
+           387 .root files collected under 0000
+      -> 0001/
+           10 .root files collected under 0001
+         397 .root files collected under 251007_160737
+    -> 251119_165935/
+      -> 0000/
+           260 .root files collected under 0000
+         260 .root files collected under 251119_165935
+    -> 260327_144506/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           787 .root files collected under 0003
+         3786 .root files collected under 260327_144506
+       4443 .root files collected under nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/
+    -> 251007_160806/
+      -> 0000/
+           999 .root files collected under 0000
+      -> 0001/
+           1000 .root files collected under 0001
+      -> 0002/
+           1000 .root files collected under 0002
+      -> 0003/
+           1000 .root files collected under 0003
+      -> 0004/
+           1000 .root files collected under 0004
+      -> 0005/
+           216 .root files collected under 0005
+         5215 .root files collected under 251007_160806
+       5215 .root files collected under nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/
+    -> 251007_160836/
+      -> 0000/
+           768 .root files collected under 0000
+         768 .root files collected under 251007_160836
+       768 .root files collected under nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/
+    -> 251007_160906/
+      -> 0000/
+           816 .root files collected under 0000
+         816 .root files collected under 251007_160906
+       816 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 251007_160936/
+      -> 0000/
+           58 .root files collected under 0000
+         58 .root files collected under 251007_160936
+    -> 251119_170007/
+      -> 0000/
+           786 .root files collected under 0000
+         786 .root files collected under 251119_170007
+    -> 251221_084804/
+      -> 0000/
+           492 .root files collected under 0000
+         492 .root files collected under 251221_084804
+    -> 260327_144537/
+      -> 0000/
+           786 .root files collected under 0000
+         786 .root files collected under 260327_144537
+       2122 .root files collected under nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2
+     16276 .root files collected under ParkingDoubleMuonLowMass0
+    subtotal: 1 files
+  => 1 Parking files total
+
+[Signal] GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8; taking 1 files
+  -> 250922_221110/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250922_221110
+     36 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  => 1 signal files
+
+[Signal] GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8; taking 1 files
+  -> 250922_152935/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_152935
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  => 1 signal files
+
+  PARTIAL SAMPLE: 5 of 22139 files (0.02%) -- every plot is labelled as such
+  data: 1 of 16276 Parking files (0.01%) -> quoted luminosity 0.00676 fb$^{-1}$ (13.6 TeV, 2024)
+
+=== Reading TWO-muon vertices (muonSV) ===
+[QCD]
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/1] nano_1.root
+  [2mu] charge branch = 'muonSV_charge', chi2 branch = 'muonSV_chi2'
+  [2mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 19,205 events (2,225 pass trig), 165,580 vertices
+[MinBias]
+  [1/1] nano_779.root
+  [2mu] charge branch = 'muonSV_charge', chi2 branch = 'muonSV_chi2'
+  [2mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 209,766 events (37,753 pass trig), 205,077 vertices
+[Data]
+  [1/1] nano_1.root
+  [2mu] charge branch = 'muonSV_charge', chi2 branch = 'muonSV_chi2'
+  [2mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 39,877 events (36,491 pass trig), 66,059 vertices
+[Signal] scA: $m_\pi$=4, $m_A$=1.33, $c\tau$=1
+  [1/1] nano_1.root
+  [2mu] charge branch = 'muonSV_charge', chi2 branch = 'muonSV_chi2'
+  [2mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 28,360 events (3,476 pass trig), 20,798 vertices
+[Signal] scA: $m_\pi$=10, $m_A$=3.33, $c\tau$=0.1
+  [1/1] nano_1.root
+  [2mu] charge branch = 'muonSV_charge', chi2 branch = 'muonSV_chi2'
+  [2mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 45,440 events (4,241 pass trig), 16,053 vertices
+
+=== Reading FOUR-muon vertices (fourmuonSV) ===
+[QCD]
+  [1/1] nano_1.root
+  [4mu] charge branch = 'fourmuonSV_charge', chi2 branch = 'fourmuonSV_chi2'
+  [4mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 19,205 events (2,225 pass trig), 687,637 vertices
+[MinBias]
+  [1/1] nano_779.root
+  [4mu] charge branch = 'fourmuonSV_charge', chi2 branch = 'fourmuonSV_chi2'
+  [4mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 209,766 events (37,753 pass trig), 5,177 vertices
+[Data]
+  [1/1] nano_1.root
+  [4mu] charge branch = 'fourmuonSV_charge', chi2 branch = 'fourmuonSV_chi2'
+  [4mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 39,877 events (36,491 pass trig), 3,936 vertices
+[Signal] scA: $m_\pi$=4, $m_A$=1.33, $c\tau$=1
+  [1/1] nano_1.root
+  [4mu] charge branch = 'fourmuonSV_charge', chi2 branch = 'fourmuonSV_chi2'
+  [4mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 28,360 events (3,476 pass trig), 6,829 vertices
+[Signal] scA: $m_\pi$=10, $m_A$=3.33, $c\tau$=0.1
+  [1/1] nano_1.root
+  [4mu] charge branch = 'fourmuonSV_charge', chi2 branch = 'fourmuonSV_chi2'
+  [4mu] trigger OR over: ['HLT_Mu10_Barrel_L1HP11_IP6', 'HLT_DoubleMu4_3_LowMass']
+         -> 45,440 events (4,241 pass trig), 3,067 vertices
+
+=== Building histograms / writing PDF ===
+  page 1: two-muon vertices (4 quadrants)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+  page 2: four-muon vertices (4 quadrants)
+
+Saved: compareSVcharge_test.pdf
+[goldenjson] golden JSON: kept 79,754 of 79,754 data events (0.00% dropped as uncertified)

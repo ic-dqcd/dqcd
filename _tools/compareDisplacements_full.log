@@ -1,0 +1,196 @@
+
+=== GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 40 files) ===
+  -> 250926_184439/
+    -> 0000/
+         64 .root files collected under 0000
+       64 .root files collected under 250926_184439
+     64 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/40] nano_1.root
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+         -> events: OR 2,373, Mu10 391, DoubleMu 2,272
+  [2/40] nano_10.root
+         -> events: OR 244, Mu10 51, DoubleMu 234
+  [3/40] nano_11.root
+         -> events: OR 355, Mu10 62, DoubleMu 337
+  [4/40] nano_12.root
+         -> events: OR 790, Mu10 133, DoubleMu 750
+  [5/40] nano_13.root
+         -> events: OR 1,935, Mu10 348, DoubleMu 1,830
+  [6/40] nano_14.root
+         -> events: OR 754, Mu10 103, DoubleMu 723
+  [7/40] nano_15.root
+         -> events: OR 558, Mu10 104, DoubleMu 534
+  [8/40] nano_16.root
+         -> events: OR 233, Mu10 35, DoubleMu 222
+  [9/40] nano_17.root
+         -> events: OR 2,507, Mu10 434, DoubleMu 2,381
+  [10/40] nano_18.root
+         -> events: OR 5,538, Mu10 879, DoubleMu 5,281
+  [11/40] nano_19.root
+         -> events: OR 3,811, Mu10 618, DoubleMu 3,653
+  [12/40] nano_2.root
+         -> events: OR 2,150, Mu10 370, DoubleMu 2,062
+  [13/40] nano_20.root
+         -> events: OR 7,540, Mu10 1,230, DoubleMu 7,199
+  [14/40] nano_21.root
+         -> events: OR 3,896, Mu10 658, DoubleMu 3,708
+  [15/40] nano_22.root
+         -> events: OR 4,428, Mu10 729, DoubleMu 4,240
+  [16/40] nano_23.root
+         -> events: OR 565, Mu10 106, DoubleMu 542
+  [17/40] nano_24.root
+         -> events: OR 351, Mu10 62, DoubleMu 331
+  [18/40] nano_25.root
+         -> events: OR 7,470, Mu10 1,276, DoubleMu 7,140
+  [19/40] nano_26.root
+         -> events: OR 3,215, Mu10 491, DoubleMu 3,077
+  [20/40] nano_27.root
+         -> events: OR 3,823, Mu10 637, DoubleMu 3,643
+  [21/40] nano_28.root
+         -> events: OR 7,486, Mu10 1,234, DoubleMu 7,163
+  [22/40] nano_29.root
+         -> events: OR 1,021, Mu10 161, DoubleMu 971
+  [23/40] nano_3.root
+         -> events: OR 685, Mu10 100, DoubleMu 662
+  [24/40] nano_30.root
+         -> events: OR 7,557, Mu10 1,255, DoubleMu 7,183
+  [25/40] nano_31.root
+         -> events: OR 1,718, Mu10 284, DoubleMu 1,633
+  [26/40] nano_32.root
+         -> events: OR 355, Mu10 56, DoubleMu 337
+  [27/40] nano_33.root
+         -> events: OR 7,442, Mu10 1,211, DoubleMu 7,108
+  [28/40] nano_34.root
+         -> events: OR 3,812, Mu10 626, DoubleMu 3,630
+  [29/40] nano_35.root
+         -> events: OR 4,568, Mu10 790, DoubleMu 4,356
+  [30/40] nano_36.root
+         -> events: OR 2,980, Mu10 518, DoubleMu 2,840
+  [31/40] nano_37.root
+         -> events: OR 4,507, Mu10 749, DoubleMu 4,294
+  [32/40] nano_38.root
+         -> events: OR 7,423, Mu10 1,273, DoubleMu 7,101
+  [33/40] nano_39.root
+         -> events: OR 1,053, Mu10 174, DoubleMu 1,000
+  [34/40] nano_4.root
+         -> events: OR 810, Mu10 141, DoubleMu 767
+  [35/40] nano_40.root
+         -> events: OR 1,285, Mu10 228, DoubleMu 1,224
+  [36/40] nano_41.root
+         -> events: OR 3,592, Mu10 560, DoubleMu 3,445
+  [37/40] nano_42.root
+         -> events: OR 1,915, Mu10 343, DoubleMu 1,831
+  [38/40] nano_43.root
+         -> events: OR 2,384, Mu10 386, DoubleMu 2,296
+  [39/40] nano_44.root
+         -> events: OR 686, Mu10 122, DoubleMu 651
+  [40/40] nano_45.root
+         -> events: OR 1,183, Mu10 197, DoubleMu 1,140
+  [OR (Single- + Double-muon)] 114,998 events, 322,064 neutral muonSVs
+  [HLT_Mu10_Barrel_L1HP11_IP6] 19,125 events, 58,074 neutral muonSVs
+  [HLT_DoubleMu4_3_LowMass] 109,791 events, 312,364 neutral muonSVs
+  all 40 files read successfully
+
+=== GluGluHToDarkShowers-ScenarioA_Par-ctau-100-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 40 files) ===
+  -> 250926_183448/
+    -> 0000/
+         70 .root files collected under 0000
+       70 .root files collected under 250926_183448
+     70 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-100-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/40] nano_1.root
+         -> events: OR 35, Mu10 8, DoubleMu 28
+  [2/40] nano_10.root
+         -> events: OR 258, Mu10 70, DoubleMu 214
+  [3/40] nano_11.root
+         -> events: OR 29, Mu10 12, DoubleMu 24
+  [4/40] nano_12.root
+         -> events: OR 48, Mu10 15, DoubleMu 35
+  [5/40] nano_13.root
+         -> events: OR 235, Mu10 63, DoubleMu 194
+  [6/40] nano_14.root
+         -> events: OR 7, Mu10 0, DoubleMu 7
+  [7/40] nano_15.root
+         -> events: OR 31, Mu10 10, DoubleMu 26
+  [8/40] nano_16.root
+         -> events: OR 325, Mu10 66, DoubleMu 283
+  [9/40] nano_17.root
+         -> events: OR 467, Mu10 120, DoubleMu 394
+  [10/40] nano_18.root
+         -> events: OR 96, Mu10 14, DoubleMu 88
+  [11/40] nano_19.root
+         -> events: OR 18, Mu10 5, DoubleMu 15
+  [12/40] nano_2.root
+         -> events: OR 181, Mu10 52, DoubleMu 147
+  [13/40] nano_20.root
+         -> events: OR 11, Mu10 4, DoubleMu 8
+  [14/40] nano_21.root
+         -> events: OR 139, Mu10 30, DoubleMu 117
+  [15/40] nano_22.root
+         -> events: OR 97, Mu10 30, DoubleMu 76
+  [16/40] nano_23.root
+         -> events: OR 6, Mu10 1, DoubleMu 5
+  [17/40] nano_24.root
+         -> events: OR 22, Mu10 9, DoubleMu 16
+  [18/40] nano_25.root
+         -> events: OR 104, Mu10 21, DoubleMu 88
+  [19/40] nano_26.root
+         -> events: OR 276, Mu10 68, DoubleMu 242
+  [20/40] nano_27.root
+         -> events: OR 105, Mu10 24, DoubleMu 90
+  [21/40] nano_28.root
+         -> events: OR 296, Mu10 81, DoubleMu 239
+  [22/40] nano_29.root
+         -> events: OR 4, Mu10 1, DoubleMu 3
+  [23/40] nano_3.root
+         -> events: OR 25, Mu10 8, DoubleMu 17
+  [24/40] nano_30.root
+         -> events: OR 250, Mu10 76, DoubleMu 195
+  [25/40] nano_31.root
+         -> events: OR 459, Mu10 128, DoubleMu 373
+  [26/40] nano_32.root
+         -> events: OR 176, Mu10 53, DoubleMu 142
+  [27/40] nano_33.root
+         -> events: OR 139, Mu10 35, DoubleMu 118
+  [28/40] nano_34.root
+         -> events: OR 308, Mu10 76, DoubleMu 265
+  [29/40] nano_35.root
+         -> events: OR 59, Mu10 15, DoubleMu 55
+  [30/40] nano_36.root
+         -> events: OR 254, Mu10 57, DoubleMu 219
+  [31/40] nano_37.root
+         -> events: OR 154, Mu10 36, DoubleMu 127
+  [32/40] nano_38.root
+         -> events: OR 358, Mu10 71, DoubleMu 308
+  [33/40] nano_39.root
+         -> events: OR 153, Mu10 38, DoubleMu 130
+  [34/40] nano_4.root
+         -> events: OR 131, Mu10 35, DoubleMu 109
+  [35/40] nano_40.root
+         -> events: OR 57, Mu10 17, DoubleMu 43
+  [36/40] nano_41.root
+         -> events: OR 72, Mu10 17, DoubleMu 61
+  [37/40] nano_42.root
+         -> events: OR 28, Mu10 6, DoubleMu 23
+  [38/40] nano_43.root
+         -> events: OR 248, Mu10 67, DoubleMu 205
+  [39/40] nano_44.root
+         -> events: OR 161, Mu10 36, DoubleMu 137
+  [40/40] nano_45.root
+         -> events: OR 45, Mu10 6, DoubleMu 41
+  [OR (Single- + Double-muon)] 5,867 events, 9,412 neutral muonSVs
+  [HLT_Mu10_Barrel_L1HP11_IP6] 1,481 events, 2,302 neutral muonSVs
+  [HLT_DoubleMu4_3_LowMass] 4,907 events, 8,067 neutral muonSVs
+  all 40 files read successfully
+
+  PARTIAL SAMPLE: 80 of 134 files (59.7%) -- every plot is labelled as such
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+
+Saved: _tools/compareDisplacements.pdf

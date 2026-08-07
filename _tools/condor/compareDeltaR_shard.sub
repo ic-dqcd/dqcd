@@ -1,0 +1,29 @@
+JobBatchName = dqcd_compareDeltaR_shard
+
+universe    = vanilla
+executable  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/run_compareDeltaR_shard.sh
+arguments   = $(SHARD)
+
+output = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_shard_$(SHARD)_$(ClusterId).$(ProcId).out
+error  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_shard_$(SHARD)_$(ClusterId).$(ProcId).err
+log    = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_shard_$(ClusterId).log
+
+# One PT-hat bin only. The largest (PT-1000) is 3801 files / 5.99e7 vertices, which
+# peaks under 1 GB -- read_deltaR concatenates one bin's arrays, not the whole sample.
+# 3 GB is margin AND stays under the lxa nodes' 4000 MB-per-cpu cap, so this matches
+# the 10 h tier on a single cpu with no GPU. Contrast the old monolithic job, which
+# needed 8 GB and could therefore only land on a GPU node.
+request_cpus   = 1
+request_memory = 3 GB
+request_disk   = 2 GB
+
+# 10 h. Worst-case bin measured at ~2.9 h (3801 files at the observed ~1320 files/h),
+# so this is >3x margin while still matching lxa07/09 and lxb00-03. Do NOT raise it
+# past 36000 without checking the pool: the longer tiers are GPU-only.
++MaxRuntime = 36000
+
+x509userproxy = /vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/x509up
+
+getenv = True
+
+queue 1

@@ -1,0 +1,178 @@
+[TEST MODE] 1 QCD file + 1 MinBias file + 1 file per signal point
+
+=== QCD ===
+
+[QCD] listing /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024
+  12 PT-bin directories; taking 1 file(s) total
+  -> 250923_140117/
+    -> 0000/
+         999 .root files collected under 0000
+    -> 0001/
+         1000 .root files collected under 0001
+    -> 0002/
+         1000 .root files collected under 0002
+    -> 0003/
+         802 .root files collected under 0003
+       3801 .root files collected under 250923_140117
+     3801 .root files collected under QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  => 1 QCD files over 1 bins
+
+[QCD bin] QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs = 1.323 pb, 1 of 3801 files)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/1] nano_3459.root
+         -> 17,537 vertices (3,246 trig, 2,585 trig+kin events)
+
+=== MinBias ===
+
+[MinBias] listing /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/ppradeep/samples/Parking/Run3/Nanotronv14/InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_13p6TeV_pythia8/2024WithMET/260730_143555
+  -> 0000/
+    -> log/
+         0 .root files collected under log
+       992 .root files collected under 0000
+  -> 0001/
+    -> log/
+         0 .root files collected under log
+       991 .root files collected under 0001
+  -> 0002/
+    -> log/
+         0 .root files collected under log
+       10 .root files collected under 0002
+     1993 .root files collected under 260730_143555
+  1 of 1993 files (0.05%, seed 20260806), no xs (shape only)
+  [1/1] nano_779.root
+         -> 34,397 vertices (37,753 trig, 27,329 trig+kin events)
+
+=== scA $m_\pi$=4, $m_A$=0.4  ctau=10 ===
+  -> 250926_182532/
+    -> 0000/
+         35 .root files collected under 0000
+       35 .root files collected under 250926_182532
+     35 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 4,164 vertices (2,337 trig, 1,912 trig+kin events)
+
+=== scA $m_\pi$=4, $m_A$=0.4  ctau=0.1 ===
+  -> 250926_181543/
+    -> 0000/
+         54 .root files collected under 0000
+       54 .root files collected under 250926_181543
+     54 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 1,175 vertices (748 trig, 332 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=1  ctau=10 ===
+  -> 250922_153005/
+    -> 0000/
+         26 .root files collected under 0000
+       26 .root files collected under 250922_153005
+     26 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 3,564 vertices (2,324 trig, 1,912 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=1  ctau=0.1 ===
+  -> 250922_152906/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250922_152906
+     36 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 493 vertices (399 trig, 201 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=3.33  ctau=10 ===
+  -> 250922_153035/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_153035
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 2,919 vertices (1,962 trig, 1,650 trig+kin events)
+
+=== scA $m_\pi$=10, $m_A$=3.33  ctau=0.1 ===
+  -> 250922_152935/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_152935
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 4,674 vertices (4,241 trig, 2,118 trig+kin events)
+
+=== scB1 $m_\pi$=1, $m_A$=0.33  ctau=10 ===
+  -> 250926_185846/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250926_185846
+     36 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-0p33-mpi-1_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 195 vertices (106 trig, 88 trig+kin events)
+
+=== scB1 $m_\pi$=1, $m_A$=0.33  ctau=0.1 ===
+  -> 250926_185129/
+    -> 0000/
+         31 .root files collected under 0000
+       31 .root files collected under 250926_185129
+     31 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-0p33-mpi-1_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 5,794 vertices (4,004 trig, 1,501 trig+kin events)
+
+=== scB1 $m_\pi$=4, $m_A$=1.33  ctau=10 ===
+  -> 250926_190403/
+    -> 0000/
+         50 .root files collected under 0000
+       50 .root files collected under 250926_190403
+     50 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 1,065 vertices (604 trig, 522 trig+kin events)
+
+=== scB1 $m_\pi$=4, $m_A$=1.33  ctau=0.1 ===
+  -> 250926_185640/
+    -> 0000/
+         41 .root files collected under 0000
+       41 .root files collected under 250926_185640
+     41 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 2,933 vertices (2,251 trig, 960 trig+kin events)
+
+=== scB1 $m_\pi$=5, $m_A$=1.67  ctau=10 ===
+  -> 250926_190434/
+    -> 0000/
+         36 .root files collected under 0000
+       36 .root files collected under 250926_190434
+     36 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p67-mpi-5_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 3,939 vertices (2,325 trig, 2,002 trig+kin events)
+
+=== scB1 $m_\pi$=5, $m_A$=1.67  ctau=0.1 ===
+  -> 250926_185711/
+    -> 0000/
+         65 .root files collected under 0000
+       65 .root files collected under 250926_185711
+     65 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p67-mpi-5_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 1,123 vertices (1,060 trig, 435 trig+kin events)
+  [partial (0.0%)] QCD: 1 of 3801 files
+  [partial (0.1%)] MinBias: 1 of 1993 files
+  [partial (2.9%)] scA $m_\pi$=4, $m_A$=0.4 ctau=10: 1 of 35 files
+  [partial (1.9%)] scA $m_\pi$=4, $m_A$=0.4 ctau=0.1: 1 of 54 files
+  [partial (3.8%)] scA $m_\pi$=10, $m_A$=1 ctau=10: 1 of 26 files
+  [partial (2.8%)] scA $m_\pi$=10, $m_A$=1 ctau=0.1: 1 of 36 files
+  [partial (3.0%)] scA $m_\pi$=10, $m_A$=3.33 ctau=10: 1 of 33 files
+  [partial (3.0%)] scA $m_\pi$=10, $m_A$=3.33 ctau=0.1: 1 of 33 files
+  [partial (2.8%)] scB1 $m_\pi$=1, $m_A$=0.33 ctau=10: 1 of 36 files
+  [partial (3.2%)] scB1 $m_\pi$=1, $m_A$=0.33 ctau=0.1: 1 of 31 files
+  [partial (2.0%)] scB1 $m_\pi$=4, $m_A$=1.33 ctau=10: 1 of 50 files
+  [partial (2.4%)] scB1 $m_\pi$=4, $m_A$=1.33 ctau=0.1: 1 of 41 files
+  [partial (2.8%)] scB1 $m_\pi$=5, $m_A$=1.67 ctau=10: 1 of 36 files
+  [partial (1.5%)] scB1 $m_\pi$=5, $m_A$=1.67 ctau=0.1: 1 of 65 files
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/compareDeltaR.py:644: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  fig, ax = plt.subplots(figsize=(10, 8))
+
+Saved: compareDeltaR_test.pdf (32 pages)

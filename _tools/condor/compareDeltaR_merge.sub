@@ -1,0 +1,20 @@
+JobBatchName = dqcd_compareDeltaR_merge
+
+universe    = vanilla
+executable  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/run_compareDeltaR_merge.sh
+
+output = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_merge_$(ClusterId).$(ProcId).out
+error  = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_merge_$(ClusterId).$(ProcId).err
+log    = /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/logs/compareDeltaR_merge_$(ClusterId).log
+
+# Summing 13 small histogram files and drawing 5 pages -- seconds of work, no grid
+# access, no proxy needed.
+request_cpus   = 1
+request_memory = 2 GB
+request_disk   = 1 GB
+
++MaxRuntime = 3600
+
+getenv = True
+
+queue 1

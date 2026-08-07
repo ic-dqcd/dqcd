@@ -7,7 +7,7 @@ from collections import OrderedDict
 from config.legacy_2018 import Config as legacy_config
 
 #signal_xs = 43.9 * 0.01 # 2018
-signal_xs = 52.23 * 0.01 #TODO what's this doing
+signal_xs = 52.23 * 0.01 # Run 3 (TODO full run3 or just 2024?), 52.23 pb is ggH at 13.6 TeV, BR(H→dark shower) = 1% = 0.01
 
 
 class Config(legacy_config):
@@ -25,6 +25,42 @@ class Config(legacy_config):
         chi2_vloose = "{{muonSV_bestchi2_chi2}} > 5 && {{muonSV_bestchi2_chi2}} <= 7.5"
 
         regions = [
+            # 2024, scenarioA, trained with Mu-enriched pT-binned QCD
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu", "Tight bdt (A), Mu10 || DoubleMu", selection="{{bdt_scenarioA}} > 0.3103"),	#1E-1 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10", "Tight bdt (A), Mu10", selection="{{bdt_scenarioA}} > 0.1169"),			#1E-1 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu", "Tight bdt (A), DoubleMu", selection="{{bdt_scenarioA}} > 0.3083"),		#1E-1 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu", "Tight bdt (A), Mu10 || DoubleMu", selection="{{bdt_scenarioA}} > 0.8386"),	#1E-2 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10", "Tight bdt (A), Mu10", selection="{{bdt_scenarioA}} > 0.7433"),			#1E-2 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu", "Tight bdt (A), DoubleMu", selection="{{bdt_scenarioA}} > 0.8364"),		#1E-2 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu", "Tight bdt (A), Mu10 || DoubleMu", selection="{{bdt_scenarioA}} > 0.9719"),	#1E-3 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10", "Tight bdt (A), Mu10", selection="{{bdt_scenarioA}} > 0.9711"),			#1E-3 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu", "Tight bdt (A), DoubleMu", selection="{{bdt_scenarioA}} > 0.9741"),		#1E-3 threshold # DoubleMu
+
+            Category("tight_bdt_scenarioA_Mu10orDoubleMu", "Tight bdt (A), Mu10 || DoubleMu", selection="{{bdt_scenarioA}} > 0.9945"),	#1E-4 threshold # Mu10 || DoubleMu
+            Category("tight_bdt_scenarioA_Mu10", "Tight bdt (A), Mu10", selection="{{bdt_scenarioA}} > 0.9953"),			#1E-4 threshold # Mu10
+            Category("tight_bdt_scenarioA_DoubleMu", "Tight bdt (A), DoubleMu", selection="{{bdt_scenarioA}} > 0.9958"),		#1E-4 threshold # DoubleMu
+
+            # 2024, scenarioB1, trained with Mu-enriched pT-binned QCD
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu", "Tight bdt (B1), Mu10 || DoubleMu", selection="{{bdt_scenarioB1}} > 0.3551"),	#1E-1 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10", "Tight bdt (B1), Mu10", selection="{{bdt_scenarioB1}} > 0.1844"),				#1E-1 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu", "Tight bdt (B1), DoubleMu", selection="{{bdt_scenarioB1}} > 0.3616"),			#1E-1 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu", "Tight bdt (B1), Mu10 || DoubleMu", selection="{{bdt_scenarioB1}} > 0.8420"),	#1E-2 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10", "Tight bdt (B1), Mu10", selection="{{bdt_scenarioB1}} > 0.7423"),				#1E-2 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu", "Tight bdt (B1), DoubleMu", selection="{{bdt_scenarioB1}} > 0.8446"),			#1E-2 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu", "Tight bdt (B1), Mu10 || DoubleMu", selection="{{bdt_scenarioB1}} > 0.9724"),	#1E-3 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10", "Tight bdt (B1), Mu10", selection="{{bdt_scenarioB1}} > 0.9519"),				#1E-3 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu", "Tight bdt (B1), DoubleMu", selection="{{bdt_scenarioB1}} > 0.9750"),			#1E-3 threshold # DoubleMu
+
+            Category("tight_bdt_scenarioB1_Mu10orDoubleMu", "Tight bdt (B1), Mu10 || DoubleMu", selection="{{bdt_scenarioB1}} > 0.9948"),	#1E-4 threshold # Mu10 || DoubleMu
+            Category("tight_bdt_scenarioB1_Mu10", "Tight bdt (B1), Mu10", selection="{{bdt_scenarioB1}} > 0.9910"),				#1E-4 threshold # Mu10
+            Category("tight_bdt_scenarioB1_DoubleMu", "Tight bdt (B1), DoubleMu", selection="{{bdt_scenarioB1}} > 0.9955"),			#1E-4 threshold # DoubleMu
+
+
+            # Following from the 2018 setup
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
             Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
 
@@ -77,15 +113,10 @@ class Config(legacy_config):
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.7"),    #between 1E-2 and 1E-3 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.92"),   #1E-3 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.945"),   #between 1E-3 and 1E-4 threshold
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),   #1E-4 threshold #TODO original default
+            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.98"),   #1E-4 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.985"),   #1E-5 threshold
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.987"),
             #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} >= 0"),
-
-            #TODO 2024, no MET
-            Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9971"),   #1E-4 threshold #TODO Mu10 || DoubleMu, noMET; v1 (before: 0.9959)
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9969"),   #1E-4 threshold #TODO Mu10, noMET; v1 (before: 0.9958)
-            #Category("tight_bdt_scenarioA", "Tight bdt (A) region", selection="{{bdt_scenarioA}} > 0.9978"),   #1E-4 threshold #TODO DoubleMu, noMET; v1 (before: 0.9962)
 
             Category("tight_bdt_scenarioA_1", "BDT > 0.9", selection="{{bdt_scenarioA}} > 0.9"),
 
@@ -220,14 +251,16 @@ class Config(legacy_config):
             # for the B->PhiX samples
             Category("loose_bdt_btophi", "Loose bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.65"),
             Category("tight_bdt_btophi", "Tight bdt (B->PhiX) region", selection="{{bdt_scenarioA}} > 0.98"),
+
             Category("bdt_preselections", "Basic selections",
             #TODO must define selection for 2024. For now, using all of the relevant triggers in an OR just to fill the space
             selection="""
-            (HLT_Mu10_Barrel_L1HP11_IP6 || HLT_Mu9_Barrel_L1HP10_IP6 || HLT_Mu8_Barrel_L1HP9_IP6 || HLT_Mu7_Barrel_L1HP8_IP6 || HLT_Mu6_Barrel_L1HP7_IP6 || HLT_Mu0_Barrel_L1HP6_IP6 || HLT_Mu0_Barrel_L1HP11 || HLT_Mu0_Barrel || HLT_Mu0_Barrel_L1HP10 || HLT_Mu0_Barrel_L1HP9 || HLT_Mu0_Barrel_L1HP8 || HLT_Mu0_Barrel_L1HP7 || HLT_Mu0_Barrel_L1HP6 ||
+            (HLT_Mu10_Barrel_L1HP11_IP6 || HLT_Mu9_Barrel_L1HP10_IP6 || HLT_Mu8_Barrel_L1HP9_IP6 || HLT_Mu7_Barrel_L1HP8_IP6 || HLT_Mu6_Barrel_L1HP7_IP6 ||
             HLT_DoubleMu4_3_LowMass || HLT_DoubleMu4_LowMass_Displaced) &&
             (nmuonSV > 0) &&
-            (Sum(muonSV_mu1pt > 5.0)  > 0 || Sum(muonSV_mu2pt > 5.0) > 0)
+            (Sum(muonSV_mu1pt > 4.0)  > 0 || Sum(muonSV_mu2pt > 3.0) > 0)
             """),
+
             Category("tight_bdt_vector_custom", "", selection="(({{bdt_vector}} > 0.999) && (muonSV_bestchi2_mass <= 5)) || (({{bdt_vector}} > 0.997) && (muonSV_bestchi2_mass > 5))"),
 
         ]
@@ -253,12 +286,16 @@ class Config(legacy_config):
             if cat.name.startswith("multiv"):
                 cat.selection = jrs(cat.selection, "!(%s)" % fourmuon_sel)
 
-        # quadv group, binned in the matched dimuon vertex's dxy/pAngle (the lower-chi2 of
-        # the two matched muonSVs), so all three groups bin on the same muonSV quantity.
-        # quadv_muonSV_{dxy,pAngle} are produced by DQCDFourMuonSVSelectionRDF and are -1
-        # for non-quadv events, which the isFourMuonPlusDimuonSV == 1 gate removes.
-        fdxy = "quadv_muonSV_dxy"
-        fpa = "quadv_muonSV_pAngle"
+        # quadv group, binned in the FOUR-MUON vertex's own dxy/pAngle -- the common-vertex
+        # fit of all four muons -- rather than in one of the two matched dimuon vertices.
+        # This deliberately differs from singlev/multiv, which bin on
+        # muonSV_dxy.at(min_chi2_index) (see config/legacy_2018.py): the quadv topology has
+        # its own four-muon vertex, and that is the object the group is defined by.
+        # fourmuonSV_selected_{dxy,pAngle} are the flat per-event values of the selected
+        # fourmuonSV, produced by DQCDFourMuonSVSelectionRDF; they are -1 for non-quadv
+        # events, which the isFourMuonPlusDimuonSV == 1 gate removes.
+        fdxy = "fourmuonSV_selected_dxy"
+        fpa = "fourmuonSV_selected_pAngle"
         categories += [
             Category("quadv", "Four-muon + dimuon vertices", selection=fourmuon_sel),
             Category("quadv_cat1", "Quadvertex, cat. 1",
@@ -296,16 +333,51 @@ class Config(legacy_config):
         return ObjectCollection(features)
 
 
+    def add_processes(self):
+        # legacy_2018 defines the whole tree; only the 2024-only MinBias background is added here, so the 2018 config is left exactly as it was.
+        processes, process_group_names, process_training_names = \
+            super(Config, self).add_processes()
+
+        # Hangs off "background" directly, NOT off "qcd". Datasets are grouped by walking up parent_process until a name in the active process group is found
+        # (cmt/base_tasks/base.py:930-945), and every dataset landing on the same process is SUMMED. With parent_process="qcd" this sample and the 12 pT-hat bins would
+        # both resolve to "qcd" and the same background would be counted twice -- silently, because the framework only refuses a group holding two processes of one chain.
+        # As a sibling of "qcd" the double count is at least visible as two stack entries.
+        processes.add(
+            Process("qcdMinBias", Label("QCD (incl. dilepton MinBias)"),
+                color=(255, 153, 0), parent_process="background")
+        )
+
+        # One-or-the-other groups. Never put "qcdMinBias" and the pT-hat bins (or "qcd") in the same group: they are alternative estimates of one background.
+        process_group_names["qcd_minbias_background"] = ["qcdMinBias"]
+        process_group_names["data_qcd_minbias"] = ["data", "qcdMinBias"]
+
+        # Per-signal groups, the MinBias counterpart of legacy_2018's "qcd_<signal>".
+        # Without these the only group that reaches qcdMinBias AND a signal is one naming "background", which resolves MinBias to the generic "Simulation" label -- so the
+        # MinBias plots could not be read the way the pT-hat ones already are. Naming "qcdMinBias" explicitly stops the walk one level early and gives it its own legend entry and colour.
+        #
+        # Complement to legacy_2018's own per-signal loop since MinBias is not defined there
+        for process in processes:
+            if process.isSignal and "_" in process.name:
+                process_group_names["qcdminbias_" + process.name] = [
+                    "data",
+                    "qcdMinBias",
+                    process.name
+                ]
+
+        return processes, process_group_names, process_training_names
+
+
     def add_datasets(self):
 
-        sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p3/tmp/"#from 2018
+        sample_path = "/vols/cms/mc3909/bparkProductionAll_V1p3/tmp/" #from 2018
 
         sample_path_2024 = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/"
         # FULL PATH+REDIRECTOR -> davs://gfe02.grid.hep.ph.ic.ac.uk:2880/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/
 
 
-        #From https://xsecdb-xsdb-official.app.cern.ch/xsdb/?columns=67108863&currentPage=0&ordDirection=1&ordFieldName=process_name&pageSize=10&searchQuery=DAS%3DQCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
         xs = {
+            # Mu-enriched pT-binned QCD samples
+            # from https://xsecdb-xsdb-official.app.cern.ch/xsdb/?columns=67108863&currentPage=0&ordDirection=1&ordFieldName=process_name&pageSize=10&searchQuery=DAS%3DQCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
             "qcd_15to20": 3018000,
             "qcd_20to30": 2701000,
             "qcd_30to50": 1461000,
@@ -318,13 +390,41 @@ class Config(legacy_config):
             "qcd_600to800": 21.27,
             "qcd_800to1000": 3.89,
             "qcd_1000toInf": 1.323,
+
+            # InclusiveDileptonMinBias with the DoubleMuOS43 generator filter
+            # from https://cms-pub-talk.web.cern.ch/uploads/short-url/utPGgokD7yPcGPQS4KFgg20vezU.pdf
+            # TODO estimated from back-of-the-envelope factors -> needs to be properly estimated eventually
+            "qcdMinBias": 2.691e5,
         }
 
-        #TODO qcd background needs tags?
+        # Adding tags to QCD foreseeing different background samples for different years
         tags = ["run3_2024", "qcd"]
 
         datasets = [
         #TODO adjust these
+
+            Dataset("qcdDileptonMinBias",
+                 ### Read from DCACHE, processed by Prijith on 2026-07-30
+                folder="/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/ppradeep/samples/Parking/Run3/Nanotronv14/InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_13p6TeV_pythia8",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                process=self.processes.get("qcdMinBias"),
+                check_empty=False,
+                xs=xs["qcdMinBias"],
+                merging={
+                    "base": 20,
+                    "singlev_cat1": 13,
+                    "singlev_cat2": 8,
+                    "singlev_cat3": 9,
+                    "singlev_cat4": 3,
+                    "singlev_cat5": 2,
+                },
+                tags=list(tags) + ["qcd_minbias"],
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_15to20"], i)
+                #    for i in range(1, 51)],
+                #skipped_files_must_be_in_dataset=False,
+            ),
 
             Dataset("qcd_15to20",
                  ### Read from GRID
@@ -333,17 +433,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_15to20"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_15to20"),
                 check_empty=False,
                 xs=xs["qcd_15to20"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_15to20"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -354,17 +457,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_20to30"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_20to30"),
                 check_empty=False,
                 xs=xs["qcd_20to30"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_20to30"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -375,17 +481,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_30to50"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_30to50"),
                 check_empty=False,
                 xs=xs["qcd_30to50"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_30to50"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -396,17 +505,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_50to80"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_50to80"),
                 check_empty=False,
                 xs=xs["qcd_50to80"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_50to80"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -417,17 +529,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_80to120"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_80to120"),
                 check_empty=False,
                 xs=xs["qcd_80to120"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_80to120"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -438,17 +553,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_120to170"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_120to170"),
                 check_empty=False,
                 xs=xs["qcd_120to170"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_120to170"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -459,17 +577,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_170to300"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_170to300"),
                 check_empty=False,
                 xs=xs["qcd_170to300"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_170to300"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -480,17 +601,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_300to470"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_300to470"),
                 check_empty=False,
                 xs=xs["qcd_300to470"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_300to470"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -501,17 +625,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_470to600"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_470to600"),
                 check_empty=False,
                 xs=xs["qcd_470to600"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_470to600"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -522,17 +649,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_600to800"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_600to800"),
                 check_empty=False,
                 xs=xs["qcd_600to800"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_600to800"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -543,17 +673,20 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_800to1000"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_800to1000"),
                 check_empty=False,
                 xs=xs["qcd_800to1000"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_800to1000"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
@@ -564,23 +697,30 @@ class Config(legacy_config):
                  ### Read from DCACHE
                 folder=sample_path_2024 + "QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
-                # TODO must adapt next lines to work on GRID
-                #skipFiles=["{}/output_{}.root".format(
-                #    sample_path + samples["qcd_1000toInf"], i)
-                #    for i in range(1, 51)],
                 process=self.processes.get("qcd_1000toInf"),
                 check_empty=False,
                 xs=xs["qcd_1000toInf"],
                 merging={
-                    "base": 10,
+                    "base": 4,
+                    "singlev_cat1": 3,
+                    "singlev_cat2": 2,
+                    "singlev_cat3": 2,
                 },
-                #tags=tags,
+                tags=list(tags),
+                # TODO must adapt next lines to work on DCACHE
+                #skipFiles=["{}/output_{}.root".format(
+                #    sample_path + samples["qcd_1000toInf"], i)
+                #    for i in range(1, 51)],
                 #skipped_files_must_be_in_dataset=False,
             ),
 
 
 
+            # ------
             # DATA datasets to use in intermediate studies, account for ~1% of the samples
+
+            # TODO eventually need to ad a join dataset including single and double muon sampels WITHOUT double counting
+            # Possible solution: keep SingleMuon inclusive, and in DoubleMuonLowMass require !(HLT_Mu10_Barrel_L1HP11_IP6). The sum is then disjoint by construction.
 
             Dataset("data_2024_singlemu_1percent",
                 folder=[
@@ -603,13 +743,13 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 file_pattern="nano_([1-9]|1[0-5]).root",
                 merging={
-                    "base": 200,
-                    "singlev_cat1": 50,
-                    "singlev_cat2": 50,
-                    "singlev_cat3": 50,
-                    "singlev_cat4": 50,
-                    "singlev_cat5": 50,
-                    "singlev_cat6": 50,
+                    "base": 9,
+                    "singlev_cat1": 5,
+                    "singlev_cat2": 4,
+                    "singlev_cat3": 4,
+                    "singlev_cat4": 1,
+                    "singlev_cat5": 1,
+                    "singlev_cat6": 1,
                 },
             ),
 
@@ -630,17 +770,21 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 file_pattern="nano_([1-9]|1[0-5]).root",
                 merging={
-                    "base": 200,
-                    "singlev_cat1": 50,
+                    "base": 130,
+                    "singlev_cat1": 83,
                     "singlev_cat2": 50,
-                    "singlev_cat3": 50,
-                    "singlev_cat4": 50,
-                    "singlev_cat5": 50,
-                    "singlev_cat6": 50,
+                    "singlev_cat3": 60,
+                    "singlev_cat4": 15,
+                    "singlev_cat5": 8,
+                    "singlev_cat6": 2,
                 },
             ),
+            # ------
 
-            Dataset("data_2024_singlemu_singleFile",
+            # ------
+            # DATA datasets to use in  initial studies, processes a single file per epoch branch
+
+            Dataset("data_2024_singlemu_HalfPerMil",
                 folder=[
                     sample_path_2024 + "ParkingSingleMuon0",
                     sample_path_2024 + "ParkingSingleMuon1",
@@ -665,7 +809,7 @@ class Config(legacy_config):
                 },
             ),
 
-            Dataset("data_2024_doublemu_singleFile",
+            Dataset("data_2024_doublemu_HalfPerMil",
                 folder=[
                     sample_path_2024 + "ParkingDoubleMuonLowMass0",
                     sample_path_2024 + "ParkingDoubleMuonLowMass1",
@@ -682,10 +826,15 @@ class Config(legacy_config):
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 file_pattern="nano_1.root",
                 merging={
-                    "base": 1,
+                    "base": 9,
+                    "singlev_cat1": 5,
+                    "singlev_cat2": 3,
+                    "singlev_cat3": 4,
                 },
             ),
+            # ------
 
+            # TODO 2018 leftover, single period?
             Dataset("data_2018d_bph1",
                 dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
                 process=self.processes.get("data"),
@@ -696,9 +845,11 @@ class Config(legacy_config):
                 runPeriod="D",
                 prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
             ),
+            # ------
 
 
-            # DATA datasets to use in final unblinding
+            # ------
+            # Full DATA datasets to use in final unblinding
 
             Dataset("data_2024_singlemu",
                 folder=[
@@ -720,25 +871,25 @@ class Config(legacy_config):
                 tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 merging={
-                    "base": 30000,
-                    "singlev_cat1": 30000,
-                    "singlev_cat2": 10000,
-                    "singlev_cat3": 6000,
-                    "singlev_cat4": 6000,
-                    "singlev_cat5": 6000,
-                    "singlev_cat6": 6000,
-                    "multiv_cat1": 6000,
-                    "multiv_cat2": 6000,
-                    "multiv_cat3": 6000,
-                    "multiv_cat4": 6000,
-                    "multiv_cat5": 6000,
-                    "multiv_cat6": 6000,
-                    "quadv_cat1": 6000,
-                    "quadv_cat2": 6000,
-                    "quadv_cat3": 6000,
-                    "quadv_cat4": 6000,
-                    "quadv_cat5": 6000,
-                    "quadv_cat6": 6000,
+                    "base": 1000,
+                    "singlev_cat1": 560,
+                    "singlev_cat2": 470,
+                    "singlev_cat3": 510,
+                    "singlev_cat4": 155,
+                    "singlev_cat5": 123,
+                    "singlev_cat6": 38,
+                    "multiv_cat1": 5,
+                    "multiv_cat2": 23,
+                    "multiv_cat3": 5,
+                    "multiv_cat4": 2,
+                    "multiv_cat5": 1,
+                    "multiv_cat6": 1,
+                    "quadv_cat1": 4,
+                    "quadv_cat2": 16,
+                    "quadv_cat3": 3,
+                    "quadv_cat4": 1,
+                    "quadv_cat5": 1,
+                    "quadv_cat6": 1,
                 },
             ),
 
@@ -758,31 +909,32 @@ class Config(legacy_config):
                 tags=["run3_2024"],
                 prefix="gfe02.grid.hep.ph.ic.ac.uk",
                 merging={
-                    "base": 30000,
-                    "singlev_cat1": 30000,
-                    "singlev_cat2": 10000,
-                    "singlev_cat3": 6000,
-                    "singlev_cat4": 6000,
-                    "singlev_cat5": 6000,
-                    "singlev_cat6": 6000,
-                    "multiv_cat1": 6000,
-                    "multiv_cat2": 6000,
-                    "multiv_cat3": 6000,
-                    "multiv_cat4": 6000,
-                    "multiv_cat5": 6000,
-                    "multiv_cat6": 6000,
-                    "quadv_cat1": 6000,
-                    "quadv_cat2": 6000,
-                    "quadv_cat3": 6000,
-                    "quadv_cat4": 6000,
-                    "quadv_cat5": 6000,
-                    "quadv_cat6": 6000,
+                    "base": 15000,
+                    "singlev_cat1": 9000,
+                    "singlev_cat2": 5600,
+                    "singlev_cat3": 6800,
+                    "singlev_cat4": 1700,
+                    "singlev_cat5": 860,
+                    "singlev_cat6": 260,
+                    "multiv_cat1": 43,
+                    "multiv_cat2": 109,
+                    "multiv_cat3": 38,
+                    "multiv_cat4": 8,
+                    "multiv_cat5": 4,
+                    "multiv_cat6": 3,
+                    "quadv_cat1": 30,
+                    "quadv_cat2": 77,
+                    "quadv_cat3": 27,
+                    "quadv_cat4": 6,
+                    "quadv_cat5": 3,
+                    "quadv_cat6": 2,
                 },
             ),
+            # ------
 
 
 
-            # Pending DATA GOES HERE
+            # TODO Pending DATA GOES HERE
             #Dataset("hiddenValleyGridPack_vector_m_10_ctau_100_xiO_1_xiL_1",
 #            Dataset("GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8",
 #                dataset="/GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-0p25-mpi-1_TuneCP5_13p6TeV_powheg-pythia8/tafoyava-RunIII2024Summer24_nanotron_v15-150X_mcrun3_2024_realistic-435ba2bfbd0ec63e168d4b47aa00e957/USER",
@@ -796,26 +948,22 @@ class Config(legacy_config):
 #                    #for i in range(1, 21)],
 #            ),
 
+            Dataset("BuToJpsiK",
+                 ### Read from DCACHE
+                folder=sample_path_2024 + "BuToJpsiK_Fil-BMuon_Par-SoftQCDnonD_TuneCP5_13p6TeV_pythia8-evtgen",
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                process=self.processes.get("BuToJpsiK"),
+                check_empty=False,
+                tags=["run3_2024"],
+            ),
+
         ]
 
-        # for name, dataset in signal_samples.items():
-        #     datasets.append(self.create_signal_dataset(name + "_ext", dataset, signal_xs,
-        #         tags=["ext", "run3_2024", "limits_scA", "third"]))
-        #     if name.endswith("10"):
-        #         input_ctau = "ctau_10"
-        #         ctaus = ["2p0", "5p0", "8p0"]
-        #     elif name.endswith("100"):
-        #         input_ctau = "ctau_100"
-        #         ctaus = ["20", "50", "80"]
-        #     else:
-        #         ctaus = []
-        #     for ctau in ctaus:
-        #         datasets.append(self.create_signal_dataset(
-        #             name.replace(input_ctau, "ctau_%s_rew" % ctau) + "_ext",
-        #             dataset, signal_xs, tags=["ext", "run3_2024", "rew"]))
-
         datasets = ObjectCollection(datasets)
-        
+
+        # ------
+        # Place to add additional datasets
+
         #datasets = self.add_vp_grid_datasets_2024(datasets)
 
         #datasets = self.add_scenario_grid_datasets_2024(datasets)
@@ -885,15 +1033,17 @@ class Config(legacy_config):
                 tags.append("tenth")
 
             datasets.add(
-                Dataset(key + ("_ext" if sc == "A" else ""),
+                # 2018 was using a suffix "_ext" for scenario A. Leaving the line here in case it's useful in the future
+                #Dataset(key + ("_ext" if sc == "A" else ""),
+                Dataset(key,
                     dataset=dataset,
                     process=self.processes.get(key),
                     check_empty=False,
-                    tags=tags,
+                    tags=list(tags),
                     #prefix="gfe02.grid.hep.ph.ic.ac.uk/pnfs/hep.ph.ic.ac.uk/data/cms",
                     prefix="redirector.t2.ucsd.edu:1095/",
                     xs=signal_xs,
-                    #TODO remove pattern when not useful anymore
+                    #Pattern restricts to a subset of the sample\
                     file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
                 )
             )
@@ -917,15 +1067,17 @@ class Config(legacy_config):
                 tags.append("tenth")
 
             datasets.add(
-                Dataset(key + ("_ext" if sc == "A" else ""),
+                # 2018 was using a suffix "_ext" for scenario A. Leaving the line here in case it's useful in the future
+                #Dataset(key + ("_ext" if sc == "A" else ""),
+                Dataset(key,
                     folder=sample_path_2024 + sample_name_2024,
                     prefix="gfe02.grid.hep.ph.ic.ac.uk",
                     process=self.processes.get(key),
                     check_empty=False,
-                    tags=tags,
+                    tags=list(tags),
                     xs=signal_xs,
-                    #TODO remove pattern when not useful anymore
-                    file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
+                    #Pattern restricts to a subset of the sample\
+                    #file_pattern="nano_(.{1}|.{2}|.{3}|10.{2}|1100|1101).root",
                 )
             )
         return datasets
@@ -973,10 +1125,10 @@ class Config(legacy_config):
                 for m2 in d[scenario][m1]["masses"]:
                     for ctau_orig, new_ctaus in d[scenario][m1]["ctaus"].items():
                         orig_dataset = datasets.get(
-                            f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_orig}_ext")
+                            f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_orig}")
                         for ctau_rew in new_ctaus:
                             datasets.add(Dataset(
-                                f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew_ext",
+                                f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew",
                                 dataset = orig_dataset.dataset,
                                 process=self.processes.get(f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}"),
                                 check_empty=False,
@@ -1013,10 +1165,10 @@ class Config(legacy_config):
                 for m2 in d[scenario][m1]["masses"]:
                     for ctau_orig, new_ctaus in ctaus.items():
                         orig_dataset = datasets.get(
-                            f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_orig}_ext")
+                            f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_orig}")
                         for ctau_rew in new_ctaus:
                             datasets.add(Dataset(
-                                f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew_ext",
+                                f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew",
                                 dataset = orig_dataset.dataset,
                                 process=self.processes.get(f"scenario{scenario}_mpi_{m1}_mA_{m2}_ctau_{ctau_rew}_rew"),
                                 check_empty=False,
@@ -1065,7 +1217,26 @@ class Config(legacy_config):
 
     # other methods
 
-config = Config("base", year=2024, ecm=13.6, lumi_pb=109950)
+#TODO adjust this for 2024
+# Uncomment ONE. The reduced-lumi lines exist because MC is normalised as
+# xs * lumi_pb / N_gen (FeaturePlot.get_normalization_factor, plotting.py:1683) while
+# data is simply counted -- nothing scales for "I only read some of the files". Running
+# a subset data dataset at full lumi therefore puts data ~100x (resp. ~1700x) below MC
+# in any ratio plot, with nothing to warn you.
+#
+# Fractions measured 2026-07-27 by counting .root files under
+#   /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024
+# against each dataset's file_pattern (SingleMuon + DoubleMuonLowMass combined):
+#   _1percent    (nano_([1-9]|1[0-5]).root)  3299 / 360235 = 0.9157 %
+#   _HalfPerMil  (nano_1.root)                212 / 360235 = 0.0589 %  (i.e. 0.59 permil)
+# The two primary datasets agree to 0.2% on both, so one number covers each case.
+# Re-measure if the production layout changes: the fraction is set by the number of
+# files per CRAB task directory, not by design.
+config = Config("base", year=2024, ecm=13.6, lumi_pb=109950)      # Full data sample
+#config = Config("base", year=2024, ecm=13.6, lumi_pb=1006.8)     # _1percent datasets   (0.9157 % of 109950)
+#config = Config("base", year=2024, ecm=13.6, lumi_pb=64.7)       # _HalfPerMil datasets (0.0589 % of 109950)
+
+# 2018
 #config = Config("base", year=2018, ecm=13, lumi_pb=41600, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=33600, isUL=True)
 #config = Config("base", year=2018, ecm=13, lumi_pb=13000, isUL=True)

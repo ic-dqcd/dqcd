@@ -29,6 +29,8 @@ bdtsf:
     path: modules.DQCD_SF
     parameters:
         process_name: self.dataset.process.name
+        year: self.config.year
+        is_signal: self.dataset.process.isSignal
 
 #rew_full:
     #name: DQCDFullReweighingRDF

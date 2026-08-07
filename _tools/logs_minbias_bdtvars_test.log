@@ -1,0 +1,109 @@
+  golden JSON: 475 runs, 287,603 lumisections (Cert_Collisions2024_378981_386951_Golden.json)
+plotting 5 variable(s), leading slot only
+
+=== file discovery ===
+  DATA
+    ParkingDoubleMuonLowMass0             16,276 files
+    ParkingDoubleMuonLowMass1             20,441 files
+    ParkingDoubleMuonLowMass2             19,260 files
+    ParkingDoubleMuonLowMass3             19,215 files
+    ParkingDoubleMuonLowMass4             23,669 files
+    ParkingDoubleMuonLowMass5             11,059 files
+    ParkingDoubleMuonLowMass6             31,668 files
+    ParkingDoubleMuonLowMass7             13,414 files
+    ParkingSingleMuon0                    24,594 files
+    ParkingSingleMuon1                    30,756 files
+    ParkingSingleMuon10                    9,516 files
+    ParkingSingleMuon11                    7,123 files
+    ParkingSingleMuon2                    16,442 files
+    ParkingSingleMuon3                    34,873 files
+    ParkingSingleMuon4                    18,200 files
+    ParkingSingleMuon5                    16,433 files
+    ParkingSingleMuon6                     8,465 files
+    ParkingSingleMuon7                    11,345 files
+    ParkingSingleMuon8                     4,512 files
+    ParkingSingleMuon9                    22,974 files
+    360,235 data files total; reading a random 0.000% = 1 (seed 20240729)
+  QCD
+    QCD_Bin-PT-15to20                1 of  3,621 files
+    QCD_Bin-PT-20to30                1 of  2,627 files
+    QCD_Bin-PT-30to50                1 of  2,782 files
+    QCD_Bin-PT-50to80                1 of  3,079 files
+    QCD_Bin-PT-80to120               1 of  2,947 files
+    QCD_Bin-PT-120to170              1 of  3,120 files
+    QCD_Bin-PT-170to300              1 of  3,263 files
+    QCD_Bin-PT-300to470              1 of  2,989 files
+    QCD_Bin-PT-470to600              1 of  2,901 files
+    QCD_Bin-PT-600to800              1 of  3,745 files
+    QCD_Bin-PT-800to1000             1 of  3,599 files
+    QCD_Bin-PT-1000                  1 of  3,801 files
+  MINBIAS
+    MinBias (incl. dilepton)               1 of  1,993 files (0.05%, seed 20260806)
+  SIGNAL
+    scA $m_A$=3.33, $c\tau$=10 mm          1 of     33 files
+    scA $m_A$=3.33, $c\tau$=0.1 mm         1 of     33 files
+    scB1 $m_A$=1.33, $c\tau$=10 mm         1 of     50 files
+    scB1 $m_A$=1.33, $c\tau$=0.1 mm        1 of     41 files
+
+=== pass 1: binning scan (first file of each sample) ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+    [1/1] Data
+    [1/1] QCD_Bin-PT-15to20
+    [1/1] QCD_Bin-PT-20to30
+    [1/1] QCD_Bin-PT-30to50
+    [1/1] QCD_Bin-PT-50to80
+    [1/1] QCD_Bin-PT-80to120
+    [1/1] QCD_Bin-PT-120to170
+    [1/1] QCD_Bin-PT-170to300
+    [1/1] QCD_Bin-PT-300to470
+    [1/1] QCD_Bin-PT-470to600
+    [1/1] QCD_Bin-PT-600to800
+    [1/1] QCD_Bin-PT-800to1000
+    [1/1] QCD_Bin-PT-1000
+    [1/1] MinBias (incl. dilepton)
+    [1/1] scA $m_A$=3.33, $c\tau$=10 mm
+    [1/1] scA $m_A$=3.33, $c\tau$=0.1 mm
+    [1/1] scB1 $m_A$=1.33, $c\tau$=10 mm
+    [1/1] scB1 $m_A$=1.33, $c\tau$=0.1 mm
+  8 variable(s) get a log x-axis (heavy tail), 77 linear
+  binned 5 variable(s)
+
+=== pass 2: filling ===
+    [1/1] Data
+  Data: 14,229 selected events
+    [1/1] QCD_Bin-PT-15to20
+    [1/1] QCD_Bin-PT-20to30
+    [1/1] QCD_Bin-PT-30to50
+    [1/1] QCD_Bin-PT-50to80
+    [1/1] QCD_Bin-PT-80to120
+    [1/1] QCD_Bin-PT-120to170
+    [1/1] QCD_Bin-PT-170to300
+    [1/1] QCD_Bin-PT-300to470
+    [1/1] QCD_Bin-PT-470to600
+    [1/1] QCD_Bin-PT-600to800
+    [1/1] QCD_Bin-PT-800to1000
+    [1/1] QCD_Bin-PT-1000
+    [1/1] MinBias (incl. dilepton)
+  MinBias (incl. dilepton): 36,198 selected events
+    [1/1] scA $m_A$=3.33, $c\tau$=10 mm
+  scA $m_A$=3.33, $c\tau$=10 mm: 1,664 selected events
+    [1/1] scA $m_A$=3.33, $c\tau$=0.1 mm
+  scA $m_A$=3.33, $c\tau$=0.1 mm: 4,184 selected events
+    [1/1] scB1 $m_A$=1.33, $c\tau$=10 mm
+  scB1 $m_A$=1.33, $c\tau$=10 mm: 531 selected events
+    [1/1] scB1 $m_A$=1.33, $c\tau$=0.1 mm
+  scB1 $m_A$=1.33, $c\tau$=0.1 mm: 2,216 selected events
+
+=== writing compareBDTvars_test.pdf (5 pages, errors=False) ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+wrote compareBDTvars_test.pdf
+
+=== writing compareBDTvars_test_withErrors.pdf (5 pages, errors=True) ===
+wrote compareBDTvars_test_withErrors.pdf
+[goldenjson] golden JSON: kept 138,152 of 138,152 data events (0.00% dropped as uncertified)

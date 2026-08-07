@@ -1,0 +1,392 @@
+  golden JSON: 475 runs, 287,603 lumisections (Cert_Collisions2024_378981_386951_Golden.json)
+[FULL MODE] 100 files/QCD bin, 1% of data, 5% of MinBias -- partial-sample banner replaced by the selection summary
+plotting 85 variable(s), leading slot only
+
+=== file discovery ===
+  DATA
+    ParkingDoubleMuonLowMass0             16,276 files
+    ParkingDoubleMuonLowMass1             20,441 files
+    ParkingDoubleMuonLowMass2             19,260 files
+    ParkingDoubleMuonLowMass3             19,215 files
+    ParkingDoubleMuonLowMass4             23,669 files
+    ParkingDoubleMuonLowMass5             11,059 files
+    ParkingDoubleMuonLowMass6             31,668 files
+    ParkingDoubleMuonLowMass7             13,414 files
+    ParkingSingleMuon0                    24,594 files
+    ParkingSingleMuon1                    30,756 files
+    ParkingSingleMuon10                    9,516 files
+    ParkingSingleMuon11                    7,123 files
+    ParkingSingleMuon2                    16,442 files
+    ParkingSingleMuon3                    34,873 files
+    ParkingSingleMuon4                    18,200 files
+    ParkingSingleMuon5                    16,433 files
+    ParkingSingleMuon6                     8,465 files
+    ParkingSingleMuon7                    11,345 files
+    ParkingSingleMuon8                     4,512 files
+    ParkingSingleMuon9                    22,974 files
+    360,235 data files total; reading a random 1.000% = 3,602 (seed 20240729)
+  QCD
+    QCD_Bin-PT-15to20              100 of  3,621 files
+    QCD_Bin-PT-20to30              100 of  2,627 files
+    QCD_Bin-PT-30to50              100 of  2,782 files
+    QCD_Bin-PT-50to80              100 of  3,079 files
+    QCD_Bin-PT-80to120             100 of  2,947 files
+    QCD_Bin-PT-120to170            100 of  3,120 files
+    QCD_Bin-PT-170to300            100 of  3,263 files
+    QCD_Bin-PT-300to470            100 of  2,989 files
+    QCD_Bin-PT-470to600            100 of  2,901 files
+    QCD_Bin-PT-600to800            100 of  3,745 files
+    QCD_Bin-PT-800to1000           100 of  3,599 files
+    QCD_Bin-PT-1000                100 of  3,801 files
+  MINBIAS
+    MinBias (incl. dilepton)             100 of  1,993 files (5.02%, seed 20260806)
+  SIGNAL
+    scA $m_A$=3.33, $c\tau$=10 mm         33 of     33 files
+    scA $m_A$=3.33, $c\tau$=0.1 mm        33 of     33 files
+    scB1 $m_A$=1.33, $c\tau$=10 mm        50 of     50 files
+    scB1 $m_A$=1.33, $c\tau$=0.1 mm       41 of     41 files
+
+=== pass 1: binning scan (first file of each sample) ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+    [1/1] Data
+    [1/1] QCD_Bin-PT-15to20
+    [1/1] QCD_Bin-PT-20to30
+    [1/1] QCD_Bin-PT-30to50
+    [1/1] QCD_Bin-PT-50to80
+    [1/1] QCD_Bin-PT-80to120
+    [1/1] QCD_Bin-PT-120to170
+    [1/1] QCD_Bin-PT-170to300
+    [1/1] QCD_Bin-PT-300to470
+    [1/1] QCD_Bin-PT-470to600
+    [1/1] QCD_Bin-PT-600to800
+    [1/1] QCD_Bin-PT-800to1000
+    [1/1] QCD_Bin-PT-1000
+    [1/1] MinBias (incl. dilepton)
+    [1/1] scA $m_A$=3.33, $c\tau$=10 mm
+    [1/1] scA $m_A$=3.33, $c\tau$=0.1 mm
+    [1/1] scB1 $m_A$=1.33, $c\tau$=10 mm
+    [1/1] scB1 $m_A$=1.33, $c\tau$=0.1 mm
+  8 variable(s) get a log x-axis (heavy tail), 77 linear
+  binned 85 variable(s)
+
+=== pass 2: filling ===
+    [1/3602] Data
+    [warn] Data: nano_556.root: not a ROOT file: first four bytes are b'\x00\x00\x00\x00'
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass5/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2/260405_004402/0000/nano_556.root
+    [25/3602] Data
+    [50/3602] Data
+    [75/3602] Data
+    [100/3602] Data
+    [125/3602] Data
+    [150/3602] Data
+    [175/3602] Data
+    [200/3602] Data
+    [225/3602] Data
+    [250/3602] Data
+    [275/3602] Data
+    [300/3602] Data
+    [325/3602] Data
+    [350/3602] Data
+    [375/3602] Data
+    [400/3602] Data
+    [425/3602] Data
+    [450/3602] Data
+    [475/3602] Data
+    [500/3602] Data
+    [525/3602] Data
+    [550/3602] Data
+    [575/3602] Data
+    [warn] Data: nano_558.root: while reading
+
+    TBasket version None as uproot.models.TBasket.Model_TBasket (? bytes)
+        fNbytes: 0
+        fObjlen: 0
+        fDatime: 0
+        fKeylen: 0
+        fCycle: 0
+Members for TBasket: fNbytes?, fObjlen?, fDatime?, fKeylen?, fCycle?
+
+attempting to get bytes 244364087:244364105
+outside expected range 244364106:244364479 for this Chunk
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass5/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2/260405_004402/0000/nano_558.root
+    [600/3602] Data
+    [625/3602] Data
+    [650/3602] Data
+    [675/3602] Data
+    [warn] Data: nano_2243.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon9/nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4/260303_211445/0002/nano_2243.root
+    [700/3602] Data
+    [725/3602] Data
+    [750/3602] Data
+    [775/3602] Data
+    [800/3602] Data
+    [825/3602] Data
+    [850/3602] Data
+    [875/3602] Data
+    [900/3602] Data
+    [925/3602] Data
+    [950/3602] Data
+    [975/3602] Data
+    [1000/3602] Data
+    [1025/3602] Data
+    [1050/3602] Data
+    [1075/3602] Data
+    [1100/3602] Data
+    [1125/3602] Data
+    [1150/3602] Data
+    [1175/3602] Data
+    [1200/3602] Data
+    [1225/3602] Data
+    [1250/3602] Data
+    [1275/3602] Data
+    [1300/3602] Data
+    [1325/3602] Data
+    [1350/3602] Data
+    [1375/3602] Data
+    [1400/3602] Data
+    [1425/3602] Data
+    [1450/3602] Data
+    [1475/3602] Data
+    [1500/3602] Data
+    [1525/3602] Data
+    [1550/3602] Data
+    [1575/3602] Data
+    [1600/3602] Data
+    [1625/3602] Data
+    [1650/3602] Data
+    [1675/3602] Data
+    [1700/3602] Data
+    [1725/3602] Data
+    [1750/3602] Data
+    [1775/3602] Data
+    [1800/3602] Data
+    [1825/3602] Data
+    [1850/3602] Data
+    [warn] Data: nano_329.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon4/nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/260303_210609/0000/nano_329.root
+    [1875/3602] Data
+    [1900/3602] Data
+    [1925/3602] Data
+    [warn] Data: nano_198.root: not a ROOT file: first four bytes are b'\x00\x00\x00\x00'
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_198.root
+    [1950/3602] Data
+    [1975/3602] Data
+    [warn] Data: nano_499.root: while reading
+
+    TBasket version None as uproot.models.TBasket.Model_TBasket (? bytes)
+        fNbytes: 0
+        fObjlen: 0
+        fDatime: 0
+        fKeylen: 0
+        fCycle: 0
+Members for TBasket: fNbytes?, fObjlen?, fDatime?, fKeylen?, fCycle?
+
+attempting to get bytes 173172336:173172354
+outside expected range 173172355:173172736 for this Chunk
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_499.root
+    [2000/3602] Data
+    [2025/3602] Data
+    [2050/3602] Data
+    [2075/3602] Data
+    [2100/3602] Data
+    [2125/3602] Data
+    [2150/3602] Data
+    [2175/3602] Data
+    [2200/3602] Data
+    [2225/3602] Data
+    [2250/3602] Data
+    [2275/3602] Data
+    [2300/3602] Data
+    [warn] Data: nano_35.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon10/nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/251119_164235/0000/nano_35.root
+    [2325/3602] Data
+    [2350/3602] Data
+    [2375/3602] Data
+    [2400/3602] Data
+    [2425/3602] Data
+    [2450/3602] Data
+    [2475/3602] Data
+    [2500/3602] Data
+    [2525/3602] Data
+    [2550/3602] Data
+    [2575/3602] Data
+    [2600/3602] Data
+    [2625/3602] Data
+    [2650/3602] Data
+    [2675/3602] Data
+    [2700/3602] Data
+    [2725/3602] Data
+    [warn] Data: nano_812.root: while reading
+
+    TBasket version None as uproot.models.TBasket.Model_TBasket (? bytes)
+        fNbytes: 0
+        fObjlen: 0
+        fDatime: 0
+        fKeylen: 0
+        fCycle: 0
+Members for TBasket: fNbytes?, fObjlen?, fDatime?, fKeylen?, fCycle?
+
+attempting to get bytes 128533822:128533840
+outside expected range 128533841:128534218 for this Chunk
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass5/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v2/260405_004402/0000/nano_812.root
+    [2750/3602] Data
+    [2775/3602] Data
+    [2800/3602] Data
+    [2825/3602] Data
+    [2850/3602] Data
+    [2875/3602] Data
+    [2900/3602] Data
+    [2925/3602] Data
+    [2950/3602] Data
+    [2975/3602] Data
+    [3000/3602] Data
+    [3025/3602] Data
+    [3050/3602] Data
+    [3075/3602] Data
+    [3100/3602] Data
+    [3125/3602] Data
+    [warn] Data: nano_637.root: while reading
+
+    TBasket version None as uproot.models.TBasket.Model_TBasket (? bytes)
+        fNbytes: 0
+        fObjlen: 0
+        fDatime: 0
+        fKeylen: 0
+        fCycle: 0
+Members for TBasket: fNbytes?, fObjlen?, fDatime?, fKeylen?, fCycle?
+
+attempting to get bytes 285232811:285232829
+outside expected range 285232830:285233211 for this Chunk
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_637.root
+    [3150/3602] Data
+    [3175/3602] Data
+    [3200/3602] Data
+    [3225/3602] Data
+    [3250/3602] Data
+    [3275/3602] Data
+    [3300/3602] Data
+    [3325/3602] Data
+    [3350/3602] Data
+    [3375/3602] Data
+    [3400/3602] Data
+    [3425/3602] Data
+    [3450/3602] Data
+    [3475/3602] Data
+    [3500/3602] Data
+    [warn] Data: nano_1215.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon4/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260303_210456/0001/nano_1215.root
+    [3525/3602] Data
+    [3550/3602] Data
+    [3575/3602] Data
+    [3600/3602] Data
+    [3602/3602] Data
+  Data: 112,942,528 selected events
+    [1/100] QCD_Bin-PT-15to20
+    [25/100] QCD_Bin-PT-15to20
+    [50/100] QCD_Bin-PT-15to20
+    [75/100] QCD_Bin-PT-15to20
+    [100/100] QCD_Bin-PT-15to20
+    [1/100] QCD_Bin-PT-20to30
+    [25/100] QCD_Bin-PT-20to30
+    [50/100] QCD_Bin-PT-20to30
+    [75/100] QCD_Bin-PT-20to30
+    [100/100] QCD_Bin-PT-20to30
+    [1/100] QCD_Bin-PT-30to50
+    [25/100] QCD_Bin-PT-30to50
+    [50/100] QCD_Bin-PT-30to50
+    [75/100] QCD_Bin-PT-30to50
+    [100/100] QCD_Bin-PT-30to50
+    [1/100] QCD_Bin-PT-50to80
+    [25/100] QCD_Bin-PT-50to80
+    [50/100] QCD_Bin-PT-50to80
+    [75/100] QCD_Bin-PT-50to80
+    [100/100] QCD_Bin-PT-50to80
+    [1/100] QCD_Bin-PT-80to120
+    [25/100] QCD_Bin-PT-80to120
+    [50/100] QCD_Bin-PT-80to120
+    [75/100] QCD_Bin-PT-80to120
+    [100/100] QCD_Bin-PT-80to120
+    [1/100] QCD_Bin-PT-120to170
+    [25/100] QCD_Bin-PT-120to170
+    [50/100] QCD_Bin-PT-120to170
+    [75/100] QCD_Bin-PT-120to170
+    [100/100] QCD_Bin-PT-120to170
+    [1/100] QCD_Bin-PT-170to300
+    [25/100] QCD_Bin-PT-170to300
+    [50/100] QCD_Bin-PT-170to300
+    [75/100] QCD_Bin-PT-170to300
+    [100/100] QCD_Bin-PT-170to300
+    [1/100] QCD_Bin-PT-300to470
+    [25/100] QCD_Bin-PT-300to470
+    [50/100] QCD_Bin-PT-300to470
+    [75/100] QCD_Bin-PT-300to470
+    [100/100] QCD_Bin-PT-300to470
+    [1/100] QCD_Bin-PT-470to600
+    [25/100] QCD_Bin-PT-470to600
+    [50/100] QCD_Bin-PT-470to600
+    [75/100] QCD_Bin-PT-470to600
+    [100/100] QCD_Bin-PT-470to600
+    [1/100] QCD_Bin-PT-600to800
+    [25/100] QCD_Bin-PT-600to800
+    [50/100] QCD_Bin-PT-600to800
+    [75/100] QCD_Bin-PT-600to800
+    [100/100] QCD_Bin-PT-600to800
+    [1/100] QCD_Bin-PT-800to1000
+    [25/100] QCD_Bin-PT-800to1000
+    [50/100] QCD_Bin-PT-800to1000
+    [75/100] QCD_Bin-PT-800to1000
+    [100/100] QCD_Bin-PT-800to1000
+    [1/100] QCD_Bin-PT-1000
+    [25/100] QCD_Bin-PT-1000
+    [50/100] QCD_Bin-PT-1000
+    [75/100] QCD_Bin-PT-1000
+    [100/100] QCD_Bin-PT-1000
+    [1/100] MinBias (incl. dilepton)
+    [25/100] MinBias (incl. dilepton)
+    [50/100] MinBias (incl. dilepton)
+    [75/100] MinBias (incl. dilepton)
+    [100/100] MinBias (incl. dilepton)
+  MinBias (incl. dilepton): 3,608,993 selected events
+    [1/33] scA $m_A$=3.33, $c\tau$=10 mm
+    [25/33] scA $m_A$=3.33, $c\tau$=10 mm
+    [33/33] scA $m_A$=3.33, $c\tau$=10 mm
+  scA $m_A$=3.33, $c\tau$=10 mm: 71,468 selected events
+    [1/33] scA $m_A$=3.33, $c\tau$=0.1 mm
+    [25/33] scA $m_A$=3.33, $c\tau$=0.1 mm
+    [33/33] scA $m_A$=3.33, $c\tau$=0.1 mm
+  scA $m_A$=3.33, $c\tau$=0.1 mm: 91,472 selected events
+    [1/50] scB1 $m_A$=1.33, $c\tau$=10 mm
+    [25/50] scB1 $m_A$=1.33, $c\tau$=10 mm
+    [50/50] scB1 $m_A$=1.33, $c\tau$=10 mm
+  scB1 $m_A$=1.33, $c\tau$=10 mm: 103,027 selected events
+    [1/41] scB1 $m_A$=1.33, $c\tau$=0.1 mm
+    [25/41] scB1 $m_A$=1.33, $c\tau$=0.1 mm
+    [41/41] scB1 $m_A$=1.33, $c\tau$=0.1 mm
+  scB1 $m_A$=1.33, $c\tau$=0.1 mm: 131,823 selected events
+dumped histograms to compareBDTvars_full.npz (redraw with --replot)
+
+=== writing compareBDTvars.pdf (85 pages, errors=False) ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+wrote compareBDTvars.pdf
+
+=== writing compareBDTvars_withErrors.pdf (85 pages, errors=True) ===
+wrote compareBDTvars_withErrors.pdf
+[goldenjson] golden JSON: kept 234,275,844 of 239,229,001 data events (2.07% dropped as uncertified)

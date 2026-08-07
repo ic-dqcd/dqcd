@@ -1,0 +1,130 @@
+
+=== discovering eras (2 file(s) per PD folder per era) ===
+  ParkingDoubleMuonLowMass0    Run2024C-v1    +2 file(s)
+  ParkingDoubleMuonLowMass0    Run2024D-v1    +2 file(s)
+  ParkingDoubleMuonLowMass0    Run2024F-v3    +2 file(s)
+  ParkingDoubleMuonLowMass0    Run2024G-v3    +2 file(s)
+  ParkingDoubleMuonLowMass0    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass0    Run2024I-v3    +2 file(s)
+  ParkingDoubleMuonLowMass0    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024C-v1    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024D-v1    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024E-v1    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024F-v3    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024H-v1    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024I-v3    +2 file(s)
+  ParkingDoubleMuonLowMass1    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024C-v1    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024E-v1    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024F-v2    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024G-v3    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024I-v3    +2 file(s)
+  ParkingDoubleMuonLowMass2    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024C-v1    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024D-v1    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024F-v3    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024G-v3    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024I-v3    +2 file(s)
+  ParkingDoubleMuonLowMass3    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024C-v1    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024D-v1    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024E-v1    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024G-v3    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024I-v3    +2 file(s)
+  ParkingDoubleMuonLowMass4    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass5    Run2024D-v1    +2 file(s)
+  ParkingDoubleMuonLowMass5    Run2024F-v3    +2 file(s)
+  ParkingDoubleMuonLowMass5    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass5    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass5    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024C-v1    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024D-v1    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024E-v1    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024F-v3    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024G-v3    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass6    Run2024I-v2    +2 file(s)
+  ParkingDoubleMuonLowMass7    Run2024E-v1    +2 file(s)
+  ParkingDoubleMuonLowMass7    Run2024F-v3    +2 file(s)
+  ParkingDoubleMuonLowMass7    Run2024G-v4    +2 file(s)
+  ParkingDoubleMuonLowMass7    Run2024H-v3    +2 file(s)
+  ParkingDoubleMuonLowMass7    Run2024I-v3    +2 file(s)
+  ParkingDoubleMuonLowMass7    Run2024I-v2    +2 file(s)
+
+11 era(s): Run2024C-v1, Run2024D-v1, Run2024E-v1, Run2024F-v2, Run2024F-v3, Run2024G-v3, Run2024G-v4, Run2024H-v1, Run2024H-v3, Run2024I-v2, Run2024I-v3
+
+=== scanning ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [Run2024C-v1] 12 files, runs 379729-380127, DoubleMu4_3_LowMass=549,021, DoubleMu4_LowMass_Displaced=118,092
+  [Run2024D-v1] 12 files, runs 380310-380945, DoubleMu4_3_LowMass=755,914, DoubleMu4_LowMass_Displaced=158,781
+  [Run2024E-v1] 10 files, runs 381070-381484, DoubleMu4_3_LowMass=478,201, DoubleMu4_LowMass_Displaced=103,543
+  [Run2024F-v2] 2 files, runs 383468-383468, DoubleMu4_3_LowMass=127,258, DoubleMu4_LowMass_Displaced=29,692
+  [Run2024F-v3] 12 files, runs 382250-383767, DoubleMu4_3_LowMass=754,586, DoubleMu4_LowMass_Displaced=164,156
+  [Run2024G-v3] 10 files, runs 383833-385324, DoubleMu4_3_LowMass=556,266, DoubleMu4_LowMass_Displaced=121,868
+  [Run2024G-v4] 2 files, runs 383830-385194, DoubleMu4_3_LowMass=69,673, DoubleMu4_LowMass_Displaced=15,563
+  [Run2024H-v1] 2 files, runs 385908-386319, DoubleMu4_3_LowMass=98,863, DoubleMu4_LowMass_Displaced=22,749
+  [Run2024H-v3] 14 files, runs 385836-386313, DoubleMu4_3_LowMass=791,675, DoubleMu4_LowMass_Displaced=179,963
+  [Run2024I-v2] 20 files, runs 386594-386945, DoubleMu4_3_LowMass=1,187,838, DoubleMu4_LowMass_Displaced=264,914
+  [Run2024I-v3] 12 files, runs 386509-386679, DoubleMu4_3_LowMass=622,255, DoubleMu4_LowMass_Displaced=136,294
+
+12 framework seed(s) shown (5 enabled in modules/muon_selection.py)
+
+=== HLT_DoubleMu4_3_LowMass ===
+  seed                                          |eta|   Run2024C-v1   Run2024D-v1   Run2024E-v1   Run2024F-v2   Run2024F-v3   Run2024G-v3   Run2024G-v4   Run2024H-v1   Run2024H-v3   Run2024I-v2   Run2024I-v3
+  >> Logic OR of Top 2                                        86.7%         84.1%         88.3%         98.0%         90.1%         93.0%         97.5%         98.0%         97.8%         94.9%         92.5%
+  >> Logic OR of Top 3                                        88.3%         85.6%         89.8%         99.7%         91.7%         94.6%         99.1%         99.7%         99.6%         96.5%         94.2%
+  >> Logic OR of Top 4                                        97.3%         96.8%         96.5%         99.7%         97.0%         97.9%         99.6%         99.7%         99.6%         98.9%         97.8%
+  >> Logic OR of Top 5                                        99.8%         99.8%         98.2%         99.7%         98.5%         98.8%         99.7%         99.7%         99.6%         99.5%         98.7%
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ *L1_DoubleMu4er2p0_SQ_OS_dR_Max1p6               2.0         79.3%         76.9%         81.0%         90.0%         82.7%         85.4%         89.5%         89.5%         88.4%         87.0%         84.7%
+ *L1_DoubleMu4p5_SQ_OS_dR_Max1p2                  2.4         57.4%         55.6%         58.3%         64.8%         59.5%         61.4%         64.5%         65.3%         65.9%         62.7%         61.2%
+ *L1_DoubleMu0er1p4_SQ_OS_dR_Max1p4               1.4         56.4%         54.7%         58.1%         64.7%         59.8%         61.5%         64.6%         63.8%         60.3%         62.3%         60.4%
+ *L1_DoubleMu3er2p0_SQ_OS_dR_Max1p6               2.0         72.3%         89.5%         53.6%          0.0%         43.7%         27.0%          3.3%          0.0%          0.4%         18.9%         28.5%
+ *L1_DoubleMu4_SQ_OS_dR_Max1p2                    2.4         67.9%         84.1%         50.3%          0.0%         41.2%         25.3%          3.1%          0.0%          0.4%         17.6%         26.7%
+  L1_DoubleMu0er1p5_SQ_OS_dR_Max1p4               1.5         50.1%         62.1%         37.4%          0.0%         30.7%         18.8%          2.3%          0.0%          0.3%         13.1%         19.7%
+  L1_DoubleMu0er2p0_SQ_OS_dEta_Max1p5             2.0          1.0%          0.9%         48.1%          1.1%         38.4%         28.1%          1.1%          1.1%          1.4%          6.2%         29.1%
+  L1_DoubleMu0er2p0_SQ_OS_dEta_Max1p6             2.0          1.0%          0.9%          1.0%          1.1%          1.0%          1.0%          1.0%          1.1%          1.1%          1.1%          1.0%
+  L1_DoubleMu0er1p4_SQ_OS_dEta_Max1p2             1.4          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%
+  L1_DoubleMu5_SQ_OS_dR_Max1p6                    2.4          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%
+  L1_DoubleMu0er1p5_SQ_OS_dEta_Max1p2             1.5          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%
+  L1_DoubleMu0er1p4_OQ_OS_dEta_Max1p6             1.4          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  N(HLT fired)                                            549,021       755,914       478,201       127,258       754,586       556,266        69,673        98,863       791,675     1,187,838       622,255 
+
+=== HLT_DoubleMu4_LowMass_Displaced ===
+  seed                                          |eta|   Run2024C-v1   Run2024D-v1   Run2024E-v1   Run2024F-v2   Run2024F-v3   Run2024G-v3   Run2024G-v4   Run2024H-v1   Run2024H-v3   Run2024I-v2   Run2024I-v3
+  >> Logic OR of Top 2                                        97.7%         97.1%         98.2%         99.8%         98.5%         99.1%         99.8%         99.8%         99.8%         99.3%         98.9%
+  >> Logic OR of Top 3                                        97.8%         97.2%         98.3%        100.0%         98.7%         99.2%         99.9%        100.0%        100.0%         99.4%         99.0%
+  >> Logic OR of Top 4                                        98.8%         98.5%         99.0%        100.0%         99.2%         99.5%         99.9%        100.0%        100.0%         99.7%         99.4%
+  >> Logic OR of Top 5                                       100.0%        100.0%         99.9%        100.0%         99.9%         99.9%        100.0%        100.0%        100.0%        100.0%         99.9%
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ *L1_DoubleMu4er2p0_SQ_OS_dR_Max1p6               2.0         89.2%         88.5%         89.8%         91.6%         90.2%         90.7%         91.1%         91.3%         90.2%         91.1%         90.6%
+ *L1_DoubleMu4p5_SQ_OS_dR_Max1p2                  2.4         79.1%         78.7%         79.3%         80.5%         79.4%         80.0%         80.8%         81.0%         81.8%         80.3%         80.0%
+ *L1_DoubleMu0er1p4_SQ_OS_dR_Max1p4               1.4         66.0%         65.4%         67.1%         68.6%         67.6%         67.8%         69.1%         68.1%         64.2%         67.9%         67.1%
+ *L1_DoubleMu3er2p0_SQ_OS_dR_Max1p6               2.0         71.1%         90.0%         52.0%          0.0%         41.7%         25.0%          2.8%          0.0%          0.3%         17.2%         26.8%
+ *L1_DoubleMu4_SQ_OS_dR_Max1p2                    2.4         77.4%         98.2%         56.6%          0.0%         45.4%         27.2%          3.1%          0.0%          0.4%         18.7%         29.2%
+  L1_DoubleMu0er1p5_SQ_OS_dR_Max1p4               1.5         55.7%         70.4%         41.0%          0.0%         32.9%         19.7%          2.3%          0.0%          0.3%         13.5%         21.0%
+  L1_DoubleMu0er2p0_SQ_OS_dEta_Max1p5             2.0          0.9%          0.9%         45.1%          0.9%         35.3%         25.2%          0.8%          0.9%          1.2%          5.4%         26.4%
+  L1_DoubleMu0er2p0_SQ_OS_dEta_Max1p6             2.0          0.9%          0.9%          0.9%          1.0%          0.9%          0.9%          0.8%          1.0%          1.0%          1.0%          1.0%
+  L1_DoubleMu0er1p4_SQ_OS_dEta_Max1p2             1.4          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%          0.1%
+  L1_DoubleMu5_SQ_OS_dR_Max1p6                    2.4          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%
+  L1_DoubleMu0er1p5_SQ_OS_dEta_Max1p2             1.5          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%
+  L1_DoubleMu0er1p4_OQ_OS_dEta_Max1p6             1.4          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%          0.0%
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  N(HLT fired)                                            118,092       158,781       103,543        29,692       164,156       121,868        15,563        22,749       179,963       264,914       136,294 
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+
+Saved: _tools/getDoubleMuonPrescales.pdf
+PUBLISHED

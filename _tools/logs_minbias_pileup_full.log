@@ -1,0 +1,132 @@
+Central set: Collisions24_CDEFGHI_goldenJSON
+  /cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/puWeights_CDEFGHI.json.gz
+  per-era sets found: B, C, D, E, F, G, H, I
+  corrections applied to MC: central, lumi. corr. repo
+
+=== scA $m_\pi$=4, $m_A$=0.4, $c\tau$=10 mm ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  35 of 35 files, 1,000,000 events, <n>=45.44, RMS=9.53
+
+=== scA $m_\pi$=10, $m_A$=3.33, $c\tau$=10 mm ===
+  33 of 33 files, 1,000,000 events, <n>=45.44, RMS=9.54
+
+=== scB1 $m_\pi$=1, $m_A$=0.33, $c\tau$=10 mm ===
+  36 of 36 files, 998,568 events, <n>=45.44, RMS=9.54
+
+=== scB1 $m_\pi$=5, $m_A$=1.67, $c\tau$=10 mm ===
+  36 of 36 files, 1,000,000 events, <n>=45.43, RMS=9.53
+
+=== QCD, $p_{T}\in(15,20)$ GeV ===
+  100 of 3621 files, 2,788,038 events, <n>=45.44, RMS=9.54
+
+=== QCD, $p_{T}\in(80,120)$ GeV ===
+  100 of 2947 files, 3,410,319 events, <n>=45.44, RMS=9.53
+
+=== QCD, $p_{T}\in(170,300)$ GeV ===
+  100 of 3263 files, 2,184,276 events, <n>=45.44, RMS=9.53
+
+=== QCD, $p_{T}>1000$ GeV ===
+  100 of 3801 files, 1,851,848 events, <n>=45.43, RMS=9.54
+
+=== MinBias, incl. dilepton ===
+  199 of 1993 files, 40,732,366 events, <n>=45.44, RMS=9.53
+
+[FULL MODE] all signal files, 100/QCD bin, 10% of MinBias -- partial-sample banners suppressed
+
+=== DATA (page 6) ===
+  golden JSON: 475 runs, 287,603 lumisections  (Cert_Collisions2024_378981_386951_Golden.json)
+    ParkingDoubleMuonLowMass0         16,276 files
+    ParkingDoubleMuonLowMass1         20,441 files
+    ParkingDoubleMuonLowMass2         19,260 files
+    ParkingDoubleMuonLowMass3         19,215 files
+    ParkingDoubleMuonLowMass4         23,669 files
+    ParkingDoubleMuonLowMass5         11,059 files
+    ParkingDoubleMuonLowMass6         31,668 files
+    ParkingDoubleMuonLowMass7         13,414 files
+    ParkingSingleMuon0                24,594 files
+    ParkingSingleMuon1                30,756 files
+    ParkingSingleMuon10                9,516 files
+    ParkingSingleMuon11                7,123 files
+    ParkingSingleMuon2                16,442 files
+    ParkingSingleMuon3                34,873 files
+    ParkingSingleMuon4                18,200 files
+    ParkingSingleMuon5                16,433 files
+    ParkingSingleMuon6                 8,465 files
+    ParkingSingleMuon7                11,345 files
+    ParkingSingleMuon8                 4,512 files
+    ParkingSingleMuon9                22,974 files
+  360,235 data files total; reading a random 0.100% = 360 of them (seed 20240728)
+  draw composition by stream:
+    ParkingDoubleMuonLowMass0              11  ( 3.06%)
+    ParkingDoubleMuonLowMass1              15  ( 4.17%)
+    ParkingDoubleMuonLowMass2              14  ( 3.89%)
+    ParkingDoubleMuonLowMass3              17  ( 4.72%)
+    ParkingDoubleMuonLowMass4              40  (11.11%)
+    ParkingDoubleMuonLowMass5               5  ( 1.39%)
+    ParkingDoubleMuonLowMass6              29  ( 8.06%)
+    ParkingDoubleMuonLowMass7              13  ( 3.61%)
+    ParkingSingleMuon0                     23  ( 6.39%)
+    ParkingSingleMuon1                     33  ( 9.17%)
+    ParkingSingleMuon10                     5  ( 1.39%)
+    ParkingSingleMuon11                     8  ( 2.22%)
+    ParkingSingleMuon2                     23  ( 6.39%)
+    ParkingSingleMuon3                     38  (10.56%)
+    ParkingSingleMuon4                     19  ( 5.28%)
+    ParkingSingleMuon5                     14  ( 3.89%)
+    ParkingSingleMuon6                     14  ( 3.89%)
+    ParkingSingleMuon7                      7  ( 1.94%)
+    ParkingSingleMuon8                      6  ( 1.67%)
+    ParkingSingleMuon9                     26  ( 7.22%)
+  draw composition by era:
+    Run2024C                               33  ( 9.17%)
+    Run2024D                               39  (10.83%)
+    Run2024E                               45  (12.50%)
+    Run2024F                              100  (27.78%)
+    Run2024G                               80  (22.22%)
+    Run2024H                               19  ( 5.28%)
+    Run2024I                               26  ( 7.22%)
+    Run2024I_v2                            18  ( 5.00%)
+  eras represented: 8 of the 18 in the sample area
+  PD split: SingleMuon 216 (60.0%), DoubleMuonLowMass 144 (40.0%)   [--data-streams all]
+    [100/360] 6,126,963 events so far
+    [200/360] 12,475,171 events so far
+    [warn] skipping nano_4024.root: not found: 'Events' (with any cycle number)
+
+    Available keys: (none!)
+
+in file root://gfe02.grid.hep.ph.ic.ac.uk//pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon9/nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4/260303_211445/0004/nano_4024.root
+    [300/360] 18,427,264 events so far
+    [360/360] 22,140,931 events so far
+  22,222,911 data events, <N_PV>=35.64, RMS=8.50
+  golden JSON rejected 1,177,811 events (5.03%), <N_PV>=23.22, RMS=14.51
+    Run2024C                    1,874,020 evt   <N_PV>=34.83  RMS= 8.32
+    Run2024D                    2,131,000 evt   <N_PV>=34.59  RMS= 8.24
+    Run2024E                    2,619,956 evt   <N_PV>=33.76  RMS= 8.86
+    Run2024F                    6,622,475 evt   <N_PV>=35.68  RMS= 8.78
+    Run2024G                    4,979,437 evt   <N_PV>=35.87  RMS= 8.20
+    Run2024H                    1,208,041 evt   <N_PV>=36.27  RMS= 8.09
+    Run2024I                    1,808,130 evt   <N_PV>=37.97  RMS= 7.47
+    Run2024I_v2                   979,852 evt   <N_PV>=38.09  RMS= 8.56
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+
+  page 8, era-matched agreement (Delta = MC - data):
+    panel                    data   era-wts  (Delta)   combined  (Delta)
+    Era C                   34.83    33.74 (-1.09)    36.18 (+1.36)
+    Era D                   34.59    32.57 (-2.02)    36.18 (+1.60)
+    Era E                   33.76    33.73 (-0.02)    36.18 (+2.43)
+    Era F                   35.68    36.83 (+1.16)    36.18 (+0.51)
+    Era G                   35.87    36.87 (+1.00)    36.18 (+0.32)
+    Era H                   36.27    37.31 (+1.04)    36.18 (-0.08)
+    Run2024I                37.97    38.27 (+0.29)    36.18 (-1.79)
+    Run2024I_v2             38.09    38.27 (+0.17)    36.18 (-1.91)
+
+Saved: comparePileUp.pdf
+Published: /home/hep/jtafoyav/public_html/parking/2024/kinematic_checks/comparePileUp.pdf

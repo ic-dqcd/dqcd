@@ -1,0 +1,522 @@
+
+=== MinBias ===
+
+[MinBias] listing /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/ppradeep/samples/Parking/Run3/Nanotronv14/InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_13p6TeV_pythia8/2024WithMET/260730_143555
+  -> 0000/
+    -> log/
+         0 .root files collected under log
+       992 .root files collected under 0000
+  -> 0001/
+    -> log/
+         0 .root files collected under log
+       991 .root files collected under 0001
+  -> 0002/
+    -> log/
+         0 .root files collected under log
+       10 .root files collected under 0002
+     1993 .root files collected under 260730_143555
+  1993 of 1993 files selected (100.00%, seed 20260806); chunk 4/8 -> 249 files, no xs (shape only)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/249] nano_102.root
+         -> 20,318 vertices (22,413 trig, 16,261 trig+kin events)
+  [2/249] nano_11.root
+         -> 34,956 vertices (38,571 trig, 27,982 trig+kin events)
+  [3/249] nano_117.root
+         -> 29,361 vertices (32,135 trig, 23,290 trig+kin events)
+  [4/249] nano_124.root
+         -> 25,643 vertices (28,531 trig, 20,546 trig+kin events)
+  [5/249] nano_131.root
+         -> 28,284 vertices (31,113 trig, 22,447 trig+kin events)
+  [6/249] nano_139.root
+         -> 11,393 vertices (12,612 trig, 9,081 trig+kin events)
+  [7/249] nano_146.root
+         -> 26,737 vertices (29,811 trig, 21,388 trig+kin events)
+  [8/249] nano_153.root
+         -> 21,149 vertices (23,363 trig, 16,932 trig+kin events)
+  [9/249] nano_160.root
+         -> 21,308 vertices (23,333 trig, 16,951 trig+kin events)
+  [10/249] nano_168.root
+         -> 37,314 vertices (41,294 trig, 29,801 trig+kin events)
+  [11/249] nano_175.root
+         -> 35,494 vertices (39,101 trig, 28,211 trig+kin events)
+  [12/249] nano_182.root
+         -> 38,695 vertices (42,848 trig, 30,827 trig+kin events)
+  [13/249] nano_19.root
+         -> 39,664 vertices (43,866 trig, 31,735 trig+kin events)
+  [14/249] nano_197.root
+         -> 32,526 vertices (35,969 trig, 26,000 trig+kin events)
+  [15/249] nano_203.root
+         -> 33,954 vertices (37,265 trig, 27,016 trig+kin events)
+  [16/249] nano_210.root
+         -> 37,432 vertices (41,068 trig, 29,772 trig+kin events)
+  [17/249] nano_218.root
+         -> 35,133 vertices (38,768 trig, 28,049 trig+kin events)
+  [18/249] nano_225.root
+         -> 30,341 vertices (33,526 trig, 24,334 trig+kin events)
+  [19/249] nano_232.root
+         -> 39,527 vertices (43,634 trig, 31,520 trig+kin events)
+  [20/249] nano_24.root
+         -> 18,159 vertices (19,934 trig, 14,467 trig+kin events)
+  [21/249] nano_247.root
+         -> 32,339 vertices (35,545 trig, 25,730 trig+kin events)
+  [22/249] nano_254.root
+         -> 32,439 vertices (35,669 trig, 25,785 trig+kin events)
+  [23/249] nano_261.root
+         -> 29,363 vertices (32,437 trig, 23,421 trig+kin events)
+  [24/249] nano_269.root
+         -> 35,820 vertices (39,375 trig, 28,601 trig+kin events)
+  [25/249] nano_276.root
+         -> 32,917 vertices (36,490 trig, 26,238 trig+kin events)
+  [26/249] nano_283.root
+         -> 40,064 vertices (44,210 trig, 31,977 trig+kin events)
+  [27/249] nano_290.root
+         -> 34,077 vertices (37,802 trig, 27,262 trig+kin events)
+  [28/249] nano_298.root
+         -> 27,248 vertices (29,791 trig, 21,606 trig+kin events)
+  [29/249] nano_304.root
+         -> 28,648 vertices (31,645 trig, 22,913 trig+kin events)
+  [30/249] nano_311.root
+         -> 36,043 vertices (39,761 trig, 28,762 trig+kin events)
+  [31/249] nano_319.root
+         -> 33,444 vertices (37,141 trig, 26,771 trig+kin events)
+  [32/249] nano_327.root
+         -> 28,976 vertices (32,181 trig, 23,238 trig+kin events)
+  [33/249] nano_334.root
+         -> 32,815 vertices (36,487 trig, 26,231 trig+kin events)
+  [34/249] nano_341.root
+         -> 29,889 vertices (32,936 trig, 23,801 trig+kin events)
+  [35/249] nano_35.root
+         -> 30,872 vertices (34,158 trig, 24,710 trig+kin events)
+  [36/249] nano_357.root
+         -> 33,989 vertices (37,042 trig, 26,899 trig+kin events)
+  [37/249] nano_364.root
+         -> 37,003 vertices (40,824 trig, 29,604 trig+kin events)
+  [38/249] nano_371.root
+         -> 32,791 vertices (35,922 trig, 26,018 trig+kin events)
+  [39/249] nano_379.root
+         -> 32,821 vertices (36,156 trig, 26,201 trig+kin events)
+  [40/249] nano_386.root
+         -> 33,530 vertices (37,009 trig, 26,751 trig+kin events)
+  [41/249] nano_393.root
+         -> 39,889 vertices (44,013 trig, 31,809 trig+kin events)
+  [42/249] nano_40.root
+         -> 33,242 vertices (36,695 trig, 26,630 trig+kin events)
+  [43/249] nano_407.root
+         -> 27,643 vertices (30,774 trig, 22,182 trig+kin events)
+  [44/249] nano_414.root
+         -> 38,150 vertices (42,165 trig, 30,507 trig+kin events)
+  [45/249] nano_421.root
+         -> 34,712 vertices (38,257 trig, 27,662 trig+kin events)
+  [46/249] nano_429.root
+         -> 35,306 vertices (38,500 trig, 28,022 trig+kin events)
+  [47/249] nano_436.root
+         -> 39,464 vertices (43,360 trig, 31,416 trig+kin events)
+  [48/249] nano_443.root
+         -> 34,689 vertices (38,523 trig, 27,733 trig+kin events)
+  [49/249] nano_450.root
+         -> 32,755 vertices (36,118 trig, 26,124 trig+kin events)
+  [50/249] nano_458.root
+         -> 33,262 vertices (36,929 trig, 26,663 trig+kin events)
+  [51/249] nano_465.root
+         -> 34,861 vertices (38,311 trig, 27,732 trig+kin events)
+  [52/249] nano_472.root
+         -> 35,299 vertices (39,140 trig, 28,233 trig+kin events)
+  [53/249] nano_48.root
+         -> 26,159 vertices (28,804 trig, 20,774 trig+kin events)
+  [54/249] nano_487.root
+         -> 36,256 vertices (40,009 trig, 28,900 trig+kin events)
+  [55/249] nano_494.root
+         -> 39,813 vertices (43,941 trig, 31,777 trig+kin events)
+  [56/249] nano_500.root
+         -> 37,328 vertices (41,386 trig, 29,824 trig+kin events)
+  [57/249] nano_508.root
+         -> 37,011 vertices (40,887 trig, 29,491 trig+kin events)
+  [58/249] nano_515.root
+         -> 37,418 vertices (41,071 trig, 29,771 trig+kin events)
+  [59/249] nano_522.root
+         -> 36,147 vertices (39,971 trig, 28,886 trig+kin events)
+  [60/249] nano_53.root
+         -> 21,848 vertices (24,181 trig, 17,478 trig+kin events)
+  [61/249] nano_537.root
+         -> 31,906 vertices (35,161 trig, 25,405 trig+kin events)
+  [62/249] nano_544.root
+         -> 34,537 vertices (38,210 trig, 27,621 trig+kin events)
+  [63/249] nano_551.root
+         -> 35,769 vertices (39,298 trig, 28,434 trig+kin events)
+  [64/249] nano_559.root
+         -> 35,816 vertices (39,726 trig, 28,528 trig+kin events)
+  [65/249] nano_566.root
+         -> 36,775 vertices (40,702 trig, 29,329 trig+kin events)
+  [66/249] nano_573.root
+         -> 34,148 vertices (37,472 trig, 27,178 trig+kin events)
+  [67/249] nano_580.root
+         -> 39,794 vertices (44,006 trig, 31,770 trig+kin events)
+  [68/249] nano_588.root
+         -> 37,805 vertices (41,680 trig, 30,122 trig+kin events)
+  [69/249] nano_596.root
+         -> 39,179 vertices (43,180 trig, 31,301 trig+kin events)
+  [70/249] nano_602.root
+         -> 36,995 vertices (41,021 trig, 29,582 trig+kin events)
+  [71/249] nano_61.root
+         -> 21,446 vertices (23,583 trig, 17,016 trig+kin events)
+  [72/249] nano_617.root
+         -> 24,349 vertices (27,125 trig, 19,564 trig+kin events)
+  [73/249] nano_624.root
+         -> 23,310 vertices (25,665 trig, 18,581 trig+kin events)
+  [74/249] nano_631.root
+         -> 23,074 vertices (25,307 trig, 18,371 trig+kin events)
+  [75/249] nano_639.root
+         -> 16,260 vertices (18,061 trig, 13,040 trig+kin events)
+  [76/249] nano_646.root
+         -> 14,178 vertices (15,492 trig, 11,258 trig+kin events)
+  [77/249] nano_653.root
+         -> 25,371 vertices (27,981 trig, 20,299 trig+kin events)
+  [78/249] nano_660.root
+         -> 39,734 vertices (44,050 trig, 31,657 trig+kin events)
+  [79/249] nano_668.root
+         -> 33,715 vertices (37,468 trig, 26,972 trig+kin events)
+  [80/249] nano_676.root
+         -> 31,891 vertices (35,065 trig, 25,409 trig+kin events)
+  [81/249] nano_683.root
+         -> 36,105 vertices (39,807 trig, 28,721 trig+kin events)
+  [82/249] nano_690.root
+         -> 35,973 vertices (39,581 trig, 28,611 trig+kin events)
+  [83/249] nano_698.root
+         -> 30,436 vertices (33,554 trig, 24,312 trig+kin events)
+  [84/249] nano_705.root
+         -> 35,948 vertices (39,668 trig, 28,648 trig+kin events)
+  [85/249] nano_712.root
+         -> 36,248 vertices (40,080 trig, 28,833 trig+kin events)
+  [86/249] nano_72.root
+         -> 22,782 vertices (25,241 trig, 18,205 trig+kin events)
+  [87/249] nano_727.root
+         -> 34,795 vertices (38,308 trig, 27,645 trig+kin events)
+  [88/249] nano_734.root
+         -> 27,950 vertices (31,105 trig, 22,355 trig+kin events)
+  [89/249] nano_742.root
+         -> 29,222 vertices (32,113 trig, 23,180 trig+kin events)
+  [90/249] nano_75.root
+         -> 23,229 vertices (25,619 trig, 18,556 trig+kin events)
+  [91/249] nano_757.root
+         -> 29,844 vertices (32,945 trig, 23,885 trig+kin events)
+  [92/249] nano_764.root
+         -> 33,335 vertices (37,104 trig, 26,738 trig+kin events)
+  [93/249] nano_771.root
+         -> 36,091 vertices (39,935 trig, 28,846 trig+kin events)
+  [94/249] nano_779.root
+         -> 34,397 vertices (37,753 trig, 27,329 trig+kin events)
+  [95/249] nano_786.root
+         -> 39,714 vertices (43,937 trig, 31,721 trig+kin events)
+  [96/249] nano_793.root
+         -> 37,540 vertices (41,383 trig, 29,907 trig+kin events)
+  [97/249] nano_80.root
+         -> 20,816 vertices (22,909 trig, 16,627 trig+kin events)
+  [98/249] nano_807.root
+         -> 30,480 vertices (33,568 trig, 24,237 trig+kin events)
+  [99/249] nano_814.root
+         -> 32,935 vertices (36,408 trig, 26,299 trig+kin events)
+  [100/249] nano_821.root
+         -> 32,239 vertices (35,599 trig, 25,761 trig+kin events)
+  [101/249] nano_829.root
+         -> 39,706 vertices (43,672 trig, 31,605 trig+kin events)
+  [102/249] nano_836.root
+         -> 30,715 vertices (33,751 trig, 24,411 trig+kin events)
+  [103/249] nano_843.root
+         -> 33,098 vertices (36,677 trig, 26,498 trig+kin events)
+  [104/249] nano_850.root
+         -> 35,826 vertices (39,366 trig, 28,520 trig+kin events)
+  [105/249] nano_858.root
+         -> 36,479 vertices (40,012 trig, 29,011 trig+kin events)
+  [106/249] nano_865.root
+         -> 36,714 vertices (40,551 trig, 29,219 trig+kin events)
+  [107/249] nano_872.root
+         -> 35,161 vertices (38,774 trig, 28,048 trig+kin events)
+  [108/249] nano_88.root
+         -> 19,452 vertices (21,402 trig, 15,496 trig+kin events)
+  [109/249] nano_887.root
+         -> 39,445 vertices (43,443 trig, 31,404 trig+kin events)
+  [110/249] nano_894.root
+         -> 36,455 vertices (40,150 trig, 29,002 trig+kin events)
+  [111/249] nano_900.root
+         -> 36,030 vertices (39,727 trig, 28,793 trig+kin events)
+  [112/249] nano_908.root
+         -> 38,278 vertices (42,478 trig, 30,643 trig+kin events)
+  [113/249] nano_915.root
+         -> 33,056 vertices (36,621 trig, 26,435 trig+kin events)
+  [114/249] nano_923.root
+         -> 34,241 vertices (37,792 trig, 27,291 trig+kin events)
+  [115/249] nano_930.root
+         -> 33,459 vertices (36,981 trig, 26,697 trig+kin events)
+  [116/249] nano_938.root
+         -> 36,534 vertices (40,551 trig, 29,189 trig+kin events)
+  [117/249] nano_945.root
+         -> 39,283 vertices (43,664 trig, 31,383 trig+kin events)
+  [118/249] nano_952.root
+         -> 36,194 vertices (39,955 trig, 28,897 trig+kin events)
+  [119/249] nano_96.root
+         -> 28,176 vertices (31,196 trig, 22,470 trig+kin events)
+  [120/249] nano_967.root
+         -> 39,350 vertices (43,667 trig, 31,467 trig+kin events)
+  [121/249] nano_974.root
+         -> 39,563 vertices (43,917 trig, 31,673 trig+kin events)
+  [122/249] nano_981.root
+         -> 31,483 vertices (34,918 trig, 25,167 trig+kin events)
+  [123/249] nano_989.root
+         -> 38,443 vertices (42,693 trig, 30,779 trig+kin events)
+  [124/249] nano_996.root
+         -> 36,689 vertices (40,621 trig, 29,354 trig+kin events)
+  [125/249] nano_1004.root
+         -> 35,424 vertices (38,959 trig, 28,255 trig+kin events)
+  [126/249] nano_1012.root
+         -> 35,360 vertices (39,114 trig, 28,256 trig+kin events)
+  [127/249] nano_1020.root
+         -> 39,051 vertices (43,175 trig, 31,199 trig+kin events)
+  [128/249] nano_1028.root
+         -> 39,708 vertices (43,824 trig, 31,650 trig+kin events)
+  [129/249] nano_1036.root
+         -> 29,585 vertices (32,497 trig, 23,545 trig+kin events)
+  [130/249] nano_1044.root
+         -> 32,799 vertices (36,397 trig, 26,195 trig+kin events)
+  [131/249] nano_1052.root
+         -> 24,435 vertices (26,937 trig, 19,521 trig+kin events)
+  [132/249] nano_1060.root
+         -> 31,253 vertices (34,622 trig, 24,933 trig+kin events)
+  [133/249] nano_1068.root
+         -> 25,043 vertices (27,724 trig, 19,997 trig+kin events)
+  [134/249] nano_1076.root
+         -> 27,183 vertices (29,948 trig, 21,688 trig+kin events)
+  [135/249] nano_1084.root
+         -> 30,134 vertices (33,119 trig, 23,974 trig+kin events)
+  [136/249] nano_1092.root
+         -> 36,818 vertices (40,675 trig, 29,367 trig+kin events)
+  [137/249] nano_1100.root
+         -> 24,487 vertices (26,973 trig, 19,522 trig+kin events)
+  [138/249] nano_1108.root
+         -> 37,123 vertices (40,682 trig, 29,496 trig+kin events)
+  [139/249] nano_1116.root
+         -> 35,899 vertices (39,744 trig, 28,718 trig+kin events)
+  [140/249] nano_1124.root
+         -> 29,768 vertices (32,690 trig, 23,649 trig+kin events)
+  [141/249] nano_1132.root
+         -> 32,636 vertices (35,918 trig, 26,076 trig+kin events)
+  [142/249] nano_1140.root
+         -> 33,700 vertices (36,948 trig, 26,857 trig+kin events)
+  [143/249] nano_1148.root
+         -> 29,087 vertices (31,986 trig, 23,160 trig+kin events)
+  [144/249] nano_1156.root
+         -> 38,078 vertices (42,025 trig, 30,319 trig+kin events)
+  [145/249] nano_1164.root
+         -> 33,097 vertices (36,580 trig, 26,364 trig+kin events)
+  [146/249] nano_1172.root
+         -> 37,942 vertices (41,831 trig, 30,267 trig+kin events)
+  [147/249] nano_1180.root
+         -> 35,558 vertices (39,330 trig, 28,379 trig+kin events)
+  [148/249] nano_1188.root
+         -> 37,225 vertices (41,051 trig, 29,629 trig+kin events)
+  [149/249] nano_1196.root
+         -> 33,704 vertices (37,169 trig, 26,878 trig+kin events)
+  [150/249] nano_1204.root
+         -> 37,340 vertices (40,956 trig, 29,758 trig+kin events)
+  [151/249] nano_1212.root
+         -> 35,768 vertices (39,406 trig, 28,464 trig+kin events)
+  [152/249] nano_1220.root
+         -> 35,988 vertices (39,655 trig, 28,801 trig+kin events)
+  [153/249] nano_1228.root
+         -> 32,923 vertices (36,284 trig, 26,225 trig+kin events)
+  [154/249] nano_1236.root
+         -> 28,433 vertices (31,644 trig, 22,693 trig+kin events)
+  [155/249] nano_1245.root
+         -> 24,052 vertices (26,537 trig, 19,161 trig+kin events)
+  [156/249] nano_1253.root
+         -> 33,363 vertices (36,642 trig, 26,594 trig+kin events)
+  [157/249] nano_1261.root
+         -> 25,441 vertices (28,279 trig, 20,336 trig+kin events)
+  [158/249] nano_1269.root
+         -> 39,091 vertices (42,992 trig, 31,113 trig+kin events)
+  [159/249] nano_1277.root
+         -> 33,814 vertices (37,239 trig, 26,981 trig+kin events)
+  [160/249] nano_1285.root
+         -> 33,896 vertices (37,289 trig, 27,066 trig+kin events)
+  [161/249] nano_1293.root
+         -> 35,084 vertices (38,713 trig, 27,992 trig+kin events)
+  [162/249] nano_1301.root
+         -> 34,512 vertices (38,143 trig, 27,479 trig+kin events)
+  [163/249] nano_1309.root
+         -> 33,726 vertices (37,131 trig, 26,931 trig+kin events)
+  [164/249] nano_1317.root
+         -> 26,880 vertices (29,372 trig, 21,288 trig+kin events)
+  [165/249] nano_1325.root
+         -> 36,021 vertices (39,630 trig, 28,746 trig+kin events)
+  [166/249] nano_1333.root
+         -> 34,141 vertices (37,495 trig, 27,073 trig+kin events)
+  [167/249] nano_1341.root
+         -> 37,420 vertices (41,202 trig, 29,854 trig+kin events)
+  [168/249] nano_1349.root
+         -> 34,133 vertices (37,357 trig, 27,111 trig+kin events)
+  [169/249] nano_1357.root
+         -> 31,011 vertices (34,138 trig, 24,717 trig+kin events)
+  [170/249] nano_1365.root
+         -> 37,275 vertices (41,149 trig, 29,692 trig+kin events)
+  [171/249] nano_1373.root
+         -> 37,328 vertices (41,146 trig, 29,684 trig+kin events)
+  [172/249] nano_1381.root
+         -> 34,194 vertices (37,372 trig, 27,116 trig+kin events)
+  [173/249] nano_1389.root
+         -> 39,641 vertices (43,601 trig, 31,598 trig+kin events)
+  [174/249] nano_1397.root
+         -> 35,410 vertices (39,066 trig, 28,227 trig+kin events)
+  [175/249] nano_1405.root
+         -> 37,298 vertices (41,155 trig, 29,791 trig+kin events)
+  [176/249] nano_1413.root
+         -> 38,246 vertices (42,238 trig, 30,646 trig+kin events)
+  [177/249] nano_1421.root
+         -> 33,042 vertices (36,304 trig, 26,380 trig+kin events)
+  [178/249] nano_1429.root
+         -> 37,429 vertices (41,263 trig, 29,871 trig+kin events)
+  [179/249] nano_1437.root
+         -> 34,244 vertices (37,778 trig, 27,301 trig+kin events)
+  [180/249] nano_1445.root
+         -> 36,121 vertices (39,952 trig, 28,778 trig+kin events)
+  [181/249] nano_1453.root
+         -> 36,341 vertices (40,013 trig, 28,982 trig+kin events)
+  [182/249] nano_1461.root
+         -> 38,524 vertices (42,695 trig, 30,844 trig+kin events)
+  [183/249] nano_1469.root
+         -> 36,532 vertices (40,042 trig, 29,010 trig+kin events)
+  [184/249] nano_1477.root
+         -> 39,804 vertices (43,795 trig, 31,715 trig+kin events)
+  [185/249] nano_1485.root
+         -> 36,002 vertices (39,648 trig, 28,765 trig+kin events)
+  [186/249] nano_1493.root
+         -> 34,344 vertices (37,881 trig, 27,275 trig+kin events)
+  [187/249] nano_1501.root
+         -> 37,865 vertices (41,992 trig, 30,295 trig+kin events)
+  [188/249] nano_1509.root
+         -> 37,773 vertices (41,464 trig, 30,052 trig+kin events)
+  [189/249] nano_1517.root
+         -> 36,661 vertices (40,424 trig, 29,275 trig+kin events)
+  [190/249] nano_1525.root
+         -> 38,068 vertices (41,921 trig, 30,271 trig+kin events)
+  [191/249] nano_1533.root
+         -> 37,248 vertices (41,012 trig, 29,661 trig+kin events)
+  [192/249] nano_1541.root
+         -> 39,489 vertices (43,997 trig, 31,568 trig+kin events)
+  [193/249] nano_1549.root
+         -> 34,550 vertices (38,204 trig, 27,505 trig+kin events)
+  [194/249] nano_1557.root
+         -> 39,632 vertices (43,656 trig, 31,533 trig+kin events)
+  [195/249] nano_1565.root
+         -> 36,843 vertices (40,446 trig, 29,345 trig+kin events)
+  [196/249] nano_1573.root
+         -> 36,814 vertices (40,909 trig, 29,333 trig+kin events)
+  [197/249] nano_1581.root
+         -> 36,568 vertices (40,324 trig, 29,171 trig+kin events)
+  [198/249] nano_1590.root
+         -> 35,857 vertices (39,800 trig, 28,713 trig+kin events)
+  [199/249] nano_1598.root
+         -> 34,881 vertices (38,388 trig, 27,803 trig+kin events)
+  [200/249] nano_1607.root
+         -> 39,837 vertices (43,986 trig, 31,713 trig+kin events)
+  [201/249] nano_1615.root
+         -> 38,297 vertices (42,186 trig, 30,454 trig+kin events)
+  [202/249] nano_1624.root
+         -> 36,872 vertices (40,758 trig, 29,475 trig+kin events)
+  [203/249] nano_1632.root
+         -> 39,824 vertices (44,153 trig, 31,825 trig+kin events)
+  [204/249] nano_1640.root
+         -> 36,936 vertices (40,306 trig, 29,340 trig+kin events)
+  [205/249] nano_1649.root
+         -> 37,104 vertices (40,843 trig, 29,512 trig+kin events)
+  [206/249] nano_1657.root
+         -> 38,501 vertices (42,400 trig, 30,789 trig+kin events)
+  [207/249] nano_1665.root
+         -> 36,747 vertices (40,505 trig, 29,238 trig+kin events)
+  [208/249] nano_1673.root
+         -> 37,124 vertices (41,122 trig, 29,613 trig+kin events)
+  [209/249] nano_1681.root
+         -> 37,417 vertices (41,138 trig, 29,732 trig+kin events)
+  [210/249] nano_1689.root
+         -> 38,246 vertices (42,062 trig, 30,389 trig+kin events)
+  [211/249] nano_1697.root
+         -> 39,618 vertices (43,640 trig, 31,471 trig+kin events)
+  [212/249] nano_1708.root
+         -> 36,091 vertices (39,621 trig, 28,754 trig+kin events)
+  [213/249] nano_1716.root
+         -> 38,209 vertices (42,216 trig, 30,540 trig+kin events)
+  [214/249] nano_1724.root
+         -> 31,614 vertices (34,962 trig, 25,233 trig+kin events)
+  [215/249] nano_1732.root
+         -> 30,568 vertices (33,759 trig, 24,364 trig+kin events)
+  [216/249] nano_1740.root
+         -> 33,766 vertices (37,245 trig, 26,870 trig+kin events)
+  [217/249] nano_1748.root
+         -> 33,763 vertices (36,923 trig, 26,878 trig+kin events)
+  [218/249] nano_1756.root
+         -> 28,912 vertices (32,177 trig, 23,234 trig+kin events)
+  [219/249] nano_1764.root
+         -> 31,771 vertices (35,320 trig, 25,514 trig+kin events)
+  [220/249] nano_1772.root
+         -> 27,746 vertices (30,595 trig, 22,067 trig+kin events)
+  [221/249] nano_1780.root
+         -> 37,381 vertices (41,268 trig, 29,845 trig+kin events)
+  [222/249] nano_1788.root
+         -> 35,865 vertices (39,365 trig, 28,571 trig+kin events)
+  [223/249] nano_1796.root
+         -> 36,370 vertices (40,457 trig, 29,037 trig+kin events)
+  [224/249] nano_1804.root
+         -> 35,913 vertices (39,479 trig, 28,625 trig+kin events)
+  [225/249] nano_1812.root
+         -> 29,507 vertices (32,757 trig, 23,580 trig+kin events)
+  [226/249] nano_1820.root
+         -> 32,029 vertices (35,597 trig, 25,639 trig+kin events)
+  [227/249] nano_1828.root
+         -> 29,746 vertices (32,681 trig, 23,682 trig+kin events)
+  [228/249] nano_1836.root
+         -> 32,512 vertices (35,856 trig, 25,848 trig+kin events)
+  [229/249] nano_1845.root
+         -> 33,337 vertices (36,781 trig, 26,505 trig+kin events)
+  [230/249] nano_1853.root
+         -> 33,596 vertices (37,321 trig, 26,774 trig+kin events)
+  [231/249] nano_1861.root
+         -> 29,068 vertices (31,872 trig, 23,104 trig+kin events)
+  [232/249] nano_1869.root
+         -> 36,136 vertices (39,917 trig, 28,832 trig+kin events)
+  [233/249] nano_1877.root
+         -> 31,982 vertices (35,215 trig, 25,433 trig+kin events)
+  [234/249] nano_1885.root
+         -> 36,609 vertices (40,320 trig, 29,176 trig+kin events)
+  [235/249] nano_1893.root
+         -> 38,196 vertices (42,539 trig, 30,672 trig+kin events)
+  [236/249] nano_1901.root
+         -> 31,619 vertices (35,149 trig, 25,342 trig+kin events)
+  [237/249] nano_1909.root
+         -> 32,497 vertices (35,726 trig, 25,869 trig+kin events)
+  [238/249] nano_1917.root
+         -> 35,628 vertices (39,461 trig, 28,353 trig+kin events)
+  [239/249] nano_1925.root
+         -> 28,404 vertices (31,550 trig, 22,804 trig+kin events)
+  [240/249] nano_1933.root
+         -> 26,063 vertices (28,661 trig, 20,812 trig+kin events)
+  [241/249] nano_1941.root
+         -> 24,055 vertices (26,607 trig, 19,208 trig+kin events)
+  [242/249] nano_1949.root
+         -> 25,098 vertices (27,803 trig, 20,067 trig+kin events)
+  [243/249] nano_1957.root
+         -> 28,666 vertices (31,614 trig, 22,844 trig+kin events)
+  [244/249] nano_1965.root
+         -> 29,129 vertices (32,185 trig, 23,379 trig+kin events)
+  [245/249] nano_1973.root
+         -> 39,781 vertices (43,751 trig, 31,677 trig+kin events)
+  [246/249] nano_1981.root
+         -> 39,844 vertices (43,795 trig, 31,712 trig+kin events)
+  [247/249] nano_1989.root
+         -> 13,459 vertices (14,662 trig, 10,610 trig+kin events)
+  [248/249] nano_1997.root
+         -> 22,390 vertices (24,626 trig, 17,778 trig+kin events)
+  [249/249] nano_2005.root
+         -> 32,653 vertices (36,051 trig, 26,023 trig+kin events)
+
+Saved MinBias shard: mb100_chunks/minbias_4.npz  (chunk 4/8, 8,302,343 vertices)

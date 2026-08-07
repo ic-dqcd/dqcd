@@ -1,0 +1,1699 @@
+07/27/26 13:08:45 ******************************************************
+07/27/26 13:08:45 ** condor_scheduniv_exec.4623815.0 (CONDOR_DAGMAN) STARTING UP
+07/27/26 13:08:45 ** /usr/bin/condor_dagman
+07/27/26 13:08:45 ** SubsystemInfo: name=DAGMAN type=DAGMAN(9) class=CLIENT(2)
+07/27/26 13:08:45 ** Configuration: subsystem:DAGMAN local:<NONE> class:CLIENT
+07/27/26 13:08:45 ** $CondorVersion: 25.0.12 2026-07-07 BuildID: 930047 PackageID: 25.0.12-1 $
+07/27/26 13:08:45 ** $CondorPlatform: x86_64_AlmaLinux9 $
+07/27/26 13:08:45 ** PID = 30748 RealUID = 1789945
+07/27/26 13:08:45 ** Log last touched time unavailable (No such file or directory)
+07/27/26 13:08:45 ******************************************************
+07/27/26 13:08:45 Using config source: /etc/condor/condor_config
+07/27/26 13:08:45 Using local config sources: 
+07/27/26 13:08:45    /etc/condor/config.d/00-security
+07/27/26 13:08:45    /etc/condor/config.d/10-stash-plugin.conf
+07/27/26 13:08:45    /etc/condor/config.d/hep.conf
+07/27/26 13:08:45    /etc/condor/condor_config.local
+07/27/26 13:08:45 config Macros = 133, Sorted = 133, StringBytes = 6353, TablesBytes = 4860
+07/27/26 13:08:45 CLASSAD_CACHING is ENABLED
+07/27/26 13:08:45 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS
+07/27/26 13:08:45 Daemoncore: Listening at <0.0.0.0:27233> on TCP (ReliSock) and UDP (SafeSock).
+07/27/26 13:08:45 Daemoncore: Listening at <[::]:27233> on TCP (ReliSock) and UDP (SafeSock).
+07/27/26 13:08:45 DaemonCore: command socket at <146.179.108.134:27233?addrs=146.179.108.134-27233+[2a0c-5bc0-88-111-216-3eff-fe7f-207]-27233&alias=htcmaster00.hep.ph.ic.ac.uk>
+07/27/26 13:08:45 DaemonCore: private command socket at <146.179.108.134:27233?addrs=146.179.108.134-27233+[2a0c-5bc0-88-111-216-3eff-fe7f-207]-27233&alias=htcmaster00.hep.ph.ic.ac.uk>
+07/27/26 13:08:45 DAGMAN_USE_STRICT setting: 1
+07/27/26 13:08:45 DAGMAN_VERBOSITY setting: 3
+07/27/26 13:08:45 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+07/27/26 13:08:45 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+07/27/26 13:08:45 DAGMAN_SUBMIT_DELAY setting: 0
+07/27/26 13:08:45 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+07/27/26 13:08:45 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+07/27/26 13:08:45 DAGMAN_USE_JOIN_NODES setting: True
+07/27/26 13:08:45 DAGMAN_REPORT_GRAPH_METRICS setting: False
+07/27/26 13:08:45 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 100
+07/27/26 13:08:45 DAGMAN_AGGRESSIVE_SUBMIT setting: False
+07/27/26 13:08:45 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+07/27/26 13:08:45 DAGMAN_QUEUE_UPDATE_INTERVAL setting: 300.000000
+07/27/26 13:08:45 DAGMAN_DEFAULT_PRIORITY setting: 0
+07/27/26 13:08:45 DAGMAN_SUPPRESS_NOTIFICATION setting: False
+07/27/26 13:08:45 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+07/27/26 13:08:45 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+07/27/26 13:08:45 DAGMAN_RETRY_NODE_FIRST setting: False
+07/27/26 13:08:45 DAGMAN_MAX_JOBS_IDLE setting: 1000
+07/27/26 13:08:45 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+07/27/26 13:08:45 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+07/27/26 13:08:45 DAGMAN_MAX_POST_SCRIPTS setting: 20
+07/27/26 13:08:45 DAGMAN_MAX_HOLD_SCRIPTS setting: 20
+07/27/26 13:08:45 DAGMAN_MUNGE_NODE_NAMES setting: True
+07/27/26 13:08:45 DAGMAN_ALLOW_ANY_NODE_NAME_CHARACTERS setting: False
+07/27/26 13:08:45 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+07/27/26 13:08:45 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+07/27/26 13:08:45 DAGMAN_ALWAYS_RUN_POST setting: False
+07/27/26 13:08:45 DAGMAN_CONDOR_SUBMIT_EXE setting: /usr/bin/condor_submit
+07/27/26 13:08:45 DAGMAN_CONDOR_RM_EXE setting: /usr/bin/condor_rm
+07/27/26 13:08:45 DAGMAN_USE_DIRECT_SUBMIT setting: True
+07/27/26 13:08:45 DAGMAN_PRODUCE_JOB_CREDENTIALS setting: True
+07/27/26 13:08:45 DAGMAN_DEFAULT_APPEND_VARS setting: False
+07/27/26 13:08:45 DAGMAN_INHERIT_ATTRS_PREFIX setting: 
+07/27/26 13:08:45 DAGMAN_INHERIT_ATTRS setting: 
+07/27/26 13:08:45 DAGMAN_ABORT_DUPLICATES setting: True
+07/27/26 13:08:45 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+07/27/26 13:08:45 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+07/27/26 13:08:45 DAGMAN_CHECK_QUEUE_INTERVAL setting: 28800
+07/27/26 13:08:45 DAGMAN_PRINT_JOB_TABLE_INTERVAL setting: 900
+07/27/26 13:08:45 DAGMAN_AUTO_RESCUE setting: True
+07/27/26 13:08:45 DAGMAN_MAX_RESCUE_NUM setting: 100
+07/27/26 13:08:45 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+07/27/26 13:08:45 DAGMAN_RESET_RETRIES_UPON_RESCUE setting: True
+07/27/26 13:08:45 DAGMAN_METRICS_FILE_VERSION setting: 2
+07/27/26 13:08:45 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+07/27/26 13:08:45 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+07/27/26 13:08:45 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+07/27/26 13:08:45 DAGMAN_MAX_JOB_HOLDS setting: 100
+07/27/26 13:08:45 DAGMAN_NODE_JOB_FAILURE_TOLERANCE setting: 0
+07/27/26 13:08:45 DAGMAN_HOLD_CLAIM_TIME setting: 20
+07/27/26 13:08:45 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+07/27/26 13:08:45 DAGMAN_REMOVE_NODE_JOBS setting: True
+07/27/26 13:08:45 DAGMAN_PUT_FAILED_JOBS_ON_HOLD setting: False
+07/27/26 13:08:45 DAGMAN_REMOVE_JOBS_AFTER_LIMIT_CHANGE setting: False
+07/27/26 13:08:45 DAGMAN will adjust edges after parsing
+07/27/26 13:08:45 argv[0] == "condor_scheduniv_exec.4623815.0"
+07/27/26 13:08:45 argv[1] == "-Lockfile"
+07/27/26 13:08:45 argv[2] == "_tools/condor/compareDeltaR.dag.lock"
+07/27/26 13:08:45 argv[3] == "-Dag"
+07/27/26 13:08:45 argv[4] == "_tools/condor/compareDeltaR.dag"
+07/27/26 13:08:45 argv[5] == "-CsdVersion"
+07/27/26 13:08:45 argv[6] == "$CondorVersion: 25.0.12 2026-07-07 BuildID: 930047 PackageID: 25.0.12-1 $"
+07/27/26 13:08:45 argv[7] == "-dagman"
+07/27/26 13:08:45 argv[8] == "/usr/bin/condor_dagman"
+07/27/26 13:08:45 argv[9] == "-AutoRescue"
+07/27/26 13:08:45 argv[10] == "1"
+07/27/26 13:08:45 argv[11] == "-DoRescueFrom"
+07/27/26 13:08:45 argv[12] == "0"
+07/27/26 13:08:45 argv[13] == "-force"
+07/27/26 13:08:45 Can't open directory "/etc/condor/passwords.d" as PRIV_ROOT, errno: 13 (Permission denied)
+07/27/26 13:08:45 Can't open directory "/etc/condor/passwords.d" as PRIV_ROOT, errno: 13 (Permission denied)
+07/27/26 13:08:45 Workflow batch-id: <4623815.0>
+07/27/26 13:08:45 Workflow batch-name: <compareDeltaR.dag+4623815>
+07/27/26 13:08:45 Workflow accounting_group: <>
+07/27/26 13:08:45 Workflow accounting_group_user: <>
+07/27/26 13:08:45 Warning: failed to get attribute DAGNodeName
+07/27/26 13:08:45 Default node log file is: </vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR.dag.nodes.log>
+07/27/26 13:08:45 DAG Lockfile will be written to _tools/condor/compareDeltaR.dag.lock
+07/27/26 13:08:45 DAG Input file is _tools/condor/compareDeltaR.dag
+07/27/26 13:08:45 Parsing 1 dagfiles
+07/27/26 13:08:45 Parsing _tools/condor/compareDeltaR.dag ...
+07/27/26 13:08:45 Adjusting edges
+07/27/26 13:08:45 Dag contains 14 total nodes
+07/27/26 13:08:45 Bootstrapping...
+07/27/26 13:08:45 Number of pre-completed nodes: 0
+07/27/26 13:08:45 MultiLogFiles: truncating log file /vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR.dag.nodes.log
+07/27/26 13:08:45 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:08:45 Of 14 nodes total:
+07/27/26 13:08:45  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:08:45   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:08:45     0       0        0       0      13          1        0        0
+07/27/26 13:08:45 0 job proc(s) currently held
+07/27/26 13:08:45 DAGMan Runtime Statistics: [EventCycleTimeSum=0.000; SleepCycleTimeSum=0.000; SubmitCycleTimeSum=0.000; EventCycleTimeCount=0.000; SleepCycleTimeCount=0.000; SubmitCycleTimeCount=0.000; LogProcessCycleTimeSum=0.000; LogProcessCycleTimeCount=0.000; ]
+07/27/26 13:08:45 Registering condor_event_timer...
+07/27/26 13:08:46 Submitting HTCondor Node qcd_PT_15_20 job(s)...
+07/27/26 13:08:46 Submitting node qcd_PT_15_20 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:46 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:46 	assigned HTCondor ID (4623816.0.0)
+07/27/26 13:08:46 Submitting HTCondor Node qcd_PT_20_30 job(s)...
+07/27/26 13:08:46 Submitting node qcd_PT_20_30 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623817.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_30_50 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_30_50 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623818.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_50_80 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_50_80 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623819.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_80_120 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_80_120 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623820.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_120_170 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_120_170 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623821.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_170_300 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_170_300 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623822.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_300_470 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_300_470 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623823.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_470_600 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_470_600 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623824.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_600_800 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_600_800 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623825.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_800_1000 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_800_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623826.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node qcd_PT_1000 job(s)...
+07/27/26 13:08:47 Submitting node qcd_PT_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623827.0.0)
+07/27/26 13:08:47 Submitting HTCondor Node signal job(s)...
+07/27/26 13:08:47 Submitting node signal from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:08:47 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:08:47 	assigned HTCondor ID (4623828.0.0)
+07/27/26 13:08:47 Just submitted 13 jobs this cycle...
+07/27/26 13:08:47 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:08:47 Of 14 nodes total:
+07/27/26 13:08:47  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:08:47   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:08:47     0       0       13       0       0          1        0        0
+07/27/26 13:08:47 0 job proc(s) currently held
+07/27/26 13:08:47 DAGMan Runtime Statistics: [EventCycleTimeSum=0.000; SleepCycleTimeSum=0.000; SubmitCycleTimeAvg=0.236; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.236; SubmitCycleTimeStd=0.236; SubmitCycleTimeSum=0.236; EventCycleTimeCount=0.000; SleepCycleTimeCount=0.000; SubmitCycleTimeCount=1.000; LogProcessCycleTimeSum=0.000; LogProcessCycleTimeCount=0.000; ]
+07/27/26 13:08:52 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_15_20 from (4623816.0.0) to (4623816.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_15_20 (4623816.0.0) {07/27/26 13:08:46}
+07/27/26 13:08:52 Number of idle job procs: 1
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_20_30 from (4623817.0.0) to (4623817.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_20_30 (4623817.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 2
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_30_50 from (4623818.0.0) to (4623818.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_30_50 (4623818.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 3
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_50_80 from (4623819.0.0) to (4623819.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_50_80 (4623819.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 4
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_80_120 from (4623820.0.0) to (4623820.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_80_120 (4623820.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 5
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_120_170 from (4623821.0.0) to (4623821.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_120_170 (4623821.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 6
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_170_300 from (4623822.0.0) to (4623822.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_170_300 (4623822.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 7
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_300_470 from (4623823.0.0) to (4623823.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_300_470 (4623823.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 8
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_470_600 from (4623824.0.0) to (4623824.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_470_600 (4623824.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 9
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_600_800 from (4623825.0.0) to (4623825.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_600_800 (4623825.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 10
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_800_1000 from (4623826.0.0) to (4623826.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_800_1000 (4623826.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 11
+07/27/26 13:08:52 Reassigning the id of job qcd_PT_1000 from (4623827.0.0) to (4623827.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_1000 (4623827.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 12
+07/27/26 13:08:52 Reassigning the id of job signal from (4623828.0.0) to (4623828.0.0)
+07/27/26 13:08:52 Event: ULOG_SUBMIT for HTCondor Node signal (4623828.0.0) {07/27/26 13:08:47}
+07/27/26 13:08:52 Number of idle job procs: 13
+07/27/26 13:16:07 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:16:07 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_15_20 (4623816.0.0) {07/27/26 13:16:06}
+07/27/26 13:16:07 Number of idle job procs: 12
+07/27/26 13:16:27 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:16:27 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_15_20 (4623816.0.0) {07/27/26 13:16:27}
+07/27/26 13:16:27 Number of idle job procs: 12
+07/27/26 13:16:27 Node qcd_PT_15_20 job proc (4623816.0.0) failed with status 1.
+07/27/26 13:16:27 Node qcd_PT_15_20 job(s) have exited the queue
+07/27/26 13:16:27 Retrying node qcd_PT_15_20 (retry #1 of 2)...
+07/27/26 13:16:27 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:16:27 Of 14 nodes total:
+07/27/26 13:16:27  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:16:27   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:16:27     0       0       12       0       1          1        0        0
+07/27/26 13:16:27 0 job proc(s) currently held
+07/27/26 13:16:27 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.254; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=460.432; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.024; SubmitCycleTimeSum=0.236; EventCycleTimeCount=92.000; SleepCycleTimeCount=92.000; SubmitCycleTimeCount=93.000; LogProcessCycleTimeAvg=0.003; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.005; LogProcessCycleTimeSum=0.010; LogProcessCycleTimeCount=3.000; ]
+07/27/26 13:16:32 Reassigning the id of job qcd_PT_15_20 from (4623816.0.0) to (-1.-1.-1)
+07/27/26 13:16:32 Submitting HTCondor Node qcd_PT_15_20 job(s)...
+07/27/26 13:16:32 Submitting node qcd_PT_15_20 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:16:32 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:16:32 	assigned HTCondor ID (4623831.0.0)
+07/27/26 13:16:32 Just submitted 1 job this cycle...
+07/27/26 13:16:32 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:16:32 Of 14 nodes total:
+07/27/26 13:16:32  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:16:32   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:16:32     0       0       13       0       0          1        0        0
+07/27/26 13:16:32 0 job proc(s) currently held
+07/27/26 13:16:32 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=0.254; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=465.437; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.024; SubmitCycleTimeSum=0.255; EventCycleTimeCount=93.000; SleepCycleTimeCount=93.000; SubmitCycleTimeCount=94.000; LogProcessCycleTimeAvg=0.003; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.005; LogProcessCycleTimeSum=0.010; LogProcessCycleTimeCount=3.000; ]
+07/27/26 13:16:37 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:16:37 Reassigning the id of job qcd_PT_15_20 from (4623831.0.0) to (4623831.0.0)
+07/27/26 13:16:37 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_15_20 (4623831.0.0) {07/27/26 13:16:32}
+07/27/26 13:16:37 Number of idle job procs: 13
+07/27/26 13:16:47 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:16:47 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_20_30 (4623817.0.0) {07/27/26 13:16:46}
+07/27/26 13:16:47 Number of idle job procs: 12
+07/27/26 13:16:57 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:16:57 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_20_30 (4623817.0.0) {07/27/26 13:16:54}
+07/27/26 13:16:57 Number of idle job procs: 12
+07/27/26 13:16:57 Node qcd_PT_20_30 job proc (4623817.0.0) failed with status 1.
+07/27/26 13:16:57 Node qcd_PT_20_30 job(s) have exited the queue
+07/27/26 13:16:57 Retrying node qcd_PT_20_30 (retry #1 of 2)...
+07/27/26 13:16:57 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:16:57 Of 14 nodes total:
+07/27/26 13:16:57  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:16:57   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:16:57     0       0       12       0       1          1        0        0
+07/27/26 13:16:57 0 job proc(s) currently held
+07/27/26 13:16:57 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=0.274; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=490.462; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.024; SubmitCycleTimeSum=0.255; EventCycleTimeCount=98.000; SleepCycleTimeCount=98.000; SubmitCycleTimeCount=99.000; LogProcessCycleTimeAvg=0.002; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.004; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=6.000; ]
+07/27/26 13:17:02 Reassigning the id of job qcd_PT_20_30 from (4623817.0.0) to (-1.-1.-1)
+07/27/26 13:17:02 Submitting HTCondor Node qcd_PT_20_30 job(s)...
+07/27/26 13:17:02 Submitting node qcd_PT_20_30 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:17:02 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:17:02 	assigned HTCondor ID (4623832.0.0)
+07/27/26 13:17:02 Just submitted 1 job this cycle...
+07/27/26 13:17:02 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:02 Of 14 nodes total:
+07/27/26 13:17:02  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:02   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:02     0       0       13       0       0          1        0        0
+07/27/26 13:17:02 0 job proc(s) currently held
+07/27/26 13:17:02 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=0.274; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=495.467; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.024; SubmitCycleTimeSum=0.283; EventCycleTimeCount=99.000; SleepCycleTimeCount=99.000; SubmitCycleTimeCount=100.000; LogProcessCycleTimeAvg=0.002; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.004; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=6.000; ]
+07/27/26 13:17:07 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:17:07 Reassigning the id of job qcd_PT_20_30 from (4623832.0.0) to (4623832.0.0)
+07/27/26 13:17:07 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_20_30 (4623832.0.0) {07/27/26 13:17:02}
+07/27/26 13:17:07 Number of idle job procs: 13
+07/27/26 13:17:07 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_30_50 (4623818.0.0) {07/27/26 13:17:06}
+07/27/26 13:17:07 Number of idle job procs: 12
+07/27/26 13:17:07 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_50_80 (4623819.0.0) {07/27/26 13:17:06}
+07/27/26 13:17:07 Number of idle job procs: 11
+07/27/26 13:17:17 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:17:17 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_30_50 (4623818.0.0) {07/27/26 13:17:13}
+07/27/26 13:17:17 Number of idle job procs: 11
+07/27/26 13:17:17 Node qcd_PT_30_50 job proc (4623818.0.0) failed with status 1.
+07/27/26 13:17:17 Node qcd_PT_30_50 job(s) have exited the queue
+07/27/26 13:17:17 Retrying node qcd_PT_30_50 (retry #1 of 2)...
+07/27/26 13:17:17 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:17 Of 14 nodes total:
+07/27/26 13:17:17  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:17   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:17     0       0       12       0       1          1        0        0
+07/27/26 13:17:17 0 job proc(s) currently held
+07/27/26 13:17:17 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=0.303; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=510.478; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.283; EventCycleTimeCount=102.000; SleepCycleTimeCount=102.000; SubmitCycleTimeCount=103.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=8.000; ]
+07/27/26 13:17:22 Reassigning the id of job qcd_PT_30_50 from (4623818.0.0) to (-1.-1.-1)
+07/27/26 13:17:22 Submitting HTCondor Node qcd_PT_30_50 job(s)...
+07/27/26 13:17:22 Submitting node qcd_PT_30_50 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:17:22 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:17:22 	assigned HTCondor ID (4623835.0.0)
+07/27/26 13:17:22 Just submitted 1 job this cycle...
+07/27/26 13:17:22 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:22 Of 14 nodes total:
+07/27/26 13:17:22  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:22   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:22     0       0       13       0       0          1        0        0
+07/27/26 13:17:22 0 job proc(s) currently held
+07/27/26 13:17:22 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.303; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=515.483; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.311; EventCycleTimeCount=103.000; SleepCycleTimeCount=103.000; SubmitCycleTimeCount=104.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=8.000; ]
+07/27/26 13:17:27 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:17:27 Reassigning the id of job qcd_PT_30_50 from (4623835.0.0) to (4623835.0.0)
+07/27/26 13:17:27 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_30_50 (4623835.0.0) {07/27/26 13:17:22}
+07/27/26 13:17:27 Number of idle job procs: 12
+07/27/26 13:17:27 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_80_120 (4623820.0.0) {07/27/26 13:17:26}
+07/27/26 13:17:27 Number of idle job procs: 11
+07/27/26 13:17:27 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_50_80 (4623819.0.0) {07/27/26 13:17:26}
+07/27/26 13:17:27 Number of idle job procs: 11
+07/27/26 13:17:27 Node qcd_PT_50_80 job proc (4623819.0.0) failed with status 1.
+07/27/26 13:17:27 Node qcd_PT_50_80 job(s) have exited the queue
+07/27/26 13:17:27 Retrying node qcd_PT_50_80 (retry #1 of 2)...
+07/27/26 13:17:27 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:27 Of 14 nodes total:
+07/27/26 13:17:27  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:27   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:27     0       0       12       0       1          1        0        0
+07/27/26 13:17:27 0 job proc(s) currently held
+07/27/26 13:17:27 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.331; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=520.483; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.311; EventCycleTimeCount=104.000; SleepCycleTimeCount=104.000; SubmitCycleTimeCount=105.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=9.000; ]
+07/27/26 13:17:32 Reassigning the id of job qcd_PT_50_80 from (4623819.0.0) to (-1.-1.-1)
+07/27/26 13:17:32 Submitting HTCondor Node qcd_PT_50_80 job(s)...
+07/27/26 13:17:32 Submitting node qcd_PT_50_80 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:17:32 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:17:32 	assigned HTCondor ID (4623836.0.0)
+07/27/26 13:17:32 Just submitted 1 job this cycle...
+07/27/26 13:17:32 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:32 Of 14 nodes total:
+07/27/26 13:17:32  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:32   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:32     0       0       13       0       0          1        0        0
+07/27/26 13:17:32 0 job proc(s) currently held
+07/27/26 13:17:32 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.332; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=525.484; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.341; EventCycleTimeCount=105.000; SleepCycleTimeCount=105.000; SubmitCycleTimeCount=106.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=9.000; ]
+07/27/26 13:17:37 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:17:37 Reassigning the id of job qcd_PT_50_80 from (4623836.0.0) to (4623836.0.0)
+07/27/26 13:17:37 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_50_80 (4623836.0.0) {07/27/26 13:17:32}
+07/27/26 13:17:37 Number of idle job procs: 12
+07/27/26 13:17:37 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_80_120 (4623820.0.0) {07/27/26 13:17:33}
+07/27/26 13:17:37 Number of idle job procs: 12
+07/27/26 13:17:37 Node qcd_PT_80_120 job proc (4623820.0.0) failed with status 1.
+07/27/26 13:17:37 Node qcd_PT_80_120 job(s) have exited the queue
+07/27/26 13:17:37 Retrying node qcd_PT_80_120 (retry #1 of 2)...
+07/27/26 13:17:37 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:37 Of 14 nodes total:
+07/27/26 13:17:37  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:37   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:37     0       0       12       0       1          1        0        0
+07/27/26 13:17:37 0 job proc(s) currently held
+07/27/26 13:17:37 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.361; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=530.489; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.341; EventCycleTimeCount=106.000; SleepCycleTimeCount=106.000; SubmitCycleTimeCount=107.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=10.000; ]
+07/27/26 13:17:42 Reassigning the id of job qcd_PT_80_120 from (4623820.0.0) to (-1.-1.-1)
+07/27/26 13:17:42 Submitting HTCondor Node qcd_PT_80_120 job(s)...
+07/27/26 13:17:42 Submitting node qcd_PT_80_120 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:17:42 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:17:42 	assigned HTCondor ID (4623837.0.0)
+07/27/26 13:17:42 Just submitted 1 job this cycle...
+07/27/26 13:17:42 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:42 Of 14 nodes total:
+07/27/26 13:17:42  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:42   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:42     0       0       13       0       0          1        0        0
+07/27/26 13:17:42 0 job proc(s) currently held
+07/27/26 13:17:42 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.003; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.361; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=535.494; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.369; EventCycleTimeCount=107.000; SleepCycleTimeCount=107.000; SubmitCycleTimeCount=108.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.011; LogProcessCycleTimeCount=10.000; ]
+07/27/26 13:17:47 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:17:47 Reassigning the id of job qcd_PT_80_120 from (4623837.0.0) to (4623837.0.0)
+07/27/26 13:17:47 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_80_120 (4623837.0.0) {07/27/26 13:17:42}
+07/27/26 13:17:47 Number of idle job procs: 13
+07/27/26 13:17:47 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_120_170 (4623821.0.0) {07/27/26 13:17:46}
+07/27/26 13:17:47 Number of idle job procs: 12
+07/27/26 13:17:47 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_170_300 (4623822.0.0) {07/27/26 13:17:46}
+07/27/26 13:17:47 Number of idle job procs: 11
+07/27/26 13:17:57 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:17:57 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_120_170 (4623821.0.0) {07/27/26 13:17:54}
+07/27/26 13:17:57 Number of idle job procs: 11
+07/27/26 13:17:57 Node qcd_PT_120_170 job proc (4623821.0.0) failed with status 1.
+07/27/26 13:17:57 Node qcd_PT_120_170 job(s) have exited the queue
+07/27/26 13:17:57 Retrying node qcd_PT_120_170 (retry #1 of 2)...
+07/27/26 13:17:57 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_170_300 (4623822.0.0) {07/27/26 13:17:54}
+07/27/26 13:17:57 Number of idle job procs: 11
+07/27/26 13:17:57 Node qcd_PT_170_300 job proc (4623822.0.0) failed with status 1.
+07/27/26 13:17:57 Node qcd_PT_170_300 job(s) have exited the queue
+07/27/26 13:17:57 Retrying node qcd_PT_170_300 (retry #1 of 2)...
+07/27/26 13:17:57 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:17:57 Of 14 nodes total:
+07/27/26 13:17:57  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:17:57   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:17:57     0       0       11       0       2          1        0        0
+07/27/26 13:17:57 0 job proc(s) currently held
+07/27/26 13:17:57 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.004; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.390; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=550.510; SubmitCycleTimeAvg=0.003; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.369; EventCycleTimeCount=110.000; SleepCycleTimeCount=110.000; SubmitCycleTimeCount=111.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.012; LogProcessCycleTimeCount=12.000; ]
+07/27/26 13:18:02 Reassigning the id of job qcd_PT_120_170 from (4623821.0.0) to (-1.-1.-1)
+07/27/26 13:18:02 Submitting HTCondor Node qcd_PT_120_170 job(s)...
+07/27/26 13:18:02 Submitting node qcd_PT_120_170 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:18:02 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:18:02 	assigned HTCondor ID (4624040.0.0)
+07/27/26 13:18:02 Reassigning the id of job qcd_PT_170_300 from (4623822.0.0) to (-1.-1.-1)
+07/27/26 13:18:02 Submitting HTCondor Node qcd_PT_170_300 job(s)...
+07/27/26 13:18:02 Submitting node qcd_PT_170_300 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:18:02 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:18:02 	assigned HTCondor ID (4624041.0.0)
+07/27/26 13:18:02 Just submitted 2 jobs this cycle...
+07/27/26 13:18:02 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:18:02 Of 14 nodes total:
+07/27/26 13:18:02  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:18:02   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:18:02     0       0       13       0       0          1        0        0
+07/27/26 13:18:02 0 job proc(s) currently held
+07/27/26 13:18:02 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.004; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.391; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=555.515; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.410; EventCycleTimeCount=111.000; SleepCycleTimeCount=111.000; SubmitCycleTimeCount=112.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.009; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.012; LogProcessCycleTimeCount=12.000; ]
+07/27/26 13:18:07 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:18:07 Reassigning the id of job qcd_PT_120_170 from (4624040.0.0) to (4624040.0.0)
+07/27/26 13:18:07 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_120_170 (4624040.0.0) {07/27/26 13:18:02}
+07/27/26 13:18:07 Number of idle job procs: 12
+07/27/26 13:18:07 Reassigning the id of job qcd_PT_170_300 from (4624041.0.0) to (4624041.0.0)
+07/27/26 13:18:07 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_170_300 (4624041.0.0) {07/27/26 13:18:02}
+07/27/26 13:18:07 Number of idle job procs: 13
+07/27/26 13:18:07 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_300_470 (4623823.0.0) {07/27/26 13:18:06}
+07/27/26 13:18:07 Number of idle job procs: 12
+07/27/26 13:18:07 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_470_600 (4623824.0.0) {07/27/26 13:18:06}
+07/27/26 13:18:07 Number of idle job procs: 11
+07/27/26 13:18:17 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:18:17 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_300_470 (4623823.0.0) {07/27/26 13:18:14}
+07/27/26 13:18:17 Number of idle job procs: 11
+07/27/26 13:18:17 Node qcd_PT_300_470 job proc (4623823.0.0) failed with status 1.
+07/27/26 13:18:17 Node qcd_PT_300_470 job(s) have exited the queue
+07/27/26 13:18:17 Retrying node qcd_PT_300_470 (retry #1 of 2)...
+07/27/26 13:18:17 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_470_600 (4623824.0.0) {07/27/26 13:18:14}
+07/27/26 13:18:17 Number of idle job procs: 11
+07/27/26 13:18:17 Node qcd_PT_470_600 job proc (4623824.0.0) failed with status 1.
+07/27/26 13:18:17 Node qcd_PT_470_600 job(s) have exited the queue
+07/27/26 13:18:17 Retrying node qcd_PT_470_600 (retry #1 of 2)...
+07/27/26 13:18:17 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:18:17 Of 14 nodes total:
+07/27/26 13:18:17  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:18:17   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:18:17     0       0       11       0       2          1        0        0
+07/27/26 13:18:17 0 job proc(s) currently held
+07/27/26 13:18:17 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.004; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.432; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=570.530; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.410; EventCycleTimeCount=114.000; SleepCycleTimeCount=114.000; SubmitCycleTimeCount=115.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.057; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.015; LogProcessCycleTimeSum=0.069; LogProcessCycleTimeCount=14.000; ]
+07/27/26 13:18:22 Reassigning the id of job qcd_PT_300_470 from (4623823.0.0) to (-1.-1.-1)
+07/27/26 13:18:22 Submitting HTCondor Node qcd_PT_300_470 job(s)...
+07/27/26 13:18:22 Submitting node qcd_PT_300_470 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:18:22 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:18:22 	assigned HTCondor ID (4624042.0.0)
+07/27/26 13:18:22 Reassigning the id of job qcd_PT_470_600 from (4623824.0.0) to (-1.-1.-1)
+07/27/26 13:18:22 Submitting HTCondor Node qcd_PT_470_600 job(s)...
+07/27/26 13:18:22 Submitting node qcd_PT_470_600 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:18:22 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:18:22 	assigned HTCondor ID (4624043.0.0)
+07/27/26 13:18:22 Just submitted 2 jobs this cycle...
+07/27/26 13:18:22 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:18:22 Of 14 nodes total:
+07/27/26 13:18:22  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:18:22   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:18:22     0       0       13       0       0          1        0        0
+07/27/26 13:18:22 0 job proc(s) currently held
+07/27/26 13:18:22 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.004; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=0.489; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=575.535; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.445; EventCycleTimeCount=115.000; SleepCycleTimeCount=115.000; SubmitCycleTimeCount=116.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.057; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.015; LogProcessCycleTimeSum=0.069; LogProcessCycleTimeCount=14.000; ]
+07/27/26 13:18:27 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:18:28 Reassigning the id of job qcd_PT_300_470 from (4624042.0.0) to (4624042.0.0)
+07/27/26 13:18:28 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_300_470 (4624042.0.0) {07/27/26 13:18:22}
+07/27/26 13:18:28 Number of idle job procs: 12
+07/27/26 13:18:28 Reassigning the id of job qcd_PT_470_600 from (4624043.0.0) to (4624043.0.0)
+07/27/26 13:18:28 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_470_600 (4624043.0.0) {07/27/26 13:18:22}
+07/27/26 13:18:28 Number of idle job procs: 13
+07/27/26 13:18:28 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_800_1000 (4623826.0.0) {07/27/26 13:18:25}
+07/27/26 13:18:28 Number of idle job procs: 12
+07/27/26 13:18:28 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_600_800 (4623825.0.0) {07/27/26 13:18:25}
+07/27/26 13:18:28 Number of idle job procs: 11
+07/27/26 13:18:38 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:18:38 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_600_800 (4623825.0.0) {07/27/26 13:18:33}
+07/27/26 13:18:38 Number of idle job procs: 11
+07/27/26 13:18:38 Node qcd_PT_600_800 job proc (4623825.0.0) failed with status 1.
+07/27/26 13:18:38 Node qcd_PT_600_800 job(s) have exited the queue
+07/27/26 13:18:38 Retrying node qcd_PT_600_800 (retry #1 of 2)...
+07/27/26 13:18:38 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_800_1000 (4623826.0.0) {07/27/26 13:18:33}
+07/27/26 13:18:38 Number of idle job procs: 11
+07/27/26 13:18:38 Node qcd_PT_800_1000 job proc (4623826.0.0) failed with status 1.
+07/27/26 13:18:38 Node qcd_PT_800_1000 job(s) have exited the queue
+07/27/26 13:18:38 Retrying node qcd_PT_800_1000 (retry #1 of 2)...
+07/27/26 13:18:38 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:18:38 Of 14 nodes total:
+07/27/26 13:18:38  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:18:38   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:18:38     0       0       11       0       2          1        0        0
+07/27/26 13:18:38 0 job proc(s) currently held
+07/27/26 13:18:38 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.005; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.624; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=590.550; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.445; EventCycleTimeCount=118.000; SleepCycleTimeCount=118.000; SubmitCycleTimeCount=119.000; LogProcessCycleTimeAvg=0.011; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.028; LogProcessCycleTimeSum=0.177; LogProcessCycleTimeCount=16.000; ]
+07/27/26 13:18:43 Reassigning the id of job qcd_PT_600_800 from (4623825.0.0) to (-1.-1.-1)
+07/27/26 13:18:43 Submitting HTCondor Node qcd_PT_600_800 job(s)...
+07/27/26 13:18:43 Submitting node qcd_PT_600_800 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:18:43 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:18:43 	assigned HTCondor ID (4624245.0.0)
+07/27/26 13:18:43 Reassigning the id of job qcd_PT_800_1000 from (4623826.0.0) to (-1.-1.-1)
+07/27/26 13:18:43 Submitting HTCondor Node qcd_PT_800_1000 job(s)...
+07/27/26 13:18:43 Submitting node qcd_PT_800_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:18:43 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:18:43 	assigned HTCondor ID (4624246.0.0)
+07/27/26 13:18:43 Just submitted 2 jobs this cycle...
+07/27/26 13:18:43 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:18:43 Of 14 nodes total:
+07/27/26 13:18:43  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:18:43   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:18:43     0       0       13       0       0          1        0        0
+07/27/26 13:18:43 0 job proc(s) currently held
+07/27/26 13:18:43 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.005; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.632; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=595.555; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.487; EventCycleTimeCount=119.000; SleepCycleTimeCount=119.000; SubmitCycleTimeCount=120.000; LogProcessCycleTimeAvg=0.011; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.028; LogProcessCycleTimeSum=0.177; LogProcessCycleTimeCount=16.000; ]
+07/27/26 13:18:48 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:18:48 Reassigning the id of job qcd_PT_600_800 from (4624245.0.0) to (4624245.0.0)
+07/27/26 13:18:48 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_600_800 (4624245.0.0) {07/27/26 13:18:43}
+07/27/26 13:18:48 Number of idle job procs: 12
+07/27/26 13:18:48 Reassigning the id of job qcd_PT_800_1000 from (4624246.0.0) to (4624246.0.0)
+07/27/26 13:18:48 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_800_1000 (4624246.0.0) {07/27/26 13:18:43}
+07/27/26 13:18:48 Number of idle job procs: 13
+07/27/26 13:18:48 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_1000 (4623827.0.0) {07/27/26 13:18:46}
+07/27/26 13:18:48 Number of idle job procs: 12
+07/27/26 13:18:48 Event: ULOG_EXECUTE for HTCondor Node signal (4623828.0.0) {07/27/26 13:18:46}
+07/27/26 13:18:48 Number of idle job procs: 11
+07/27/26 13:18:58 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:18:58 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_1000 (4623827.0.0) {07/27/26 13:18:54}
+07/27/26 13:18:58 Number of idle job procs: 11
+07/27/26 13:18:58 Node qcd_PT_1000 job proc (4623827.0.0) failed with status 1.
+07/27/26 13:18:58 Node qcd_PT_1000 job(s) have exited the queue
+07/27/26 13:18:58 Retrying node qcd_PT_1000 (retry #1 of 2)...
+07/27/26 13:18:58 Event: ULOG_JOB_TERMINATED for HTCondor Node signal (4623828.0.0) {07/27/26 13:18:54}
+07/27/26 13:18:58 Number of idle job procs: 11
+07/27/26 13:18:58 Node signal job proc (4623828.0.0) failed with status 1.
+07/27/26 13:18:58 Node signal job(s) have exited the queue
+07/27/26 13:18:58 Retrying node signal (retry #1 of 2)...
+07/27/26 13:18:58 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:18:58 Of 14 nodes total:
+07/27/26 13:18:58  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:18:58   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:18:58     0       0       11       0       2          1        0        0
+07/27/26 13:18:58 0 job proc(s) currently held
+07/27/26 13:18:58 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.677; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=610.570; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.487; EventCycleTimeCount=122.000; SleepCycleTimeCount=122.000; SubmitCycleTimeCount=123.000; LogProcessCycleTimeAvg=0.011; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.026; LogProcessCycleTimeSum=0.193; LogProcessCycleTimeCount=18.000; ]
+07/27/26 13:19:03 Reassigning the id of job qcd_PT_1000 from (4623827.0.0) to (-1.-1.-1)
+07/27/26 13:19:03 Submitting HTCondor Node qcd_PT_1000 job(s)...
+07/27/26 13:19:03 Submitting node qcd_PT_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:19:03 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:19:03 	assigned HTCondor ID (4624247.0.0)
+07/27/26 13:19:03 Reassigning the id of job signal from (4623828.0.0) to (-1.-1.-1)
+07/27/26 13:19:03 Submitting HTCondor Node signal job(s)...
+07/27/26 13:19:03 Submitting node signal from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:19:03 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:19:03 	assigned HTCondor ID (4624248.0.0)
+07/27/26 13:19:03 Just submitted 2 jobs this cycle...
+07/27/26 13:19:03 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:19:03 Of 14 nodes total:
+07/27/26 13:19:03  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:19:03   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:19:03     0       0       13       0       0          1        0        0
+07/27/26 13:19:03 0 job proc(s) currently held
+07/27/26 13:19:03 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.693; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=615.575; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.543; EventCycleTimeCount=123.000; SleepCycleTimeCount=123.000; SubmitCycleTimeCount=124.000; LogProcessCycleTimeAvg=0.011; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.026; LogProcessCycleTimeSum=0.193; LogProcessCycleTimeCount=18.000; ]
+07/27/26 13:19:08 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:19:08 Reassigning the id of job qcd_PT_1000 from (4624247.0.0) to (4624247.0.0)
+07/27/26 13:19:08 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_1000 (4624247.0.0) {07/27/26 13:19:03}
+07/27/26 13:19:08 Number of idle job procs: 12
+07/27/26 13:19:08 Reassigning the id of job signal from (4624248.0.0) to (4624248.0.0)
+07/27/26 13:19:08 Event: ULOG_SUBMIT for HTCondor Node signal (4624248.0.0) {07/27/26 13:19:03}
+07/27/26 13:19:08 Number of idle job procs: 13
+07/27/26 13:19:08 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_20_30 (4623832.0.0) {07/27/26 13:19:05}
+07/27/26 13:19:08 Number of idle job procs: 12
+07/27/26 13:19:08 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_15_20 (4623831.0.0) {07/27/26 13:19:06}
+07/27/26 13:19:08 Number of idle job procs: 11
+07/27/26 13:19:18 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:19:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_15_20 (4623831.0.0) {07/27/26 13:19:13}
+07/27/26 13:19:18 Number of idle job procs: 11
+07/27/26 13:19:18 Node qcd_PT_15_20 job proc (4623831.0.0) failed with status 1.
+07/27/26 13:19:18 Node qcd_PT_15_20 job(s) have exited the queue
+07/27/26 13:19:18 Retrying node qcd_PT_15_20 (retry #2 of 2)...
+07/27/26 13:19:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_20_30 (4623832.0.0) {07/27/26 13:19:14}
+07/27/26 13:19:18 Number of idle job procs: 11
+07/27/26 13:19:18 Node qcd_PT_20_30 job proc (4623832.0.0) failed with status 1.
+07/27/26 13:19:18 Node qcd_PT_20_30 job(s) have exited the queue
+07/27/26 13:19:18 Retrying node qcd_PT_20_30 (retry #2 of 2)...
+07/27/26 13:19:18 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:19:18 Of 14 nodes total:
+07/27/26 13:19:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:19:18   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:19:18     0       0       11       0       2          1        0        0
+07/27/26 13:19:18 0 job proc(s) currently held
+07/27/26 13:19:18 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.750; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=630.591; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.543; EventCycleTimeCount=126.000; SleepCycleTimeCount=126.000; SubmitCycleTimeCount=127.000; LogProcessCycleTimeAvg=0.010; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.025; LogProcessCycleTimeSum=0.194; LogProcessCycleTimeCount=20.000; ]
+07/27/26 13:19:23 Reassigning the id of job qcd_PT_15_20 from (4623831.0.0) to (-1.-1.-1)
+07/27/26 13:19:23 Submitting HTCondor Node qcd_PT_15_20 job(s)...
+07/27/26 13:19:23 Submitting node qcd_PT_15_20 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:19:23 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:19:23 	assigned HTCondor ID (4624249.0.0)
+07/27/26 13:19:23 Reassigning the id of job qcd_PT_20_30 from (4623832.0.0) to (-1.-1.-1)
+07/27/26 13:19:23 Submitting HTCondor Node qcd_PT_20_30 job(s)...
+07/27/26 13:19:23 Submitting node qcd_PT_20_30 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:19:23 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:19:23 	assigned HTCondor ID (4624250.0.0)
+07/27/26 13:19:23 Just submitted 2 jobs this cycle...
+07/27/26 13:19:23 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:19:23 Of 14 nodes total:
+07/27/26 13:19:23  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:19:23   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:19:23     0       0       13       0       0          1        0        0
+07/27/26 13:19:23 0 job proc(s) currently held
+07/27/26 13:19:23 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.750; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.006; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=635.596; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.584; EventCycleTimeCount=127.000; SleepCycleTimeCount=127.000; SubmitCycleTimeCount=128.000; LogProcessCycleTimeAvg=0.010; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.025; LogProcessCycleTimeSum=0.194; LogProcessCycleTimeCount=20.000; ]
+07/27/26 13:19:28 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:19:28 Reassigning the id of job qcd_PT_15_20 from (4624249.0.0) to (4624249.0.0)
+07/27/26 13:19:28 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_15_20 (4624249.0.0) {07/27/26 13:19:23}
+07/27/26 13:19:28 Number of idle job procs: 12
+07/27/26 13:19:28 Reassigning the id of job qcd_PT_20_30 from (4624250.0.0) to (4624250.0.0)
+07/27/26 13:19:28 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_20_30 (4624250.0.0) {07/27/26 13:19:23}
+07/27/26 13:19:28 Number of idle job procs: 13
+07/27/26 13:19:28 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_30_50 (4623835.0.0) {07/27/26 13:19:25}
+07/27/26 13:19:28 Number of idle job procs: 12
+07/27/26 13:19:28 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_50_80 (4623836.0.0) {07/27/26 13:19:25}
+07/27/26 13:19:28 Number of idle job procs: 11
+07/27/26 13:19:43 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:19:43 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_30_50 (4623835.0.0) {07/27/26 13:19:38}
+07/27/26 13:19:43 Number of idle job procs: 11
+07/27/26 13:19:43 Node qcd_PT_30_50 job proc (4623835.0.0) failed with status 1.
+07/27/26 13:19:43 Node qcd_PT_30_50 job(s) have exited the queue
+07/27/26 13:19:43 Retrying node qcd_PT_30_50 (retry #2 of 2)...
+07/27/26 13:19:43 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_50_80 (4623836.0.0) {07/27/26 13:19:38}
+07/27/26 13:19:43 Number of idle job procs: 11
+07/27/26 13:19:43 Node qcd_PT_50_80 job proc (4623836.0.0) failed with status 1.
+07/27/26 13:19:43 Node qcd_PT_50_80 job(s) have exited the queue
+07/27/26 13:19:43 Retrying node qcd_PT_50_80 (retry #2 of 2)...
+07/27/26 13:19:43 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:19:43 Of 14 nodes total:
+07/27/26 13:19:43  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:19:43   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:19:43     0       0       11       0       2          1        0        0
+07/27/26 13:19:43 0 job proc(s) currently held
+07/27/26 13:19:43 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=0.792; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=655.615; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.022; SubmitCycleTimeSum=0.584; EventCycleTimeCount=131.000; SleepCycleTimeCount=131.000; SubmitCycleTimeCount=132.000; LogProcessCycleTimeAvg=0.009; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.024; LogProcessCycleTimeSum=0.195; LogProcessCycleTimeCount=22.000; ]
+07/27/26 13:19:48 Reassigning the id of job qcd_PT_30_50 from (4623835.0.0) to (-1.-1.-1)
+07/27/26 13:19:48 Submitting HTCondor Node qcd_PT_30_50 job(s)...
+07/27/26 13:19:48 Submitting node qcd_PT_30_50 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:19:48 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:19:48 	assigned HTCondor ID (4624251.0.0)
+07/27/26 13:19:48 Reassigning the id of job qcd_PT_50_80 from (4623836.0.0) to (-1.-1.-1)
+07/27/26 13:19:48 Submitting HTCondor Node qcd_PT_50_80 job(s)...
+07/27/26 13:19:48 Submitting node qcd_PT_50_80 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:19:48 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:19:48 	assigned HTCondor ID (4624252.0.0)
+07/27/26 13:19:48 Just submitted 2 jobs this cycle...
+07/27/26 13:19:48 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:19:48 Of 14 nodes total:
+07/27/26 13:19:48  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:19:48   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:19:48     0       0       13       0       0          1        0        0
+07/27/26 13:19:48 0 job proc(s) currently held
+07/27/26 13:19:48 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=0.793; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=660.621; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.660; EventCycleTimeCount=132.000; SleepCycleTimeCount=132.000; SubmitCycleTimeCount=133.000; LogProcessCycleTimeAvg=0.009; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.024; LogProcessCycleTimeSum=0.195; LogProcessCycleTimeCount=22.000; ]
+07/27/26 13:19:53 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:19:53 Reassigning the id of job qcd_PT_30_50 from (4624251.0.0) to (4624251.0.0)
+07/27/26 13:19:53 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_30_50 (4624251.0.0) {07/27/26 13:19:48}
+07/27/26 13:19:53 Number of idle job procs: 12
+07/27/26 13:19:53 Reassigning the id of job qcd_PT_50_80 from (4624252.0.0) to (4624252.0.0)
+07/27/26 13:19:53 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_50_80 (4624252.0.0) {07/27/26 13:19:48}
+07/27/26 13:19:53 Number of idle job procs: 13
+07/27/26 13:19:53 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_120_170 (4624040.0.0) {07/27/26 13:19:48}
+07/27/26 13:19:53 Number of idle job procs: 12
+07/27/26 13:19:53 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_80_120 (4623837.0.0) {07/27/26 13:19:49}
+07/27/26 13:19:53 Number of idle job procs: 11
+07/27/26 13:19:58 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:19:58 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_120_170 (4624040.0.0) {07/27/26 13:19:57}
+07/27/26 13:19:58 Number of idle job procs: 11
+07/27/26 13:19:58 Node qcd_PT_120_170 job proc (4624040.0.0) failed with status 1.
+07/27/26 13:19:58 Node qcd_PT_120_170 job(s) have exited the queue
+07/27/26 13:19:58 Retrying node qcd_PT_120_170 (retry #2 of 2)...
+07/27/26 13:19:58 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:19:58 Of 14 nodes total:
+07/27/26 13:19:58  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:19:58   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:19:58     0       0       12       0       1          1        0        0
+07/27/26 13:19:58 0 job proc(s) currently held
+07/27/26 13:19:58 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.870; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=670.626; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.660; EventCycleTimeCount=134.000; SleepCycleTimeCount=134.000; SubmitCycleTimeCount=135.000; LogProcessCycleTimeAvg=0.008; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.023; LogProcessCycleTimeSum=0.196; LogProcessCycleTimeCount=24.000; ]
+07/27/26 13:20:03 Reassigning the id of job qcd_PT_120_170 from (4624040.0.0) to (-1.-1.-1)
+07/27/26 13:20:03 Submitting HTCondor Node qcd_PT_120_170 job(s)...
+07/27/26 13:20:03 Submitting node qcd_PT_120_170 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:20:03 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:20:03 	assigned HTCondor ID (4624253.0.0)
+07/27/26 13:20:03 Just submitted 1 job this cycle...
+07/27/26 13:20:03 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:03 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_80_120 (4623837.0.0) {07/27/26 13:19:58}
+07/27/26 13:20:03 Number of idle job procs: 11
+07/27/26 13:20:03 Node qcd_PT_80_120 job proc (4623837.0.0) failed with status 1.
+07/27/26 13:20:03 Node qcd_PT_80_120 job(s) have exited the queue
+07/27/26 13:20:03 Retrying node qcd_PT_80_120 (retry #2 of 2)...
+07/27/26 13:20:03 Reassigning the id of job qcd_PT_120_170 from (4624253.0.0) to (4624253.0.0)
+07/27/26 13:20:03 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_120_170 (4624253.0.0) {07/27/26 13:20:03}
+07/27/26 13:20:03 Number of idle job procs: 12
+07/27/26 13:20:08 Reassigning the id of job qcd_PT_80_120 from (4623837.0.0) to (-1.-1.-1)
+07/27/26 13:20:08 Submitting HTCondor Node qcd_PT_80_120 job(s)...
+07/27/26 13:20:08 Submitting node qcd_PT_80_120 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:20:08 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:20:08 	assigned HTCondor ID (4624254.0.0)
+07/27/26 13:20:08 Just submitted 1 job this cycle...
+07/27/26 13:20:08 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:08 Reassigning the id of job qcd_PT_80_120 from (4624254.0.0) to (4624254.0.0)
+07/27/26 13:20:08 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_80_120 (4624254.0.0) {07/27/26 13:20:08}
+07/27/26 13:20:08 Number of idle job procs: 13
+07/27/26 13:20:08 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:20:08 Of 14 nodes total:
+07/27/26 13:20:08  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:20:08   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:20:08     0       0       13       0       0          1        0        0
+07/27/26 13:20:08 0 job proc(s) currently held
+07/27/26 13:20:08 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.889; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=680.633; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.709; EventCycleTimeCount=136.000; SleepCycleTimeCount=136.000; SubmitCycleTimeCount=137.000; LogProcessCycleTimeAvg=0.008; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.022; LogProcessCycleTimeSum=0.196; LogProcessCycleTimeCount=26.000; ]
+07/27/26 13:20:13 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:13 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_300_470 (4624042.0.0) {07/27/26 13:20:08}
+07/27/26 13:20:13 Number of idle job procs: 12
+07/27/26 13:20:13 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_170_300 (4624041.0.0) {07/27/26 13:20:09}
+07/27/26 13:20:13 Number of idle job procs: 11
+07/27/26 13:20:18 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_300_470 (4624042.0.0) {07/27/26 13:20:18}
+07/27/26 13:20:18 Number of idle job procs: 11
+07/27/26 13:20:18 Node qcd_PT_300_470 job proc (4624042.0.0) failed with status 1.
+07/27/26 13:20:18 Node qcd_PT_300_470 job(s) have exited the queue
+07/27/26 13:20:18 Retrying node qcd_PT_300_470 (retry #2 of 2)...
+07/27/26 13:20:18 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:20:18 Of 14 nodes total:
+07/27/26 13:20:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:20:18   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:20:18     0       0       12       0       1          1        0        0
+07/27/26 13:20:18 0 job proc(s) currently held
+07/27/26 13:20:18 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.920; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=690.643; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.709; EventCycleTimeCount=138.000; SleepCycleTimeCount=138.000; SubmitCycleTimeCount=139.000; LogProcessCycleTimeAvg=0.007; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.021; LogProcessCycleTimeSum=0.196; LogProcessCycleTimeCount=28.000; ]
+07/27/26 13:20:23 Reassigning the id of job qcd_PT_300_470 from (4624042.0.0) to (-1.-1.-1)
+07/27/26 13:20:23 Submitting HTCondor Node qcd_PT_300_470 job(s)...
+07/27/26 13:20:23 Submitting node qcd_PT_300_470 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:20:23 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:20:23 	assigned HTCondor ID (4624255.0.0)
+07/27/26 13:20:23 Just submitted 1 job this cycle...
+07/27/26 13:20:23 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:23 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_170_300 (4624041.0.0) {07/27/26 13:20:18}
+07/27/26 13:20:23 Number of idle job procs: 11
+07/27/26 13:20:23 Node qcd_PT_170_300 job proc (4624041.0.0) failed with status 1.
+07/27/26 13:20:23 Node qcd_PT_170_300 job(s) have exited the queue
+07/27/26 13:20:23 Retrying node qcd_PT_170_300 (retry #2 of 2)...
+07/27/26 13:20:23 Reassigning the id of job qcd_PT_300_470 from (4624255.0.0) to (4624255.0.0)
+07/27/26 13:20:23 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_300_470 (4624255.0.0) {07/27/26 13:20:23}
+07/27/26 13:20:23 Number of idle job procs: 12
+07/27/26 13:20:28 Reassigning the id of job qcd_PT_170_300 from (4624041.0.0) to (-1.-1.-1)
+07/27/26 13:20:28 Submitting HTCondor Node qcd_PT_170_300 job(s)...
+07/27/26 13:20:28 Submitting node qcd_PT_170_300 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:20:28 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:20:28 	assigned HTCondor ID (4624256.0.0)
+07/27/26 13:20:28 Just submitted 1 job this cycle...
+07/27/26 13:20:28 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:28 Reassigning the id of job qcd_PT_170_300 from (4624256.0.0) to (4624256.0.0)
+07/27/26 13:20:28 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_170_300 (4624256.0.0) {07/27/26 13:20:28}
+07/27/26 13:20:28 Number of idle job procs: 13
+07/27/26 13:20:28 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:20:28 Of 14 nodes total:
+07/27/26 13:20:28  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:20:28   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:20:28     0       0       13       0       0          1        0        0
+07/27/26 13:20:28 0 job proc(s) currently held
+07/27/26 13:20:28 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=0.976; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=700.653; SubmitCycleTimeAvg=0.006; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.792; EventCycleTimeCount=140.000; SleepCycleTimeCount=140.000; SubmitCycleTimeCount=141.000; LogProcessCycleTimeAvg=0.007; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.021; LogProcessCycleTimeSum=0.197; LogProcessCycleTimeCount=30.000; ]
+07/27/26 13:20:33 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:33 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_470_600 (4624043.0.0) {07/27/26 13:20:29}
+07/27/26 13:20:33 Number of idle job procs: 12
+07/27/26 13:20:33 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_600_800 (4624245.0.0) {07/27/26 13:20:29}
+07/27/26 13:20:33 Number of idle job procs: 11
+07/27/26 13:20:43 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:43 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_470_600 (4624043.0.0) {07/27/26 13:20:38}
+07/27/26 13:20:43 Number of idle job procs: 11
+07/27/26 13:20:43 Node qcd_PT_470_600 job proc (4624043.0.0) failed with status 1.
+07/27/26 13:20:43 Node qcd_PT_470_600 job(s) have exited the queue
+07/27/26 13:20:43 Retrying node qcd_PT_470_600 (retry #2 of 2)...
+07/27/26 13:20:43 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_600_800 (4624245.0.0) {07/27/26 13:20:38}
+07/27/26 13:20:43 Number of idle job procs: 11
+07/27/26 13:20:43 Node qcd_PT_600_800 job proc (4624245.0.0) failed with status 1.
+07/27/26 13:20:43 Node qcd_PT_600_800 job(s) have exited the queue
+07/27/26 13:20:43 Retrying node qcd_PT_600_800 (retry #2 of 2)...
+07/27/26 13:20:43 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:20:43 Of 14 nodes total:
+07/27/26 13:20:43  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:20:43   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:20:43     0       0       11       0       2          1        0        0
+07/27/26 13:20:43 0 job proc(s) currently held
+07/27/26 13:20:43 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=1.003; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=715.668; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.792; EventCycleTimeCount=143.000; SleepCycleTimeCount=143.000; SubmitCycleTimeCount=144.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.020; LogProcessCycleTimeSum=0.197; LogProcessCycleTimeCount=32.000; ]
+07/27/26 13:20:48 Reassigning the id of job qcd_PT_470_600 from (4624043.0.0) to (-1.-1.-1)
+07/27/26 13:20:48 Submitting HTCondor Node qcd_PT_470_600 job(s)...
+07/27/26 13:20:48 Submitting node qcd_PT_470_600 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:20:48 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:20:48 	assigned HTCondor ID (4624257.0.0)
+07/27/26 13:20:48 Reassigning the id of job qcd_PT_600_800 from (4624245.0.0) to (-1.-1.-1)
+07/27/26 13:20:48 Submitting HTCondor Node qcd_PT_600_800 job(s)...
+07/27/26 13:20:48 Submitting node qcd_PT_600_800 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:20:48 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:20:48 	assigned HTCondor ID (4624258.0.0)
+07/27/26 13:20:48 Just submitted 2 jobs this cycle...
+07/27/26 13:20:48 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:20:48 Of 14 nodes total:
+07/27/26 13:20:48  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:20:48   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:20:48     0       0       13       0       0          1        0        0
+07/27/26 13:20:48 0 job proc(s) currently held
+07/27/26 13:20:48 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=1.004; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=720.674; SubmitCycleTimeAvg=0.006; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.816; EventCycleTimeCount=144.000; SleepCycleTimeCount=144.000; SubmitCycleTimeCount=145.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.020; LogProcessCycleTimeSum=0.197; LogProcessCycleTimeCount=32.000; ]
+07/27/26 13:20:53 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:53 Reassigning the id of job qcd_PT_470_600 from (4624257.0.0) to (4624257.0.0)
+07/27/26 13:20:53 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_470_600 (4624257.0.0) {07/27/26 13:20:48}
+07/27/26 13:20:53 Number of idle job procs: 12
+07/27/26 13:20:53 Reassigning the id of job qcd_PT_600_800 from (4624258.0.0) to (4624258.0.0)
+07/27/26 13:20:53 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_600_800 (4624258.0.0) {07/27/26 13:20:48}
+07/27/26 13:20:53 Number of idle job procs: 13
+07/27/26 13:20:53 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_1000 (4624247.0.0) {07/27/26 13:20:49}
+07/27/26 13:20:53 Number of idle job procs: 12
+07/27/26 13:20:53 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_800_1000 (4624246.0.0) {07/27/26 13:20:49}
+07/27/26 13:20:53 Number of idle job procs: 11
+07/27/26 13:20:58 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:20:58 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_1000 (4624247.0.0) {07/27/26 13:20:58}
+07/27/26 13:20:58 Number of idle job procs: 11
+07/27/26 13:20:58 Node qcd_PT_1000 job proc (4624247.0.0) failed with status 1.
+07/27/26 13:20:58 Node qcd_PT_1000 job(s) have exited the queue
+07/27/26 13:20:58 Retrying node qcd_PT_1000 (retry #2 of 2)...
+07/27/26 13:20:58 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:20:58 Of 14 nodes total:
+07/27/26 13:20:58  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:20:58   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:20:58     0       0       12       0       1          1        0        0
+07/27/26 13:20:58 0 job proc(s) currently held
+07/27/26 13:20:58 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.025; EventCycleTimeSum=1.029; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=730.684; SubmitCycleTimeAvg=0.006; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.816; EventCycleTimeCount=146.000; SleepCycleTimeCount=146.000; SubmitCycleTimeCount=147.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.019; LogProcessCycleTimeSum=0.197; LogProcessCycleTimeCount=34.000; ]
+07/27/26 13:21:03 Reassigning the id of job qcd_PT_1000 from (4624247.0.0) to (-1.-1.-1)
+07/27/26 13:21:03 Submitting HTCondor Node qcd_PT_1000 job(s)...
+07/27/26 13:21:03 Submitting node qcd_PT_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:21:03 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:21:03 	assigned HTCondor ID (4624259.0.0)
+07/27/26 13:21:03 Just submitted 1 job this cycle...
+07/27/26 13:21:03 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:21:03 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_800_1000 (4624246.0.0) {07/27/26 13:20:58}
+07/27/26 13:21:03 Number of idle job procs: 11
+07/27/26 13:21:03 Node qcd_PT_800_1000 job proc (4624246.0.0) failed with status 1.
+07/27/26 13:21:03 Node qcd_PT_800_1000 job(s) have exited the queue
+07/27/26 13:21:03 Retrying node qcd_PT_800_1000 (retry #2 of 2)...
+07/27/26 13:21:03 Reassigning the id of job qcd_PT_1000 from (4624259.0.0) to (4624259.0.0)
+07/27/26 13:21:03 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_1000 (4624259.0.0) {07/27/26 13:21:03}
+07/27/26 13:21:03 Number of idle job procs: 12
+07/27/26 13:21:08 Reassigning the id of job qcd_PT_800_1000 from (4624246.0.0) to (-1.-1.-1)
+07/27/26 13:21:08 Submitting HTCondor Node qcd_PT_800_1000 job(s)...
+07/27/26 13:21:08 Submitting node qcd_PT_800_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:21:08 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:21:08 	assigned HTCondor ID (4624260.0.0)
+07/27/26 13:21:08 Just submitted 1 job this cycle...
+07/27/26 13:21:08 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:21:08 Reassigning the id of job qcd_PT_800_1000 from (4624260.0.0) to (4624260.0.0)
+07/27/26 13:21:08 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_800_1000 (4624260.0.0) {07/27/26 13:21:08}
+07/27/26 13:21:08 Number of idle job procs: 13
+07/27/26 13:21:08 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:21:08 Of 14 nodes total:
+07/27/26 13:21:08  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:21:08   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:21:08     0       0       13       0       0          1        0        0
+07/27/26 13:21:08 0 job proc(s) currently held
+07/27/26 13:21:08 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=1.061; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=740.692; SubmitCycleTimeAvg=0.006; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.869; EventCycleTimeCount=148.000; SleepCycleTimeCount=148.000; SubmitCycleTimeCount=149.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.019; LogProcessCycleTimeSum=0.198; LogProcessCycleTimeCount=36.000; ]
+07/27/26 13:21:13 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:21:13 Event: ULOG_EXECUTE for HTCondor Node signal (4624248.0.0) {07/27/26 13:21:09}
+07/27/26 13:21:13 Number of idle job procs: 12
+07/27/26 13:21:13 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_15_20 (4624249.0.0) {07/27/26 13:21:09}
+07/27/26 13:21:13 Number of idle job procs: 11
+07/27/26 13:21:18 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:21:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_15_20 (4624249.0.0) {07/27/26 13:21:18}
+07/27/26 13:21:18 Number of idle job procs: 11
+07/27/26 13:21:18 Node qcd_PT_15_20 job proc (4624249.0.0) failed with status 1.
+07/27/26 13:21:18 Node qcd_PT_15_20 job(s) have exited the queue
+07/27/26 13:21:18 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:21:18 Of 14 nodes total:
+07/27/26 13:21:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:21:18   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:21:18     0       0       12       0       0          0        1        1
+07/27/26 13:21:18 0 job proc(s) currently held
+07/27/26 13:21:18 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=1.083; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=750.702; SubmitCycleTimeAvg=0.006; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.869; EventCycleTimeCount=150.000; SleepCycleTimeCount=150.000; SubmitCycleTimeCount=151.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.018; LogProcessCycleTimeSum=0.198; LogProcessCycleTimeCount=38.000; ]
+07/27/26 13:21:23 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:21:23 Event: ULOG_JOB_TERMINATED for HTCondor Node signal (4624248.0.0) {07/27/26 13:21:22}
+07/27/26 13:21:23 Number of idle job procs: 11
+07/27/26 13:21:23 Node signal job proc (4624248.0.0) completed successfully.
+07/27/26 13:21:23 Node signal job(s) have exited the queue
+07/27/26 13:21:23 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:21:23 Of 14 nodes total:
+07/27/26 13:21:23  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:21:23   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:21:23     1       0       11       0       0          0        1        1
+07/27/26 13:21:23 0 job proc(s) currently held
+07/27/26 13:21:23 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.024; EventCycleTimeSum=1.083; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=755.707; SubmitCycleTimeAvg=0.006; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.023; SubmitCycleTimeSum=0.869; EventCycleTimeCount=151.000; SleepCycleTimeCount=151.000; SubmitCycleTimeCount=152.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.018; LogProcessCycleTimeSum=0.198; LogProcessCycleTimeCount=39.000; ]
+07/27/26 13:22:13 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:22:13 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_20_30 (4624250.0.0) {07/27/26 13:22:09}
+07/27/26 13:22:13 Number of idle job procs: 10
+07/27/26 13:22:13 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_30_50 (4624251.0.0) {07/27/26 13:22:09}
+07/27/26 13:22:13 Number of idle job procs: 9
+07/27/26 13:22:18 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:22:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_20_30 (4624250.0.0) {07/27/26 13:22:18}
+07/27/26 13:22:18 Number of idle job procs: 9
+07/27/26 13:22:18 Node qcd_PT_20_30 job proc (4624250.0.0) failed with status 1.
+07/27/26 13:22:18 Node qcd_PT_20_30 job(s) have exited the queue
+07/27/26 13:22:18 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:22:18 Of 14 nodes total:
+07/27/26 13:22:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:22:18   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:22:18     1       0       10       0       0          0        2        1
+07/27/26 13:22:18 0 job proc(s) currently held
+07/27/26 13:22:18 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=1.089; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=810.761; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.022; SubmitCycleTimeSum=0.869; EventCycleTimeCount=162.000; SleepCycleTimeCount=162.000; SubmitCycleTimeCount=163.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.018; LogProcessCycleTimeSum=0.204; LogProcessCycleTimeCount=41.000; ]
+07/27/26 13:22:23 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:22:23 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_30_50 (4624251.0.0) {07/27/26 13:22:19}
+07/27/26 13:22:23 Number of idle job procs: 9
+07/27/26 13:22:23 Node qcd_PT_30_50 job proc (4624251.0.0) failed with status 1.
+07/27/26 13:22:23 Node qcd_PT_30_50 job(s) have exited the queue
+07/27/26 13:22:23 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:22:23 Of 14 nodes total:
+07/27/26 13:22:23  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:22:23   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:22:23     1       0        9       0       0          0        3        1
+07/27/26 13:22:23 0 job proc(s) currently held
+07/27/26 13:22:23 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.007; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=1.090; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=815.766; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.022; SubmitCycleTimeSum=0.869; EventCycleTimeCount=163.000; SleepCycleTimeCount=163.000; SubmitCycleTimeCount=164.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.018; LogProcessCycleTimeSum=0.204; LogProcessCycleTimeCount=42.000; ]
+07/27/26 13:23:08 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:23:08 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_50_80 (4624252.0.0) {07/27/26 13:23:08}
+07/27/26 13:23:08 Number of idle job procs: 8
+07/27/26 13:23:08 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_120_170 (4624253.0.0) {07/27/26 13:23:08}
+07/27/26 13:23:08 Number of idle job procs: 7
+07/27/26 13:23:18 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:23:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_120_170 (4624253.0.0) {07/27/26 13:23:17}
+07/27/26 13:23:18 Number of idle job procs: 7
+07/27/26 13:23:18 Node qcd_PT_120_170 job proc (4624253.0.0) failed with status 1.
+07/27/26 13:23:18 Node qcd_PT_120_170 job(s) have exited the queue
+07/27/26 13:23:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_50_80 (4624252.0.0) {07/27/26 13:23:18}
+07/27/26 13:23:18 Number of idle job procs: 7
+07/27/26 13:23:18 Node qcd_PT_50_80 job proc (4624252.0.0) failed with status 1.
+07/27/26 13:23:18 Node qcd_PT_50_80 job(s) have exited the queue
+07/27/26 13:23:18 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:23:18 Of 14 nodes total:
+07/27/26 13:23:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:23:18   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:23:18     1       0        7       0       0          0        5        1
+07/27/26 13:23:18 0 job proc(s) currently held
+07/27/26 13:23:18 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=1.094; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=870.818; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.021; SubmitCycleTimeSum=0.869; EventCycleTimeCount=174.000; SleepCycleTimeCount=174.000; SubmitCycleTimeCount=175.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.017; LogProcessCycleTimeSum=0.208; LogProcessCycleTimeCount=44.000; ]
+07/27/26 13:23:48 Total jobs placed to AP: 38
+07/27/26 13:23:48      Idle     Held     Running     Successful     Failed
+07/27/26 13:23:48       ===      ===         ===            ===        ===
+07/27/26 13:23:48         7        0           0              1         30
+07/27/26 13:24:08 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:24:08 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_80_120 (4624254.0.0) {07/27/26 13:24:08}
+07/27/26 13:24:08 Number of idle job procs: 6
+07/27/26 13:24:08 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_300_470 (4624255.0.0) {07/27/26 13:24:08}
+07/27/26 13:24:08 Number of idle job procs: 5
+07/27/26 13:24:18 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:24:18 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_80_120 (4624254.0.0) {07/27/26 13:24:18}
+07/27/26 13:24:18 Number of idle job procs: 5
+07/27/26 13:24:18 Node qcd_PT_80_120 job proc (4624254.0.0) failed with status 1.
+07/27/26 13:24:18 Node qcd_PT_80_120 job(s) have exited the queue
+07/27/26 13:24:18 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:24:18 Of 14 nodes total:
+07/27/26 13:24:18  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:24:18   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:24:18     1       0        6       0       0          0        6        1
+07/27/26 13:24:18 0 job proc(s) currently held
+07/27/26 13:24:18 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.098; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=930.877; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.020; SubmitCycleTimeSum=0.869; EventCycleTimeCount=186.000; SleepCycleTimeCount=186.000; SubmitCycleTimeCount=187.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.017; LogProcessCycleTimeSum=0.217; LogProcessCycleTimeCount=46.000; ]
+07/27/26 13:24:23 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:24:23 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_300_470 (4624255.0.0) {07/27/26 13:24:18}
+07/27/26 13:24:23 Number of idle job procs: 5
+07/27/26 13:24:23 Node qcd_PT_300_470 job proc (4624255.0.0) failed with status 1.
+07/27/26 13:24:23 Node qcd_PT_300_470 job(s) have exited the queue
+07/27/26 13:24:23 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:24:23 Of 14 nodes total:
+07/27/26 13:24:23  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:24:23   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:24:23     1       0        5       0       0          0        7        1
+07/27/26 13:24:23 0 job proc(s) currently held
+07/27/26 13:24:23 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.106; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=935.882; SubmitCycleTimeAvg=0.005; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.020; SubmitCycleTimeSum=0.869; EventCycleTimeCount=187.000; SleepCycleTimeCount=187.000; SubmitCycleTimeCount=188.000; LogProcessCycleTimeAvg=0.005; LogProcessCycleTimeMax=0.100; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.017; LogProcessCycleTimeSum=0.217; LogProcessCycleTimeCount=47.000; ]
+07/27/26 13:25:08 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:25:09 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_470_600 (4624257.0.0) {07/27/26 13:25:08}
+07/27/26 13:25:09 Number of idle job procs: 4
+07/27/26 13:25:14 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:25:14 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_170_300 (4624256.0.0) {07/27/26 13:25:09}
+07/27/26 13:25:14 Number of idle job procs: 3
+07/27/26 13:25:19 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:25:19 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_470_600 (4624257.0.0) {07/27/26 13:25:19}
+07/27/26 13:25:19 Number of idle job procs: 3
+07/27/26 13:25:19 Node qcd_PT_470_600 job proc (4624257.0.0) failed with status 1.
+07/27/26 13:25:19 Node qcd_PT_470_600 job(s) have exited the queue
+07/27/26 13:25:19 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:25:19 Of 14 nodes total:
+07/27/26 13:25:19  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:25:19   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:25:19     1       0        4       0       0          0        8        1
+07/27/26 13:25:19 0 job proc(s) currently held
+07/27/26 13:25:19 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=1.230; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=990.926; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.020; SubmitCycleTimeSum=0.869; EventCycleTimeCount=198.000; SleepCycleTimeCount=198.000; SubmitCycleTimeCount=199.000; LogProcessCycleTimeAvg=0.007; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.023; LogProcessCycleTimeSum=0.341; LogProcessCycleTimeCount=50.000; ]
+07/27/26 13:25:24 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:25:24 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_170_300 (4624256.0.0) {07/27/26 13:25:19}
+07/27/26 13:25:24 Number of idle job procs: 3
+07/27/26 13:25:24 Node qcd_PT_170_300 job proc (4624256.0.0) failed with status 1.
+07/27/26 13:25:24 Node qcd_PT_170_300 job(s) have exited the queue
+07/27/26 13:25:24 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:25:24 Of 14 nodes total:
+07/27/26 13:25:24  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:25:24   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:25:24     1       0        3       0       0          0        9        1
+07/27/26 13:25:24 0 job proc(s) currently held
+07/27/26 13:25:24 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.023; EventCycleTimeSum=1.231; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=995.931; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.020; SubmitCycleTimeSum=0.869; EventCycleTimeCount=199.000; SleepCycleTimeCount=199.000; SubmitCycleTimeCount=200.000; LogProcessCycleTimeAvg=0.007; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.023; LogProcessCycleTimeSum=0.341; LogProcessCycleTimeCount=51.000; ]
+07/27/26 13:26:14 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:26:14 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_600_800 (4624258.0.0) {07/27/26 13:26:09}
+07/27/26 13:26:14 Number of idle job procs: 2
+07/27/26 13:26:14 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_1000 (4624259.0.0) {07/27/26 13:26:09}
+07/27/26 13:26:14 Number of idle job procs: 1
+07/27/26 13:26:19 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:26:19 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_600_800 (4624258.0.0) {07/27/26 13:26:18}
+07/27/26 13:26:19 Number of idle job procs: 1
+07/27/26 13:26:19 Node qcd_PT_600_800 job proc (4624258.0.0) failed with status 1.
+07/27/26 13:26:19 Node qcd_PT_600_800 job(s) have exited the queue
+07/27/26 13:26:19 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:26:19 Of 14 nodes total:
+07/27/26 13:26:19  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:26:19   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:26:19     1       0        2       0       0          0       10        1
+07/27/26 13:26:19 0 job proc(s) currently held
+07/27/26 13:26:19 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.232; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=1050.981; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.019; SubmitCycleTimeSum=0.869; EventCycleTimeCount=210.000; SleepCycleTimeCount=210.000; SubmitCycleTimeCount=211.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.022; LogProcessCycleTimeSum=0.341; LogProcessCycleTimeCount=53.000; ]
+07/27/26 13:26:24 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:26:24 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_1000 (4624259.0.0) {07/27/26 13:26:19}
+07/27/26 13:26:24 Number of idle job procs: 1
+07/27/26 13:26:24 Node qcd_PT_1000 job proc (4624259.0.0) failed with status 1.
+07/27/26 13:26:24 Node qcd_PT_1000 job(s) have exited the queue
+07/27/26 13:26:24 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:26:24 Of 14 nodes total:
+07/27/26 13:26:24  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:26:24   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:26:24     1       0        1       0       0          0       11        1
+07/27/26 13:26:24 0 job proc(s) currently held
+07/27/26 13:26:24 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.232; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=1055.986; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.019; SubmitCycleTimeSum=0.869; EventCycleTimeCount=211.000; SleepCycleTimeCount=211.000; SubmitCycleTimeCount=212.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.022; LogProcessCycleTimeSum=0.341; LogProcessCycleTimeCount=54.000; ]
+07/27/26 13:27:14 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:27:14 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_800_1000 (4624260.0.0) {07/27/26 13:27:09}
+07/27/26 13:27:14 Number of idle job procs: 0
+07/27/26 13:27:19 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:27:19 Event: ULOG_JOB_TERMINATED for HTCondor Node qcd_PT_800_1000 (4624260.0.0) {07/27/26 13:27:19}
+07/27/26 13:27:19 Number of idle job procs: 0
+07/27/26 13:27:19 Node qcd_PT_800_1000 job proc (4624260.0.0) failed with status 1.
+07/27/26 13:27:19 Node qcd_PT_800_1000 job(s) have exited the queue
+07/27/26 13:27:19 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:27:19 Of 14 nodes total:
+07/27/26 13:27:19  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:27:19   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:27:19     1       0        0       0       0          0       12        1
+07/27/26 13:27:19 0 job proc(s) currently held
+07/27/26 13:27:19 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.237; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=1111.040; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.019; SubmitCycleTimeSum=0.869; EventCycleTimeCount=222.000; SleepCycleTimeCount=222.000; SubmitCycleTimeCount=223.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.022; LogProcessCycleTimeSum=0.346; LogProcessCycleTimeCount=56.000; ]
+07/27/26 13:27:19 ERROR: the following job(s) failed:
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_15_20
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 0
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624249.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624249.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_20_30
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 1
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624250.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624250.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_30_50
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 2
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624251.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624251.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_50_80
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 3
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624252.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624252.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_80_120
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 4
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624254.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624254.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_120_170
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 5
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624253.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624253.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_170_300
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 6
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624256.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624256.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_300_470
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 7
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624255.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624255.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_470_600
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 8
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624257.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624257.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_600_800
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 9
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624258.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624258.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_800_1000
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 10
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624260.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624260.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------- Node ----------------------
+07/27/26 13:27:19       Node Name: qcd_PT_1000
+07/27/26 13:27:19            Noop: false
+07/27/26 13:27:19          NodeID: 11
+07/27/26 13:27:19     Node Status: STATUS_ERROR    
+07/27/26 13:27:19 Node return val: 1
+07/27/26 13:27:19           Error: Job proc (4624259.0.0) failed with status 1 (after 2 node retries)
+07/27/26 13:27:19 Job Submit File: /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+07/27/26 13:27:19           Retry: 2
+07/27/26 13:27:19  HTCondor Job ID: (4624259.0.0)
+07/27/26 13:27:19 PARENTS:  WAITING: 0 CHILDREN: merge
+07/27/26 13:27:19 ---------------------------------------	<END>
+07/27/26 13:27:19 Aborting DAG...
+07/27/26 13:27:19 Writing Rescue DAG to _tools/condor/compareDeltaR.dag.rescue001...
+07/27/26 13:27:19 Removing submitted jobs...
+07/27/26 13:27:19 Removing any/all submitted HTCondor jobs...
+07/27/26 13:27:19 Running: /usr/bin/condor_rm -const DAGManJobId==4623815 -reason DAG' 'Abort:' 'DAG' 'is' 'exiting' 'and' 'writing' 'rescue' 'file.
+07/27/26 13:27:19 Note: 0 total node deferrals because of -MaxJobs limit (0)
+07/27/26 13:27:19 Note: 0 total node deferrals because of -MaxIdle limit (1000)
+07/27/26 13:27:19 Note: 0 total node deferrals because of node category throttles
+07/27/26 13:27:19 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+07/27/26 13:27:19 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+07/27/26 13:27:19 Note: 0 total HOLD script deferrals because of -MaxHold limit (20) or DEFER
+07/27/26 13:27:19 DAG status: 2 (DAG_STATUS_NODE_FAILED)
+07/27/26 13:27:19 Of 14 nodes total:
+07/27/26 13:27:19  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:27:19   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:27:19     1       0        0       0       0          0       12        1
+07/27/26 13:27:19 0 job proc(s) currently held
+07/27/26 13:27:19 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.237; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=1111.040; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.019; SubmitCycleTimeSum=0.869; EventCycleTimeCount=222.000; SleepCycleTimeCount=222.000; SubmitCycleTimeCount=223.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.022; LogProcessCycleTimeSum=0.346; LogProcessCycleTimeCount=56.000; ]
+07/27/26 13:27:19 Wrote metrics file _tools/condor/compareDeltaR.dag.metrics.
+07/27/26 13:27:19 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.006; EventCycleTimeMax=0.236; EventCycleTimeMin=0.000; EventCycleTimeStd=0.022; EventCycleTimeSum=1.237; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.007; SleepCycleTimeMin=5.000; SleepCycleTimeStd=0.001; SleepCycleTimeSum=1111.040; SubmitCycleTimeAvg=0.004; SubmitCycleTimeMax=0.236; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.019; SubmitCycleTimeSum=0.869; EventCycleTimeCount=222.000; SleepCycleTimeCount=222.000; SubmitCycleTimeCount=223.000; LogProcessCycleTimeAvg=0.006; LogProcessCycleTimeMax=0.120; LogProcessCycleTimeMin=0.000; LogProcessCycleTimeStd=0.022; LogProcessCycleTimeSum=0.346; LogProcessCycleTimeCount=56.000; ]
+07/27/26 13:27:19 **** condor_scheduniv_exec.4623815.0 (condor_DAGMAN) pid 30748 EXITING WITH STATUS 1
+07/27/26 13:30:43 ******************************************************
+07/27/26 13:30:43 ** condor_scheduniv_exec.4624261.0 (CONDOR_DAGMAN) STARTING UP
+07/27/26 13:30:43 ** /usr/bin/condor_dagman
+07/27/26 13:30:43 ** SubsystemInfo: name=DAGMAN type=DAGMAN(9) class=CLIENT(2)
+07/27/26 13:30:43 ** Configuration: subsystem:DAGMAN local:<NONE> class:CLIENT
+07/27/26 13:30:43 ** $CondorVersion: 25.0.12 2026-07-07 BuildID: 930047 PackageID: 25.0.12-1 $
+07/27/26 13:30:43 ** $CondorPlatform: x86_64_AlmaLinux9 $
+07/27/26 13:30:43 ** PID = 32040 RealUID = 1789945
+07/27/26 13:30:43 ** Log last touched 7/27 13:27:19
+07/27/26 13:30:43 ******************************************************
+07/27/26 13:30:43 Using config source: /etc/condor/condor_config
+07/27/26 13:30:43 Using local config sources: 
+07/27/26 13:30:43    /etc/condor/config.d/00-security
+07/27/26 13:30:43    /etc/condor/config.d/10-stash-plugin.conf
+07/27/26 13:30:43    /etc/condor/config.d/hep.conf
+07/27/26 13:30:43    /etc/condor/condor_config.local
+07/27/26 13:30:43 config Macros = 133, Sorted = 133, StringBytes = 6353, TablesBytes = 4860
+07/27/26 13:30:43 CLASSAD_CACHING is ENABLED
+07/27/26 13:30:43 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS
+07/27/26 13:30:43 Daemoncore: Listening at <0.0.0.0:12315> on TCP (ReliSock) and UDP (SafeSock).
+07/27/26 13:30:43 Daemoncore: Listening at <[::]:12315> on TCP (ReliSock) and UDP (SafeSock).
+07/27/26 13:30:43 DaemonCore: command socket at <146.179.108.134:12315?addrs=146.179.108.134-12315+[2a0c-5bc0-88-111-216-3eff-fe7f-207]-12315&alias=htcmaster00.hep.ph.ic.ac.uk>
+07/27/26 13:30:43 DaemonCore: private command socket at <146.179.108.134:12315?addrs=146.179.108.134-12315+[2a0c-5bc0-88-111-216-3eff-fe7f-207]-12315&alias=htcmaster00.hep.ph.ic.ac.uk>
+07/27/26 13:30:43 DAGMAN_USE_STRICT setting: 1
+07/27/26 13:30:43 DAGMAN_VERBOSITY setting: 3
+07/27/26 13:30:43 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+07/27/26 13:30:43 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+07/27/26 13:30:43 DAGMAN_SUBMIT_DELAY setting: 0
+07/27/26 13:30:43 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+07/27/26 13:30:43 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+07/27/26 13:30:43 DAGMAN_USE_JOIN_NODES setting: True
+07/27/26 13:30:43 DAGMAN_REPORT_GRAPH_METRICS setting: False
+07/27/26 13:30:43 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 100
+07/27/26 13:30:43 DAGMAN_AGGRESSIVE_SUBMIT setting: False
+07/27/26 13:30:43 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+07/27/26 13:30:43 DAGMAN_QUEUE_UPDATE_INTERVAL setting: 300.000000
+07/27/26 13:30:43 DAGMAN_DEFAULT_PRIORITY setting: 0
+07/27/26 13:30:43 DAGMAN_SUPPRESS_NOTIFICATION setting: False
+07/27/26 13:30:43 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+07/27/26 13:30:43 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+07/27/26 13:30:43 DAGMAN_RETRY_NODE_FIRST setting: False
+07/27/26 13:30:43 DAGMAN_MAX_JOBS_IDLE setting: 1000
+07/27/26 13:30:43 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+07/27/26 13:30:43 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+07/27/26 13:30:43 DAGMAN_MAX_POST_SCRIPTS setting: 20
+07/27/26 13:30:43 DAGMAN_MAX_HOLD_SCRIPTS setting: 20
+07/27/26 13:30:43 DAGMAN_MUNGE_NODE_NAMES setting: True
+07/27/26 13:30:43 DAGMAN_ALLOW_ANY_NODE_NAME_CHARACTERS setting: False
+07/27/26 13:30:43 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+07/27/26 13:30:43 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+07/27/26 13:30:43 DAGMAN_ALWAYS_RUN_POST setting: False
+07/27/26 13:30:43 DAGMAN_CONDOR_SUBMIT_EXE setting: /usr/bin/condor_submit
+07/27/26 13:30:43 DAGMAN_CONDOR_RM_EXE setting: /usr/bin/condor_rm
+07/27/26 13:30:43 DAGMAN_USE_DIRECT_SUBMIT setting: True
+07/27/26 13:30:43 DAGMAN_PRODUCE_JOB_CREDENTIALS setting: True
+07/27/26 13:30:43 DAGMAN_DEFAULT_APPEND_VARS setting: False
+07/27/26 13:30:43 DAGMAN_INHERIT_ATTRS_PREFIX setting: 
+07/27/26 13:30:43 DAGMAN_INHERIT_ATTRS setting: 
+07/27/26 13:30:43 DAGMAN_ABORT_DUPLICATES setting: True
+07/27/26 13:30:43 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+07/27/26 13:30:43 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+07/27/26 13:30:43 DAGMAN_CHECK_QUEUE_INTERVAL setting: 28800
+07/27/26 13:30:43 DAGMAN_PRINT_JOB_TABLE_INTERVAL setting: 900
+07/27/26 13:30:43 DAGMAN_AUTO_RESCUE setting: True
+07/27/26 13:30:43 DAGMAN_MAX_RESCUE_NUM setting: 100
+07/27/26 13:30:43 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+07/27/26 13:30:43 DAGMAN_RESET_RETRIES_UPON_RESCUE setting: True
+07/27/26 13:30:43 DAGMAN_METRICS_FILE_VERSION setting: 2
+07/27/26 13:30:43 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+07/27/26 13:30:43 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+07/27/26 13:30:43 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+07/27/26 13:30:43 DAGMAN_MAX_JOB_HOLDS setting: 100
+07/27/26 13:30:43 DAGMAN_NODE_JOB_FAILURE_TOLERANCE setting: 0
+07/27/26 13:30:43 DAGMAN_HOLD_CLAIM_TIME setting: 20
+07/27/26 13:30:43 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+07/27/26 13:30:43 DAGMAN_REMOVE_NODE_JOBS setting: True
+07/27/26 13:30:43 DAGMAN_PUT_FAILED_JOBS_ON_HOLD setting: False
+07/27/26 13:30:43 DAGMAN_REMOVE_JOBS_AFTER_LIMIT_CHANGE setting: False
+07/27/26 13:30:43 DAGMAN will adjust edges after parsing
+07/27/26 13:30:43 argv[0] == "condor_scheduniv_exec.4624261.0"
+07/27/26 13:30:43 argv[1] == "-Lockfile"
+07/27/26 13:30:43 argv[2] == "_tools/condor/compareDeltaR.dag.lock"
+07/27/26 13:30:43 argv[3] == "-Dag"
+07/27/26 13:30:43 argv[4] == "_tools/condor/compareDeltaR.dag"
+07/27/26 13:30:43 argv[5] == "-CsdVersion"
+07/27/26 13:30:43 argv[6] == "$CondorVersion: 25.0.12 2026-07-07 BuildID: 930047 PackageID: 25.0.12-1 $"
+07/27/26 13:30:43 argv[7] == "-dagman"
+07/27/26 13:30:43 argv[8] == "/usr/bin/condor_dagman"
+07/27/26 13:30:43 argv[9] == "-AutoRescue"
+07/27/26 13:30:43 argv[10] == "1"
+07/27/26 13:30:43 argv[11] == "-DoRescueFrom"
+07/27/26 13:30:43 argv[12] == "0"
+07/27/26 13:30:43 argv[13] == "-force"
+07/27/26 13:30:43 Can't open directory "/etc/condor/passwords.d" as PRIV_ROOT, errno: 13 (Permission denied)
+07/27/26 13:30:43 Can't open directory "/etc/condor/passwords.d" as PRIV_ROOT, errno: 13 (Permission denied)
+07/27/26 13:30:43 Workflow batch-id: <4624261.0>
+07/27/26 13:30:43 Workflow batch-name: <compareDeltaR.dag+4624261>
+07/27/26 13:30:43 Workflow accounting_group: <>
+07/27/26 13:30:43 Workflow accounting_group_user: <>
+07/27/26 13:30:43 Warning: failed to get attribute DAGNodeName
+07/27/26 13:30:43 Default node log file is: </vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR.dag.nodes.log>
+07/27/26 13:30:43 DAG Lockfile will be written to _tools/condor/compareDeltaR.dag.lock
+07/27/26 13:30:43 DAG Input file is _tools/condor/compareDeltaR.dag
+07/27/26 13:30:43 Parsing 1 dagfiles
+07/27/26 13:30:43 Parsing _tools/condor/compareDeltaR.dag ...
+07/27/26 13:30:43 Adjusting edges
+07/27/26 13:30:43 Dag contains 14 total nodes
+07/27/26 13:30:43 Bootstrapping...
+07/27/26 13:30:43 Number of pre-completed nodes: 0
+07/27/26 13:30:43 MultiLogFiles: truncating log file /vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR.dag.nodes.log
+07/27/26 13:30:43 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:30:43 Of 14 nodes total:
+07/27/26 13:30:43  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:30:43   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:30:43     0       0        0       0      13          1        0        0
+07/27/26 13:30:43 0 job proc(s) currently held
+07/27/26 13:30:43 DAGMan Runtime Statistics: [EventCycleTimeSum=0.000; SleepCycleTimeSum=0.000; SubmitCycleTimeSum=0.000; EventCycleTimeCount=0.000; SleepCycleTimeCount=0.000; SubmitCycleTimeCount=0.000; LogProcessCycleTimeSum=0.000; LogProcessCycleTimeCount=0.000; ]
+07/27/26 13:30:43 Registering condor_event_timer...
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_15_20 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_15_20 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624262.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_20_30 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_20_30 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624263.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_30_50 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_30_50 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624264.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_50_80 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_50_80 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624265.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_80_120 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_80_120 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624266.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_120_170 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_120_170 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624267.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_170_300 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_170_300 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624268.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_300_470 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_300_470 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624269.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_470_600 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_470_600 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624270.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_600_800 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_600_800 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624271.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_800_1000 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_800_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624272.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node qcd_PT_1000 job(s)...
+07/27/26 13:30:44 Submitting node qcd_PT_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624273.0.0)
+07/27/26 13:30:44 Submitting HTCondor Node signal job(s)...
+07/27/26 13:30:44 Submitting node signal from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:30:44 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:30:44 	assigned HTCondor ID (4624274.0.0)
+07/27/26 13:30:44 Just submitted 13 jobs this cycle...
+07/27/26 13:30:44 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:30:44 Of 14 nodes total:
+07/27/26 13:30:44  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:30:44   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:30:44     0       0       13       0       0          1        0        0
+07/27/26 13:30:44 0 job proc(s) currently held
+07/27/26 13:30:44 DAGMan Runtime Statistics: [EventCycleTimeSum=0.000; SleepCycleTimeSum=0.000; SubmitCycleTimeAvg=0.177; SubmitCycleTimeMax=0.177; SubmitCycleTimeMin=0.177; SubmitCycleTimeStd=0.177; SubmitCycleTimeSum=0.177; EventCycleTimeCount=0.000; SleepCycleTimeCount=0.000; SubmitCycleTimeCount=1.000; LogProcessCycleTimeSum=0.000; LogProcessCycleTimeCount=0.000; ]
+07/27/26 13:30:49 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_15_20 from (4624262.0.0) to (4624262.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_15_20 (4624262.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 1
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_20_30 from (4624263.0.0) to (4624263.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_20_30 (4624263.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 2
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_30_50 from (4624264.0.0) to (4624264.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_30_50 (4624264.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 3
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_50_80 from (4624265.0.0) to (4624265.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_50_80 (4624265.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 4
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_80_120 from (4624266.0.0) to (4624266.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_80_120 (4624266.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 5
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_120_170 from (4624267.0.0) to (4624267.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_120_170 (4624267.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 6
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_170_300 from (4624268.0.0) to (4624268.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_170_300 (4624268.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 7
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_300_470 from (4624269.0.0) to (4624269.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_300_470 (4624269.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 8
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_470_600 from (4624270.0.0) to (4624270.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_470_600 (4624270.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 9
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_600_800 from (4624271.0.0) to (4624271.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_600_800 (4624271.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 10
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_800_1000 from (4624272.0.0) to (4624272.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_800_1000 (4624272.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 11
+07/27/26 13:30:49 Reassigning the id of job qcd_PT_1000 from (4624273.0.0) to (4624273.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_1000 (4624273.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 12
+07/27/26 13:30:49 Reassigning the id of job signal from (4624274.0.0) to (4624274.0.0)
+07/27/26 13:30:49 Event: ULOG_SUBMIT for HTCondor Node signal (4624274.0.0) {07/27/26 13:30:44}
+07/27/26 13:30:49 Number of idle job procs: 13
+07/27/26 13:40:49 600 seconds since last log event
+07/27/26 13:40:49 Pending DAG nodes:
+07/27/26 13:40:49   Node qcd_PT_15_20, HTCondor ID 4624262, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_20_30, HTCondor ID 4624263, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_30_50, HTCondor ID 4624264, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_50_80, HTCondor ID 4624265, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_80_120, HTCondor ID 4624266, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_120_170, HTCondor ID 4624267, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_170_300, HTCondor ID 4624268, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_300_470, HTCondor ID 4624269, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_470_600, HTCondor ID 4624270, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_600_800, HTCondor ID 4624271, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_800_1000, HTCondor ID 4624272, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node qcd_PT_1000, HTCondor ID 4624273, status STATUS_SUBMITTED
+07/27/26 13:40:49   Node signal, HTCondor ID 4624274, status STATUS_SUBMITTED
+07/27/26 13:45:44 Total jobs placed to AP: 13
+07/27/26 13:45:44      Idle     Held     Running     Successful     Failed
+07/27/26 13:45:44       ===      ===         ===            ===        ===
+07/27/26 13:45:44        13        0           0              0          0
+07/27/26 13:48:04 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:48:04 Event: ULOG_EXECUTE for HTCondor Node qcd_PT_15_20 (4624262.0.0) {07/27/26 13:48:01}
+07/27/26 13:48:04 Number of idle job procs: 12
+07/27/26 13:49:03 Received SIGUSR1
+07/27/26 13:49:03 Aborting DAG...
+07/27/26 13:49:03 Writing Rescue DAG to _tools/condor/compareDeltaR.dag.rescue001...
+07/27/26 13:49:03 Removing submitted jobs...
+07/27/26 13:49:03 Removing any/all submitted HTCondor jobs...
+07/27/26 13:49:03 Running: /usr/bin/condor_rm -const DAGManJobId==4624261 -reason DAG' 'Removed:' 'User' 'removed' 'scheduler' 'job' 'from' 'queue.
+07/27/26 13:49:03 Note: 0 total node deferrals because of -MaxJobs limit (0)
+07/27/26 13:49:03 Note: 0 total node deferrals because of -MaxIdle limit (1000)
+07/27/26 13:49:03 Note: 0 total node deferrals because of node category throttles
+07/27/26 13:49:03 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+07/27/26 13:49:03 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+07/27/26 13:49:03 Note: 0 total HOLD script deferrals because of -MaxHold limit (20) or DEFER
+07/27/26 13:49:03 DAG status: 4 (DAG_STATUS_RM)
+07/27/26 13:49:03 Of 14 nodes total:
+07/27/26 13:49:03  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:49:03   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:49:03     0       0       13       0       0          1        0        0
+07/27/26 13:49:03 0 job proc(s) currently held
+07/27/26 13:49:03 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.001; EventCycleTimeMax=0.177; EventCycleTimeMin=0.000; EventCycleTimeStd=0.013; EventCycleTimeSum=0.281; SleepCycleTimeAvg=5.000; SleepCycleTimeMax=5.006; SleepCycleTimeMin=4.004; SleepCycleTimeStd=0.068; SleepCycleTimeSum=1095.008; SubmitCycleTimeAvg=0.001; SubmitCycleTimeMax=0.177; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.012; SubmitCycleTimeSum=0.177; EventCycleTimeCount=220.000; SleepCycleTimeCount=219.000; SubmitCycleTimeCount=220.000; LogProcessCycleTimeAvg=0.003; LogProcessCycleTimeMax=0.005; LogProcessCycleTimeMin=0.001; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.005; LogProcessCycleTimeCount=2.000; ]
+07/27/26 13:49:03 Wrote metrics file _tools/condor/compareDeltaR.dag.metrics.
+07/27/26 13:49:03 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.001; EventCycleTimeMax=0.177; EventCycleTimeMin=0.000; EventCycleTimeStd=0.013; EventCycleTimeSum=0.281; SleepCycleTimeAvg=5.000; SleepCycleTimeMax=5.006; SleepCycleTimeMin=4.004; SleepCycleTimeStd=0.068; SleepCycleTimeSum=1095.008; SubmitCycleTimeAvg=0.001; SubmitCycleTimeMax=0.177; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.012; SubmitCycleTimeSum=0.177; EventCycleTimeCount=220.000; SleepCycleTimeCount=219.000; SubmitCycleTimeCount=220.000; LogProcessCycleTimeAvg=0.003; LogProcessCycleTimeMax=0.005; LogProcessCycleTimeMin=0.001; LogProcessCycleTimeStd=0.003; LogProcessCycleTimeSum=0.005; LogProcessCycleTimeCount=2.000; ]
+07/27/26 13:49:03 **** condor_scheduniv_exec.4624261.0 (condor_DAGMAN) pid 32040 EXITING WITH STATUS 2
+07/27/26 13:53:52 ******************************************************
+07/27/26 13:53:52 ** condor_scheduniv_exec.4624485.0 (CONDOR_DAGMAN) STARTING UP
+07/27/26 13:53:52 ** /usr/bin/condor_dagman
+07/27/26 13:53:52 ** SubsystemInfo: name=DAGMAN type=DAGMAN(9) class=CLIENT(2)
+07/27/26 13:53:52 ** Configuration: subsystem:DAGMAN local:<NONE> class:CLIENT
+07/27/26 13:53:52 ** $CondorVersion: 25.0.12 2026-07-07 BuildID: 930047 PackageID: 25.0.12-1 $
+07/27/26 13:53:52 ** $CondorPlatform: x86_64_AlmaLinux9 $
+07/27/26 13:53:52 ** PID = 33371 RealUID = 1789945
+07/27/26 13:53:52 ** Log last touched 7/27 13:49:03
+07/27/26 13:53:52 ******************************************************
+07/27/26 13:53:52 Using config source: /etc/condor/condor_config
+07/27/26 13:53:52 Using local config sources: 
+07/27/26 13:53:52    /etc/condor/config.d/00-security
+07/27/26 13:53:52    /etc/condor/config.d/10-stash-plugin.conf
+07/27/26 13:53:52    /etc/condor/config.d/hep.conf
+07/27/26 13:53:52    /etc/condor/condor_config.local
+07/27/26 13:53:52 config Macros = 133, Sorted = 133, StringBytes = 6353, TablesBytes = 4860
+07/27/26 13:53:52 CLASSAD_CACHING is ENABLED
+07/27/26 13:53:52 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS
+07/27/26 13:53:52 Daemoncore: Listening at <0.0.0.0:4497> on TCP (ReliSock) and UDP (SafeSock).
+07/27/26 13:53:52 Daemoncore: Listening at <[::]:4497> on TCP (ReliSock) and UDP (SafeSock).
+07/27/26 13:53:52 DaemonCore: command socket at <146.179.108.134:4497?addrs=146.179.108.134-4497+[2a0c-5bc0-88-111-216-3eff-fe7f-207]-4497&alias=htcmaster00.hep.ph.ic.ac.uk>
+07/27/26 13:53:52 DaemonCore: private command socket at <146.179.108.134:4497?addrs=146.179.108.134-4497+[2a0c-5bc0-88-111-216-3eff-fe7f-207]-4497&alias=htcmaster00.hep.ph.ic.ac.uk>
+07/27/26 13:53:52 DAGMAN_USE_STRICT setting: 1
+07/27/26 13:53:52 DAGMAN_VERBOSITY setting: 3
+07/27/26 13:53:52 DAGMAN_DEBUG_CACHE_SIZE setting: 5242880
+07/27/26 13:53:52 DAGMAN_DEBUG_CACHE_ENABLE setting: False
+07/27/26 13:53:52 DAGMAN_SUBMIT_DELAY setting: 0
+07/27/26 13:53:52 DAGMAN_MAX_SUBMIT_ATTEMPTS setting: 6
+07/27/26 13:53:52 DAGMAN_STARTUP_CYCLE_DETECT setting: False
+07/27/26 13:53:52 DAGMAN_USE_JOIN_NODES setting: True
+07/27/26 13:53:52 DAGMAN_REPORT_GRAPH_METRICS setting: False
+07/27/26 13:53:52 DAGMAN_MAX_SUBMITS_PER_INTERVAL setting: 100
+07/27/26 13:53:52 DAGMAN_AGGRESSIVE_SUBMIT setting: False
+07/27/26 13:53:52 DAGMAN_USER_LOG_SCAN_INTERVAL setting: 5
+07/27/26 13:53:52 DAGMAN_QUEUE_UPDATE_INTERVAL setting: 300.000000
+07/27/26 13:53:52 DAGMAN_DEFAULT_PRIORITY setting: 0
+07/27/26 13:53:52 DAGMAN_SUPPRESS_NOTIFICATION setting: False
+07/27/26 13:53:52 allow_events (DAGMAN_ALLOW_EVENTS) setting: 114
+07/27/26 13:53:52 DAGMAN_RETRY_SUBMIT_FIRST setting: True
+07/27/26 13:53:52 DAGMAN_RETRY_NODE_FIRST setting: False
+07/27/26 13:53:52 DAGMAN_MAX_JOBS_IDLE setting: 1000
+07/27/26 13:53:52 DAGMAN_MAX_JOBS_SUBMITTED setting: 0
+07/27/26 13:53:52 DAGMAN_MAX_PRE_SCRIPTS setting: 20
+07/27/26 13:53:52 DAGMAN_MAX_POST_SCRIPTS setting: 20
+07/27/26 13:53:52 DAGMAN_MAX_HOLD_SCRIPTS setting: 20
+07/27/26 13:53:52 DAGMAN_MUNGE_NODE_NAMES setting: True
+07/27/26 13:53:52 DAGMAN_ALLOW_ANY_NODE_NAME_CHARACTERS setting: False
+07/27/26 13:53:52 DAGMAN_PROHIBIT_MULTI_JOBS setting: False
+07/27/26 13:53:52 DAGMAN_SUBMIT_DEPTH_FIRST setting: False
+07/27/26 13:53:52 DAGMAN_ALWAYS_RUN_POST setting: False
+07/27/26 13:53:52 DAGMAN_CONDOR_SUBMIT_EXE setting: /usr/bin/condor_submit
+07/27/26 13:53:52 DAGMAN_CONDOR_RM_EXE setting: /usr/bin/condor_rm
+07/27/26 13:53:52 DAGMAN_USE_DIRECT_SUBMIT setting: True
+07/27/26 13:53:52 DAGMAN_PRODUCE_JOB_CREDENTIALS setting: True
+07/27/26 13:53:52 DAGMAN_DEFAULT_APPEND_VARS setting: False
+07/27/26 13:53:52 DAGMAN_INHERIT_ATTRS_PREFIX setting: 
+07/27/26 13:53:52 DAGMAN_INHERIT_ATTRS setting: 
+07/27/26 13:53:52 DAGMAN_ABORT_DUPLICATES setting: True
+07/27/26 13:53:52 DAGMAN_ABORT_ON_SCARY_SUBMIT setting: True
+07/27/26 13:53:52 DAGMAN_PENDING_REPORT_INTERVAL setting: 600
+07/27/26 13:53:52 DAGMAN_CHECK_QUEUE_INTERVAL setting: 28800
+07/27/26 13:53:52 DAGMAN_PRINT_JOB_TABLE_INTERVAL setting: 900
+07/27/26 13:53:52 DAGMAN_AUTO_RESCUE setting: True
+07/27/26 13:53:52 DAGMAN_MAX_RESCUE_NUM setting: 100
+07/27/26 13:53:52 DAGMAN_WRITE_PARTIAL_RESCUE setting: True
+07/27/26 13:53:52 DAGMAN_RESET_RETRIES_UPON_RESCUE setting: True
+07/27/26 13:53:52 DAGMAN_METRICS_FILE_VERSION setting: 2
+07/27/26 13:53:52 DAGMAN_DEFAULT_NODE_LOG setting: @(DAG_DIR)/@(DAG_FILE).nodes.log
+07/27/26 13:53:52 DAGMAN_LOG_ON_NFS_IS_ERROR setting: False
+07/27/26 13:53:52 DAGMAN_GENERATE_SUBDAG_SUBMITS setting: True
+07/27/26 13:53:52 DAGMAN_MAX_JOB_HOLDS setting: 100
+07/27/26 13:53:52 DAGMAN_NODE_JOB_FAILURE_TOLERANCE setting: 0
+07/27/26 13:53:52 DAGMAN_HOLD_CLAIM_TIME setting: 20
+07/27/26 13:53:52 DAGMAN_SUPPRESS_JOB_LOGS setting: False
+07/27/26 13:53:52 DAGMAN_REMOVE_NODE_JOBS setting: True
+07/27/26 13:53:52 DAGMAN_PUT_FAILED_JOBS_ON_HOLD setting: False
+07/27/26 13:53:52 DAGMAN_REMOVE_JOBS_AFTER_LIMIT_CHANGE setting: False
+07/27/26 13:53:52 DAGMAN will adjust edges after parsing
+07/27/26 13:53:52 argv[0] == "condor_scheduniv_exec.4624485.0"
+07/27/26 13:53:52 argv[1] == "-Lockfile"
+07/27/26 13:53:52 argv[2] == "_tools/condor/compareDeltaR.dag.lock"
+07/27/26 13:53:52 argv[3] == "-Dag"
+07/27/26 13:53:52 argv[4] == "_tools/condor/compareDeltaR.dag"
+07/27/26 13:53:52 argv[5] == "-CsdVersion"
+07/27/26 13:53:52 argv[6] == "$CondorVersion: 25.0.12 2026-07-07 BuildID: 930047 PackageID: 25.0.12-1 $"
+07/27/26 13:53:52 argv[7] == "-dagman"
+07/27/26 13:53:52 argv[8] == "/usr/bin/condor_dagman"
+07/27/26 13:53:52 argv[9] == "-AutoRescue"
+07/27/26 13:53:52 argv[10] == "1"
+07/27/26 13:53:52 argv[11] == "-DoRescueFrom"
+07/27/26 13:53:52 argv[12] == "0"
+07/27/26 13:53:52 argv[13] == "-force"
+07/27/26 13:53:52 Can't open directory "/etc/condor/passwords.d" as PRIV_ROOT, errno: 13 (Permission denied)
+07/27/26 13:53:52 Can't open directory "/etc/condor/passwords.d" as PRIV_ROOT, errno: 13 (Permission denied)
+07/27/26 13:53:52 Workflow batch-id: <4624485.0>
+07/27/26 13:53:52 Workflow batch-name: <compareDeltaR.dag+4624485>
+07/27/26 13:53:52 Workflow accounting_group: <>
+07/27/26 13:53:52 Workflow accounting_group_user: <>
+07/27/26 13:53:52 Warning: failed to get attribute DAGNodeName
+07/27/26 13:53:52 Default node log file is: </vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR.dag.nodes.log>
+07/27/26 13:53:52 DAG Lockfile will be written to _tools/condor/compareDeltaR.dag.lock
+07/27/26 13:53:52 DAG Input file is _tools/condor/compareDeltaR.dag
+07/27/26 13:53:52 Parsing 1 dagfiles
+07/27/26 13:53:52 Parsing _tools/condor/compareDeltaR.dag ...
+07/27/26 13:53:52 Adjusting edges
+07/27/26 13:53:52 Dag contains 14 total nodes
+07/27/26 13:53:52 Bootstrapping...
+07/27/26 13:53:52 Number of pre-completed nodes: 0
+07/27/26 13:53:52 MultiLogFiles: truncating log file /vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR.dag.nodes.log
+07/27/26 13:53:52 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:53:52 Of 14 nodes total:
+07/27/26 13:53:52  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:53:52   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:53:52     0       0        0       0      13          1        0        0
+07/27/26 13:53:52 0 job proc(s) currently held
+07/27/26 13:53:52 DAGMan Runtime Statistics: [EventCycleTimeSum=0.000; SleepCycleTimeSum=0.000; SubmitCycleTimeSum=0.000; EventCycleTimeCount=0.000; SleepCycleTimeCount=0.000; SubmitCycleTimeCount=0.000; LogProcessCycleTimeSum=0.000; LogProcessCycleTimeCount=0.000; ]
+07/27/26 13:53:52 Registering condor_event_timer...
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_15_20 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_15_20 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624486.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_20_30 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_20_30 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624487.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_30_50 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_30_50 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624488.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_50_80 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_50_80 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624489.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_80_120 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_80_120 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624490.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_120_170 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_120_170 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624491.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_170_300 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_170_300 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624492.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_300_470 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_300_470 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624493.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_470_600 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_470_600 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624494.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_600_800 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_600_800 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624495.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_800_1000 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_800_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624496.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node qcd_PT_1000 job(s)...
+07/27/26 13:53:53 Submitting node qcd_PT_1000 from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624497.0.0)
+07/27/26 13:53:53 Submitting HTCondor Node signal job(s)...
+07/27/26 13:53:53 Submitting node signal from file /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub using direct job submission
+07/27/26 13:53:53 Submit warning: Submit:0:the line 'JobBatchName = dqcd_compareDeltaR_shard' was unused by DAGMAN. Is it a typo?
+07/27/26 13:53:53 	assigned HTCondor ID (4624498.0.0)
+07/27/26 13:53:53 Just submitted 13 jobs this cycle...
+07/27/26 13:53:53 DAG status: 0 (DAG_STATUS_OK)
+07/27/26 13:53:53 Of 14 nodes total:
+07/27/26 13:53:53  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:53:53   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:53:53     0       0       13       0       0          1        0        0
+07/27/26 13:53:53 0 job proc(s) currently held
+07/27/26 13:53:53 DAGMan Runtime Statistics: [EventCycleTimeSum=0.000; SleepCycleTimeSum=0.000; SubmitCycleTimeAvg=0.215; SubmitCycleTimeMax=0.215; SubmitCycleTimeMin=0.215; SubmitCycleTimeStd=0.215; SubmitCycleTimeSum=0.215; EventCycleTimeCount=0.000; SleepCycleTimeCount=0.000; SubmitCycleTimeCount=1.000; LogProcessCycleTimeSum=0.000; LogProcessCycleTimeCount=0.000; ]
+07/27/26 13:53:58 Currently monitoring 1 HTCondor log file(s)
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_15_20 from (4624486.0.0) to (4624486.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_15_20 (4624486.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 1
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_20_30 from (4624487.0.0) to (4624487.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_20_30 (4624487.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 2
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_30_50 from (4624488.0.0) to (4624488.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_30_50 (4624488.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 3
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_50_80 from (4624489.0.0) to (4624489.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_50_80 (4624489.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 4
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_80_120 from (4624490.0.0) to (4624490.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_80_120 (4624490.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 5
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_120_170 from (4624491.0.0) to (4624491.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_120_170 (4624491.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 6
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_170_300 from (4624492.0.0) to (4624492.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_170_300 (4624492.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 7
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_300_470 from (4624493.0.0) to (4624493.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_300_470 (4624493.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 8
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_470_600 from (4624494.0.0) to (4624494.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_470_600 (4624494.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 9
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_600_800 from (4624495.0.0) to (4624495.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_600_800 (4624495.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 10
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_800_1000 from (4624496.0.0) to (4624496.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_800_1000 (4624496.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 11
+07/27/26 13:53:58 Reassigning the id of job qcd_PT_1000 from (4624497.0.0) to (4624497.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node qcd_PT_1000 (4624497.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 12
+07/27/26 13:53:58 Reassigning the id of job signal from (4624498.0.0) to (4624498.0.0)
+07/27/26 13:53:58 Event: ULOG_SUBMIT for HTCondor Node signal (4624498.0.0) {07/27/26 13:53:53}
+07/27/26 13:53:58 Number of idle job procs: 13
+07/27/26 13:54:28 Received SIGUSR1
+07/27/26 13:54:28 Aborting DAG...
+07/27/26 13:54:28 Writing Rescue DAG to _tools/condor/compareDeltaR.dag.rescue001...
+07/27/26 13:54:28 Removing submitted jobs...
+07/27/26 13:54:28 Removing any/all submitted HTCondor jobs...
+07/27/26 13:54:28 Running: /usr/bin/condor_rm -const DAGManJobId==4624485 -reason DAG' 'Removed:' 'User' 'removed' 'scheduler' 'job' 'from' 'queue.
+07/27/26 13:54:28 Note: 0 total node deferrals because of -MaxJobs limit (0)
+07/27/26 13:54:28 Note: 0 total node deferrals because of -MaxIdle limit (1000)
+07/27/26 13:54:28 Note: 0 total node deferrals because of node category throttles
+07/27/26 13:54:28 Note: 0 total PRE script deferrals because of -MaxPre limit (20) or DEFER
+07/27/26 13:54:28 Note: 0 total POST script deferrals because of -MaxPost limit (20) or DEFER
+07/27/26 13:54:28 Note: 0 total HOLD script deferrals because of -MaxHold limit (20) or DEFER
+07/27/26 13:54:28 DAG status: 4 (DAG_STATUS_RM)
+07/27/26 13:54:28 Of 14 nodes total:
+07/27/26 13:54:28  Done     Pre   Queued    Post   Ready   Un-Ready   Failed   Futile
+07/27/26 13:54:28   ===     ===      ===     ===     ===        ===      ===      ===
+07/27/26 13:54:28     0       0       13       0       0          1        0        0
+07/27/26 13:54:28 0 job proc(s) currently held
+07/27/26 13:54:28 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.031; EventCycleTimeMax=0.215; EventCycleTimeMin=0.000; EventCycleTimeStd=0.081; EventCycleTimeSum=0.219; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.005; SleepCycleTimeMin=5.005; SleepCycleTimeStd=0.000; SleepCycleTimeSum=30.031; SubmitCycleTimeAvg=0.031; SubmitCycleTimeMax=0.215; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.081; SubmitCycleTimeSum=0.215; EventCycleTimeCount=7.000; SleepCycleTimeCount=6.000; SubmitCycleTimeCount=7.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.001; LogProcessCycleTimeMin=0.001; LogProcessCycleTimeStd=0.001; LogProcessCycleTimeSum=0.001; LogProcessCycleTimeCount=1.000; ]
+07/27/26 13:54:28 Wrote metrics file _tools/condor/compareDeltaR.dag.metrics.
+07/27/26 13:54:28 DAGMan Runtime Statistics: [EventCycleTimeAvg=0.031; EventCycleTimeMax=0.215; EventCycleTimeMin=0.000; EventCycleTimeStd=0.081; EventCycleTimeSum=0.219; SleepCycleTimeAvg=5.005; SleepCycleTimeMax=5.005; SleepCycleTimeMin=5.005; SleepCycleTimeStd=0.000; SleepCycleTimeSum=30.031; SubmitCycleTimeAvg=0.031; SubmitCycleTimeMax=0.215; SubmitCycleTimeMin=0.000; SubmitCycleTimeStd=0.081; SubmitCycleTimeSum=0.215; EventCycleTimeCount=7.000; SleepCycleTimeCount=6.000; SubmitCycleTimeCount=7.000; LogProcessCycleTimeAvg=0.001; LogProcessCycleTimeMax=0.001; LogProcessCycleTimeMin=0.001; LogProcessCycleTimeStd=0.001; LogProcessCycleTimeSum=0.001; LogProcessCycleTimeCount=1.000; ]
+07/27/26 13:54:28 **** condor_scheduniv_exec.4624485.0 (condor_DAGMAN) pid 33371 EXITING WITH STATUS 2

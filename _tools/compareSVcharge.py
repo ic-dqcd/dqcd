@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Compare secondary-vertex charge between QCD MC, Parking data and signal.
 
+Two QCD backgrounds are drawn, as separate curves: the pT-hat binned MuEnriched stack and
+InclusiveDileptonMinBias (--minbias-frac of its files, default 5%). They are ALTERNATIVE
+descriptions of the same background, never to be summed.
+
 Two vertex collections are compared:
   * two-muon  vertices  -> muonSV  collection (charge = q(mu1)+q(mu2))
   * four-muon vertices  -> <FOURMU> collection (see FOURMU_* constants below)
@@ -23,6 +27,7 @@ whose name contains 'SV' or 'charge' (handy to confirm the four-muon branch).
 
 import argparse
 import os
+import random
 import subprocess
 import sys
 import numpy as np
@@ -31,6 +36,14 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
+import cmsstyle as cms
+import goldenjson as gj
+# Golden-JSON mask, set in main(). CERT is None when disabled or unavailable, in which
+# case every data event is kept. MC is never masked.
+CERT = None
+GCOUNT = gj.Counter()
+
+
 XRD_SERVER = "root://gfe02.grid.hep.ph.ic.ac.uk/"
 # NOTE: base WITHOUT the "__v2_withPuppyMET" suffix used by compareMET.py.
 BASE       = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024"
@@ -38,18 +51,37 @@ QCD_BASE   = BASE
 DATA_BASE  = BASE
 SIG_BASE   = BASE
 
+# The MinBias QCD alternative: InclusiveDileptonMinBias with the DoubleMuOS43 generator
+# filter, processed by Prijith (2026-07-30). It sits in a different user's dCache area, so
+# this is a full path and NOT a directory under BASE -- gather_files() must list it
+# separately rather than picking it up from the BASE listing.
+MINBIAS_DIR   = ("/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/ppradeep/samples/Parking/Run3/"
+                 "Nanotronv14/InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_"
+                 "13p6TeV_pythia8/2024WithMET/260730_143555")
+MINBIAS_LABEL = "MinBias MC"
+MINBIAS_COLOR = "darkorange"
+
 # Signal points (Scenario A). Each entry: dir, plot label, colour.
+def _compact(n):
+    """Short entry count for legends: 4802800 -> '4.8M', 254320 -> '254k'."""
+    if n >= 1e6:
+        return f"{n / 1e6:.1f}M"
+    if n >= 1e3:
+        return f"{n / 1e3:.0f}k"
+    return str(n)
+
+
 SIGNALS = [
     {
         "dir":   ("GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p33-mpi-4"
                   "_TuneCP5_13p6TeV_powheg-pythia8"),
-        "label": r"Signal A: $m_\pi$=4, $m_A$=1.33, $c\tau$=1",
+        "label": r"scA: $m_\pi$=4, $m_A$=1.33, $c\tau$=1",
         "color": "forestgreen",
     },
     {
         "dir":   ("GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10"
                   "_TuneCP5_13p6TeV_powheg-pythia8"),
-        "label": r"Signal A: $m_\pi$=10, $m_A$=3.33, $c\tau$=0.1",
+        "label": r"scA: $m_\pi$=10, $m_A$=3.33, $c\tau$=0.1",
         "color": "darkviolet",
     },
 ]
@@ -74,6 +106,8 @@ TRIGGERS_LABEL = " OR ".join(TRIGGERS)
 N_QCD_FILES    = 5    # per QCD PT-hat bin
 N_SIGNAL_FILES = 10   # for the single signal point
 N_DATA_FILES   = 5    # per Parking dataset
+MINBIAS_FRAC   = 0.05 # fraction of the MinBias files (--minbias-frac)
+MINBIAS_SEED   = 20260806
 
 # Use the proxy already in the environment if it points to a real file (setup.sh
 # normally sets X509_USER_PROXY to a freshly-created proxy); otherwise fall back
@@ -151,7 +185,7 @@ def resolve_branches(keys, charge_name, chi_name, label):
     return charge, chi
 
 
-def read_sv(urls, charge_branch, chi_branch, label):
+def read_sv(urls, charge_branch, chi_branch, label, is_data=False):
     """Read a jagged charge branch, its chi2, and the trigger flags from every URL.
 
     Returns a dict {charge, chi, trig} of arrays concatenated over files:
@@ -177,9 +211,16 @@ def read_sv(urls, charge_branch, chi_branch, label):
                 if charge_branch is None or charge_branch not in keys:
                     log(f"  [warn] {fname}: charge branch missing — skipping", file=sys.stderr)
                     continue
-                charge_parts.append(tree[charge_branch].array(library="ak"))
+                gmask = None
+                if is_data and CERT is not None:
+                    gmask = GCOUNT.update(gj.mask(
+                        tree["run"].array(library="np"),
+                        tree["luminosityBlock"].array(library="np"), CERT))
+                ch = tree[charge_branch].array(library="ak")
+                charge_parts.append(ch[gmask] if gmask is not None else ch)
                 if chi_branch and chi_branch in keys:
-                    chi_parts.append(tree[chi_branch].array(library="ak"))
+                    ck = tree[chi_branch].array(library="ak")
+                    chi_parts.append(ck[gmask] if gmask is not None else ck)
                 # event-level trigger OR mask
                 present = [t for t in TRIGGERS if t in keys]
                 if i == 1:
@@ -191,7 +232,8 @@ def read_sv(urls, charge_branch, chi_branch, label):
                 nev   = len(charge_parts[-1])
                 tmask = np.zeros(nev, dtype=bool)
                 for t in present:
-                    tmask |= tree[t].array(library="np").astype(bool)
+                    tv = tree[t].array(library="np").astype(bool)
+                    tmask |= (tv[gmask] if gmask is not None else tv)
                 trig_parts.append(tmask)
                 nv = int(ak.sum(ak.num(charge_parts[-1])))
                 log(f"         -> {nev:,} events ({int(tmask.sum()):,} pass trig), {nv:,} vertices")
@@ -250,10 +292,37 @@ def int_bins(arrays):
     return np.arange(lo - 0.5, hi + 1.5, 1.0), lo, hi
 
 
+# Marker convention, shared with compareDeltaR.py / compareBDTvars.py: data is a small
+# SOLID black square, the two background estimates (pT-hat QCD and MinBias) are
+# WHITE-filled circles. Solid = measured, open = simulated, so the two kinds of curve are
+# told apart by shape and fill rather than by colour alone. White fill rather than
+# unfilled, so a marker masks whatever curve passes underneath it.
+DATA_MARKER, DATA_MARKER_SIZE = "s", 3.5
+BKG_MARKER, BKG_MARKER_SIZE = "o", 4.0
+MARKER_EDGE = 1.0
+
+
+def marker_kw(kind, colour):
+    """Marker styling for a curve of *kind* in {"data", "bkg", None}. {} for anything else
+    (signal), which stays unmarked so a page of many signal points does not become
+    texture."""
+    if kind == "data":
+        return dict(marker=DATA_MARKER, markersize=DATA_MARKER_SIZE,
+                    markerfacecolor=colour, markeredgecolor=colour,
+                    markeredgewidth=MARKER_EDGE)
+    if kind == "bkg":
+        return dict(marker=BKG_MARKER, markersize=BKG_MARKER_SIZE,
+                    markerfacecolor="white", markeredgecolor=colour,
+                    markeredgewidth=MARKER_EDGE)
+    return {}
+
+
 def plot_charge(ax, datasets, bins):
-    """datasets = list of (values, color, label). Normalised step histograms."""
+    """datasets = list of (values, color, label, kind). Normalised step histograms.
+
+    *kind* is "data", "bkg" or None and only drives the marker -- see marker_kw()."""
     centres = 0.5 * (bins[:-1] + bins[1:])
-    for values, color, label in datasets:
+    for values, color, label, kind in datasets:
         if len(values) == 0:
             log(f"  [warn] '{label}': 0 entries — not plotted", file=sys.stderr)
             continue
@@ -261,17 +330,22 @@ def plot_charge(ax, datasets, bins):
         total = counts.sum()
         norm  = counts / total if total > 0 else counts * 0.0
         err   = np.sqrt(counts) / total if total > 0 else counts * 0.0
-        ax.stairs(norm, edges, color=color, linewidth=2, label=label)
+        # drawstyle, not ax.stairs(): a StepPatch cannot carry markers, and steps-mid
+        # draws the identical line.
+        ax.plot(centres, norm, drawstyle="steps-mid", color=color, linewidth=2,
+                label=label, **marker_kw(kind, color))
         ax.errorbar(centres, norm, yerr=err, fmt="none", ecolor=color, alpha=0.5)
 
 
-def make_page(coll_title, qcd_sv, data_sv, sig_svs):
+def make_page(coll_title, qcd_sv, data_sv, sig_svs, mb_sv=None):
     """One figure for a vertex collection: 2x2 quadrants.
 
       top-left  : all vertices, inclusive       top-right : best-chi2, inclusive
       bottom-l  : all vertices, pass triggers    bottom-r : best-chi2, pass triggers
 
     *sig_svs* is a list of (sv, label, color) for each signal point.
+    *mb_sv* is the MinBias sample, drawn alongside the pT-hat QCD stack as a second,
+    independent background estimate; None when --no-minbias was passed.
     """
     quadrants = [
         ("all vertices — inclusive",            lambda sv: all_charges(sv, use_trig=False)),
@@ -282,22 +356,32 @@ def make_page(coll_title, qcd_sv, data_sv, sig_svs):
     fig, axes = plt.subplots(2, 2, figsize=(15, 11))
     for ax, (sub, fn) in zip(axes.flat, quadrants):
         qv, dv = fn(qcd_sv), fn(data_sv)
+        mv = fn(mb_sv) if mb_sv is not None else np.array([], dtype=float)
         svs = [(fn(sv), label, color) for sv, label, color in sig_svs]
-        bins, lo, hi = int_bins([qv, dv] + [v for v, _, _ in svs])
+        bins, lo, hi = int_bins([qv, dv, mv] + [v for v, _, _ in svs])
+        # the Data entry also states what fraction of the data sample is included -- a
+        # reminder that these plots deliberately read only a small slice
+        mb_entry = ([(mv, MINBIAS_COLOR, f"{MINBIAS_LABEL} ({_compact(len(mv))})", "bkg")]
+                    if len(mv) else [])
         plot_charge(ax, [
-            (qv,  "royalblue",   f"QCD MC  ({len(qv):,})"),
-            (dv,  "tomato",      f"Data  ({len(dv):,})"),
+            (qv,  "royalblue",   f"QCD MC, $p_T$ bins ({_compact(len(qv))})", "bkg"),
+        ] + mb_entry + [
+            (dv,  "tomato",      f"Data ({_compact(len(dv))}, {100 * cms.lumi_fraction():.2g}% of data)", "data"),
         ] + [
-            (v, color, f"{label}  ({len(v):,})") for v, label, color in svs
+            (v, color, f"{label} ({_compact(len(v))})", None) for v, label, color in svs
         ], bins)
-        ax.set_xlabel("Vertex charge  (0 = neutral)", fontsize=11)
-        ax.set_ylabel("Normalised fraction of entries", fontsize=11)
-        ax.set_title(sub, fontsize=12)
+        ax.set_xlabel("Vertex charge", fontsize=11)
+        ax.set_ylabel("Fraction of entries", fontsize=11)
         ax.set_xticks(np.arange(lo, hi + 1))
-        ax.axvline(0, color="grey", ls="--", lw=1, alpha=0.6)
-        ax.legend(fontsize=9)
-    fig.suptitle(f"{coll_title}\nbottom row requires:  {TRIGGERS_LABEL}", fontsize=14)
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
+        # this page shows real data, so: "Preliminary" (not "Simulation") + a luminosity,
+        # scaled to the fraction of the sample actually read
+        cms.cms_axes(ax, header=cms.lumi_header(), fontsize=11, label=cms.CMS_LABEL_DATA)
+        ax.legend(fontsize=9, **cms.LEGEND_KW)
+        # the quadrant's selection goes in an in-plot legend, not the plot title
+        cms.info_legend(ax, [sub], fontsize=9)
+    fig.suptitle(f"{coll_title}\nbottom row requires:  {TRIGGERS_LABEL}\n"
+                 "each distribution is normalised to unit area", fontsize=14)
+    fig.tight_layout(rect=[0, 0, 1, 0.93])
     return fig
 
 
@@ -320,24 +404,51 @@ def gather_files(args):
     log(f"\n[QCD] {len(qcd_dirs)} PT-bin directories; taking "
         f"{1 if args.test else args.n_qcd} file(s) {'total' if args.test else 'each'}")
     qcd_files = []
+    n_read, n_avail = 0, 0
     for path, _ in qcd_dirs:
         log(f"  {path.split('/')[-1]}")
         before = len(qcd_files)
-        qcd_files.extend(list_root_files(path, cap=1 if args.test else args.n_qcd))
+        _all = list_root_files(path)
+        n_avail += len(_all)
+        qcd_files.extend(_all[:1 if args.test else args.n_qcd])
+        n_read = len(qcd_files)
         log(f"    subtotal: {len(qcd_files) - before} files")
         if args.test and qcd_files:
             break
     log(f"  => {len(qcd_files)} QCD files total")
+
+    # MinBias: a seeded RANDOM fraction, not the first N. The sample is split over 0000/
+    # 0001/0002 production subdirectories, so the head of the listing is one subdirectory
+    # -- a subset of the JOBS, which is not the same thing as a subset of the sample.
+    mb_files, n_mb_avail = [], 0
+    if not args.no_minbias:
+        log(f"\n[MinBias] {MINBIAS_DIR.split('/')[-3]}")
+        all_mb = list_root_files(MINBIAS_DIR)
+        if not all_mb:
+            log(f"ERROR: no .root files under {MINBIAS_DIR} — check the path / proxy "
+                f"(or pass --no-minbias)", file=sys.stderr)
+            sys.exit(1)
+        n_mb_avail = len(all_mb)
+        n_mb = 1 if args.test else max(1, round(args.minbias_frac * n_mb_avail))
+        mb_files = (random.Random(args.minbias_seed).sample(all_mb, n_mb)
+                    if n_mb < n_mb_avail else all_mb)
+        n_avail += n_mb_avail
+        log(f"  => {len(mb_files)} of {n_mb_avail} MinBias files "
+            f"({100 * len(mb_files) / n_mb_avail:.2f}%, seed {args.minbias_seed})")
 
     # Data: first N files of every Parking dataset (test: 1 file from first dataset)
     data_dirs = sorted(e for e in top if e[0].split("/")[-1].startswith("Parking"))
     log(f"\n[Data] {len(data_dirs)} Parking datasets; taking "
         f"{1 if args.test else args.n_data} file(s) {'total' if args.test else 'each'}")
     data_files = []
+    n_data_avail = 0
     for path, _ in data_dirs:
         log(f"  {path.split('/')[-1]}")
         before = len(data_files)
-        data_files.extend(list_root_files(path, cap=1 if args.test else args.n_data))
+        _all = list_root_files(path)
+        n_avail += len(_all)
+        n_data_avail += len(_all)
+        data_files.extend(_all[:1 if args.test else args.n_data])
         log(f"    subtotal: {len(data_files) - before} files")
         if args.test and data_files:
             break
@@ -348,11 +459,31 @@ def gather_files(args):
     sig_files = []
     for sig in SIGNALS:
         log(f"\n[Signal] {sig['dir']}; taking {n_sig} files")
-        files_i = list_root_files(sig["path"], cap=n_sig)
+        _all = list_root_files(sig["path"])
+        files_i = _all[:n_sig]
+        n_avail += len(_all)
         log(f"  => {len(files_i)} signal files")
         sig_files.append(files_i)
 
-    return {"qcd": qcd_files, "data": data_files, "signal": sig_files}
+    n_read = (len(qcd_files) + len(mb_files) + len(data_files)
+              + sum(len(f) for f in sig_files))
+    # "Partial sample" is shown only in --test. In a full run the MC is used in its
+    # entirety for its purpose, and the amount of DATA is already conveyed by the quoted
+    # luminosity and the "% of data" in the legend, so the label would just be noise.
+    cms.set_sample_files(n_read if args.test else n_avail, n_avail)
+    # ...and, separately, how much of the DATA: the luminosity refers to the Parking
+    # datasets only, so it must not be scaled by a count blended with QCD/signal MC files
+    cms.set_lumi_files(len(data_files), n_data_avail)
+    if cms.is_partial():
+        log(f"\n  PARTIAL SAMPLE: {n_read} of {n_avail} files "
+            f"({100 * cms.sample_fraction():.2f}%) -- every plot is labelled as such")
+    else:
+        log(f"\n  [not flagged partial] read {n_read} of {n_avail} files")
+    log(f"  data: {len(data_files)} of {n_data_avail} Parking files "
+        f"({100 * cms.lumi_fraction():.2f}%) -> quoted luminosity {cms.lumi_header()}")
+
+    return {"qcd": qcd_files, "minbias": mb_files, "data": data_files,
+            "signal": sig_files}
 
 
 def main():
@@ -365,11 +496,21 @@ def main():
                         help=f"Files per Parking dataset (default: {N_DATA_FILES})")
     parser.add_argument("--n-signal", type=int, default=N_SIGNAL_FILES,
                         help=f"Signal files (default: {N_SIGNAL_FILES})")
+    parser.add_argument("--minbias-frac", type=float, default=MINBIAS_FRAC,
+                        help=f"Fraction of MinBias files, drawn at random with a fixed "
+                             f"seed (default: {MINBIAS_FRAC} = 5%%)")
+    parser.add_argument("--minbias-seed", type=int, default=MINBIAS_SEED,
+                        help=f"Seed for the MinBias file draw (default: {MINBIAS_SEED})")
+    parser.add_argument("--no-minbias", action="store_true",
+                        help="Skip the MinBias sample entirely")
     parser.add_argument("--list-branches", action="store_true",
                         help="Open the first reachable file and dump SV/charge branches, then exit")
     parser.add_argument("--test", action="store_true",
                         help="Quick check: read only 1 file of each type (qcd, data, signal)")
+    gj.add_args(parser)
     args = parser.parse_args()
+    global CERT
+    CERT = gj.from_args(args, log)
 
     files = gather_files(args)
 
@@ -393,7 +534,12 @@ def main():
     # --- read two-muon vertices (charge, chi2, trigger flags) ---
     log("\n=== Reading TWO-muon vertices (muonSV) ===")
     log("[QCD]");    q2 = read_sv(files["qcd"],    TWOMU_CHARGE, TWOMU_CHI, "2mu")
-    log("[Data]");   d2 = read_sv(files["data"],   TWOMU_CHARGE, TWOMU_CHI, "2mu")
+    m2 = None
+    if files["minbias"]:
+        log("[MinBias]")
+        m2 = read_sv(files["minbias"], TWOMU_CHARGE, TWOMU_CHI, "2mu")
+    log("[Data]");   d2 = read_sv(files["data"],   TWOMU_CHARGE, TWOMU_CHI, "2mu",
+                              is_data=True)
     s2 = []
     for sig, sig_files in zip(SIGNALS, files["signal"]):
         log(f"[Signal] {sig['label']}")
@@ -403,7 +549,12 @@ def main():
     # --- read four-muon vertices ---
     log("\n=== Reading FOUR-muon vertices (fourmuonSV) ===")
     log("[QCD]");    q4 = read_sv(files["qcd"],    FOURMU_CHARGE, FOURMU_CHI, "4mu")
-    log("[Data]");   d4 = read_sv(files["data"],   FOURMU_CHARGE, FOURMU_CHI, "4mu")
+    m4 = None
+    if files["minbias"]:
+        log("[MinBias]")
+        m4 = read_sv(files["minbias"], FOURMU_CHARGE, FOURMU_CHI, "4mu")
+    log("[Data]");   d4 = read_sv(files["data"],   FOURMU_CHARGE, FOURMU_CHI, "4mu",
+                              is_data=True)
     s4 = []
     for sig, sig_files in zip(SIGNALS, files["signal"]):
         log(f"[Signal] {sig['label']}")
@@ -414,11 +565,11 @@ def main():
     with PdfPages(args.output) as pdf:
         # Page 1: two-muon vertices (4 quadrants)
         log("  page 1: two-muon vertices (4 quadrants)")
-        pdf.savefig(make_page("Two-muon vertex charge (muonSV)", q2, d2, s2),
+        pdf.savefig(make_page("Two-muon vertex charge (muonSV)", q2, d2, s2, mb_sv=m2),
                     bbox_inches="tight")
         # Page 2: four-muon vertices (4 quadrants)
         log("  page 2: four-muon vertices (4 quadrants)")
-        pdf.savefig(make_page("Four-muon vertex charge (fourmuonSV)", q4, d4, s4),
+        pdf.savefig(make_page("Four-muon vertex charge (fourmuonSV)", q4, d4, s4, mb_sv=m4),
                     bbox_inches="tight")
         plt.close("all")
     log(f"\nSaved: {args.output}")

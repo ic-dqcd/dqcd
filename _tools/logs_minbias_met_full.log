@@ -1,0 +1,2147 @@
+  golden JSON: 475 runs, 287,603 lumisections (Cert_Collisions2024_378981_386951_Golden.json)
+Connecting to root://gfe02.grid.hep.ph.ic.ac.uk/ ...
+Listing QCD base /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024__v2_withPuppyMET ...
+  42 top-level entries found
+
+[QCD] Scanning 12 PT-bin directories (xs-weighted)...
+
+Listing data base /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024__v2_withPuppyMET ...
+  42 top-level entries found
+
+[Data] Scanning 20 Parking directories...
+  ParkingDoubleMuonLowMass0
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_131735/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131735
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_131805/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131805
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_131836/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131836
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_131906/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131906
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_131936/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131936
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_132007/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132007
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_132037/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132037
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     21 .root files found under ParkingDoubleMuonLowMass0
+    subtotal: 21 files
+  ParkingDoubleMuonLowMass1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_132107/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132107
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_132137/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132137
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_132207/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132207
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_132237/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132237
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v1/
+    -> 260504_132308/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132308
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v1/
+    -> 260504_132338/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132338
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_132408/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132408
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_132439/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132439
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     24 .root files found under ParkingDoubleMuonLowMass1
+    subtotal: 24 files
+  ParkingDoubleMuonLowMass2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_132509/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132509
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_132539/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132539
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v2/
+    -> 260504_132610/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132610
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_132641/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132641
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_132712/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132712
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_132742/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132742
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_132813/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132813
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     21 .root files found under ParkingDoubleMuonLowMass2
+    subtotal: 21 files
+  ParkingDoubleMuonLowMass3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_132843/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132843
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_132915/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132915
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_132945/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_132945
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_133015/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133015
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_133045/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133045
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_133115/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133115
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_133145/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133145
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     21 .root files found under ParkingDoubleMuonLowMass3
+    subtotal: 21 files
+  ParkingDoubleMuonLowMass4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_133215/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133215
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_133244/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133244
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_133316/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133316
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_133347/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133347
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_133417/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133417
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_133447/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133447
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_133517/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133517
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_133549/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133549
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     24 .root files found under ParkingDoubleMuonLowMass4
+    subtotal: 24 files
+  ParkingDoubleMuonLowMass5
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_133619/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133619
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_133650/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133650
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_133721/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133721
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_133751/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133751
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v2/
+    -> 260504_133822/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133822
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_133853/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133853
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     18 .root files found under ParkingDoubleMuonLowMass5
+    subtotal: 18 files
+  ParkingDoubleMuonLowMass6
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_133923/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133923
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_133953/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_133953
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_134023/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134023
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_134054/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134054
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_134124/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134124
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_134155/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134155
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v2/
+    -> 260504_134224/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134224
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_134254/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134254
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     24 .root files found under ParkingDoubleMuonLowMass6
+    subtotal: 24 files
+  ParkingDoubleMuonLowMass7
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_134324/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134324
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_134354/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134354
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4/
+    -> 260504_134425/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134425
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_134455/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134455
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_134524/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134524
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_134606/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_134606
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     18 .root files found under ParkingDoubleMuonLowMass7
+    subtotal: 18 files
+  ParkingSingleMuon0
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_123136/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123136
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_123220/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123220
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_123302/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123302
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4/
+    -> 260504_123346/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123346
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4/
+    -> 260504_123428/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123428
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v1/
+    -> 260504_123512/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123512
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_123555/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123555
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_123639/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123639
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     24 .root files found under ParkingSingleMuon0
+    subtotal: 24 files
+  ParkingSingleMuon1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_123721/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123721
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_123756/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123756
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4/
+    -> 260504_123837/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123837
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_123919/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_123919
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_124002/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124002
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v4/
+    -> 260504_124045/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124045
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v3/
+    -> 260504_124128/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124128
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v3
+     21 .root files found under ParkingSingleMuon1
+    subtotal: 21 files
+  ParkingSingleMuon10
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_124211/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124211
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4/
+    -> 260504_124252/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124252
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_124335/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124335
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_124416/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124416
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     12 .root files found under ParkingSingleMuon10
+    subtotal: 12 files
+  ParkingSingleMuon11
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4/
+    -> 260504_124459/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124459
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_124540/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124540
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_124615/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124615
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_124652/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124652
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     12 .root files found under ParkingSingleMuon11
+    subtotal: 12 files
+  ParkingSingleMuon2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_124733/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124733
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_124815/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124815
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_124859/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124859
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4/
+    -> 260504_124941/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_124941
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_125025/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125025
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_125108/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125108
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_125152/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125152
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     21 .root files found under ParkingSingleMuon2
+    subtotal: 21 files
+  ParkingSingleMuon3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_125234/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125234
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_125317/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125317
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4/
+    -> 260504_125359/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125359
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v2/
+    -> 260504_125436/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125436
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4/
+    -> 260504_125511/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125511
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v2/
+    -> 260504_125550/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125550
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v2
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_125631/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125631
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     21 .root files found under ParkingSingleMuon3
+    subtotal: 21 files
+  ParkingSingleMuon4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_125713/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125713
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_125755/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125755
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_125839/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125839
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_125920/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_125920
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_130003/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130003
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_130044/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130044
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_130127/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130127
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_130210/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130210
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     24 .root files found under ParkingSingleMuon4
+    subtotal: 24 files
+  ParkingSingleMuon5
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_130253/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130253
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_130325/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130325
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_130354/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130354
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_130424/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130424
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_130453/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130453
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_130523/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130523
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_130552/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130552
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     21 .root files found under ParkingSingleMuon5
+    subtotal: 21 files
+  ParkingSingleMuon6
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_130622/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130622
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1/
+    -> 260504_130652/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130652
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024D-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_130722/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130722
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3/
+    -> 260504_130752/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130752
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_130822/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130822
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4/
+    -> 260504_130855/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130855
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v4/
+    -> 260504_130930/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_130930
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_131000/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131000
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     24 .root files found under ParkingSingleMuon6
+    subtotal: 24 files
+  ParkingSingleMuon7
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1/
+    -> 260504_131031/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131031
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024E-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4/
+    -> 260504_131101/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131101
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024F-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3/
+    -> 260504_131130/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131130
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4/
+    -> 260504_131200/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131200
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_131229/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131229
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_131300/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131300
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     18 .root files found under ParkingSingleMuon7
+    subtotal: 18 files
+  ParkingSingleMuon8
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4/
+    -> 260504_131330/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131330
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_131400/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131400
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3/
+    -> 260504_131429/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131429
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_131501/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131501
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     12 .root files found under ParkingSingleMuon8
+    subtotal: 12 files
+  ParkingSingleMuon9
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4/
+    -> 260504_131532/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131532
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024G-MINIv6NANOv15-v4
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3/
+    -> 260504_131603/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131603
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024H-MINIv6NANOv15-v3
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v1/
+    -> 260504_131634/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131634
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15-v1
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2/
+    -> 260504_131705/
+      -> 0000/
+           3 .root files found under 0000
+         3 .root files found under 260504_131705
+       3 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024I-MINIv6NANOv15_v2-v2
+     12 .root files found under ParkingSingleMuon9
+    subtotal: 12 files
+  => 393 Parking files total (20 streams)
+  QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=1.078 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125639/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125639
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/5] nano_1.root
+         -> 23,991 events (after MET filters)
+  [2/5] nano_2.root
+         -> 28,226 events (after MET filters)
+  [3/5] nano_3.root
+         -> 16,824 events (after MET filters)
+  [4/5] nano_4.root
+         -> 23,832 events (after MET filters)
+  [5/5] nano_5.root
+         -> 17,844 events (after MET filters)
+    110,717 events, weight = 9.7365e-06
+  QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=21230 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125709/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125709
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 27,979 events (after MET filters)
+  [2/5] nano_2.root
+         -> 29,125 events (after MET filters)
+  [3/5] nano_3.root
+         -> 27,627 events (after MET filters)
+  [4/5] nano_4.root
+         -> 38,324 events (after MET filters)
+  [5/5] nano_5.root
+         -> 33,411 events (after MET filters)
+    156,466 events, weight = 1.3568e-01
+  QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=2799000 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125739/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125739
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 45,347 events (after MET filters)
+  [2/5] nano_2.root
+         -> 25,353 events (after MET filters)
+  [3/5] nano_3.root
+         -> 26,348 events (after MET filters)
+  [4/5] nano_4.root
+         -> 26,861 events (after MET filters)
+  [5/5] nano_5.root
+         -> 30,058 events (after MET filters)
+    153,967 events, weight = 1.8179e+01
+  QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=7055 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125810/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125810
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 19,486 events (after MET filters)
+  [2/5] nano_2.root
+         -> 36,671 events (after MET filters)
+  [3/5] nano_3.root
+         -> 18,749 events (after MET filters)
+  [4/5] nano_4.root
+         -> 37,204 events (after MET filters)
+  [5/5] nano_5.root
+         -> 18,918 events (after MET filters)
+    131,028 events, weight = 5.3843e-02
+  QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=2526000 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125840/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125840
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 24,982 events (after MET filters)
+  [2/5] nano_2.root
+         -> 49,598 events (after MET filters)
+  [3/5] nano_3.root
+         -> 31,693 events (after MET filters)
+  [4/5] nano_4.root
+         -> 49,961 events (after MET filters)
+  [5/5] nano_5.root
+         -> 26,273 events (after MET filters)
+    182,507 events, weight = 1.3841e+01
+  QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=619 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125910/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125910
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 33,733 events (after MET filters)
+  [2/5] nano_2.root
+         -> 21,655 events (after MET filters)
+  [3/5] nano_3.root
+         -> 33,736 events (after MET filters)
+  [4/5] nano_4.root
+         -> 33,587 events (after MET filters)
+  [5/5] nano_5.root
+         -> 33,450 events (after MET filters)
+    156,161 events, weight = 3.9639e-03
+  QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=1362000 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125941/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_125941
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 31,867 events (after MET filters)
+  [2/5] nano_2.root
+         -> 32,153 events (after MET filters)
+  [3/5] nano_3.root
+         -> 48,958 events (after MET filters)
+  [4/5] nano_4.root
+         -> 34,804 events (after MET filters)
+  [5/5] nano_5.root
+         -> 33,598 events (after MET filters)
+    181,380 events, weight = 7.5091e+00
+  QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=59.24 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_130012/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_130012
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 17,778 events (after MET filters)
+  [2/5] nano_2.root
+         -> 20,030 events (after MET filters)
+  [3/5] nano_3.root
+         -> 22,066 events (after MET filters)
+  [4/5] nano_4.root
+         -> 24,896 events (after MET filters)
+  [5/5] nano_5.root
+         -> 15,951 events (after MET filters)
+    100,721 events, weight = 5.8816e-04
+  QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=376600 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_130043/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_130043
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 24,212 events (after MET filters)
+  [2/5] nano_2.root
+         -> 31,742 events (after MET filters)
+  [3/5] nano_3.root
+         -> 33,994 events (after MET filters)
+  [4/5] nano_4.root
+         -> 46,993 events (after MET filters)
+  [5/5] nano_5.root
+         -> 40,006 events (after MET filters)
+    176,947 events, weight = 2.1283e+00
+  QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=18.21 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_130114/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_130114
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 30,709 events (after MET filters)
+  [2/5] nano_2.root
+         -> 16,450 events (after MET filters)
+  [3/5] nano_3.root
+         -> 19,945 events (after MET filters)
+  [4/5] nano_4.root
+         -> 18,611 events (after MET filters)
+  [5/5] nano_5.root
+         -> 30,098 events (after MET filters)
+    115,813 events, weight = 1.5724e-04
+  QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=3.275 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_130144/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_130144
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 15,930 events (after MET filters)
+  [2/5] nano_2.root
+         -> 29,443 events (after MET filters)
+  [3/5] nano_3.root
+         -> 15,922 events (after MET filters)
+  [4/5] nano_4.root
+         -> 15,408 events (after MET filters)
+  [5/5] nano_5.root
+         -> 20,809 events (after MET filters)
+    97,512 events, weight = 3.3586e-05
+  QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=88930 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_130215/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_130215
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     5 .root files found under QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+  [1/5] nano_1.root
+         -> 43,486 events (after MET filters)
+  [2/5] nano_2.root
+         -> 37,057 events (after MET filters)
+  [3/5] nano_3.root
+         -> 27,805 events (after MET filters)
+  [4/5] nano_4.root
+         -> 24,723 events (after MET filters)
+  [5/5] nano_5.root
+         -> 43,564 events (after MET filters)
+    176,635 events, weight = 5.0347e-01
+  => 1,739,854 QCD events total from 60 files
+
+[MinBias] Listing InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_13p6TeV_pythia8 ...
+  -> 0000/
+    -> log/
+         0 .root files found under log
+       992 .root files found under 0000
+  -> 0001/
+    -> log/
+         0 .root files found under log
+       991 .root files found under 0001
+  -> 0002/
+    -> log/
+         0 .root files found under log
+       10 .root files found under 0002
+     1993 .root files found under 260730_143555
+  => 100 of 1993 MinBias files (5.02%, seed 20260806)
+  [1/100] nano_779.root
+         -> 209,756 events (after MET filters)
+  [2/100] nano_616.root
+         -> 92,728 events (after MET filters)
+  [3/100] nano_871.root
+         -> 210,856 events (after MET filters)
+  [4/100] nano_759.root
+         -> 237,978 events (after MET filters)
+  [5/100] nano_145.root
+         -> 81,064 events (after MET filters)
+  [6/100] nano_1241.root
+         -> 217,571 events (after MET filters)
+  [7/100] nano_1470.root
+         -> 195,898 events (after MET filters)
+  [8/100] nano_1314.root
+         -> 227,568 events (after MET filters)
+  [9/100] nano_1875.root
+         -> 195,752 events (after MET filters)
+  [10/100] nano_1855.root
+         -> 158,114 events (after MET filters)
+  [11/100] nano_1592.root
+         -> 199,109 events (after MET filters)
+  [12/100] nano_1605.root
+         -> 224,621 events (after MET filters)
+  [13/100] nano_1207.root
+         -> 219,622 events (after MET filters)
+  [14/100] nano_1867.root
+         -> 201,904 events (after MET filters)
+  [15/100] nano_1868.root
+         -> 209,621 events (after MET filters)
+  [16/100] nano_167.root
+         -> 243,685 events (after MET filters)
+  [17/100] nano_1387.root
+         -> 206,118 events (after MET filters)
+  [18/100] nano_959.root
+         -> 220,641 events (after MET filters)
+  [19/100] nano_1776.root
+         -> 181,989 events (after MET filters)
+  [20/100] nano_1676.root
+         -> 223,783 events (after MET filters)
+  [21/100] nano_1869.root
+         -> 222,714 events (after MET filters)
+  [22/100] nano_604.root
+         -> 206,746 events (after MET filters)
+  [23/100] nano_885.root
+         -> 203,646 events (after MET filters)
+  [24/100] nano_948.root
+         -> 226,348 events (after MET filters)
+  [25/100] nano_1090.root
+         -> 239,641 events (after MET filters)
+  [26/100] nano_1475.root
+         -> 207,773 events (after MET filters)
+  [27/100] nano_593.root
+         -> 216,731 events (after MET filters)
+  [28/100] nano_1757.root
+         -> 212,194 events (after MET filters)
+  [29/100] nano_18.root
+         -> 174,282 events (after MET filters)
+  [30/100] nano_41.root
+         -> 199,958 events (after MET filters)
+  [31/100] nano_712.root
+         -> 222,115 events (after MET filters)
+  [32/100] nano_1465.root
+         -> 195,149 events (after MET filters)
+  [33/100] nano_1641.root
+         -> 223,817 events (after MET filters)
+  [34/100] nano_409.root
+         -> 224,520 events (after MET filters)
+  [35/100] nano_798.root
+         -> 201,100 events (after MET filters)
+  [36/100] nano_504.root
+         -> 178,684 events (after MET filters)
+  [37/100] nano_1106.root
+         -> 227,037 events (after MET filters)
+  [38/100] nano_1497.root
+         -> 214,524 events (after MET filters)
+  [39/100] nano_313.root
+         -> 223,520 events (after MET filters)
+  [40/100] nano_1566.root
+         -> 241,107 events (after MET filters)
+  [41/100] nano_624.root
+         -> 142,306 events (after MET filters)
+  [42/100] nano_186.root
+         -> 194,999 events (after MET filters)
+  [43/100] nano_1650.root
+         -> 243,786 events (after MET filters)
+  [44/100] nano_684.root
+         -> 187,387 events (after MET filters)
+  [45/100] nano_1673.root
+         -> 227,761 events (after MET filters)
+  [46/100] nano_117.root
+         -> 179,660 events (after MET filters)
+  [47/100] nano_1801.root
+         -> 216,412 events (after MET filters)
+  [48/100] nano_606.root
+         -> 242,141 events (after MET filters)
+  [49/100] nano_873.root
+         -> 201,247 events (after MET filters)
+  [50/100] nano_1487.root
+         -> 244,360 events (after MET filters)
+  [51/100] nano_526.root
+         -> 244,070 events (after MET filters)
+  [52/100] nano_1870.root
+         -> 219,773 events (after MET filters)
+  [53/100] nano_1982.root
+         -> 244,122 events (after MET filters)
+  [54/100] nano_492.root
+         -> 214,274 events (after MET filters)
+  [55/100] nano_175.root
+         -> 214,758 events (after MET filters)
+  [56/100] nano_1952.root
+         -> 222,637 events (after MET filters)
+  [57/100] nano_416.root
+         -> 222,746 events (after MET filters)
+  [58/100] nano_1129.root
+         -> 196,257 events (after MET filters)
+  [59/100] nano_813.root
+         -> 204,210 events (after MET filters)
+  [60/100] nano_1070.root
+         -> 155,555 events (after MET filters)
+  [61/100] nano_514.root
+         -> 206,445 events (after MET filters)
+  [62/100] nano_1441.root
+         -> 197,749 events (after MET filters)
+  [63/100] nano_444.root
+         -> 182,812 events (after MET filters)
+  [64/100] nano_482.root
+         -> 175,007 events (after MET filters)
+  [65/100] nano_1007.root
+         -> 225,024 events (after MET filters)
+  [66/100] nano_1663.root
+         -> 195,423 events (after MET filters)
+  [67/100] nano_373.root
+         -> 205,550 events (after MET filters)
+  [68/100] nano_926.root
+         -> 244,144 events (after MET filters)
+  [69/100] nano_339.root
+         -> 183,655 events (after MET filters)
+  [70/100] nano_608.root
+         -> 225,365 events (after MET filters)
+  [71/100] nano_1749.root
+         -> 219,913 events (after MET filters)
+  [72/100] nano_1692.root
+         -> 243,573 events (after MET filters)
+  [73/100] nano_34.root
+         -> 184,505 events (after MET filters)
+  [74/100] nano_421.root
+         -> 210,869 events (after MET filters)
+  [75/100] nano_761.root
+         -> 215,590 events (after MET filters)
+  [76/100] nano_584.root
+         -> 243,868 events (after MET filters)
+  [77/100] nano_1889.root
+         -> 209,168 events (after MET filters)
+  [78/100] nano_1711.root
+         -> 233,173 events (after MET filters)
+  [79/100] nano_1357.root
+         -> 189,661 events (after MET filters)
+  [80/100] nano_1744.root
+         -> 217,914 events (after MET filters)
+  [81/100] nano_1499.root
+         -> 239,851 events (after MET filters)
+  [82/100] nano_1018.root
+         -> 233,433 events (after MET filters)
+  [83/100] nano_198.root
+         -> 193,816 events (after MET filters)
+  [84/100] nano_225.root
+         -> 184,899 events (after MET filters)
+  [85/100] nano_783.root
+         -> 186,781 events (after MET filters)
+  [86/100] nano_796.root
+         -> 207,906 events (after MET filters)
+  [87/100] nano_1563.root
+         -> 209,479 events (after MET filters)
+  [88/100] nano_1330.root
+         -> 226,562 events (after MET filters)
+  [89/100] nano_937.root
+         -> 223,133 events (after MET filters)
+  [90/100] nano_962.root
+         -> 243,547 events (after MET filters)
+  [91/100] nano_1713.root
+         -> 241,601 events (after MET filters)
+  [92/100] nano_1037.root
+         -> 204,981 events (after MET filters)
+  [93/100] nano_1322.root
+         -> 243,952 events (after MET filters)
+  [94/100] nano_1087.root
+         -> 193,574 events (after MET filters)
+  [95/100] nano_446.root
+         -> 223,388 events (after MET filters)
+  [96/100] nano_402.root
+         -> 212,906 events (after MET filters)
+  [97/100] nano_251.root
+         -> 213,597 events (after MET filters)
+  [98/100] nano_490.root
+         -> 229,292 events (after MET filters)
+  [99/100] nano_1653.root
+         -> 224,199 events (after MET filters)
+  [100/100] nano_637.root
+         -> 127,550 events (after MET filters)
+  => 20,912,300 MinBias events
+
+[Data] Reading ['PuppiMET_pt', 'PuppiMET_phi'] from 393 files...
+  [1/393] nano_1.root
+         -> 70,246 events (after MET filters)
+  [2/393] nano_2.root
+         -> 41,196 events (after MET filters)
+  [3/393] nano_3.root
+         -> 82,979 events (after MET filters)
+  [4/393] nano_1.root
+         -> 40,664 events (after MET filters)
+  [5/393] nano_2.root
+         -> 36,466 events (after MET filters)
+  [6/393] nano_3.root
+         -> 39,808 events (after MET filters)
+  [7/393] nano_1.root
+         -> 71,336 events (after MET filters)
+  [8/393] nano_2.root
+         -> 41,802 events (after MET filters)
+  [9/393] nano_3.root
+         -> 69,268 events (after MET filters)
+  [10/393] nano_1.root
+         -> 68,334 events (after MET filters)
+  [11/393] nano_2.root
+         -> 71,733 events (after MET filters)
+  [12/393] nano_3.root
+         -> 68,824 events (after MET filters)
+  [13/393] nano_1.root
+         -> 71,123 events (after MET filters)
+  [14/393] nano_2.root
+         -> 70,564 events (after MET filters)
+  [15/393] nano_3.root
+         -> 67,975 events (after MET filters)
+  [16/393] nano_1.root
+         -> 70,671 events (after MET filters)
+  [17/393] nano_2.root
+         -> 53,492 events (after MET filters)
+  [18/393] nano_3.root
+         -> 71,198 events (after MET filters)
+  [19/393] nano_1.root
+         -> 61,876 events (after MET filters)
+  [20/393] nano_2.root
+         -> 65,370 events (after MET filters)
+  [21/393] nano_3.root
+         -> 69,819 events (after MET filters)
+  [22/393] nano_1.root
+         -> 41,766 events (after MET filters)
+  [23/393] nano_2.root
+         -> 56,877 events (after MET filters)
+  [24/393] nano_3.root
+         -> 40,722 events (after MET filters)
+  [25/393] nano_1.root
+         -> 40,100 events (after MET filters)
+  [26/393] nano_2.root
+         -> 63,068 events (after MET filters)
+  [27/393] nano_3.root
+         -> 83,273 events (after MET filters)
+  [28/393] nano_1.root
+         -> 106,027 events (after MET filters)
+  [29/393] nano_2.root
+         -> 78,205 events (after MET filters)
+  [30/393] nano_3.root
+         -> 40,508 events (after MET filters)
+  [31/393] nano_1.root
+         -> 60,734 events (after MET filters)
+  [32/393] nano_2.root
+         -> 63,224 events (after MET filters)
+  [33/393] nano_3.root
+         -> 71,197 events (after MET filters)
+  [34/393] nano_1.root
+         -> 55,623 events (after MET filters)
+  [35/393] nano_2.root
+         -> 52,249 events (after MET filters)
+  [36/393] nano_3.root
+         -> 53,040 events (after MET filters)
+  [37/393] nano_1.root
+         -> 82,956 events (after MET filters)
+  [38/393] nano_2.root
+         -> 55,081 events (after MET filters)
+  [39/393] nano_3.root
+         -> 54,287 events (after MET filters)
+  [40/393] nano_1.root
+         -> 69,052 events (after MET filters)
+  [41/393] nano_2.root
+         -> 70,571 events (after MET filters)
+  [42/393] nano_3.root
+         -> 38,844 events (after MET filters)
+  [43/393] nano_1.root
+         -> 8,100 events (after MET filters)
+  [44/393] nano_2.root
+         -> 22,189 events (after MET filters)
+  [45/393] nano_3.root
+         -> 70,810 events (after MET filters)
+  [46/393] nano_1.root
+         -> 41,985 events (after MET filters)
+  [47/393] nano_2.root
+         -> 41,710 events (after MET filters)
+  [48/393] nano_3.root
+         -> 42,437 events (after MET filters)
+  [49/393] nano_1.root
+         -> 83,048 events (after MET filters)
+  [50/393] nano_2.root
+         -> 82,100 events (after MET filters)
+  [51/393] nano_3.root
+         -> 60,172 events (after MET filters)
+  [52/393] nano_1.root
+         -> 71,070 events (after MET filters)
+  [53/393] nano_2.root
+         -> 71,729 events (after MET filters)
+  [54/393] nano_3.root
+         -> 71,933 events (after MET filters)
+  [55/393] nano_1.root
+         -> 71,686 events (after MET filters)
+  [56/393] nano_2.root
+         -> 70,796 events (after MET filters)
+  [57/393] nano_3.root
+         -> 63,314 events (after MET filters)
+  [58/393] nano_1.root
+         -> 68,817 events (after MET filters)
+  [59/393] nano_2.root
+         -> 0 events (after MET filters)
+  [60/393] nano_3.root
+         -> 71,822 events (after MET filters)
+  [61/393] nano_1.root
+         -> 68,141 events (after MET filters)
+  [62/393] nano_2.root
+         -> 71,747 events (after MET filters)
+  [63/393] nano_3.root
+         -> 70,204 events (after MET filters)
+  [64/393] nano_1.root
+         -> 55,439 events (after MET filters)
+  [65/393] nano_2.root
+         -> 71,116 events (after MET filters)
+  [66/393] nano_3.root
+         -> 69,172 events (after MET filters)
+  [67/393] nano_1.root
+         -> 83,619 events (after MET filters)
+  [68/393] nano_2.root
+         -> 42,643 events (after MET filters)
+  [69/393] nano_3.root
+         -> 84,247 events (after MET filters)
+  [70/393] nano_1.root
+         -> 81,058 events (after MET filters)
+  [71/393] nano_2.root
+         -> 66,994 events (after MET filters)
+  [72/393] nano_3.root
+         -> 53,893 events (after MET filters)
+  [73/393] nano_1.root
+         -> 71,764 events (after MET filters)
+  [74/393] nano_2.root
+         -> 70,969 events (after MET filters)
+  [75/393] nano_3.root
+         -> 70,853 events (after MET filters)
+  [76/393] nano_1.root
+         -> 71,859 events (after MET filters)
+  [77/393] nano_2.root
+         -> 70,032 events (after MET filters)
+  [78/393] nano_3.root
+         -> 70,385 events (after MET filters)
+  [79/393] nano_1.root
+         -> 70,731 events (after MET filters)
+  [80/393] nano_2.root
+         -> 68,456 events (after MET filters)
+  [81/393] nano_3.root
+         -> 68,617 events (after MET filters)
+  [82/393] nano_1.root
+         -> 71,485 events (after MET filters)
+  [83/393] nano_2.root
+         -> 70,307 events (after MET filters)
+  [84/393] nano_3.root
+         -> 70,971 events (after MET filters)
+  [85/393] nano_1.root
+         -> 70,991 events (after MET filters)
+  [86/393] nano_2.root
+         -> 71,403 events (after MET filters)
+  [87/393] nano_3.root
+         -> 43,312 events (after MET filters)
+  [88/393] nano_1.root
+         -> 42,453 events (after MET filters)
+  [89/393] nano_2.root
+         -> 84,802 events (after MET filters)
+  [90/393] nano_3.root
+         -> 39,098 events (after MET filters)
+  [91/393] nano_1.root
+         -> 81,905 events (after MET filters)
+  [92/393] nano_2.root
+         -> 94,513 events (after MET filters)
+  [93/393] nano_3.root
+         -> 75,546 events (after MET filters)
+  [94/393] nano_1.root
+         -> 39,368 events (after MET filters)
+  [95/393] nano_2.root
+         -> 83,683 events (after MET filters)
+  [96/393] nano_3.root
+         -> 39,355 events (after MET filters)
+  [97/393] nano_1.root
+         -> 71,017 events (after MET filters)
+  [98/393] nano_2.root
+         -> 71,625 events (after MET filters)
+  [99/393] nano_3.root
+         -> 69,871 events (after MET filters)
+  [100/393] nano_1.root
+         -> 70,453 events (after MET filters)
+  [101/393] nano_2.root
+         -> 70,101 events (after MET filters)
+  [102/393] nano_3.root
+         -> 69,368 events (after MET filters)
+  [103/393] nano_1.root
+         -> 70,998 events (after MET filters)
+  [104/393] nano_2.root
+         -> 69,828 events (after MET filters)
+  [105/393] nano_3.root
+         -> 68,307 events (after MET filters)
+  [106/393] nano_1.root
+         -> 70,647 events (after MET filters)
+  [107/393] nano_2.root
+         -> 69,340 events (after MET filters)
+  [108/393] nano_3.root
+         -> 71,373 events (after MET filters)
+  [109/393] nano_1.root
+         -> 71,570 events (after MET filters)
+  [110/393] nano_2.root
+         -> 69,049 events (after MET filters)
+  [111/393] nano_3.root
+         -> 69,878 events (after MET filters)
+  [112/393] nano_1.root
+         -> 41,451 events (after MET filters)
+  [113/393] nano_2.root
+         -> 80,342 events (after MET filters)
+  [114/393] nano_3.root
+         -> 41,629 events (after MET filters)
+  [115/393] nano_1.root
+         -> 67,733 events (after MET filters)
+  [116/393] nano_2.root
+         -> 71,450 events (after MET filters)
+  [117/393] nano_3.root
+         -> 67,903 events (after MET filters)
+  [118/393] nano_1.root
+         -> 69,166 events (after MET filters)
+  [119/393] nano_2.root
+         -> 68,539 events (after MET filters)
+  [120/393] nano_3.root
+         -> 71,633 events (after MET filters)
+  [121/393] nano_1.root
+         -> 0 events (after MET filters)
+  [122/393] nano_2.root
+         -> 68,258 events (after MET filters)
+  [123/393] nano_3.root
+         -> 68,661 events (after MET filters)
+  [124/393] nano_1.root
+         -> 71,470 events (after MET filters)
+  [125/393] nano_2.root
+         -> 67,526 events (after MET filters)
+  [126/393] nano_3.root
+         -> 71,607 events (after MET filters)
+  [127/393] nano_1.root
+         -> 0 events (after MET filters)
+  [128/393] nano_2.root
+         -> 29,167 events (after MET filters)
+  [129/393] nano_3.root
+         -> 0 events (after MET filters)
+  [130/393] nano_1.root
+         -> 42,873 events (after MET filters)
+  [131/393] nano_2.root
+         -> 39,765 events (after MET filters)
+  [132/393] nano_3.root
+         -> 42,852 events (after MET filters)
+  [133/393] nano_1.root
+         -> 36,853 events (after MET filters)
+  [134/393] nano_2.root
+         -> 62,139 events (after MET filters)
+  [135/393] nano_3.root
+         -> 84,046 events (after MET filters)
+  [136/393] nano_1.root
+         -> 69,054 events (after MET filters)
+  [137/393] nano_2.root
+         -> 83,277 events (after MET filters)
+  [138/393] nano_3.root
+         -> 67,024 events (after MET filters)
+  [139/393] nano_1.root
+         -> 69,011 events (after MET filters)
+  [140/393] nano_2.root
+         -> 69,944 events (after MET filters)
+  [141/393] nano_3.root
+         -> 69,280 events (after MET filters)
+  [142/393] nano_1.root
+         -> 70,753 events (after MET filters)
+  [143/393] nano_2.root
+         -> 70,977 events (after MET filters)
+  [144/393] nano_3.root
+         -> 70,437 events (after MET filters)
+  [145/393] nano_1.root
+         -> 71,279 events (after MET filters)
+  [146/393] nano_2.root
+         -> 68,051 events (after MET filters)
+  [147/393] nano_3.root
+         -> 70,669 events (after MET filters)
+  [148/393] nano_1.root
+         -> 71,164 events (after MET filters)
+  [149/393] nano_2.root
+         -> 70,148 events (after MET filters)
+  [150/393] nano_3.root
+         -> 69,108 events (after MET filters)
+  [151/393] nano_1.root
+         -> 68,538 events (after MET filters)
+  [152/393] nano_2.root
+         -> 68,710 events (after MET filters)
+  [153/393] nano_3.root
+         -> 68,290 events (after MET filters)
+  [154/393] nano_1.root
+         -> 83,676 events (after MET filters)
+  [155/393] nano_2.root
+         -> 41,954 events (after MET filters)
+  [156/393] nano_3.root
+         -> 39,271 events (after MET filters)
+  [157/393] nano_1.root
+         -> 71,665 events (after MET filters)
+  [158/393] nano_2.root
+         -> 71,526 events (after MET filters)
+  [159/393] nano_3.root
+         -> 71,461 events (after MET filters)
+  [160/393] nano_1.root
+         -> 68,929 events (after MET filters)
+  [161/393] nano_2.root
+         -> 70,442 events (after MET filters)
+  [162/393] nano_3.root
+         -> 70,522 events (after MET filters)
+  [163/393] nano_1.root
+         -> 67,820 events (after MET filters)
+  [164/393] nano_2.root
+         -> 69,351 events (after MET filters)
+  [165/393] nano_3.root
+         -> 68,000 events (after MET filters)
+  [166/393] nano_1.root
+         -> 68,985 events (after MET filters)
+  [167/393] nano_2.root
+         -> 70,564 events (after MET filters)
+  [168/393] nano_3.root
+         -> 69,445 events (after MET filters)
+  [169/393] nano_1.root
+         -> 71,092 events (after MET filters)
+  [170/393] nano_2.root
+         -> 68,188 events (after MET filters)
+  [171/393] nano_3.root
+         -> 69,233 events (after MET filters)
+  [172/393] nano_1.root
+         -> 40,990 events (after MET filters)
+  [173/393] nano_2.root
+         -> 42,354 events (after MET filters)
+  [174/393] nano_3.root
+         -> 82,015 events (after MET filters)
+  [175/393] nano_1.root
+         -> 82,374 events (after MET filters)
+  [176/393] nano_2.root
+         -> 82,376 events (after MET filters)
+  [177/393] nano_3.root
+         -> 42,815 events (after MET filters)
+  [178/393] nano_1.root
+         -> 78,414 events (after MET filters)
+  [179/393] nano_2.root
+         -> 91,012 events (after MET filters)
+  [180/393] nano_3.root
+         -> 124,107 events (after MET filters)
+  [181/393] nano_1.root
+         -> 67,399 events (after MET filters)
+  [182/393] nano_2.root
+         -> 62,833 events (after MET filters)
+  [183/393] nano_3.root
+         -> 69,794 events (after MET filters)
+  [184/393] nano_1.root
+         -> 67,914 events (after MET filters)
+  [185/393] nano_2.root
+         -> 70,416 events (after MET filters)
+  [186/393] nano_3.root
+         -> 70,766 events (after MET filters)
+  [187/393] nano_1.root
+         -> 75,265 events (after MET filters)
+  [188/393] nano_2.root
+         -> 56,574 events (after MET filters)
+  [189/393] nano_3.root
+         -> 54,588 events (after MET filters)
+  [190/393] nano_1.root
+         -> 69,253 events (after MET filters)
+  [191/393] nano_2.root
+         -> 71,033 events (after MET filters)
+  [192/393] nano_3.root
+         -> 71,637 events (after MET filters)
+  [193/393] nano_1.root
+         -> 71,679 events (after MET filters)
+  [194/393] nano_2.root
+         -> 71,606 events (after MET filters)
+  [195/393] nano_3.root
+         -> 71,640 events (after MET filters)
+  [196/393] nano_1.root
+         -> 40,850 events (after MET filters)
+  [197/393] nano_2.root
+         -> 90,797 events (after MET filters)
+  [198/393] nano_3.root
+         -> 42,168 events (after MET filters)
+  [199/393] nano_1.root
+         -> 84,537 events (after MET filters)
+  [200/393] nano_2.root
+         -> 98,965 events (after MET filters)
+  [201/393] nano_3.root
+         -> 75,798 events (after MET filters)
+  [202/393] nano_1.root
+         -> 69,778 events (after MET filters)
+  [203/393] nano_2.root
+         -> 70,785 events (after MET filters)
+  [204/393] nano_3.root
+         -> 66,382 events (after MET filters)
+  [205/393] nano_1.root
+         -> 68,048 events (after MET filters)
+  [206/393] nano_2.root
+         -> 71,126 events (after MET filters)
+  [207/393] nano_3.root
+         -> 70,816 events (after MET filters)
+  [208/393] nano_1.root
+         -> 71,184 events (after MET filters)
+  [209/393] nano_2.root
+         -> 59,227 events (after MET filters)
+  [210/393] nano_3.root
+         -> 72,188 events (after MET filters)
+  [211/393] nano_1.root
+         -> 71,339 events (after MET filters)
+  [212/393] nano_2.root
+         -> 71,017 events (after MET filters)
+  [213/393] nano_3.root
+         -> 68,076 events (after MET filters)
+  [214/393] nano_1.root
+         -> 69,613 events (after MET filters)
+  [215/393] nano_2.root
+         -> 70,872 events (after MET filters)
+  [216/393] nano_3.root
+         -> 69,928 events (after MET filters)
+  [217/393] nano_1.root
+         -> 68,803 events (after MET filters)
+  [218/393] nano_2.root
+         -> 70,965 events (after MET filters)
+  [219/393] nano_3.root
+         -> 65,545 events (after MET filters)
+  [220/393] nano_1.root
+         -> 70,706 events (after MET filters)
+  [221/393] nano_2.root
+         -> 71,016 events (after MET filters)
+  [222/393] nano_3.root
+         -> 69,367 events (after MET filters)
+  [223/393] nano_1.root
+         -> 68,242 events (after MET filters)
+  [224/393] nano_2.root
+         -> 68,768 events (after MET filters)
+  [225/393] nano_3.root
+         -> 69,271 events (after MET filters)
+  [226/393] nano_1.root
+         -> 70,652 events (after MET filters)
+  [227/393] nano_2.root
+         -> 68,509 events (after MET filters)
+  [228/393] nano_3.root
+         -> 72,414 events (after MET filters)
+  [229/393] nano_1.root
+         -> 70,087 events (after MET filters)
+  [230/393] nano_2.root
+         -> 70,080 events (after MET filters)
+  [231/393] nano_3.root
+         -> 69,494 events (after MET filters)
+  [232/393] nano_1.root
+         -> 69,641 events (after MET filters)
+  [233/393] nano_2.root
+         -> 73,147 events (after MET filters)
+  [234/393] nano_3.root
+         -> 70,807 events (after MET filters)
+  [235/393] nano_1.root
+         -> 70,609 events (after MET filters)
+  [236/393] nano_2.root
+         -> 70,839 events (after MET filters)
+  [237/393] nano_3.root
+         -> 64,085 events (after MET filters)
+  [238/393] nano_1.root
+         -> 70,358 events (after MET filters)
+  [239/393] nano_2.root
+         -> 67,611 events (after MET filters)
+  [240/393] nano_3.root
+         -> 70,967 events (after MET filters)
+  [241/393] nano_1.root
+         -> 40,600 events (after MET filters)
+  [242/393] nano_2.root
+         -> 76,671 events (after MET filters)
+  [243/393] nano_3.root
+         -> 80,848 events (after MET filters)
+  [244/393] nano_1.root
+         -> 41,051 events (after MET filters)
+  [245/393] nano_2.root
+         -> 119,147 events (after MET filters)
+  [246/393] nano_3.root
+         -> 44,196 events (after MET filters)
+  [247/393] nano_1.root
+         -> 63,759 events (after MET filters)
+  [248/393] nano_2.root
+         -> 0 events (after MET filters)
+  [249/393] nano_3.root
+         -> 0 events (after MET filters)
+  [250/393] nano_1.root
+         -> 130,620 events (after MET filters)
+  [251/393] nano_2.root
+         -> 70,731 events (after MET filters)
+  [252/393] nano_3.root
+         -> 65,684 events (after MET filters)
+  [253/393] nano_1.root
+         -> 51,418 events (after MET filters)
+  [254/393] nano_2.root
+         -> 69,671 events (after MET filters)
+  [255/393] nano_3.root
+         -> 69,486 events (after MET filters)
+  [256/393] nano_1.root
+         -> 69,935 events (after MET filters)
+  [257/393] nano_2.root
+         -> 70,876 events (after MET filters)
+  [258/393] nano_3.root
+         -> 71,379 events (after MET filters)
+  [259/393] nano_1.root
+         -> 70,011 events (after MET filters)
+  [260/393] nano_2.root
+         -> 70,613 events (after MET filters)
+  [261/393] nano_3.root
+         -> 70,818 events (after MET filters)
+  [262/393] nano_1.root
+         -> 78,451 events (after MET filters)
+  [263/393] nano_2.root
+         -> 82,278 events (after MET filters)
+  [264/393] nano_3.root
+         -> 82,797 events (after MET filters)
+  [265/393] nano_1.root
+         -> 81,338 events (after MET filters)
+  [266/393] nano_2.root
+         -> 73,420 events (after MET filters)
+  [267/393] nano_3.root
+         -> 83,316 events (after MET filters)
+  [268/393] nano_1.root
+         -> 0 events (after MET filters)
+  [269/393] nano_2.root
+         -> 67,497 events (after MET filters)
+  [270/393] nano_3.root
+         -> 63,039 events (after MET filters)
+  [271/393] nano_1.root
+         -> 54,984 events (after MET filters)
+  [272/393] nano_2.root
+         -> 54,713 events (after MET filters)
+  [273/393] nano_3.root
+         -> 55,680 events (after MET filters)
+  [274/393] nano_1.root
+         -> 70,732 events (after MET filters)
+  [275/393] nano_2.root
+         -> 68,432 events (after MET filters)
+  [276/393] nano_3.root
+         -> 70,449 events (after MET filters)
+  [277/393] nano_1.root
+         -> 71,615 events (after MET filters)
+  [278/393] nano_2.root
+         -> 70,847 events (after MET filters)
+  [279/393] nano_3.root
+         -> 71,075 events (after MET filters)
+  [280/393] nano_1.root
+         -> 71,214 events (after MET filters)
+  [281/393] nano_2.root
+         -> 69,561 events (after MET filters)
+  [282/393] nano_3.root
+         -> 68,241 events (after MET filters)
+  [283/393] nano_1.root
+         -> 67,530 events (after MET filters)
+  [284/393] nano_2.root
+         -> 81,625 events (after MET filters)
+  [285/393] nano_3.root
+         -> 47,655 events (after MET filters)
+  [286/393] nano_1.root
+         -> 122,989 events (after MET filters)
+  [287/393] nano_2.root
+         -> 75,486 events (after MET filters)
+  [288/393] nano_3.root
+         -> 82,510 events (after MET filters)
+  [289/393] nano_1.root
+         -> 40,798 events (after MET filters)
+  [290/393] nano_2.root
+         -> 81,839 events (after MET filters)
+  [291/393] nano_3.root
+         -> 39,267 events (after MET filters)
+  [292/393] nano_1.root
+         -> 68,979 events (after MET filters)
+  [293/393] nano_2.root
+         -> 70,210 events (after MET filters)
+  [294/393] nano_3.root
+         -> 71,748 events (after MET filters)
+  [295/393] nano_1.root
+         -> 70,741 events (after MET filters)
+  [296/393] nano_2.root
+         -> 70,406 events (after MET filters)
+  [297/393] nano_3.root
+         -> 68,957 events (after MET filters)
+  [298/393] nano_1.root
+         -> 66,962 events (after MET filters)
+  [299/393] nano_2.root
+         -> 69,827 events (after MET filters)
+  [300/393] nano_3.root
+         -> 69,378 events (after MET filters)
+  [301/393] nano_1.root
+         -> 69,328 events (after MET filters)
+  [302/393] nano_2.root
+         -> 68,098 events (after MET filters)
+  [303/393] nano_3.root
+         -> 70,390 events (after MET filters)
+  [304/393] nano_1.root
+         -> 71,016 events (after MET filters)
+  [305/393] nano_2.root
+         -> 0 events (after MET filters)
+  [306/393] nano_3.root
+         -> 50,081 events (after MET filters)
+  [307/393] nano_1.root
+         -> 81,750 events (after MET filters)
+  [308/393] nano_2.root
+         -> 88,033 events (after MET filters)
+  [309/393] nano_3.root
+         -> 79,957 events (after MET filters)
+  [310/393] nano_1.root
+         -> 75,246 events (after MET filters)
+  [311/393] nano_2.root
+         -> 39,050 events (after MET filters)
+  [312/393] nano_3.root
+         -> 52,568 events (after MET filters)
+  [313/393] nano_1.root
+         -> 69,845 events (after MET filters)
+  [314/393] nano_2.root
+         -> 63,063 events (after MET filters)
+  [315/393] nano_3.root
+         -> 58,877 events (after MET filters)
+  [316/393] nano_1.root
+         -> 71,659 events (after MET filters)
+  [317/393] nano_2.root
+         -> 66,061 events (after MET filters)
+  [318/393] nano_3.root
+         -> 71,730 events (after MET filters)
+  [319/393] nano_1.root
+         -> 69,756 events (after MET filters)
+  [320/393] nano_2.root
+         -> 71,022 events (after MET filters)
+  [321/393] nano_3.root
+         -> 70,579 events (after MET filters)
+  [322/393] nano_1.root
+         -> 66,929 events (after MET filters)
+  [323/393] nano_2.root
+         -> 69,790 events (after MET filters)
+  [324/393] nano_3.root
+         -> 70,688 events (after MET filters)
+  [325/393] nano_1.root
+         -> 70,051 events (after MET filters)
+  [326/393] nano_2.root
+         -> 67,957 events (after MET filters)
+  [327/393] nano_3.root
+         -> 71,809 events (after MET filters)
+  [328/393] nano_1.root
+         -> 83,094 events (after MET filters)
+  [329/393] nano_2.root
+         -> 42,852 events (after MET filters)
+  [330/393] nano_3.root
+         -> 42,435 events (after MET filters)
+  [331/393] nano_1.root
+         -> 72,727 events (after MET filters)
+  [332/393] nano_2.root
+         -> 39,699 events (after MET filters)
+  [333/393] nano_3.root
+         -> 57,327 events (after MET filters)
+  [334/393] nano_1.root
+         -> 73,321 events (after MET filters)
+  [335/393] nano_2.root
+         -> 119,398 events (after MET filters)
+  [336/393] nano_3.root
+         -> 39,248 events (after MET filters)
+  [337/393] nano_1.root
+         -> 71,107 events (after MET filters)
+  [338/393] nano_2.root
+         -> 62,824 events (after MET filters)
+  [339/393] nano_3.root
+         -> 59,220 events (after MET filters)
+  [340/393] nano_1.root
+         -> 63,168 events (after MET filters)
+  [341/393] nano_2.root
+         -> 62,703 events (after MET filters)
+  [342/393] nano_3.root
+         -> 70,292 events (after MET filters)
+  [343/393] nano_1.root
+         -> 70,351 events (after MET filters)
+  [344/393] nano_2.root
+         -> 71,606 events (after MET filters)
+  [345/393] nano_3.root
+         -> 69,867 events (after MET filters)
+  [346/393] nano_1.root
+         -> 65,958 events (after MET filters)
+  [347/393] nano_2.root
+         -> 70,281 events (after MET filters)
+  [348/393] nano_3.root
+         -> 66,008 events (after MET filters)
+  [349/393] nano_1.root
+         -> 4,018 events (after MET filters)
+  [350/393] nano_2.root
+         -> 70,767 events (after MET filters)
+  [351/393] nano_3.root
+         -> 68,672 events (after MET filters)
+  [352/393] nano_1.root
+         -> 72,932 events (after MET filters)
+  [353/393] nano_2.root
+         -> 41,518 events (after MET filters)
+  [354/393] nano_3.root
+         -> 39,925 events (after MET filters)
+  [355/393] nano_1.root
+         -> 71,170 events (after MET filters)
+  [356/393] nano_2.root
+         -> 68,058 events (after MET filters)
+  [357/393] nano_3.root
+         -> 69,223 events (after MET filters)
+  [358/393] nano_1.root
+         -> 70,632 events (after MET filters)
+  [359/393] nano_2.root
+         -> 67,716 events (after MET filters)
+  [360/393] nano_3.root
+         -> 65,818 events (after MET filters)
+  [361/393] nano_1.root
+         -> 69,369 events (after MET filters)
+  [362/393] nano_2.root
+         -> 69,703 events (after MET filters)
+  [363/393] nano_3.root
+         -> 73,505 events (after MET filters)
+  [364/393] nano_1.root
+         -> 68,329 events (after MET filters)
+  [365/393] nano_2.root
+         -> 66,585 events (after MET filters)
+  [366/393] nano_3.root
+         -> 69,470 events (after MET filters)
+  [367/393] nano_1.root
+         -> 69,658 events (after MET filters)
+  [368/393] nano_2.root
+         -> 65,182 events (after MET filters)
+  [369/393] nano_3.root
+         -> 70,548 events (after MET filters)
+  [370/393] nano_1.root
+         -> 67,409 events (after MET filters)
+  [371/393] nano_2.root
+         -> 70,614 events (after MET filters)
+  [372/393] nano_3.root
+         -> 70,326 events (after MET filters)
+  [373/393] nano_1.root
+         -> 64,409 events (after MET filters)
+  [374/393] nano_2.root
+         -> 66,464 events (after MET filters)
+  [375/393] nano_3.root
+         -> 67,037 events (after MET filters)
+  [376/393] nano_1.root
+         -> 67,458 events (after MET filters)
+  [377/393] nano_2.root
+         -> 70,432 events (after MET filters)
+  [378/393] nano_3.root
+         -> 65,683 events (after MET filters)
+  [379/393] nano_1.root
+         -> 0 events (after MET filters)
+  [380/393] nano_2.root
+         -> 70,672 events (after MET filters)
+  [381/393] nano_3.root
+         -> 66,084 events (after MET filters)
+  [382/393] nano_1.root
+         -> 69,081 events (after MET filters)
+  [383/393] nano_2.root
+         -> 71,259 events (after MET filters)
+  [384/393] nano_3.root
+         -> 66,821 events (after MET filters)
+  [385/393] nano_1.root
+         -> 67,115 events (after MET filters)
+  [386/393] nano_2.root
+         -> 68,668 events (after MET filters)
+  [387/393] nano_3.root
+         -> 69,193 events (after MET filters)
+  [388/393] nano_1.root
+         -> 38,681 events (after MET filters)
+  [389/393] nano_2.root
+         -> 87,590 events (after MET filters)
+  [390/393] nano_3.root
+         -> 77,432 events (after MET filters)
+  [391/393] nano_1.root
+         -> 70,993 events (after MET filters)
+  [392/393] nano_2.root
+         -> 0 events (after MET filters)
+  [393/393] nano_3.root
+         -> 69,684 events (after MET filters)
+  => 25,666,476 data events total
+
+[Signal] Listing GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 ...
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/
+    -> 260507_161833/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_161833
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2
+     5 .root files found under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  => 5 signal files
+[Signal] Reading PuppiMET branches ...
+  [1/5] nano_1.root
+         -> 48,444 events (after MET filters)
+  [2/5] nano_2.root
+         -> 47,747 events (after MET filters)
+  [3/5] nano_3.root
+         -> 47,731 events (after MET filters)
+  [4/5] nano_4.root
+         -> 5,699 events (after MET filters)
+  [5/5] nano_5.root
+         -> 47,743 events (after MET filters)
+  => 197,364 signal events
+
+[Signal] Listing GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 ...
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/
+    -> 260507_162036/
+      -> 0000/
+           5 .root files found under 0000
+         5 .root files found under 260507_162036
+       5 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2
+     5 .root files found under GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  => 5 signal files
+[Signal] Reading PuppiMET branches ...
+  [1/5] nano_1.root
+         -> 40,289 events (after MET filters)
+  [2/5] nano_2.root
+         -> 28,279 events (after MET filters)
+  [3/5] nano_3.root
+         -> 38,875 events (after MET filters)
+  [4/5] nano_4.root
+         -> 27,563 events (after MET filters)
+  [5/5] nano_5.root
+         -> 29,690 events (after MET filters)
+  => 164,696 signal events
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+Saved: compareMET.pdf
+[goldenjson] golden JSON: kept 25,717,439 of 26,753,395 data events (3.87% dropped as uncertified)

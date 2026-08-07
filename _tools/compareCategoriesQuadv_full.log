@@ -1,0 +1,309 @@
+
+=== GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 (taking 60 files) ===
+  -> 250922_152935/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_152935
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/33] nano_1.root
+         -> 45,440 events (4,241 trig, 2,118 trig+kin)
+  [2/33] nano_10.root
+         -> 17,040 events (1,581 trig, 785 trig+kin)
+  [3/33] nano_11.root
+         -> 37,630 events (3,524 trig, 1,789 trig+kin)
+  [4/33] nano_12.root
+         -> 29,820 events (2,725 trig, 1,408 trig+kin)
+  [5/33] nano_13.root
+         -> 25,560 events (2,351 trig, 1,182 trig+kin)
+  [6/33] nano_14.root
+         -> 34,080 events (3,089 trig, 1,576 trig+kin)
+  [7/33] nano_15.root
+         -> 6,390 events (580 trig, 299 trig+kin)
+  [8/33] nano_16.root
+         -> 48,990 events (4,418 trig, 2,293 trig+kin)
+  [9/33] nano_17.root
+         -> 43,310 events (3,989 trig, 2,044 trig+kin)
+  [10/33] nano_18.root
+         -> 710 events (68 trig, 40 trig+kin)
+  [11/33] nano_19.root
+         -> 38,340 events (3,670 trig, 1,888 trig+kin)
+  [12/33] nano_2.root
+         -> 26,270 events (2,450 trig, 1,224 trig+kin)
+  [13/33] nano_20.root
+         -> 24,850 events (2,305 trig, 1,188 trig+kin)
+  [14/33] nano_21.root
+         -> 26,980 events (2,444 trig, 1,229 trig+kin)
+  [15/33] nano_22.root
+         -> 26,270 events (2,399 trig, 1,206 trig+kin)
+  [16/33] nano_23.root
+         -> 41,180 events (3,850 trig, 1,920 trig+kin)
+  [17/33] nano_24.root
+         -> 45,440 events (4,285 trig, 2,185 trig+kin)
+  [18/33] nano_25.root
+         -> 48,990 events (4,390 trig, 2,253 trig+kin)
+  [19/33] nano_26.root
+         -> 48,990 events (4,530 trig, 2,321 trig+kin)
+  [20/33] nano_27.root
+         -> 48,990 events (4,666 trig, 2,402 trig+kin)
+  [21/33] nano_28.root
+         -> 2,130 events (204 trig, 103 trig+kin)
+  [22/33] nano_29.root
+         -> 24,850 events (2,291 trig, 1,156 trig+kin)
+  [23/33] nano_3.root
+         -> 24,850 events (2,314 trig, 1,216 trig+kin)
+  [24/33] nano_30.root
+         -> 10,650 events (972 trig, 485 trig+kin)
+  [25/33] nano_31.root
+         -> 12,070 events (1,135 trig, 571 trig+kin)
+  [26/33] nano_32.root
+         -> 5,680 events (538 trig, 273 trig+kin)
+  [27/33] nano_33.root
+         -> 320 events (24 trig, 12 trig+kin)
+  [28/33] nano_4.root
+         -> 48,990 events (4,468 trig, 2,308 trig+kin)
+  [29/33] nano_5.root
+         -> 44,020 events (4,120 trig, 2,107 trig+kin)
+  [30/33] nano_6.root
+         -> 41,180 events (3,877 trig, 2,006 trig+kin)
+  [31/33] nano_7.root
+         -> 41,890 events (3,863 trig, 1,958 trig+kin)
+  [32/33] nano_8.root
+         -> 39,760 events (3,676 trig, 1,848 trig+kin)
+  [33/33] nano_9.root
+         -> 37,630 events (3,449 trig, 1,763 trig+kin)
+  [Scenario A: $m_\pi$=10 GeV, $m_A$=3.33 GeV, $c\tau$=0.1 mm] 11,838 candidate events (>=1 fourmuonSV & >=2 muonSV) of 47,156
+  [Scenario A: $m_\pi$=10 GeV, $m_A$=3.33 GeV, $c\tau$=0.1 mm] 1,032 events with a quadv match
+  [Scenario A: $m_\pi$=10 GeV, $m_A$=3.33 GeV, $c\tau$=0.1 mm] 1,032 of 1,032 matched events enter the category pages
+
+=== GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 60 files) ===
+  -> 250926_185640/
+    -> 0000/
+         41 .root files collected under 0000
+       41 .root files collected under 250926_185640
+     41 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/41] nano_1.root
+         -> 17,016 events (2,251 trig, 960 trig+kin)
+  [2/41] nano_10.root
+         -> 27,651 events (3,673 trig, 1,587 trig+kin)
+  [3/41] nano_11.root
+         -> 12,053 events (1,629 trig, 699 trig+kin)
+  [4/41] nano_12.root
+         -> 34,741 events (4,654 trig, 1,989 trig+kin)
+  [5/41] nano_13.root
+         -> 26,942 events (3,512 trig, 1,464 trig+kin)
+  [6/41] nano_14.root
+         -> 41,831 events (5,562 trig, 2,370 trig+kin)
+  [7/41] nano_15.root
+         -> 3,545 events (446 trig, 200 trig+kin)
+  [8/41] nano_16.root
+         -> 2,836 events (367 trig, 161 trig+kin)
+  [9/41] nano_17.root
+         -> 27,651 events (3,735 trig, 1,611 trig+kin)
+  [10/41] nano_18.root
+         -> 31,905 events (4,265 trig, 1,800 trig+kin)
+  [11/41] nano_19.root
+         -> 31,196 events (4,214 trig, 1,798 trig+kin)
+  [12/41] nano_2.root
+         -> 37,577 events (5,059 trig, 2,144 trig+kin)
+  [13/41] nano_20.root
+         -> 6,381 events (911 trig, 408 trig+kin)
+  [14/41] nano_21.root
+         -> 24,106 events (3,348 trig, 1,477 trig+kin)
+  [15/41] nano_22.root
+         -> 38,995 events (5,267 trig, 2,251 trig+kin)
+  [16/41] nano_23.root
+         -> 24,106 events (3,260 trig, 1,391 trig+kin)
+  [17/41] nano_24.root
+         -> 41,831 events (5,586 trig, 2,355 trig+kin)
+  [18/41] nano_25.root
+         -> 28,360 events (3,867 trig, 1,592 trig+kin)
+  [19/41] nano_26.root
+         -> 38,286 events (5,053 trig, 2,181 trig+kin)
+  [20/41] nano_27.root
+         -> 25,524 events (3,442 trig, 1,501 trig+kin)
+  [21/41] nano_28.root
+         -> 310 events (42 trig, 15 trig+kin)
+  [22/41] nano_29.root
+         -> 7,090 events (959 trig, 409 trig+kin)
+  [23/41] nano_3.root
+         -> 25,524 events (3,449 trig, 1,474 trig+kin)
+  [24/41] nano_30.root
+         -> 24,815 events (3,327 trig, 1,464 trig+kin)
+  [25/41] nano_31.root
+         -> 2,127 events (296 trig, 127 trig+kin)
+  [26/41] nano_32.root
+         -> 24,815 events (3,267 trig, 1,425 trig+kin)
+  [27/41] nano_33.root
+         -> 16,307 events (2,190 trig, 921 trig+kin)
+  [28/41] nano_34.root
+         -> 28,360 events (3,775 trig, 1,611 trig+kin)
+  [29/41] nano_35.root
+         -> 2,836 events (376 trig, 157 trig+kin)
+  [30/41] nano_36.root
+         -> 10,635 events (1,402 trig, 589 trig+kin)
+  [31/41] nano_37.root
+         -> 25,524 events (3,304 trig, 1,421 trig+kin)
+  [32/41] nano_38.root
+         -> 21,270 events (2,807 trig, 1,182 trig+kin)
+  [33/41] nano_39.root
+         -> 26,233 events (3,511 trig, 1,531 trig+kin)
+  [34/41] nano_4.root
+         -> 38,286 events (5,067 trig, 2,172 trig+kin)
+  [35/41] nano_40.root
+         -> 26,233 events (3,404 trig, 1,490 trig+kin)
+  [36/41] nano_41.root
+         -> 29,069 events (3,878 trig, 1,608 trig+kin)
+  [37/41] nano_5.root
+         -> 40,413 events (5,403 trig, 2,281 trig+kin)
+  [38/41] nano_6.root
+         -> 43,958 events (5,754 trig, 2,492 trig+kin)
+  [39/41] nano_7.root
+         -> 24,106 events (3,216 trig, 1,372 trig+kin)
+  [40/41] nano_8.root
+         -> 24,815 events (3,345 trig, 1,370 trig+kin)
+  [41/41] nano_9.root
+         -> 34,032 events (4,518 trig, 1,894 trig+kin)
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=0.1 mm] 22,357 candidate events (>=1 fourmuonSV & >=2 muonSV) of 56,944
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=0.1 mm] 4,757 events with a quadv match
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=0.1 mm] 4,757 of 4,757 matched events enter the category pages
+
+=== GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 60 files) ===
+  -> 250926_190403/
+    -> 0000/
+         50 .root files collected under 0000
+       50 .root files collected under 250926_190403
+     50 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/50] nano_1.root
+         -> 5,656 events (604 trig, 522 trig+kin)
+  [2/50] nano_10.root
+         -> 39,592 events (4,557 trig, 3,979 trig+kin)
+  [3/50] nano_11.root
+         -> 38,885 events (4,556 trig, 3,990 trig+kin)
+  [4/50] nano_12.root
+         -> 24,038 events (2,801 trig, 2,452 trig+kin)
+  [5/50] nano_13.root
+         -> 32,522 events (3,815 trig, 3,333 trig+kin)
+  [6/50] nano_14.root
+         -> 38,885 events (4,626 trig, 4,004 trig+kin)
+  [7/50] nano_15.root
+         -> 12,726 events (1,465 trig, 1,299 trig+kin)
+  [8/50] nano_16.root
+         -> 21,917 events (2,533 trig, 2,188 trig+kin)
+  [9/50] nano_17.root
+         -> 24,038 events (2,738 trig, 2,416 trig+kin)
+  [10/50] nano_18.root
+         -> 17,675 events (2,032 trig, 1,766 trig+kin)
+  [11/50] nano_19.root
+         -> 31,108 events (3,580 trig, 3,135 trig+kin)
+  [12/50] nano_2.root
+         -> 4,242 events (484 trig, 412 trig+kin)
+  [13/50] nano_20.root
+         -> 33,229 events (3,801 trig, 3,321 trig+kin)
+  [14/50] nano_21.root
+         -> 12,019 events (1,388 trig, 1,221 trig+kin)
+  [15/50] nano_22.root
+         -> 14,847 events (1,709 trig, 1,496 trig+kin)
+  [16/50] nano_23.root
+         -> 707 events (78 trig, 67 trig+kin)
+  [17/50] nano_24.root
+         -> 41,006 events (4,882 trig, 4,243 trig+kin)
+  [18/50] nano_25.root
+         -> 24,038 events (2,814 trig, 2,423 trig+kin)
+  [19/50] nano_26.root
+         -> 25,452 events (2,981 trig, 2,623 trig+kin)
+  [20/50] nano_27.root
+         -> 33,936 events (3,918 trig, 3,446 trig+kin)
+  [21/50] nano_28.root
+         -> 707 events (84 trig, 72 trig+kin)
+  [22/50] nano_29.root
+         -> 9,898 events (1,156 trig, 1,011 trig+kin)
+  [23/50] nano_3.root
+         -> 24,745 events (2,889 trig, 2,518 trig+kin)
+  [24/50] nano_30.root
+         -> 24,745 events (2,904 trig, 2,563 trig+kin)
+  [25/50] nano_31.root
+         -> 16,261 events (1,821 trig, 1,578 trig+kin)
+  [26/50] nano_32.root
+         -> 707 events (70 trig, 58 trig+kin)
+  [27/50] nano_33.root
+         -> 25,452 events (3,003 trig, 2,658 trig+kin)
+  [28/50] nano_34.root
+         -> 3,535 events (426 trig, 376 trig+kin)
+  [29/50] nano_35.root
+         -> 302 events (33 trig, 27 trig+kin)
+  [30/50] nano_36.root
+         -> 11,312 events (1,266 trig, 1,123 trig+kin)
+  [31/50] nano_37.root
+         -> 6,363 events (719 trig, 622 trig+kin)
+  [32/50] nano_38.root
+         -> 3,535 events (430 trig, 383 trig+kin)
+  [33/50] nano_39.root
+         -> 1,414 events (163 trig, 153 trig+kin)
+  [34/50] nano_4.root
+         -> 25,452 events (2,934 trig, 2,571 trig+kin)
+  [35/50] nano_40.root
+         -> 4,949 events (568 trig, 491 trig+kin)
+  [36/50] nano_41.root
+         -> 1,414 events (152 trig, 130 trig+kin)
+  [37/50] nano_42.root
+         -> 33,229 events (3,836 trig, 3,374 trig+kin)
+  [38/50] nano_43.root
+         -> 33,229 events (3,907 trig, 3,437 trig+kin)
+  [39/50] nano_44.root
+         -> 29,694 events (3,529 trig, 3,120 trig+kin)
+  [40/50] nano_45.root
+         -> 2,121 events (238 trig, 207 trig+kin)
+  [41/50] nano_46.root
+         -> 30,401 events (3,489 trig, 3,036 trig+kin)
+  [42/50] nano_47.root
+         -> 33,229 events (3,932 trig, 3,457 trig+kin)
+  [43/50] nano_48.root
+         -> 24,745 events (2,872 trig, 2,552 trig+kin)
+  [44/50] nano_49.root
+         -> 26,866 events (3,124 trig, 2,736 trig+kin)
+  [45/50] nano_5.root
+         -> 24,745 events (2,951 trig, 2,620 trig+kin)
+  [46/50] nano_50.root
+         -> 15,554 events (1,747 trig, 1,544 trig+kin)
+  [47/50] nano_6.root
+         -> 46,662 events (5,423 trig, 4,744 trig+kin)
+  [48/50] nano_7.root
+         -> 1,414 events (168 trig, 147 trig+kin)
+  [49/50] nano_8.root
+         -> 35,350 events (4,054 trig, 3,569 trig+kin)
+  [50/50] nano_9.root
+         -> 25,452 events (2,925 trig, 2,547 trig+kin)
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=10 mm] 25,654 candidate events (>=1 fourmuonSV & >=2 muonSV) of 101,760
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=10 mm] 2,762 events with a quadv match
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=10 mm] 2,762 of 2,762 matched events enter the category pages
+
+  full sample: all 124 files read
+
+=== Writing PDF ===
+  page 1: dxy distance/uncertainty pull
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+  page 2: 3D distance/uncertainty pull
+  page 3: Delta_xy vs fourmuonSV_dxy
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/matplotlib/axes/_base.py:2283: UserWarning: Warning: converting a masked element to nan.
+  xys = np.asarray(xys)
+  page 4: fourmuonSV_dxy / Delta_xy ratio
+  page 5: pointing-angle overlay
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/matplotlib/axes/_base.py:2283: UserWarning: Warning: converting a masked element to nan.
+  xys = np.asarray(xys)
+  page 6: pointing-angle histogram ratio
+  page 7: quadv category populations (pAngle split)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/compareCategoriesQuadv.py:790: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.tight_layout(rect=[0, 0, 1, 0.94])
+  page 8: quadv category populations (pAngle inclusive)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/compareCategoriesQuadv.py:812: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.tight_layout(rect=[0, 0, 1, 0.90])
+  page 9: quadv dxy-definition ratio (pAngle split + inclusive)
+
+Saved: _tools/compareCategoriesQuadv.pdf (9 pages)

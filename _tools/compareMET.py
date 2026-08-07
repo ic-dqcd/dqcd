@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
 """Compare PuppiMET from QCD MC vs Parking data, both from 2024__v2_withPuppyMET.
 
+Two QCD backgrounds are drawn as separate curves: the pT-hat binned MuEnriched stack
+(cross-section weighted) and InclusiveDileptonMinBias (--minbias-frac of its files,
+default 5%, drawn at random with a fixed seed). They are ALTERNATIVE estimates of the same
+background and must never be summed. Every curve is normalised to unit area, so no cross
+section is needed for MinBias.
+
 Run after sourcing setup.sh:
-    python _tools/compareMET.py [--output path.pdf] [--bins N] [--xmax GeV]
-                                [--max-qcd-files N]
+    python _tools/MET_studies/compareMET.py [--output path.pdf] [--bins N] [--xmax GeV]
+                                            [--max-qcd-files N]
+                                            [--minbias-frac F] [--no-minbias]
 """
 
 import argparse
 import os
+import random
 import subprocess
 import sys
 import numpy as np
@@ -16,10 +24,30 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
+import goldenjson as gj
+
+# Golden-JSON mask, set in main(). CERT is None when disabled or unavailable, in which
+# case every data event is kept. MC is never masked.
+CERT = None
+GCOUNT = gj.Counter()
+
 XRD_SERVER  = "root://gfe02.grid.hep.ph.ic.ac.uk/"
 BASE        = "/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024__v2_withPuppyMET"
 QCD_BASE    = BASE
 DATA_BASE   = BASE
+
+# The MinBias QCD alternative: InclusiveDileptonMinBias with the DoubleMuOS43 generator
+# filter, processed by Prijith (2026-07-30). A full path, not a directory under BASE: it
+# lives in a different user's dCache area, and it is a DIFFERENT production from
+# 2024__v2_withPuppyMET -- it carries PuppiMET_pt/phi and the Run-3 MET Flags, which is
+# all this script needs, but it is not the v2 reprocessing of the same events.
+MINBIAS_DIR   = ("/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/ppradeep/samples/Parking/Run3/"
+                 "Nanotronv14/InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_"
+                 "13p6TeV_pythia8/2024WithMET/260730_143555")
+MINBIAS_LABEL = "MinBias MC PuppiMET"
+MINBIAS_COLOR = "darkorange"
+MINBIAS_FRAC  = 0.05      # fraction of the MinBias files (--minbias-frac)
+MINBIAS_SEED  = 20260806
 
 SIG_BASE       = BASE
 SIGNAL_SAMPLES = [
@@ -59,6 +87,31 @@ _XRDFS_ENV  = os.environ
 
 def log(msg, **kwargs):
     print(msg, flush=True, **kwargs)
+
+
+# Marker convention, shared with compareDeltaR.py / compareBDTvars.py: data is a small
+# SOLID black square, the two background estimates (pT-hat QCD and MinBias) are
+# WHITE-filled circles. Solid = measured, open = simulated, so the two kinds of curve are
+# told apart by shape and fill rather than by colour alone. White fill rather than
+# unfilled, so a marker masks whatever curve passes underneath it.
+DATA_MARKER, DATA_MARKER_SIZE = "s", 3.5
+BKG_MARKER, BKG_MARKER_SIZE = "o", 4.0
+MARKER_EDGE = 1.0
+
+
+def marker_kw(kind, colour):
+    """Marker styling for a curve of *kind* in {"data", "bkg", None}. {} for anything else
+    (signal), which stays unmarked so a page of many signal points does not become
+    texture."""
+    if kind == "data":
+        return dict(marker=DATA_MARKER, markersize=DATA_MARKER_SIZE,
+                    markerfacecolor=colour, markeredgecolor=colour,
+                    markeredgewidth=MARKER_EDGE)
+    if kind == "bkg":
+        return dict(marker=BKG_MARKER, markersize=BKG_MARKER_SIZE,
+                    markerfacecolor="white", markeredgecolor=colour,
+                    markeredgewidth=MARKER_EDGE)
+    return {}
 
 
 def get_qcd_xs(dirname):
@@ -155,6 +208,11 @@ def read_branches(urls, branches, label, is_mc=False, apply_met=True):
         try:
             with uproot.open(f"{url}:{TREE_NAME}") as tree:
                 mask = met_filter_mask(tree, is_mc, apply=apply_met)
+                # certified lumisections -- DATA only
+                if not is_mc and CERT is not None:
+                    r = tree["run"].array(library="np")
+                    l = tree["luminosityBlock"].array(library="np")
+                    mask &= GCOUNT.update(gj.mask(r, l, CERT))
                 nevt = int(mask.sum())
                 for b in branches:
                     accum[b].append(tree[b].array(library="np")[mask])
@@ -177,11 +235,21 @@ def main():
                         help="Upper MET axis limit in GeV (default: 300)")
     parser.add_argument("--max-qcd-files", type=int, default=10,
                         help="Cap QCD files per PT bin (default: 10)")
+    parser.add_argument("--minbias-frac", type=float, default=MINBIAS_FRAC,
+                        help=f"Fraction of MinBias files, drawn at random with a fixed "
+                             f"seed (default: {MINBIAS_FRAC} = 5%%)")
+    parser.add_argument("--minbias-seed", type=int, default=MINBIAS_SEED,
+                        help=f"Seed for the MinBias file draw (default: {MINBIAS_SEED})")
+    parser.add_argument("--no-minbias", action="store_true",
+                        help="Skip the MinBias sample entirely")
     parser.add_argument("--test", action="store_true",
                         help="Quick check: read 1 file per sample (QCD, data, each signal)")
     parser.add_argument("--no-met-filter", action="store_true",
                         help="Skip MET filters — plot inclusive distributions")
+    gj.add_args(parser)
     args = parser.parse_args()
+    global CERT
+    CERT = gj.from_args(args, log)
 
     # --- QCD files (all PT bins, from v1 base) ---
     log(f"Connecting to {XRD_SERVER} ...")
@@ -248,6 +316,28 @@ def main():
     qcd["weight"] = np.concatenate(qcd_w_parts) if qcd_w_parts else np.array([])
     log(f"  => {len(qcd['PuppiMET_pt']):,} QCD events total from {total_qcd_files} files")
 
+    # --- MinBias: a seeded RANDOM fraction of the files ---
+    # Not the first N: the sample is split over 0000/0001/0002 production subdirectories,
+    # so the head of the listing is one subdirectory -- a subset of the JOBS rather than a
+    # subset of the sample.
+    minbias = None
+    if not args.no_minbias:
+        log(f"\n[MinBias] Listing {MINBIAS_DIR.split('/')[-3]} ...")
+        all_mb = list_root_files(MINBIAS_DIR)
+        if not all_mb:
+            log(f"ERROR: no .root files under {MINBIAS_DIR} — check the path / proxy "
+                f"(or pass --no-minbias)", file=sys.stderr)
+            sys.exit(1)
+        n_mb = 1 if args.test else max(1, round(args.minbias_frac * len(all_mb)))
+        mb_files = (random.Random(args.minbias_seed).sample(all_mb, n_mb)
+                    if n_mb < len(all_mb) else all_mb)
+        log(f"  => {len(mb_files)} of {len(all_mb)} MinBias files "
+            f"({100 * len(mb_files) / len(all_mb):.2f}%, seed {args.minbias_seed})")
+        mb_data = read_branches(mb_files, QCD_BRANCHES, "MinBias", is_mc=True,
+                                apply_met=apply_met)
+        log(f"  => {len(mb_data['PuppiMET_pt']):,} MinBias events")
+        minbias = (mb_data, len(mb_files), len(all_mb))
+
     log(f"\n[Data] Reading {DATA_BRANCHES} from {len(data_files)} files...")
     data = read_branches(data_files, DATA_BRANCHES, "Data", is_mc=False, apply_met=apply_met)
     log(f"  => {len(data['PuppiMET_pt']):,} data events total")
@@ -272,7 +362,7 @@ def main():
     bins_pt  = np.linspace(0, args.xmax, args.bins + 1)
     bins_phi = np.linspace(-np.pi, np.pi, args.bins + 1)
 
-    def plot_with_errors(ax, values, bins, color, label, weights=None):
+    def plot_with_errors(ax, values, bins, color, label, weights=None, kind=None):
         counts, edges = np.histogram(values, bins=bins, weights=weights)
         # Error: sqrt(sum(w^2)) per bin; for unweighted this reduces to sqrt(N)
         w2 = weights ** 2 if weights is not None else None
@@ -282,7 +372,8 @@ def main():
         norm    = counts / (total * widths) if total > 0 else counts * 0.0
         err     = np.sqrt(counts_w2) / (total * widths) if total > 0 else counts * 0.0
         centres = 0.5 * (edges[:-1] + edges[1:])
-        ax.stairs(norm, edges, color=color, linewidth=2, label=label)
+        ax.plot(centres, norm, drawstyle="steps-mid", color=color, linewidth=2,
+                label=label, **marker_kw(kind, color))
         ax.fill_between(centres, norm - err, norm + err,
                         step="mid", alpha=0.25, color=color)
 
@@ -295,15 +386,34 @@ def main():
         d_pt  = data["PuppiMET_pt"][mask_d];  d_phi  = data["PuppiMET_phi"][mask_d]
 
         cut_str    = rf"PuppiMET $p_T > {pt_cut}$ GeV" if pt_cut is not None else "inclusive"
-        qcd_label  = f"QCD MC PuppiMET  ({len(q_pt):,} events, {qcd_detail}, xs-weighted)"
+        qcd_label  = (f"QCD MC PuppiMET, $p_T$ bins  ({len(q_pt):,} events, "
+                      f"{qcd_detail}, xs-weighted)")
         data_label = f"Data PuppiMET  ({len(d_pt):,} events, {len(data_files)} files)"
 
         fig, (ax_pt, ax_phi) = plt.subplots(1, 2, figsize=(14, 6))
 
-        plot_with_errors(ax_pt, q_pt, bins_pt, "royalblue", qcd_label, weights=q_w)
-        plot_with_errors(ax_pt, d_pt, bins_pt, "tomato",    data_label)
-        plot_with_errors(ax_phi, q_phi, bins_phi, "royalblue", qcd_label, weights=q_w)
-        plot_with_errors(ax_phi, d_phi, bins_phi, "tomato",    data_label)
+        plot_with_errors(ax_pt, q_pt, bins_pt, "royalblue", qcd_label, weights=q_w, kind="bkg")
+        plot_with_errors(ax_phi, q_phi, bins_phi, "royalblue", qcd_label, weights=q_w, kind="bkg")
+
+        # MinBias: unweighted (one process, no pT-hat stack to reweight) and unit-area
+        # normalised like every other curve, so it needs no cross section to sit on the
+        # same axes as the xs-weighted QCD stack. It is an alternative to that stack,
+        # not an addition to it.
+        if minbias is not None:
+            mb_data, mb_read, mb_avail = minbias
+            mask_m = (mb_data["PuppiMET_pt"] > pt_cut if pt_cut is not None
+                      else slice(None))
+            m_pt, m_phi = mb_data["PuppiMET_pt"][mask_m], mb_data["PuppiMET_phi"][mask_m]
+            if len(m_pt):
+                mb_label = (f"{MINBIAS_LABEL}  ({len(m_pt):,} events, "
+                            f"{mb_read} of {mb_avail} files)")
+                plot_with_errors(ax_pt, m_pt, bins_pt, MINBIAS_COLOR, mb_label, kind="bkg")
+                plot_with_errors(ax_phi, m_phi, bins_phi, MINBIAS_COLOR, mb_label, kind="bkg")
+            else:
+                log("  [warn] MinBias: 0 events after cut — skipping", file=sys.stderr)
+
+        plot_with_errors(ax_pt, d_pt, bins_pt, "tomato",    data_label, kind="data")
+        plot_with_errors(ax_phi, d_phi, bins_phi, "tomato",    data_label, kind="data")
 
         for (sig_data, sig_label_base, sig_nfiles), color in zip(signals, SIG_COLORS):
             # cut on PuppiMET_pt, consistent with QCD and data masks above

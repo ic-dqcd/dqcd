@@ -1,0 +1,95 @@
+  golden JSON: 475 runs, 287,603 lumisections (Cert_Collisions2024_378981_386951_Golden.json)
+Connecting to root://gfe02.grid.hep.ph.ic.ac.uk/ ...
+Listing QCD base /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024__v2_withPuppyMET ...
+  42 top-level entries found
+
+[QCD] Scanning 12 PT-bin directories (xs-weighted)...
+
+Listing data base /pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024__v2_withPuppyMET ...
+  42 top-level entries found
+
+[Data] Scanning 20 Parking directories...
+  ParkingDoubleMuonLowMass0
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1/
+    -> 260504_131735/
+      -> 0000/
+           1 .root files found under 0000
+         1 .root files found under 260504_131735
+       1 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__from_Run2024C-MINIv6NANOv15-v1
+     1 .root files found under ParkingDoubleMuonLowMass0
+    subtotal: 1 files
+  => 1 Parking files total (20 streams)
+  QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8  (xs=1.078 pb)
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2/
+    -> 260507_125639/
+      -> 0000/
+           1 .root files found under 0000
+         1 .root files found under 260507_125639
+       1 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__-RunIII2024Summer24-150X_mcRun3_2024_realistic-v2
+     1 .root files found under QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/1] nano_1.root
+         -> 23,991 events (after MET filters)
+    23,991 events, weight = 4.4934e-05
+  => 23,991 QCD events total from 1 files
+
+[MinBias] Listing InclusiveDileptonMinBias_Fil-DoubleMuOS43_TuneCP5Plus_13p6TeV_pythia8 ...
+  -> 0000/
+    -> log/
+         0 .root files found under log
+       992 .root files found under 0000
+  -> 0001/
+    -> log/
+         0 .root files found under log
+       991 .root files found under 0001
+  -> 0002/
+    -> log/
+         0 .root files found under log
+       10 .root files found under 0002
+     1993 .root files found under 260730_143555
+  => 1 of 1993 MinBias files (0.05%, seed 20260806)
+  [1/1] nano_779.root
+         -> 209,756 events (after MET filters)
+  => 209,756 MinBias events
+
+[Data] Reading ['PuppiMET_pt', 'PuppiMET_phi'] from 1 files...
+  [1/1] nano_1.root
+         -> 70,246 events (after MET filters)
+  => 70,246 data events total
+
+[Signal] Listing GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 ...
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/
+    -> 260507_161833/
+      -> 0000/
+           1 .root files found under 0000
+         1 .root files found under 260507_161833
+       1 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2
+     1 .root files found under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  => 1 signal files
+[Signal] Reading PuppiMET branches ...
+  [1/1] nano_1.root
+         -> 48,444 events (after MET filters)
+  => 48,444 signal events
+
+[Signal] Listing GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 ...
+  -> nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/
+    -> 260507_162036/
+      -> 0000/
+           1 .root files found under 0000
+         1 .root files found under 260507_162036
+       1 .root files found under nanotron-v15_2024__2024_NANOAOD_withPuppyMET__RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2
+     1 .root files found under GluGluHToDarkShowers-ScenarioA_Par-ctau-1p0-mA-1p00-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  => 1 signal files
+[Signal] Reading PuppiMET branches ...
+  [1/1] nano_1.root
+         -> 40,289 events (after MET filters)
+  => 40,289 signal events
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+Saved: compareMET_test.pdf
+[goldenjson] golden JSON: kept 70,334 of 70,334 data events (0.00% dropped as uncertified)

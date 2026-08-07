@@ -1,0 +1,226 @@
+
+=== scA $m_\pi$=10, $m_A$=3.33 ===
+         33 .root files under 0000
+       33 .root files under 250922_153035
+     33 .root files under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+  reading 20 of 33 files
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/20] nano_1.root
+  [2/20] nano_10.root
+  [3/20] nano_11.root
+  [4/20] nano_12.root
+  [5/20] nano_13.root
+  [6/20] nano_14.root
+  [7/20] nano_15.root
+  [8/20] nano_16.root
+  [9/20] nano_17.root
+  [10/20] nano_18.root
+  [11/20] nano_19.root
+  [12/20] nano_2.root
+  [13/20] nano_20.root
+  [14/20] nano_21.root
+  [15/20] nano_22.root
+  [16/20] nano_23.root
+  [17/20] nano_24.root
+  [18/20] nano_25.root
+  [19/20] nano_26.root
+  [20/20] nano_27.root
+
+=== scA $m_\pi$=4, $m_A$=0.40 ===
+         35 .root files under 0000
+       35 .root files under 250926_182532
+     35 .root files under GluGluHToDarkShowers-ScenarioA_Par-ctau-10-mA-0p40-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  reading 20 of 35 files
+  [1/20] nano_1.root
+  [2/20] nano_10.root
+  [3/20] nano_11.root
+  [4/20] nano_12.root
+  [5/20] nano_13.root
+  [6/20] nano_14.root
+  [7/20] nano_15.root
+  [8/20] nano_16.root
+  [9/20] nano_17.root
+  [10/20] nano_18.root
+  [11/20] nano_19.root
+  [12/20] nano_2.root
+  [13/20] nano_20.root
+  [14/20] nano_21.root
+  [15/20] nano_22.root
+  [16/20] nano_23.root
+  [17/20] nano_24.root
+  [18/20] nano_25.root
+  [19/20] nano_26.root
+  [20/20] nano_27.root
+
+=== DATA SingleMuon: HLT_Mu10_Barrel_L1HP11_IP6 (2 file(s) per stream x epoch) ===
+
+  [1/12] ParkingSingleMuon0
+    Run2024C-v1               52,623 muons
+    Run2024D-v1               75,112 muons
+    Run2024E-v1               60,297 muons
+    Run2024F-v4               38,327 muons
+    Run2024H-v1               48,317 muons
+    Run2024I-v3               36,395 muons
+    Run2024I_v2-v2           116,884 muons
+
+  [2/12] ParkingSingleMuon1
+    Run2024C-v1               94,757 muons
+    Run2024D-v1               87,492 muons
+    Run2024F-v4               29,397 muons
+    Run2024H-v3              105,855 muons
+    Run2024I-v4               68,739 muons
+    Run2024I_v2-v3           114,666 muons
+
+  [3/12] ParkingSingleMuon2
+    Run2024C-v1               84,505 muons
+    Run2024E-v1               68,286 muons
+    Run2024F-v3               68,830 muons
+    Run2024H-v3               98,827 muons
+    Run2024I-v3               77,945 muons
+    Run2024I_v2-v2            38,592 muons
+
+  [4/12] ParkingSingleMuon3
+    Run2024C-v1              104,707 muons
+    Run2024E-v1               44,848 muons
+    Run2024F-v4              112,360 muons
+    Run2024G-v2               76,810 muons
+    Run2024H-v4               87,912 muons
+    Run2024I-v2               45,805 muons
+    Run2024I_v2-v2            39,108 muons
+
+  [5/12] ParkingSingleMuon4
+    Run2024C-v1               86,244 muons
+    Run2024D-v1               77,780 muons
+    Run2024E-v1               62,757 muons
+    Run2024F-v3               58,614 muons
+    Run2024H-v3              113,285 muons
+    Run2024I-v3               81,462 muons
+
+  [6/12] ParkingSingleMuon5
+    Run2024D-v1               61,681 muons
+    Run2024E-v1               49,277 muons
+    Run2024H-v3               80,594 muons
+    Run2024I-v3               61,118 muons
+    Run2024I_v2-v2           101,397 muons
+
+  [7/12] ParkingSingleMuon6
+    Run2024C-v1              101,754 muons
+    Run2024D-v1              100,979 muons
+    Run2024E-v1               41,416 muons
+    Run2024H-v4               84,753 muons
+    Run2024I-v4               39,487 muons
+    Run2024I_v2-v2            71,507 muons
+
+  [8/12] ParkingSingleMuon7
+    Run2024E-v1               61,816 muons
+    Run2024F-v4               23,263 muons
+    Run2024H-v4               65,605 muons
+    Run2024I-v3              116,940 muons
+    Run2024I_v2-v2            84,225 muons
+
+  [9/12] ParkingSingleMuon8
+    Run2024H-v3              108,029 muons
+    Run2024I-v3               76,262 muons
+    Run2024I_v2-v2            77,127 muons
+
+  [10/12] ParkingSingleMuon9
+    Run2024G-v4               66,913 muons
+    Run2024H-v3               30,853 muons
+    Run2024I-v1               80,073 muons
+    Run2024I_v2-v2            47,331 muons
+
+  [11/12] ParkingSingleMuon10
+    Run2024G-v3               48,141 muons
+    Run2024H-v4               66,420 muons
+    Run2024I-v3              116,442 muons
+    Run2024I_v2-v2            29,958 muons
+
+  [12/12] ParkingSingleMuon11
+    Run2024G-v4               40,408 muons
+    Run2024H-v3               51,902 muons
+    Run2024I-v3               25,729 muons
+    Run2024I_v2-v2           107,040 muons
+
+=== DATA DoubleMuonLowMass: HLT_DoubleMu4_3_LowMass (2 file(s) per stream x epoch) ===
+
+  [1/8] ParkingDoubleMuonLowMass0
+    Run2024C-v1              128,983 muons
+    Run2024D-v1              309,013 muons
+    Run2024F-v3              258,919 muons
+    Run2024G-v3              140,898 muons
+    Run2024H-v3              266,789 muons
+    Run2024I-v3              199,784 muons
+    Run2024I_v2-v2           263,977 muons
+
+  [2/8] ParkingDoubleMuonLowMass1
+    Run2024C-v1              234,587 muons
+    Run2024D-v1              290,396 muons
+    Run2024E-v1              159,411 muons
+    Run2024F-v3              262,188 muons
+    Run2024H-v1              201,626 muons
+    Run2024I-v3              202,398 muons
+    Run2024I_v2-v2           122,727 muons
+
+  [3/8] ParkingDoubleMuonLowMass2
+    Run2024C-v1              272,929 muons
+    Run2024E-v1              222,037 muons
+    Run2024F-v2              264,146 muons
+    Run2024G-v3              220,232 muons
+    Run2024H-v3              259,878 muons
+    Run2024I-v3              272,086 muons
+    Run2024I_v2-v2           262,592 muons
+
+  [4/8] ParkingDoubleMuonLowMass3
+    Run2024C-v1              162,109 muons
+    Run2024D-v1              296,937 muons
+    Run2024F-v3              266,420 muons
+    Run2024G-v3              256,095 muons
+    Run2024H-v3              173,056 muons
+    Run2024I-v3              172,110 muons
+    Run2024I_v2-v2           265,503 muons
+
+  [5/8] ParkingDoubleMuonLowMass4
+    Run2024C-v1               93,655 muons
+    Run2024D-v1              185,591 muons
+    Run2024E-v1              293,467 muons
+    Run2024G-v3              262,916 muons
+    Run2024H-v3              177,089 muons
+    Run2024I-v3              262,873 muons
+    Run2024I_v2-v2           261,433 muons
+
+  [6/8] ParkingDoubleMuonLowMass5
+    Run2024D-v1              156,545 muons
+    Run2024F-v3              253,381 muons
+    Run2024H-v3              235,790 muons
+    Run2024I-v2              255,844 muons
+    Run2024I_v2-v2           265,171 muons
+
+  [7/8] ParkingDoubleMuonLowMass6
+    Run2024C-v1              239,372 muons
+    Run2024D-v1              315,028 muons
+    Run2024E-v1              149,975 muons
+    Run2024F-v3              254,707 muons
+    Run2024G-v3              264,167 muons
+    Run2024H-v3              258,979 muons
+    Run2024I-v2              209,899 muons
+    Run2024I_v2-v2           261,045 muons
+
+  [8/8] ParkingDoubleMuonLowMass7
+    Run2024E-v1              160,984 muons
+    Run2024F-v3              261,658 muons
+    Run2024G-v4              143,739 muons
+    Run2024H-v3              241,703 muons
+    Run2024I-v3              166,955 muons
+    Run2024I_v2-v2           269,269 muons
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+
+Saved: _tools/compareEta.pdf (15 MC pages + 2 DATA grid pages)
+PUBLISHED

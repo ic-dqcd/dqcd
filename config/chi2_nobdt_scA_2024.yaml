@@ -31,6 +31,8 @@ bdtsf:
     path: modules.DQCD_SF
     parameters:
         process_name: self.dataset.process.name
+        year: self.config.year
+        is_signal: self.dataset.process.isSignal
 
 
 #rew_full:
@@ -94,8 +96,6 @@ bdt_inference_a:
         year: self.config.year
         scenario: A
         bdt_name: bdt_scenarioA_onlymu
-        met_smear_tag: ""
-        met_prefix: "PFMET"
 
 #bdt_inference_b1:
     #name: DQCDULBDTOnlyMu

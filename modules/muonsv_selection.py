@@ -35,13 +35,13 @@ class DQCDMuonSVSelectionRDFProducer():
                         if (muonSV_chi2[imuonSV] > 10 ||
                                 muonSV_mu1eta[imuonSV] == 0 || muonSV_mu2eta[imuonSV] == 0 ||
                                 reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 1.2)
+                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
                             continue;
                         for (size_t imuonSV1 = imuonSV + 1; imuonSV1 < nmuonSV; imuonSV1++) {
                             if (muonSV_chi2[imuonSV1] > 10 ||
                                     muonSV_mu1eta[imuonSV1] == 0 || muonSV_mu2eta[imuonSV1] == 0 ||
                                     reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                        muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 1.2)
+                                        muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
                                 continue;
 
                             // fractional mass difference within 3 sigma (sigma = 1% of the mass)
@@ -118,7 +118,7 @@ class DQCDMuonSVSelectionRDFProducer():
                         if (muonSV_chi2[imuonSV] > 10 ||
                                 muonSV_mu1eta[imuonSV] == 0 || muonSV_mu2eta[imuonSV] == 0 ||
                                 reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 1.2)
+                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
                             continue;
                         indexes.push_back(imuonSV);
                         chi2.push_back(muonSV_chi2[imuonSV]);
@@ -216,8 +216,8 @@ class DQCDMuonSVSelectionRDFProducer():
 
         df = df.Define("muonSV_dR", "get_deltaR("
             "nmuonSV, muonSV_mu1eta, muonSV_mu1phi, muonSV_mu2eta, muonSV_mu2phi)")
-        # df = df.Filter("muonSV_dR.at(min_chi2_index) < 1.2")
-        df = df.Filter("ROOT::VecOps::Sum(muonSV_dR[muonSV_dR < 1.2]) > 0", "muonSV deltaR")
+        # df = df.Filter("muonSV_dR.at(min_chi2_index) < 3.14159265")
+        df = df.Filter("ROOT::VecOps::Sum(muonSV_dR[muonSV_dR < 3.14159265]) > 0", "muonSV deltaR")
 
         # return df, []
 
@@ -284,7 +284,7 @@ class DQCDFourMuonSVSelectionRDFProducer():
                             if (muonSV_charge[a] != 0 || muonSV_chi2[a] >= 10)
                                 continue;
                             if (reco::deltaR(muonSV_mu1eta[a], muonSV_mu1phi[a],
-                                    muonSV_mu2eta[a], muonSV_mu2phi[a]) >= 1.2)
+                                    muonSV_mu2eta[a], muonSV_mu2phi[a]) >= 3.14159265)
                                 continue;
                             int mu1a = muonSV_mu1index[a], mu2a = muonSV_mu2index[a];
                             if (std::find(fourMuons.begin(), fourMuons.end(), mu1a) == fourMuons.end() ||
@@ -295,7 +295,7 @@ class DQCDFourMuonSVSelectionRDFProducer():
                                 if (muonSV_charge[b] != 0 || muonSV_chi2[b] >= 10)
                                     continue;
                                 if (reco::deltaR(muonSV_mu1eta[b], muonSV_mu1phi[b],
-                                        muonSV_mu2eta[b], muonSV_mu2phi[b]) >= 1.2)
+                                        muonSV_mu2eta[b], muonSV_mu2phi[b]) >= 3.14159265)
                                     continue;
                                 int mu1b = muonSV_mu1index[b], mu2b = muonSV_mu2index[b];
                                 if (std::find(fourMuons.begin(), fourMuons.end(), mu1b) == fourMuons.end() ||
@@ -456,7 +456,7 @@ class DQCDTriggerSelectionRDFProducer():
                     std::vector<int> indexes(5, -999);
                     std::vector<muonsv_struct> muonsvs;
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                        if (muonSV_dR[imuonSV] > 1.2)
+                        if (muonSV_dR[imuonSV] > 3.14159265)
                             continue;
                         if (indexes_multivertices.size() > 0) {
                             // index has to be selected by the DQCDMuonSVSelectionRDF module
@@ -556,20 +556,24 @@ def DQCDTriggerSelectionRDF(*args, **kwargs):
 
 class DQCDTriggerSelection2024RDFProducer():
     def __init__(self, *args, **kwargs):
-        if not os.getenv("_DQCDTriggerSelection"):
-            os.environ["_DQCDTriggerSelection"] = "DQCDTriggerSelection"
+        # Own guard and own symbol names. This used to share the _DQCDTriggerSelection guard with
+        # the 2018 producer above, so whichever of the two was instantiated first silently
+        # suppressed the other one's Declare and left its helper undefined.
+        if not os.getenv("_DQCDTriggerSelection2024"):
+            os.environ["_DQCDTriggerSelection2024"] = "DQCDTriggerSelection2024"
             ROOT.gInterpreter.Declare("""
                 #include <algorithm>    // std::find
                 #include <vector>       // std::vector
                 #include "DataFormats/Math/interface/deltaR.h"
-                struct muonsv_struct {
+                struct muonsv_struct_2024 {
                     size_t i;
                     float chi2;
                     int muonBPark_trigger_index_1;
                     int muonBPark_trigger_index_2;
+                    int category;          // 1 = selected as single-muon, 2 = selected as double-muon
                 };
 
-                bool muonSVChi2Sort (const muonsv_struct& a, const muonsv_struct& b)
+                bool muonSVChi2Sort2024 (const muonsv_struct_2024& a, const muonsv_struct_2024& b)
                 {
                   return (a.chi2 < b.chi2);
                 }
@@ -577,7 +581,7 @@ class DQCDTriggerSelection2024RDFProducer():
                 using Vfloat = const ROOT::RVec<float>&;
                 using Vint = const ROOT::RVec<int>&;
                 using Vbool = const ROOT::RVec<bool>&;
-                std::vector<int> get_triggering_muonsv_and_muon_indexes(
+                std::vector<int> get_triggering_muonsv_and_muon_indexes_2024(
                     int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
                     Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
                     Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
@@ -585,16 +589,18 @@ class DQCDTriggerSelection2024RDFProducer():
                     Vbool MuonBPark_SingleMuon_trigger_matched, Vbool MuonBPark_DoubleMuon_trigger_matched,
                     Vbool MuonBPark_isMuonWithTighterEtaAndPtReq,
                     Vbool MuonBPark_passSingleMuonLike, Vbool MuonBPark_passDoubleMuonLike,
-                    bool passSingleMuonExclusive, bool passDoubleMuonExclusive,
+                    bool passSingleMuon, bool passDoubleMuon,
                     int nMuon, Vfloat Muon_eta, Vfloat Muon_phi,
                     Vint indexes_multivertices
                 )
                 {
-                    std::vector<int> indexes(5, -999);
-                    std::vector<muonsv_struct> muonsvs;
+                    // indexes: 0 = muonSV, 1/2 = matched MuonBPark legs, 3/4 = matched Muon legs,
+                    //          5 = which category actually selected the vertex (1 single, 2 double)
+                    std::vector<int> indexes(6, -999);
+                    std::vector<muonsv_struct_2024> muonsvs;
 
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                        if (muonSV_dR[imuonSV] > 1.2)
+                        if (muonSV_dR[imuonSV] > 3.14159265)
                             continue;
                         if (!indexes_multivertices.empty()) {
                             // index has to be selected by the DQCDMuonSVSelectionRDF module
@@ -604,59 +610,64 @@ class DQCDTriggerSelection2024RDFProducer():
                                 continue;
                         }
 
-                        auto muonsv = muonsv_struct({imuonSV, muonSV_chi2[imuonSV], -999, -999});
+                        // The two categories are evaluated INDEPENDENTLY, each with its own trigger
+                        // matching and its own kinematic requirement, and the vertex is kept if it
+                        // qualifies under either. Doing both in one shared loop would AND the two
+                        // kinematic cuts together -- and since passSingleMuonLike is a subset of
+                        // passDoubleMuonLike, that collapses to the barrel-only cut, which is
+                        // tighter than either category on its own.
+                        int cat = 0, i1 = -999, i2 = -999;
 
-                        // matching muonSV's muons with MuonBPark muons firing HLT_Mu9_Ip6 and other
-                        // kinematic requirements
-                        float mindeltaR1 = 999.;
-                        float mindeltaR2 = 999.;
-
-                        for (size_t iMuonBPark = 0; iMuonBPark < nMuonBPark; iMuonBPark++) {
-                            if (!MuonBPark_SingleMuon_trigger_matched[iMuonBPark] && !MuonBPark_DoubleMuon_trigger_matched[iMuonBPark])
-                                continue;
-
-                            // Select based on category
-                            if (passSingleMuonExclusive && !MuonBPark_passSingleMuonLike[iMuonBPark]) continue;
-                            if (passDoubleMuonExclusive && !MuonBPark_passDoubleMuonLike[iMuonBPark]) continue;
-
-                            auto dr1 = reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                                    MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
-                            auto dr2 = reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
-                                                    MuonBPark_eta[iMuonBPark], MuonBPark_phi[iMuonBPark]);
-
-                            if (dr1 < 0.05 && dr1 < mindeltaR1) {
-                                muonsv.muonBPark_trigger_index_1 = iMuonBPark;
-                                mindeltaR1 = dr1;
+                        // Double-muon first: it fills BOTH legs, so when an event qualifies under
+                        // both categories the double-muon answer carries more information.
+                        if (passDoubleMuon) {
+                            int d1 = -999, d2 = -999;
+                            float best1 = 999., best2 = 999.;
+                            for (size_t j = 0; j < nMuonBPark; j++) {
+                                if (!MuonBPark_DoubleMuon_trigger_matched[j]) continue;
+                                if (!MuonBPark_passDoubleMuonLike[j]) continue;
+                                auto dr1 = reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                                        MuonBPark_eta[j], MuonBPark_phi[j]);
+                                auto dr2 = reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
+                                                        MuonBPark_eta[j], MuonBPark_phi[j]);
+                                if (dr1 < 0.05 && dr1 < best1) { d1 = j; best1 = dr1; }
+                                if (dr2 < 0.05 && dr2 < best2) { d2 = j; best2 = dr2; }
                             }
-                            if (dr2 < 0.05 && dr2 < mindeltaR2) {
-                                muonsv.muonBPark_trigger_index_2 = iMuonBPark;
-                                mindeltaR2 = dr2;
+                            // double-muon triggers require BOTH muons matched
+                            if (d1 != -999 && d2 != -999) { cat = 2; i1 = d1; i2 = d2; }
+                        }
+
+                        // Single-muon as a genuine fallback, not an else: the two leg searches use
+                        // different HLT bits, so the double-muon one can fail where this one succeeds.
+                        if (cat == 0 && passSingleMuon) {
+                            int s1 = -999, s2 = -999;
+                            float best1 = 999., best2 = 999.;
+                            for (size_t j = 0; j < nMuonBPark; j++) {
+                                if (!MuonBPark_SingleMuon_trigger_matched[j]) continue;
+                                if (!MuonBPark_passSingleMuonLike[j]) continue;
+                                auto dr1 = reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                                        MuonBPark_eta[j], MuonBPark_phi[j]);
+                                auto dr2 = reco::deltaR(muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV],
+                                                        MuonBPark_eta[j], MuonBPark_phi[j]);
+                                if (dr1 < 0.05 && dr1 < best1) { s1 = j; best1 = dr1; }
+                                if (dr2 < 0.05 && dr2 < best2) { s2 = j; best2 = dr2; }
                             }
+                            // single-muon triggers require AT LEAST ONE matched muon
+                            if (s1 != -999 || s2 != -999) { cat = 1; i1 = s1; i2 = s2; }
                         }
 
-                        // Decide whether to keep this SV
-                        bool keep = false;
-                        // single muons need AT LEAST ONE muon that matches
-                        if (passSingleMuonExclusive) {
-                            keep = (muonsv.muonBPark_trigger_index_1 != -999 ||
-                                    muonsv.muonBPark_trigger_index_2 != -999);
-                        }
-                        // double muons requiere that both muons match
-                        if (passDoubleMuonExclusive) {
-                            keep = (muonsv.muonBPark_trigger_index_1 != -999 &&
-                                    muonsv.muonBPark_trigger_index_2 != -999);
-                        }
-
-                        if (keep) muonsvs.push_back(muonsv);
+                        if (cat != 0)
+                            muonsvs.push_back(muonsv_struct_2024({imuonSV, muonSV_chi2[imuonSV], i1, i2, cat}));
                     }
 
                     if (muonsvs.size() > 1)
-                        std::stable_sort(muonsvs.begin(), muonsvs.end(), muonSVChi2Sort);
+                        std::stable_sort(muonsvs.begin(), muonsvs.end(), muonSVChi2Sort2024);
 
                     if (!muonsvs.empty()) {
                         indexes[0] = muonsvs[0].i;
                         indexes[1] = muonsvs[0].muonBPark_trigger_index_1;
                         indexes[2] = muonsvs[0].muonBPark_trigger_index_2;
+                        indexes[5] = muonsvs[0].category;
 
                         float mindeltaR1 = 999.;
                         float mindeltaR2 = 999.;
@@ -693,11 +704,13 @@ class DQCDTriggerSelection2024RDFProducer():
             "muonSV_chi2_trig_muonBPark1_index",
             "muonSV_chi2_trig_muonBPark2_index",
             "muonSV_chi2_trig_muon1_index",
-            "muonSV_chi2_trig_muon2_index"
+            "muonSV_chi2_trig_muon2_index",
+            # which category selected the vertex: 1 = single-muon, 2 = double-muon, -999 = none.
+            # Needed to apply the right trigger scale factor later on.
+            "muonSV_chi2_trig_category"
         ]
 
-        #TODO for the future (e.g. to apply triggerSF), should store whether the vertex was accepted because it passes SingleMuon or DoubleMuon
-        df = df.Define("muonsv_indexes", """get_triggering_muonsv_and_muon_indexes(
+        df = df.Define("muonsv_indexes", """get_triggering_muonsv_and_muon_indexes_2024(
             nmuonSV, muonSV_chi2, muonSV_dR,
             muonSV_mu1eta, muonSV_mu1phi,
             muonSV_mu2eta, muonSV_mu2phi,
@@ -706,7 +719,7 @@ class DQCDTriggerSelection2024RDFProducer():
             MuonBPark_DoubleMuon_trigger_matched,
             MuonBPark_isMuonWithTighterEtaAndPtReq,
             MuonBPark_passSingleMuonLike, MuonBPark_passDoubleMuonLike,
-            passSingleMuonExclusive, passDoubleMuonExclusive,
+            passSingleMuon, passDoubleMuon,
             nMuon, Muon_eta, Muon_phi,
             indexes_multivertices)
         """)
@@ -744,7 +757,7 @@ class DQCDLooseMuonSelectionRDFProducer():
                     if (indexes_multivertices.size() == 0)
                         return 0;
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                        if (muonSV_dR[imuonSV] > 1.2)
+                        if (muonSV_dR[imuonSV] > 3.14159265)
                             continue;
                         if (indexes_multivertices.size() > 0) {
                             // index has to be selected by the DQCDMuonSVSelectionRDF module

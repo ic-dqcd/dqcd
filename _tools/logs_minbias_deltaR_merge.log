@@ -1,0 +1,42 @@
+
+=== Merging shards from shards_local_v3 ===
+  loaded minbias shard minbias.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded qcd    shard qcd_QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8.npz
+  loaded signal shard signal.npz
+
+Merged 12 QCD bins (136,145,810 vertices) + 6 signal mass points + MinBias (3,414,436 vertices)
+  [COMPLETE] QCD: 38474 of 38474 files
+  [partial (5.0%)] MinBias: 100 of 1993 files
+  [COMPLETE] scA $m_\pi$=4, $m_A$=0.4 ctau=10: 35 of 35 files
+  [COMPLETE] scA $m_\pi$=4, $m_A$=0.4 ctau=0.1: 54 of 54 files
+  [COMPLETE] scA $m_\pi$=10, $m_A$=1 ctau=10: 26 of 26 files
+  [COMPLETE] scA $m_\pi$=10, $m_A$=1 ctau=0.1: 36 of 36 files
+  [COMPLETE] scA $m_\pi$=10, $m_A$=3.33 ctau=10: 33 of 33 files
+  [COMPLETE] scA $m_\pi$=10, $m_A$=3.33 ctau=0.1: 33 of 33 files
+  [COMPLETE] scB1 $m_\pi$=1, $m_A$=0.33 ctau=10: 36 of 36 files
+  [COMPLETE] scB1 $m_\pi$=1, $m_A$=0.33 ctau=0.1: 31 of 31 files
+  [COMPLETE] scB1 $m_\pi$=4, $m_A$=1.33 ctau=10: 50 of 50 files
+  [COMPLETE] scB1 $m_\pi$=4, $m_A$=1.33 ctau=0.1: 41 of 41 files
+  [COMPLETE] scB1 $m_\pi$=5, $m_A$=1.67 ctau=10: 36 of 36 files
+  [COMPLETE] scB1 $m_\pi$=5, $m_A$=1.67 ctau=0.1: 65 of 65 files
+
+=== Writing PDF ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/compareDeltaR.py:644: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  fig, ax = plt.subplots(figsize=(10, 8))
+
+Saved: compareDeltaR_AllSamples.pdf (32 pages)

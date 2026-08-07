@@ -1,0 +1,69 @@
+# compareDeltaR over the FULL sample, sharded one job per QCD PT-hat bin.
+# Generated from compareDeltaR.QCD_XS -- regenerate rather than hand-edit if the
+# bin list ever changes, so the DAG and the merge guard cannot drift apart.
+#   condor_submit_dag _tools/condor/compareDeltaR.dag
+
+JOB   qcd_PT_15_20 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_15_20 SHARD="QCD_Bin-PT-15to20_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_15_20 3
+
+JOB   qcd_PT_20_30 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_20_30 SHARD="QCD_Bin-PT-20to30_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_20_30 3
+
+JOB   qcd_PT_30_50 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_30_50 SHARD="QCD_Bin-PT-30to50_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_30_50 3
+
+JOB   qcd_PT_50_80 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_50_80 SHARD="QCD_Bin-PT-50to80_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_50_80 3
+
+JOB   qcd_PT_80_120 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_80_120 SHARD="QCD_Bin-PT-80to120_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_80_120 3
+
+JOB   qcd_PT_120_170 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_120_170 SHARD="QCD_Bin-PT-120to170_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_120_170 3
+
+JOB   qcd_PT_170_300 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_170_300 SHARD="QCD_Bin-PT-170to300_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_170_300 3
+
+JOB   qcd_PT_300_470 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_300_470 SHARD="QCD_Bin-PT-300to470_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_300_470 3
+
+JOB   qcd_PT_470_600 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_470_600 SHARD="QCD_Bin-PT-470to600_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_470_600 3
+
+JOB   qcd_PT_600_800 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_600_800 SHARD="QCD_Bin-PT-600to800_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_600_800 3
+
+JOB   qcd_PT_800_1000 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_800_1000 SHARD="QCD_Bin-PT-800to1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_800_1000 3
+
+JOB   qcd_PT_1000 /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  qcd_PT_1000 SHARD="QCD_Bin-PT-1000_Fil-MuEnriched_TuneCP5_13p6TeV_pythia8"
+RETRY qcd_PT_1000 3
+
+JOB   signal /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  signal SHARD="signal"
+RETRY signal 3
+
+# MinBias: ~100 files (5% of 1993), so the shortest job in the DAG by a wide margin.
+# It is a PARENT of merge like everything else even though load_shards() only WARNS on a
+# missing MinBias shard -- the warning exists so old shard directories stay mergeable,
+# not so this DAG may quietly drop a curve.
+JOB   minbias /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_shard.sub
+VARS  minbias SHARD="minbias"
+RETRY minbias 3
+
+JOB   merge /home/hep/jtafoyav/vols/parking/nanoaod_base_analysis_13/dqcd/_tools/condor/compareDeltaR_merge.sub
+
+# merge runs only once every shard has succeeded
+PARENT qcd_PT_15_20 qcd_PT_20_30 qcd_PT_30_50 qcd_PT_50_80 qcd_PT_80_120 qcd_PT_120_170 qcd_PT_170_300 qcd_PT_300_470 qcd_PT_470_600 qcd_PT_600_800 qcd_PT_800_1000 qcd_PT_1000 signal minbias CHILD merge
