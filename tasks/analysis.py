@@ -800,14 +800,19 @@ class ScanCombineDQCD(BaseScanTask):
             mass_point = self.get_mass_point(pgn)
             mass_point_str = str(mass_point).replace(".", "p")
             signal = pgn[:pgn.find("_")]
+            # --region-name selects the tight region (e.g. tight_bdt_scenarioA_Mu10[_MinBias]);
+            # its loose partner is the same name with "tight" -> "loose". Default: tight_bdt_<signal>.
+            tight_region = (self.region_name if self.region_name not in (law.NO_STR, None, "")
+                else f"tight_bdt_{signal}")
+            loose_region = tight_region.replace("tight", "loose", 1)
 
             reqs[pgn] = RunCombineDQCD.vreq(self, version=self.version + f"_m{mass_point_str}",
                 feature_names=self.features_to_compute(mass_point),
                 mass_point=mass_point,
                 process_group_name=("data_" if self.use_data else "") + pgn,
-                region_name=f"tight_bdt_{signal}",
-                tight_region=f"tight_bdt_{signal}",
-                loose_region=f"loose_bdt_{signal}",
+                region_name=tight_region,
+                tight_region=tight_region,
+                loose_region=loose_region,
                 category_names=list(self.fit_config[pgn].keys()),
                 method=self.method)
         return reqs

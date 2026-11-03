@@ -25,6 +25,8 @@ class Config(legacy_config):
         chi2_vloose = "{{muonSV_bestchi2_chi2}} > 5 && {{muonSV_bestchi2_chi2}} <= 7.5"
 
         regions = [
+            ##### Models trained with Mu-enriched pT-binned QCD
+
             # 2024, scenarioA, trained with Mu-enriched pT-binned QCD
             #Category("tight_bdt_scenarioA_Mu10orDoubleMu", "Tight bdt (A), Mu10 || DoubleMu", selection="{{bdt_scenarioA}} > 0.3103"),	#1E-1 threshold # Mu10 || DoubleMu
             #Category("tight_bdt_scenarioA_Mu10", "Tight bdt (A), Mu10", selection="{{bdt_scenarioA}} > 0.1169"),			#1E-1 threshold # Mu10
@@ -59,8 +61,61 @@ class Config(legacy_config):
             Category("tight_bdt_scenarioB1_Mu10", "Tight bdt (B1), Mu10", selection="{{bdt_scenarioB1}} > 0.9910"),				#1E-4 threshold # Mu10
             Category("tight_bdt_scenarioB1_DoubleMu", "Tight bdt (B1), DoubleMu", selection="{{bdt_scenarioB1}} > 0.9955"),			#1E-4 threshold # DoubleMu
 
+            # Loose regions (background shape in the fits, ParamPlotDQCD --region-name tight_... -> loose_...)
+            Category("loose_bdt_scenarioA_Mu10orDoubleMu", "Loose bdt (A), Mu10 || DoubleMu", selection="{{bdt_scenarioA}} > 0.6"),
+            Category("loose_bdt_scenarioA_Mu10", "Loose bdt (A), Mu10", selection="{{bdt_scenarioA}} > 0.6"),
+            Category("loose_bdt_scenarioA_DoubleMu", "Loose bdt (A), DoubleMu", selection="{{bdt_scenarioA}} > 0.6"),
+            Category("loose_bdt_scenarioB1_Mu10orDoubleMu", "Loose bdt (B1), Mu10 || DoubleMu", selection="{{bdt_scenarioB1}} > 0.6"),
+            Category("loose_bdt_scenarioB1_Mu10", "Loose bdt (B1), Mu10", selection="{{bdt_scenarioB1}} > 0.6"),
+            Category("loose_bdt_scenarioB1_DoubleMu", "Loose bdt (B1), DoubleMu", selection="{{bdt_scenarioB1}} > 0.6"),
 
-            # Following from the 2018 setup
+
+            ##### Models trained with MinBias QCD
+
+            # 2024, scenarioA, trained with MinBias QCD
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu_MinBias", "Tight bdt (A, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),	#1E-1 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10_MinBias", "Tight bdt (A, MinBias), Mu10", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),			#1E-1 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu_MinBias", "Tight bdt (A, MinBias), DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),		#1E-1 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu_MinBias", "Tight bdt (A, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),	#1E-2 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10_MinBias", "Tight bdt (A, MinBias), Mu10", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),			#1E-2 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu_MinBias", "Tight bdt (A, MinBias), DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),		#1E-2 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu_MinBias", "Tight bdt (A, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),	#1E-3 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10_MinBias", "Tight bdt (A, MinBias), Mu10", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),			#1E-3 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu_MinBias", "Tight bdt (A, MinBias), DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),		#1E-3 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioA_Mu10orDoubleMu_MinBias", "Tight bdt (A, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),	#1E-4 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioA_Mu10_MinBias", "Tight bdt (A, MinBias), Mu10", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),			#1E-4 threshold # Mu10
+            #Category("tight_bdt_scenarioA_DoubleMu_MinBias", "Tight bdt (A, MinBias), DoubleMu", selection="{{bdt_scenarioA_MinBias}} > TO_BE_UPDATED"),		#1E-4 threshold # DoubleMu
+
+            # 2024, scenarioB1, trained with MinBias QCD
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu_MinBias", "Tight bdt (B1, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),	#1E-1 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10_MinBias", "Tight bdt (B1, MinBias), Mu10", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),				#1E-1 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu_MinBias", "Tight bdt (B1, MinBias), DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),			#1E-1 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu_MinBias", "Tight bdt (B1, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),	#1E-2 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10_MinBias", "Tight bdt (B1, MinBias), Mu10", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),				#1E-2 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu_MinBias", "Tight bdt (B1, MinBias), DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),			#1E-2 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu_MinBias", "Tight bdt (B1, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),	#1E-3 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10_MinBias", "Tight bdt (B1, MinBias), Mu10", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),				#1E-3 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu_MinBias", "Tight bdt (B1, MinBias), DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),			#1E-3 threshold # DoubleMu
+
+            #Category("tight_bdt_scenarioB1_Mu10orDoubleMu_MinBias", "Tight bdt (B1, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),	#1E-4 threshold # Mu10 || DoubleMu
+            #Category("tight_bdt_scenarioB1_Mu10_MinBias", "Tight bdt (B1, MinBias), Mu10", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),				#1E-4 threshold # Mu10
+            #Category("tight_bdt_scenarioB1_DoubleMu_MinBias", "Tight bdt (B1, MinBias), DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > TO_BE_UPDATED"),			#1E-4 threshold # DoubleMu
+
+            # Loose regions (background shape in the fits, ParamPlotDQCD --region-name tight_... -> loose_...)
+            #Category("loose_bdt_scenarioA_Mu10orDoubleMu_MinBias", "Loose bdt (A, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioA_MinBias}} > 0.6"),
+            #Category("loose_bdt_scenarioA_Mu10_MinBias", "Loose bdt (A, MinBias), Mu10", selection="{{bdt_scenarioA_MinBias}} > 0.6"),
+            #Category("loose_bdt_scenarioA_DoubleMu_MinBias", "Loose bdt (A, MinBias), DoubleMu", selection="{{bdt_scenarioA_MinBias}} > 0.6"),
+            #Category("loose_bdt_scenarioB1_Mu10orDoubleMu_MinBias", "Loose bdt (B1, MinBias), Mu10 || DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > 0.6"),
+            #Category("loose_bdt_scenarioB1_Mu10_MinBias", "Loose bdt (B1, MinBias), Mu10", selection="{{bdt_scenarioB1_MinBias}} > 0.6"),
+            #Category("loose_bdt_scenarioB1_DoubleMu_MinBias", "Loose bdt (B1, MinBias), DoubleMu", selection="{{bdt_scenarioB1_MinBias}} > 0.6"),
+
+
+            ##### Following from the 2018 setup
             Category("loose_bdt", "Loose bdt region", selection="{{bdt}} > 0.45"),
             Category("tight_bdt", "Tight bdt region", selection="{{bdt}} > 0.99"),
 
@@ -318,6 +373,14 @@ class Config(legacy_config):
         # produced by DQCDFourMuonSVSelectionRDF (the quadv group / future fourmuonSV BDT).
         features = list(super(Config, self).add_features())
         features += [
+            # BDT scores of the models trained with MinBias QCD as background (the Mu-enriched ones are
+            # bdt_scenarioA / bdt_scenarioB1 from legacy_2018). Branches are written by an inference
+            # block with bdt_name bdt_scenario{A,B1}_MinBias_onlymu in chi2_nobdt_sc*_2024_<case>.yaml
+            # -- TODO: models not trained yet (icenet MinBias trainings crashed, 2026-08-07).
+            Feature("bdt_scenarioA_MinBias", "bdt_scenarioA_MinBias_onlymu", binning=(100, 0, 1),
+                x_title=Label("BDT score (scenario A, MinBias)")),
+            Feature("bdt_scenarioB1_MinBias", "bdt_scenarioB1_MinBias_onlymu", binning=(100, 0, 1),
+                x_title=Label("BDT score (scenario B1, MinBias)")),
             # 3D opening angle of the min-chi2 muonSV (selection: alpha < 2.8,
             # modules/muonsv_selection.py MAX_MUONSV_ALPHA)
             Feature("muonSV_bestchi2_alpha", "muonSV_alpha.at(min_chi2_index)", binning=(32, 0, 3.2),

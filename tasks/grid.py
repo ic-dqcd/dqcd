@@ -369,7 +369,9 @@ class ScanCombineGridDQCD(BaseScanTask, PlotGridBaseDQCD):
                 feature_names=self.features_to_compute(mass_point),
                 mass_point=mass_point,
                 process_group_name=("data_" if self.use_data else "") + pgn,
-                region_name=f"tight_bdt_{signal}",
+                # --region-name overrides the default tight region (loose = "tight" -> "loose")
+                region_name=(self.region_name if self.region_name not in (law.NO_STR, None, "")
+                    else f"tight_bdt_{signal}"),
                 category_names=self.category_names,
                 custom_output_tag="_" + pgn)
         return reqs
