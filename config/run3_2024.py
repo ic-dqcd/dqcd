@@ -901,6 +901,41 @@ class Config(legacy_config):
             ),
             # ------
 
+            # ------
+            # DATA datasets to use in  initial studies, processes a single file per epoch branch
+
+            Dataset("data_2024_singlemu_HalfPerMil_epoch0",
+                folder=[
+                    sample_path_2024 + "ParkingSingleMuon0",
+                ],
+                process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                file_pattern="nano_1.root",
+                merging={
+                    "base": 1,
+                },
+            ),
+
+            Dataset("data_2024_doublemu_HalfPerMil_epoch0",
+                folder=[
+                    sample_path_2024 + "ParkingDoubleMuonLowMass0",
+                ],
+                process=self.processes.get("data"),
+                check_empty=False,
+                tags=["run3_2024"],
+                prefix="gfe02.grid.hep.ph.ic.ac.uk",
+                file_pattern="nano_1.root",
+                merging={
+                    "base": 9,
+                    "singlev_cat1": 5,
+                    "singlev_cat2": 3,
+                    "singlev_cat3": 4,
+                },
+            ),
+            # ------
+
             # TODO 2018 leftover, single period?
             Dataset("data_2018d_bph1",
                 dataset="/ParkingBPH1/jleonhol-nanotronv2-205145b8a3c6bd3ea858a0dbe549c313/USER",
