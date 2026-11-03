@@ -21,6 +21,13 @@ inline float mydr(float e1, float p1, float e2, float p2) {
     return std::sqrt(de * de + dp * dp);
 }
 
+// 3D opening angle between the two muons (same as dqcd_muonsv_alpha in modules/muonsv_selection.py)
+const float ALPHA_MAX = 2.8;  // = MAX_MUONSV_ALPHA; replaces the old dR < 1.2 cut
+inline float myalpha(float e1, float p1, float e2, float p2) {
+    float c = (std::cos(p1 - p2) + std::sinh(e1) * std::sinh(e2)) / (std::cosh(e1) * std::cosh(e2));
+    return std::acos(std::max(-1.f, std::min(1.f, c)));
+}
+
 // faithful port of get_multivertices (operates on the NEUTRAL muonSV subset);
 // returns the neutral-subset indices of the selected vertices and their chi2.
 struct mv_t { RVec<int> idx; RVec<float> chi2; };
@@ -30,10 +37,12 @@ mv_t get_mv(Vf mass, Vf chi2, Vf m1e, Vf m1p, Vf m2e, Vf m2p, Vi m1i, Vi m2i) {
     std::vector<std::pair<int,int>> pairs;
     for (int i = 0; i < n - 1; i++) {
         if (chi2[i] > 10 || m1e[i] == 0 || m2e[i] == 0 ||
-                mydr(m1e[i], m1p[i], m2e[i], m2p[i]) > 1.2) continue;
+                // was: mydr(m1e[i], m1p[i], m2e[i], m2p[i]) > 1.2) continue;
+                myalpha(m1e[i], m1p[i], m2e[i], m2p[i]) >= ALPHA_MAX) continue;
         for (int j = i + 1; j < n; j++) {
             if (chi2[j] > 10 || m1e[j] == 0 || m2e[j] == 0 ||
-                    mydr(m1e[i], m1p[i], m2e[i], m2p[i]) > 1.2) continue;  // (preserves original i-index dR)
+                    // was: mydr(m1e[i], m1p[i], m2e[i], m2p[i]) > 1.2) continue;  // (preserves original i-index dR)
+                    myalpha(m1e[j], m1p[j], m2e[j], m2p[j]) >= ALPHA_MAX) continue;  // partner j (framework bug fixed)
             if ((std::fabs(mass[i] - mass[j]) / mass[i]) < 3 * 0.01 * mass[i]) {
                 if (m1i[i] != m1i[j] && m1i[i] != m2i[j] && m2i[i] != m1i[j] && m2i[i] != m2i[j])
                     pairs.push_back({i, j});
@@ -65,7 +74,8 @@ mv_t get_mv(Vf mass, Vf chi2, Vf m1e, Vf m1p, Vf m2e, Vf m2p, Vi m1i, Vi m2i) {
         RVec<int> id; RVec<float> c;
         for (int i = 0; i < n; i++) {
             if (chi2[i] > 10 || m1e[i] == 0 || m2e[i] == 0 ||
-                    mydr(m1e[i], m1p[i], m2e[i], m2p[i]) > 1.2) continue;
+                    // was: mydr(m1e[i], m1p[i], m2e[i], m2p[i]) > 1.2) continue;
+                    myalpha(m1e[i], m1p[i], m2e[i], m2p[i]) >= ALPHA_MAX) continue;
             id.push_back(i); c.push_back(chi2[i]);
         }
         if (id.size() > 0) { auto mi = ArgMin(c); mvidx.push_back(id[mi]); mvchi2.push_back(c[mi]); }
@@ -80,12 +90,14 @@ int quadv_index(Vf f_chi2, Vi f_charge, Vi f1, Vi f2, Vi f3, Vi f4,
         RVec<int> fm = {f1[i], f2[i], f3[i], f4[i]};
         for (size_t a = 0; a < i1.size(); ++a) {
             if (charge[a] != 0 || chi2[a] >= 10) continue;
-            if (mydr(e1[a], p1[a], e2[a], p2[a]) >= 1.2) continue;
+            // was: if (mydr(e1[a], p1[a], e2[a], p2[a]) >= 1.2) continue;
+            if (myalpha(e1[a], p1[a], e2[a], p2[a]) >= ALPHA_MAX) continue;
             if (std::find(fm.begin(), fm.end(), i1[a]) == fm.end() ||
                     std::find(fm.begin(), fm.end(), i2[a]) == fm.end()) continue;
             for (size_t b = a + 1; b < i1.size(); ++b) {
                 if (charge[b] != 0 || chi2[b] >= 10) continue;
-                if (mydr(e1[b], p1[b], e2[b], p2[b]) >= 1.2) continue;
+                // was: if (mydr(e1[b], p1[b], e2[b], p2[b]) >= 1.2) continue;
+                if (myalpha(e1[b], p1[b], e2[b], p2[b]) >= ALPHA_MAX) continue;
                 if (std::find(fm.begin(), fm.end(), i1[b]) == fm.end() ||
                         std::find(fm.begin(), fm.end(), i2[b]) == fm.end()) continue;
                 std::set<int> comb = {i1[a], i2[a], i1[b], i2[b]};

@@ -2,9 +2,50 @@ import os
 from analysis_tools.utils import import_root
 ROOT = import_root()
 
+# Dimuon-vertex opening-angle requirement: keep muonSVs with alpha < MAX_MUONSV_ALPHA, where alpha
+# is the 3D angle between the two muon momenta,
+#     cos(alpha) = (cos(dphi) + sinh(eta1) sinh(eta2)) / (cosh(eta1) cosh(eta2))
+# (pT cancels; same definition as _tools/compareDeltaR.py). It replaces the former
+# dR(mu1, mu2) < 1.2 requirement (relaxed to dR < pi in bb0a754). alpha < 2.8 removes the
+# back-to-back (alpha ~ pi) pairs. Single source of truth: every module below reads
+# DQCD_MAX_MUONSV_ALPHA, declared once from this constant.
+MAX_MUONSV_ALPHA = 2.8
+
+
+def declare_muonsv_alpha():
+    if os.getenv("_DQCDMuonSVAlpha"):
+        return
+    os.environ["_DQCDMuonSVAlpha"] = "DQCDMuonSVAlpha"
+    ROOT.gInterpreter.Declare("""
+        #include <cmath>
+        #include <algorithm>
+        constexpr float DQCD_MAX_MUONSV_ALPHA = %s;
+
+        // 3D opening angle between the two muons of a muonSV, in [0, pi]
+        float dqcd_muonsv_alpha(float eta1, float phi1, float eta2, float phi2) {
+            float cosa = (std::cos(phi1 - phi2) + std::sinh(eta1) * std::sinh(eta2))
+                / (std::cosh(eta1) * std::cosh(eta2));
+            cosa = std::max(-1.f, std::min(1.f, cosa));  // rounding guard before acos
+            return std::acos(cosa);
+        }
+
+        // alpha for every muonSV of the FULL collection (charged ones included), so it can be
+        // indexed like any other muonSV_* branch. Assumes all vectors have length n.
+        ROOT::RVec<float> dqcd_get_muonsv_alpha(int n,
+                const ROOT::RVec<float>& eta1, const ROOT::RVec<float>& phi1,
+                const ROOT::RVec<float>& eta2, const ROOT::RVec<float>& phi2) {
+            ROOT::RVec<float> alpha(n, 0);
+            for (int i = 0; i < n; i++)
+                alpha[i] = dqcd_muonsv_alpha(eta1[i], phi1[i], eta2[i], phi2[i]);
+            return alpha;
+        }
+    """ % MAX_MUONSV_ALPHA)
+
+
 class DQCDMuonSVSelectionRDFProducer():
     def __init__(self, *args, **kwargs):
         self.gen_mass = kwargs.pop("gen_mass", 20)
+        declare_muonsv_alpha()
 
         ROOT.gInterpreter.Declare("""
             #include "DataFormats/Math/interface/deltaR.h"
@@ -34,14 +75,22 @@ class DQCDMuonSVSelectionRDFProducer():
                     for (size_t imuonSV = 0; imuonSV < nmuonSV - 1; imuonSV++) {
                         if (muonSV_chi2[imuonSV] > 10 ||
                                 muonSV_mu1eta[imuonSV] == 0 || muonSV_mu2eta[imuonSV] == 0 ||
-                                reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
+                                // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                                // reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                //     muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
+                                dqcd_muonsv_alpha(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) >= DQCD_MAX_MUONSV_ALPHA)
                             continue;
                         for (size_t imuonSV1 = imuonSV + 1; imuonSV1 < nmuonSV; imuonSV1++) {
                             if (muonSV_chi2[imuonSV1] > 10 ||
                                     muonSV_mu1eta[imuonSV1] == 0 || muonSV_mu2eta[imuonSV1] == 0 ||
-                                    reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                        muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
+                                    // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA.
+                                    // The old line tested imuonSV (already checked above) instead of imuonSV1,
+                                    // so the partner vertex was never cut; fixed here.
+                                    // reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                    //     muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
+                                    dqcd_muonsv_alpha(muonSV_mu1eta[imuonSV1], muonSV_mu1phi[imuonSV1],
+                                        muonSV_mu2eta[imuonSV1], muonSV_mu2phi[imuonSV1]) >= DQCD_MAX_MUONSV_ALPHA)
                                 continue;
 
                             // fractional mass difference within 3 sigma (sigma = 1% of the mass)
@@ -117,8 +166,11 @@ class DQCDMuonSVSelectionRDFProducer():
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
                         if (muonSV_chi2[imuonSV] > 10 ||
                                 muonSV_mu1eta[imuonSV] == 0 || muonSV_mu2eta[imuonSV] == 0 ||
-                                reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
-                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
+                                // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                                // reco::deltaR(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                //     muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) > 3.14159265)
+                                dqcd_muonsv_alpha(muonSV_mu1eta[imuonSV], muonSV_mu1phi[imuonSV],
+                                    muonSV_mu2eta[imuonSV], muonSV_mu2phi[imuonSV]) >= DQCD_MAX_MUONSV_ALPHA)
                             continue;
                         indexes.push_back(imuonSV);
                         chi2.push_back(muonSV_chi2[imuonSV]);
@@ -214,16 +266,22 @@ class DQCDMuonSVSelectionRDFProducer():
         df = df.Define("min_chi2", "Min(chi2_multivertices)")
         df = df.Define("min_chi2_index", "indexes_multivertices[ArgMin(chi2_multivertices)]")
 
+        # muonSV_dR is kept as an output branch for studies; the cut is on muonSV_alpha
         df = df.Define("muonSV_dR", "get_deltaR("
             "nmuonSV, muonSV_mu1eta, muonSV_mu1phi, muonSV_mu2eta, muonSV_mu2phi)")
+        df = df.Define("muonSV_alpha", "dqcd_get_muonsv_alpha("
+            "nmuonSV, muonSV_mu1eta, muonSV_mu1phi, muonSV_mu2eta, muonSV_mu2phi)")
         # df = df.Filter("muonSV_dR.at(min_chi2_index) < 3.14159265")
-        df = df.Filter("ROOT::VecOps::Sum(muonSV_dR[muonSV_dR < 3.14159265]) > 0", "muonSV deltaR")
+        # was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < MAX_MUONSV_ALPHA:
+        # df = df.Filter("ROOT::VecOps::Sum(muonSV_dR[muonSV_dR < 3.14159265]) > 0", "muonSV deltaR")
+        df = df.Filter("ROOT::VecOps::Sum(muonSV_alpha < DQCD_MAX_MUONSV_ALPHA) > 0",
+            "muonSV 3D opening angle")
 
         # return df, []
 
         return df, ["nmuonSV_3sigma",
             "mass_multivertices", "chi2_multivertices", "indexes_multivertices",
-            "min_chi2", "min_chi2_index", "cat_index", "muonSV_dR"]
+            "min_chi2", "min_chi2_index", "cat_index", "muonSV_dR", "muonSV_alpha"]
 
 
 def DQCDMuonSVSelectionRDF(*args, **kwargs):
@@ -245,6 +303,7 @@ class DQCDFourMuonSVSelectionRDFProducer():
     https://github.com/ponvie/EXO/blob/main/analysis/4flags_inclusive.py#L82-L189
     """
     def __init__(self, *args, **kwargs):
+        declare_muonsv_alpha()
         if not os.getenv("_DQCDFourMuonSVSelection"):
             os.environ["_DQCDFourMuonSVSelection"] = "DQCDFourMuonSVSelection"
             ROOT.gInterpreter.Declare("""
@@ -283,8 +342,11 @@ class DQCDFourMuonSVSelectionRDFProducer():
                         for (size_t a = 0; a < muonSV_mu1index.size(); ++a) {
                             if (muonSV_charge[a] != 0 || muonSV_chi2[a] >= 10)
                                 continue;
-                            if (reco::deltaR(muonSV_mu1eta[a], muonSV_mu1phi[a],
-                                    muonSV_mu2eta[a], muonSV_mu2phi[a]) >= 3.14159265)
+                            // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                            // if (reco::deltaR(muonSV_mu1eta[a], muonSV_mu1phi[a],
+                            //         muonSV_mu2eta[a], muonSV_mu2phi[a]) >= 3.14159265)
+                            if (dqcd_muonsv_alpha(muonSV_mu1eta[a], muonSV_mu1phi[a],
+                                    muonSV_mu2eta[a], muonSV_mu2phi[a]) >= DQCD_MAX_MUONSV_ALPHA)
                                 continue;
                             int mu1a = muonSV_mu1index[a], mu2a = muonSV_mu2index[a];
                             if (std::find(fourMuons.begin(), fourMuons.end(), mu1a) == fourMuons.end() ||
@@ -294,8 +356,11 @@ class DQCDFourMuonSVSelectionRDFProducer():
                             for (size_t b = a + 1; b < muonSV_mu1index.size(); ++b) {
                                 if (muonSV_charge[b] != 0 || muonSV_chi2[b] >= 10)
                                     continue;
-                                if (reco::deltaR(muonSV_mu1eta[b], muonSV_mu1phi[b],
-                                        muonSV_mu2eta[b], muonSV_mu2phi[b]) >= 3.14159265)
+                                // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                                // if (reco::deltaR(muonSV_mu1eta[b], muonSV_mu1phi[b],
+                                //         muonSV_mu2eta[b], muonSV_mu2phi[b]) >= 3.14159265)
+                                if (dqcd_muonsv_alpha(muonSV_mu1eta[b], muonSV_mu1phi[b],
+                                        muonSV_mu2eta[b], muonSV_mu2phi[b]) >= DQCD_MAX_MUONSV_ALPHA)
                                     continue;
                                 int mu1b = muonSV_mu1index[b], mu2b = muonSV_mu2index[b];
                                 if (std::find(fourMuons.begin(), fourMuons.end(), mu1b) == fourMuons.end() ||
@@ -422,6 +487,7 @@ def DQCDMuonSVRDF(*args, **kwargs):
 
 class DQCDTriggerSelectionRDFProducer():
     def __init__(self, *args, **kwargs):
+        declare_muonsv_alpha()
         if not os.getenv("_DQCDTriggerSelection"):
             os.environ["_DQCDTriggerSelection"] = "DQCDTriggerSelection"
             ROOT.gInterpreter.Declare("""
@@ -444,7 +510,7 @@ class DQCDTriggerSelectionRDFProducer():
                 using Vint = const ROOT::RVec<int>&;
                 using Vbool = const ROOT::RVec<bool>&;
                 std::vector<int> get_triggering_muonsv_and_muon_indexes(
-                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
+                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_alpha,  // was muonSV_dR (dR cut replaced by alpha)
                     Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
                     Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
                     int nMuonBPark, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi,
@@ -456,7 +522,9 @@ class DQCDTriggerSelectionRDFProducer():
                     std::vector<int> indexes(5, -999);
                     std::vector<muonsv_struct> muonsvs;
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                        if (muonSV_dR[imuonSV] > 3.14159265)
+                        // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                        // if (muonSV_dR[imuonSV] > 3.14159265)
+                        if (muonSV_alpha[imuonSV] >= DQCD_MAX_MUONSV_ALPHA)
                             continue;
                         if (indexes_multivertices.size() > 0) {
                             // index has to be selected by the DQCDMuonSVSelectionRDF module
@@ -534,7 +602,7 @@ class DQCDTriggerSelectionRDFProducer():
             "muonSV_chi2_trig_muonBPark1_index", "muonSV_chi2_trig_muonBPark2_index",
             "muonSV_chi2_trig_muon1_index", "muonSV_chi2_trig_muon2_index"]
         df = df.Define("muonsv_indexes", """get_triggering_muonsv_and_muon_indexes(
-            nmuonSV, muonSV_chi2, muonSV_dR,
+            nmuonSV, muonSV_chi2, muonSV_alpha,
             muonSV_mu1eta, muonSV_mu1phi,
             muonSV_mu2eta, muonSV_mu2phi,
             nMuonBPark, MuonBPark_eta, MuonBPark_phi,
@@ -559,6 +627,7 @@ class DQCDTriggerSelection2024RDFProducer():
         # Own guard and own symbol names. This used to share the _DQCDTriggerSelection guard with
         # the 2018 producer above, so whichever of the two was instantiated first silently
         # suppressed the other one's Declare and left its helper undefined.
+        declare_muonsv_alpha()
         if not os.getenv("_DQCDTriggerSelection2024"):
             os.environ["_DQCDTriggerSelection2024"] = "DQCDTriggerSelection2024"
             ROOT.gInterpreter.Declare("""
@@ -582,7 +651,7 @@ class DQCDTriggerSelection2024RDFProducer():
                 using Vint = const ROOT::RVec<int>&;
                 using Vbool = const ROOT::RVec<bool>&;
                 std::vector<int> get_triggering_muonsv_and_muon_indexes_2024(
-                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
+                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_alpha,  // was muonSV_dR (dR cut replaced by alpha)
                     Vfloat muonSV_mu1eta, Vfloat muonSV_mu1phi,
                     Vfloat muonSV_mu2eta, Vfloat muonSV_mu2phi,
                     int nMuonBPark, Vfloat MuonBPark_eta, Vfloat MuonBPark_phi,
@@ -600,7 +669,9 @@ class DQCDTriggerSelection2024RDFProducer():
                     std::vector<muonsv_struct_2024> muonsvs;
 
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                        if (muonSV_dR[imuonSV] > 3.14159265)
+                        // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                        // if (muonSV_dR[imuonSV] > 3.14159265)
+                        if (muonSV_alpha[imuonSV] >= DQCD_MAX_MUONSV_ALPHA)
                             continue;
                         if (!indexes_multivertices.empty()) {
                             // index has to be selected by the DQCDMuonSVSelectionRDF module
@@ -711,7 +782,7 @@ class DQCDTriggerSelection2024RDFProducer():
         ]
 
         df = df.Define("muonsv_indexes", """get_triggering_muonsv_and_muon_indexes_2024(
-            nmuonSV, muonSV_chi2, muonSV_dR,
+            nmuonSV, muonSV_chi2, muonSV_alpha,
             muonSV_mu1eta, muonSV_mu1phi,
             muonSV_mu2eta, muonSV_mu2phi,
             nMuonBPark, MuonBPark_eta, MuonBPark_phi,
@@ -737,6 +808,7 @@ def DQCDTriggerSelection2024RDF(*args, **kwargs):
 
 class DQCDLooseMuonSelectionRDFProducer():
     def __init__(self, *args, **kwargs):
+        declare_muonsv_alpha()
         if not os.getenv("_DQCDLooseMuonSelection"):
             os.environ["_DQCDLooseMuonSelection"] = "DQCDLooseMuonSelection"
             ROOT.gInterpreter.Declare("""
@@ -748,7 +820,7 @@ class DQCDLooseMuonSelectionRDFProducer():
                 using Vint = const ROOT::RVec<int>&;
                 using Vbool = const ROOT::RVec<bool>&;
                 int are_all_muonsv_loose(
-                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_dR,
+                    int nmuonSV, Vfloat muonSV_chi2, Vfloat muonSV_alpha,  // was muonSV_dR (dR cut replaced by alpha)
                     Vint muonSV_mu1index, Vint muonSV_mu2index, 
                     Vbool Muon_looseId,
                     Vint indexes_multivertices
@@ -757,7 +829,9 @@ class DQCDLooseMuonSelectionRDFProducer():
                     if (indexes_multivertices.size() == 0)
                         return 0;
                     for (size_t imuonSV = 0; imuonSV < nmuonSV; imuonSV++) {
-                        if (muonSV_dR[imuonSV] > 3.14159265)
+                        // was dR < 1.2 (relaxed to pi in bb0a754), replaced by alpha < DQCD_MAX_MUONSV_ALPHA:
+                        // if (muonSV_dR[imuonSV] > 3.14159265)
+                        if (muonSV_alpha[imuonSV] >= DQCD_MAX_MUONSV_ALPHA)
                             continue;
                         if (indexes_multivertices.size() > 0) {
                             // index has to be selected by the DQCDMuonSVSelectionRDF module
@@ -778,7 +852,7 @@ class DQCDLooseMuonSelectionRDFProducer():
 
     def run(self, df):
         df = df.Filter(
-            "are_all_muonsv_loose(nmuonSV, muonSV_chi2, muonSV_dR, "
+            "are_all_muonsv_loose(nmuonSV, muonSV_chi2, muonSV_alpha, "
                 "muonSV_mu1index, muonSV_mu2index, Muon_looseId, indexes_multivertices) == 1",
             "MuonSV(s) has/ve two loose muons"
         )

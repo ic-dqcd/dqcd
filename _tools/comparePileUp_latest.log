@@ -1,0 +1,25 @@
+Weights: Collisions24_BCDEFGHI_goldenJSON
+  /cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/puWeights_BCDEFGHI.json.gz
+
+=== QCD, $p_{T}\in(15,20)$ GeV ===
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  100 of 3621 files, 2,788,038 events
+
+=== QCD, $p_{T}\in(80,120)$ GeV ===
+  100 of 2947 files, 3,410,319 events
+
+=== QCD, $p_{T}\in(170,300)$ GeV ===
+  100 of 3263 files, 2,184,276 events
+
+=== QCD, $p_{T}>1000$ GeV ===
+  100 of 3801 files, 1,851,848 events
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+
+Saved: comparePileUp_latest.pdf
+Published: /home/hep/jtafoyav/public_html/parking/2024/kinematic_checks/comparePileUp_latest.pdf

@@ -318,6 +318,10 @@ class Config(legacy_config):
         # produced by DQCDFourMuonSVSelectionRDF (the quadv group / future fourmuonSV BDT).
         features = list(super(Config, self).add_features())
         features += [
+            # 3D opening angle of the min-chi2 muonSV (selection: alpha < 2.8,
+            # modules/muonsv_selection.py MAX_MUONSV_ALPHA)
+            Feature("muonSV_bestchi2_alpha", "muonSV_alpha.at(min_chi2_index)", binning=(32, 0, 3.2),
+                x_title=Label("Muon SV 3D opening angle #alpha(#mu,#mu)"), units="rad"),
             Feature("fourmuonSV_selected_mass", "fourmuonSV_selected_mass", binning=(8270, 0, 22),
                 x_title=Label("fourmuonSV mass (4#mu + 2#mu match)"), units="GeV",
                 tags=["lbn_light", "lbn"]),
@@ -1192,7 +1196,10 @@ class Config(legacy_config):
         #weights.base = ["puWeight", "idWeight", "trigSF", "ctau_reweighing", "prescaleWeight"]
         #weights.base = ["puWeight", "idWeight", "trigSF", "BDT_SF", "ctau_reweighing"]
         #weights.base = ["puWeight", "idWeight", "BDT_SF"]
-        weights.base = ["1"]  # others needed, TODO enabled for 2024
+        #weights.base = ["1"]  # others needed, TODO enabled for 2024
+        # puWeight must be here because it is also in total_events_weights (the normalisation
+        # denominator): applying it to only one side biases every MC yield.
+        weights.base = ["puWeight"]  # others needed (idWeight, trigSF, BDT_SF, prescaleWeight), TODO for 2024
 
         for category in self.categories:
             weights[category.name] = weights.base
@@ -1214,6 +1221,33 @@ class Config(legacy_config):
         weights.muonSV_simple_sel = ["puWeight"]
 
         return weights
+
+    def add_systematics(self):
+        # Same as legacy_2018, with the year-tagged nuisance names moved to 2024
+        # (the "pu" systematic reads puWeightUp / puWeightDown).
+        systematics = [
+            Systematic("jet_smearing", "_nom"),
+            Systematic("pu", "", up="Up", down="Down", alias="CMS_parking_pileup_2024"),
+            Systematic("id", "", alias="CMS_m_displaced_id_2024"),
+            Systematic("trig", "", alias="CMS_eff_parking_trigger_2024"),
+            Systematic("jer", "_smeared", affected_categories=self.categories.names(),
+                module_syst_type={
+                    "jet_syst": {"up": "smeared_up", "down": "smeared_down"},
+                    "met_syst": {"up": "up", "down": "down"},
+                }),
+            Systematic("empty", "", up="", down="", affected_categories=["base"])
+        ]
+        return ObjectCollection(systematics)
+
+    def add_default_module_files(self):
+        # Used when the corresponding --<Task>-...-file parameter is not given on the command line.
+        # PreCounter must compute puWeight (and filter_efficiency) for total_events_weights;
+        # without a weights file it would run no modules at all.
+        # PreprocessRDF is NOT defaulted: the modules file selects the trigger case
+        # (modules_run3_efficienciesOnly_{Mu10,DoubleMu,Mu10orDoubleMu}, ...), pass it explicitly.
+        defaults = {}
+        defaults["PreCounter"] = "weights_2024"
+        return defaults
 
     # other methods
 

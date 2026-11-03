@@ -67,7 +67,8 @@ overwrite each other.
 Note: the secondary peak near dR = pi is genuine back-to-back muon pairs (small
 dEta, |dPhi| ~ pi) -- not an artefact (verified: no mu1index==mu2index self-pairs,
 no eta==0 sentinels). dPhi is wrapped to [-pi, pi], so dR can exceed pi only through
-large dEta. The framework's analysis selection (dR < 1.2) would remove this peak.
+large dEta. The framework's analysis selection removes this peak: originally dR < 1.2, now the
+3D opening angle alpha < 2.8 (modules/muonsv_selection.py MAX_MUONSV_ALPHA).
 
 => a 7-page block per 1D variable, repeated for dR, |deta|, |dphi| and alpha, then the 2D
    maps -- compareDeltaR.pdf

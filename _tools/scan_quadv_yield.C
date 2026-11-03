@@ -19,15 +19,24 @@ inline float mydr(float e1, float p1, float e2, float p2) {
     return std::sqrt(de * de + dp * dp);
 }
 
+// 3D opening angle between the two muons (same as dqcd_muonsv_alpha in modules/muonsv_selection.py)
+const float ALPHA_MAX = 2.8;  // = MAX_MUONSV_ALPHA; replaces the old dR < 1.2 cut
+inline float myalpha(float e1, float p1, float e2, float p2) {
+    float c = (std::cos(p1 - p2) + std::sinh(e1) * std::sinh(e2)) / (std::cosh(e1) * std::cosh(e2));
+    return std::acos(std::max(-1.f, std::min(1.f, c)));
+}
+
 // multiv (cat_index != 0) proxy: at least one mass-coherent neutral dimuon pair with
-// distinct muons, chi2<10, dR<1.2, using the framework's reldiff < 0.03*mass condition.
+// distinct muons, chi2<10, alpha<2.8, using the framework's reldiff < 0.03*mass condition.
 int is_multiv(Vf chi2, Vf mass, Vi charge, Vf e1, Vf p1, Vf e2, Vf p2, Vi i1, Vi i2) {
     for (size_t a = 0; a < chi2.size(); ++a) {
         if (charge[a] != 0 || chi2[a] >= 10) continue;
-        if (mydr(e1[a], p1[a], e2[a], p2[a]) >= 1.2) continue;
+        // was: if (mydr(e1[a], p1[a], e2[a], p2[a]) >= 1.2) continue;
+        if (myalpha(e1[a], p1[a], e2[a], p2[a]) >= ALPHA_MAX) continue;
         for (size_t b = a + 1; b < chi2.size(); ++b) {
             if (charge[b] != 0 || chi2[b] >= 10) continue;
-            if (mydr(e1[b], p1[b], e2[b], p2[b]) >= 1.2) continue;
+            // was: if (mydr(e1[b], p1[b], e2[b], p2[b]) >= 1.2) continue;
+            if (myalpha(e1[b], p1[b], e2[b], p2[b]) >= ALPHA_MAX) continue;
             std::set<int> s = {i1[a], i2[a], i1[b], i2[b]};
             if (s.size() != 4) continue;
             float mA = mass[a], mB = mass[b];
@@ -46,12 +55,14 @@ int quadv_index(Vf f_chi2, Vi f_charge, Vi f1, Vi f2, Vi f3, Vi f4,
         RVec<int> fourMuons = {f1[i], f2[i], f3[i], f4[i]};
         for (size_t a = 0; a < i1.size(); ++a) {
             if (charge[a] != 0 || chi2[a] >= 10) continue;
-            if (mydr(e1[a], p1[a], e2[a], p2[a]) >= 1.2) continue;
+            // was: if (mydr(e1[a], p1[a], e2[a], p2[a]) >= 1.2) continue;
+            if (myalpha(e1[a], p1[a], e2[a], p2[a]) >= ALPHA_MAX) continue;
             if (std::find(fourMuons.begin(), fourMuons.end(), i1[a]) == fourMuons.end() ||
                     std::find(fourMuons.begin(), fourMuons.end(), i2[a]) == fourMuons.end()) continue;
             for (size_t b = a + 1; b < i1.size(); ++b) {
                 if (charge[b] != 0 || chi2[b] >= 10) continue;
-                if (mydr(e1[b], p1[b], e2[b], p2[b]) >= 1.2) continue;
+                // was: if (mydr(e1[b], p1[b], e2[b], p2[b]) >= 1.2) continue;
+                if (myalpha(e1[b], p1[b], e2[b], p2[b]) >= ALPHA_MAX) continue;
                 if (std::find(fourMuons.begin(), fourMuons.end(), i1[b]) == fourMuons.end() ||
                         std::find(fourMuons.begin(), fourMuons.end(), i2[b]) == fourMuons.end()) continue;
                 std::set<int> comb = {i1[a], i2[a], i1[b], i2[b]};

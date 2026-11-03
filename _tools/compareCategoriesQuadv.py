@@ -116,7 +116,9 @@ N_SIGNAL_FILES = 60  # files per signal point (full mode; caps at all available,
 
 # --- quadv matching cuts (mirror modules/muonsv_selection.py) -----------------
 CHI2_MAX    = 10.0    # fourmuonSV and muonSV chi2 must be < CHI2_MAX
-DR_MAX      = 1.2     # dimuon deltaR must be < DR_MAX
+DR_MAX      = 1.2     # OLD dimuon deltaR cut, no longer used by match_quadv (kept only because the
+                      # historical dR study compareCategories.py still overrides ca.DR_MAX)
+ALPHA_MAX   = 2.8     # dimuon 3D opening angle must be < ALPHA_MAX (= MAX_MUONSV_ALPHA)
 MASS_COH    = 0.03    # |mA - mB| / mA must be < MASS_COH
 
 # branches to read per collection
@@ -268,6 +270,13 @@ def _deltaR(eta1, phi1, eta2, phi2):
     return math.hypot(deta, dphi)
 
 
+def _alpha(eta1, phi1, eta2, phi2):
+    """3D opening angle between the two muons (same as dqcd_muonsv_alpha in the framework)."""
+    cosa = ((math.cos(phi1 - phi2) + math.sinh(eta1) * math.sinh(eta2))
+            / (math.cosh(eta1) * math.cosh(eta2)))
+    return math.acos(max(-1.0, min(1.0, cosa)))
+
+
 def match_quadv(data, label):
     """For every event find the first valid fourmuonSV + 2 consistent muonSV.
 
@@ -312,7 +321,8 @@ def match_quadv(data, label):
 
             def good_sv(a):
                 return (sv_chg[a] == 0 and sv_chi2[a] < CHI2_MAX
-                        and _deltaR(sv_m1e[a], sv_m1p[a], sv_m2e[a], sv_m2p[a]) < DR_MAX
+                        # and _deltaR(sv_m1e[a], sv_m1p[a], sv_m2e[a], sv_m2p[a]) < DR_MAX
+                        and _alpha(sv_m1e[a], sv_m1p[a], sv_m2e[a], sv_m2p[a]) < ALPHA_MAX
                         and sv_i1[a] in four and sv_i2[a] in four)
 
             for a in range(nsv):

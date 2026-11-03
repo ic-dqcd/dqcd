@@ -1,0 +1,68 @@
+[TEST MODE] reading only 1 file per signal point
+
+=== GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8 (taking 1 files) ===
+  -> 250922_152935/
+    -> 0000/
+         33 .root files collected under 0000
+       33 .root files collected under 250922_152935
+     33 .root files collected under GluGluHToDarkShowers-ScenarioA_Par-ctau-0p1-mA-3p33-mpi-10_TuneCP5_13p6TeV_powheg-pythia8
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:11: UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+  warnings.warn(
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/_distutils_hack/__init__.py:26: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+  [1/1] nano_1.root
+         -> 45,440 events (4,241 trig, 2,118 trig+kin)
+  [Scenario A: $m_\pi$=10 GeV, $m_A$=3.33 GeV, $c\tau$=0.1 mm] 505 candidate events (>=1 fourmuonSV & >=2 muonSV) of 2,118
+  [Scenario A: $m_\pi$=10 GeV, $m_A$=3.33 GeV, $c\tau$=0.1 mm] 43 events with a quadv match
+  [Scenario A: $m_\pi$=10 GeV, $m_A$=3.33 GeV, $c\tau$=0.1 mm] 43 of 43 matched events enter the category pages
+
+=== GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 1 files) ===
+  -> 250926_185640/
+    -> 0000/
+         41 .root files collected under 0000
+       41 .root files collected under 250926_185640
+     41 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-0p1-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 17,016 events (2,251 trig, 960 trig+kin)
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=0.1 mm] 395 candidate events (>=1 fourmuonSV & >=2 muonSV) of 960
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=0.1 mm] 88 events with a quadv match
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=0.1 mm] 88 of 88 matched events enter the category pages
+
+=== GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8 (taking 1 files) ===
+  -> 250926_190403/
+    -> 0000/
+         50 .root files collected under 0000
+       50 .root files collected under 250926_190403
+     50 .root files collected under GluGluHToDarkShowers-ScenarioB1_Par-ctau-10-mA-1p33-mpi-4_TuneCP5_13p6TeV_powheg-pythia8
+  [1/1] nano_1.root
+         -> 5,656 events (604 trig, 522 trig+kin)
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=10 mm] 122 candidate events (>=1 fourmuonSV & >=2 muonSV) of 522
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=10 mm] 20 events with a quadv match
+  [Scenario B1: $m_\pi$=4 GeV, $m_A$=1.33 GeV, $c\tau$=10 mm] 20 of 20 matched events enter the category pages
+
+  PARTIAL SAMPLE: 3 of 124 files (2.4%) -- every plot is labelled as such
+
+=== Writing PDF ===
+  page 1: dxy distance/uncertainty pull
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for <class 'numpy.float64'> type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+  page 2: 3D distance/uncertainty pull
+  page 3: Delta_xy vs fourmuonSV_dxy
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/matplotlib/axes/_base.py:2283: UserWarning: Warning: converting a masked element to nan.
+  xys = np.asarray(xys)
+  page 4: fourmuonSV_dxy / Delta_xy ratio
+  page 5: pointing-angle overlay
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/nanoaod_base_analysis/data/software/lib/python3.9/site-packages/matplotlib/axes/_base.py:2283: UserWarning: Warning: converting a masked element to nan.
+  xys = np.asarray(xys)
+  page 6: pointing-angle histogram ratio
+  page 7: quadv category populations (pAngle split)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/compareCategoriesQuadv.py:800: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.tight_layout(rect=[0, 0, 1, 0.94])
+  page 8: quadv category populations (pAngle inclusive)
+/vols/cms/jtafoyav/parking/nanoaod_base_analysis_13/dqcd/_tools/compareCategoriesQuadv.py:822: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.tight_layout(rect=[0, 0, 1, 0.90])
+  page 9: quadv dxy-definition ratio (pAngle split + inclusive)
+
+Saved: compareCategoriesQuadv_alpha_test.pdf (9 pages)

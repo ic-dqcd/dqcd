@@ -823,6 +823,76 @@ def plot_sources(sources, qcd_profile, mb_profile=None):
 
 
 # ----------------------------------------------------------------------------
+# --latest: the one set the analysis uses, alone, on the QCD profile
+# ----------------------------------------------------------------------------
+def plot_latest(corr, name, qcd_profile):
+    """Single page, no ratio panel: the nominal weight of the set actually used in the
+    framework (Collisions24_BCDEFGHI_goldenJSON, data/pileup/ in the dqcd repo) drawn over
+    the QCD pT-hat nTrueInt profile. No other weight sources, no MinBias."""
+    fig, ax = plt.subplots(figsize=(10, 8))
+    w = eval_weights(corr, PU_CENTRES)
+    _profile_shading(ax, qcd_profile, 0.9 * w.max())
+    ax.plot(PU_CENTRES, w, color="black", lw=2.4, label=f"{name}  (nominal)")
+
+    ax.axhline(1.0, color="grey", lw=0.8, ls=":")
+    ax.set_yscale("log")
+    _weight_ylim(ax, [w])
+    ax.set_xlabel(r"$n_{\mathrm{TrueInt}}$", fontsize=cms.FS_LABEL)
+    ax.set_ylabel("Pileup weight", fontsize=cms.FS_LABEL)
+    _xlim(ax)
+    cms.cms_axes(ax, fontsize=cms.FS_AXES, label=cms.CMS_LABEL_DATA)
+    mean, rms = stats(qcd_profile)
+    ax.legend(fontsize=cms.FS_LEGEND, loc="upper left",
+              title=rf"QCD profile: $\langle n \rangle$={mean:.2f}, RMS={rms:.2f}",
+              title_fontsize=cms.FS_LEGEND, **cms.LEGEND_KW)
+    _partial_note(ax)
+    fig.suptitle("2024 pileup weights used in the analysis, over the QCD MC profile",
+                 fontsize=cms.FS_TITLE)
+    fig.tight_layout()
+    return fig
+
+
+def run_latest(args, n_files):
+    """--latest: read only the QCD pT-hat bins and write the single plot_latest() page."""
+    path = os.path.join(args.central_dir, "puWeights_BCDEFGHI.json.gz")
+    if not os.path.exists(path):
+        raise SystemExit(f"[error] no central payload at {path}")
+    corr, name = load_correction(path)
+    log(f"Weights: {name}\n  {path}")
+
+    qcd_total = np.zeros(len(PU_BINS) - 1)
+    read_tot, avail_tot = 0, 0
+    for tag, directory, _, kind in discover_samples(0, QCD_BINS, with_minbias=False):
+        if kind != "qcd":
+            continue
+        cap = args.n_qcd_files if n_files is None else min(n_files, args.n_qcd_files)
+        log(f"\n=== {tag} ===")
+        try:
+            s = read_sample(directory, cap, [])
+        except Exception as exc:
+            log(f"  [warn] skipping: {exc}", file=sys.stderr)
+            continue
+        qcd_total += s["nti"]
+        read_tot += s["read"]
+        # same convention as the full run: the QCD cap is the intended configuration
+        complete = n_files is None and not args.test and args.n_qcd_files >= QCD_MAX_FILES
+        avail_tot += s["read"] if complete else s["avail"]
+        log(f"  {s['read']} of {s['avail']} files, {int(s['nti'].sum()):,} events")
+    if qcd_total.sum() == 0:
+        raise SystemExit("[error] no QCD profile was read")
+    cms.set_sample_files(read_tot, avail_tot)
+
+    with PdfPages(args.output) as pdf:
+        fig = plot_latest(corr, name, qcd_total)
+        _transparent_legends(fig)
+        pdf.savefig(fig)
+        plt.close("all")
+    log(f"\nSaved: {args.output}")
+    if not args.no_publish:
+        publish(args.output, WEBDIR)
+
+
+# ----------------------------------------------------------------------------
 # page 4: per-era spread
 # ----------------------------------------------------------------------------
 def plot_eras(era_corrs, combined, combined_name, qcd_profile, mb_profile=None):
@@ -1255,7 +1325,18 @@ def main():
     p.add_argument("--no-publish", action="store_true",
                    help=f"Do not copy the PDF to {WEBDIR}")
     p.add_argument("--test", action="store_true", help="Quick check: 1 file per sample")
+    p.add_argument("--latest", action="store_true",
+                   help="Only the weights used in the analysis (Collisions24_BCDEFGHI_goldenJSON) "
+                        "over the QCD profile, one page, no ratio; output gets a '_latest' suffix")
     args = p.parse_args()
+
+    if args.latest:
+        args.output = args.output.replace(".pdf", "_latest.pdf")
+        if args.test:
+            args.output = args.output.replace(".pdf", "_test.pdf")
+            log(f"[TEST MODE] 1 file per QCD bin -> {args.output}")
+        run_latest(args, 1 if args.test else (args.n_files if args.n_files > 0 else None))
+        return
 
     # A test run must never land on the full run's filename. Auto-suffixing means the two
     # can both be published side by side, so --no-publish is not needed to protect the

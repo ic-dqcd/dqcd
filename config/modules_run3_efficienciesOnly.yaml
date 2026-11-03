@@ -1,5 +1,14 @@
 #based of modules_onlymu.yaml, with many lines commented
 
+# Golden-JSON lumisection mask (data only; MC passes through). First, so uncertified
+# lumisections are dropped before any other module runs.
+lumimask:
+    name: DQCDLumiMaskRDF
+    path: modules.lumi_mask
+    parameters:
+        isMC: self.dataset.process.isMC
+        jsonFile: ${CMT_BASE}/../data/lumi/lumiMask_2024__Cert_Collisions2024_378981_386951_Golden.json
+
 met:
     name: MetFilterRDF
     path: Base.Filters.METfilters
@@ -40,14 +49,18 @@ loose:
         gen_mass: 2
 
 
-#TODO implement for run3_2024
-#puweight:
-#    name: puWeightParkingRDF
-#    path: modules.puWeight
-#    parameters:
-#        isMC: self.dataset.process.isMC
-#        year: self.config.year
-#        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+# 2024 pileup weights (correctionlib): central LUM POG/CAT, Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15
+# (cvmfs cms-griddata .../cat/metadata/LUM/..., release 2026-04-15, identical to 2025-12-02). The same block, with the same file, is in
+# config/weights_2024.yaml for PreCounter (normalisation denominators).
+puweight:
+    name: puWeightParkingRDF
+    path: modules.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.config.get_aux('isUL', self.dataset.has_tag('ul'))
+        fileName: ${CMT_BASE}/../data/pileup/puWeights_2024__Collisions24_BCDEFGHI_goldenJSON.json.gz
+        corrName: Collisions24_BCDEFGHI_goldenJSON
 
 #TODO implement for run3_2024
 #idsf:

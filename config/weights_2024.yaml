@@ -1,0 +1,25 @@
+# Weights file for PreCounter in the 2024 analysis (--PreCounter-weights-file weights_2024).
+# PreCounter runs these modules on the raw nanoAOD, before any selection, to compute the
+# normalisation denominators from weights.total_events_weights (config/run3_2024.py).
+# The puweight block must use the SAME file/correction as the PreprocessRDF modules files
+# (config/modules_run3_efficienciesOnly*.yaml), otherwise numerator and denominator disagree.
+# 2018 keeps using config/weights.yaml.
+
+puweight:
+    name: puWeightParkingRDF
+    path: modules.puWeight
+    parameters:
+        isMC: self.dataset.process.isMC
+        year: self.config.year
+        isUL: self.dataset.has_tag('ul')
+        fileName: ${CMT_BASE}/../data/pileup/puWeights_2024__Collisions24_BCDEFGHI_goldenJSON.json.gz
+        corrName: Collisions24_BCDEFGHI_goldenJSON
+
+
+filter_eff:
+    name: DQCDFilterEfficiencyRDF
+    path: modules.DQCD_SF
+    parameters:
+        process_name: self.dataset.process.name
+        year: self.config.year
+        is_signal: self.dataset.process.isSignal
