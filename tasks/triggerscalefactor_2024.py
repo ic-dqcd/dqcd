@@ -41,6 +41,14 @@ class TriggerSF2024(TriggerSF):
     trigger_case = luigi.ChoiceParameter(choices=list(TRIGGERS_2024), default="Mu10",
         description="trigger whose efficiency is measured: Mu10 (HLT_Mu10_Barrel_L1HP11_IP6) or "
         "DoubleMu (HLT_DoubleMu4_3_LowMass), default: Mu10")
+    families = luigi.Parameter(default="dxy,lxy,dxysig,dxysiglegacy,bins1d",
+        description="comma-separated histogram families filled by the T&P tasks: dxy, lxy, dxysig "
+        "(fine custom bins), dxysiglegacy (2018 trigger_sf_alltriggers.json bins) and bins1d (the 1D "
+        "efficiency blocks, *_bins2); default: all. "
+        "Each (bin, pT) pair costs one event loop, so restrict it when only one family is needed")
+
+    def family_set(self):
+        return set(self.families.split(","))
 
     def store_parts(self):
         parts = super(TriggerSF2024, self).store_parts()
@@ -108,6 +116,50 @@ class TriggerSF2024(TriggerSF):
 # Port of tasks/triggerscalefactor.py:TriggerSFtnpRknew (generated 2026-11-03, see module docstring)
 # ---------------------------------------------------------------------------------------------
 class TriggerSFtnp2024(TriggerSF2024):
+    # The tag ALWAYS fired HLT_Mu10_Barrel_L1HP11_IP6. --trigger-case selects the probe path:
+    #  * Mu10:     probe matched to a Mu10 trigger muon (self-tag T&P, 2018-style), any stream
+    #  * DoubleMu: probe matched to an HLT_DoubleMu4_3_LowMass trigger muon AND the event fired that
+    #              path. Run on ParkingSingleMuon data (Mu10 stream, orthogonal to the measured path) or
+    #              MC. Self-tagging with the DoubleMu path itself is biased to ~1 by construction (the
+    #              path needs both legs), so ParkingDoubleMuonLowMass datasets are refused.
+    #              Measures the dimuon-path efficiency of the pair given a Mu10 tag (both legs, L1
+    #              dimuon seed and the pair cuts of the path), binned in the probe kinematics.
+    TAG_CASE = "Mu10"
+
+    # ---- tag / probe definition hooks (overridden by tasks/triggerscalefactor_2024_doublemu.py) ----
+    def define_trigger_flags(self, df):
+        """Per-muon flags: MuonBPark_fired_TRIG selects the tag (always Mu10), MuonBPark_fired_PROBE
+        decides whether the probe passes (the measured path)."""
+        df = df.Define("MuonBPark_fired_TRIG", f"ROOT::RVec<float>({FIRED_2024[self.TAG_CASE]})")
+        df = df.Define("MuonBPark_fired_PROBE", f"ROOT::RVec<float>({FIRED_2024[self.trigger_case]})")
+        return df
+
+    def apply_tag_filter(self, df):
+        """Keep events with a tag (trigger-matched muon, see tnp24trig::muon_pass) and a loose-ID partner."""
+        return df.Filter("(tnp24trig::muon_pass(muon1_pt, muon1_dxybs, muon1_dxyErr, muon1_eta, muon1_phi, muon1_looseId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr) && muon2_looseId == 1) || (tnp24trig::muon_pass(muon2_pt, muon2_dxybs, muon2_dxyErr, muon2_eta, muon2_phi, muon2_looseId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr) && muon1_looseId == 1)")
+
+    def define_probe(self, df):
+        """probe_quantities = (dxy, pt, pass, sip3d, dxysig, eta) of the probe muon."""
+        return df.Define("probe_quantities", "tnp24trig::probe_values(muon1_eta, muon1_phi, muon1_dxybs, muon1_dxyErr, muon1_pt, muon1_sip3d, muon1_looseId, muon1_looseId, muon2_eta, muon2_phi, muon2_dxybs, muon2_dxyErr, muon2_pt, muon2_sip3d, muon2_looseId, muon2_looseId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr, MuonBPark_fired_PROBE)")
+
+    def select_pass(self, df):
+        """Passing probes. DoubleMu: the per-muon flag needs the event to have fired the dimuon path too."""
+        return df.Filter("probe_HLT == 1" + (f" && {TRIGGERS_2024[self.trigger_case]}"
+                                             if self.trigger_case != self.TAG_CASE else ""))
+
+    def probe_eta_cut(self):
+        # 2024: HLT_Mu10_Barrel_L1HP11_IP6 fires only up to |eta|~0.89 (barrel; 1.3% of fired muons
+        # above 0.8), so probes beyond can never pass. 2018 (Mu9_IP6) used |eta| < 1.5.
+        # DoubleMu probe: not restricted to the barrel; use the 2018 |eta| < 1.5 (as the ID T&P;
+        # the dxysig family keeps its |eta| < 0.4)
+        return "abs(probe_eta) < 1.5" if self.trigger_case == "DoubleMu" else "abs(probe_eta) < 0.8"
+
+    def __init__(self, *args, **kwargs):
+        super(TriggerSFtnp2024, self).__init__(*args, **kwargs)
+        if self.trigger_case == "DoubleMu" and "doublemu" in self.dataset_name.lower():
+            raise ValueError("TriggerSFtnp2024 --trigger-case DoubleMu must run on the ParkingSingleMuon "
+                "stream (Mu10 tag) or MC: on ParkingDoubleMuonLowMass the probe passes by construction.")
+
     def add_to_root(self, root):
         if getattr(type(self), '_declared', False):
             return
@@ -290,8 +342,11 @@ class TriggerSFtnp2024(TriggerSF2024):
 
             ROOT::RVec<float> probe_values(float muon1_eta, float muon1_phi, float muon1_dxy, float muon1_dxyErr, float muon1_pt, float muon1_sip3d, int muon1_tightId, int muon1_mediumId,
                 float muon2_eta, float muon2_phi, float muon2_dxy, float muon2_dxyErr, float muon2_pt, float muon2_sip3d, int muon2_tightId, int muon2_mediumId, int nMuonBPark, Vfloat MuonBPark_eta,
-                Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_TRIG, int nTrigObjMu, Vfloat TrigObjMu_eta, Vfloat TrigObjMu_phi, Vfloat TrigObjMu_l1pt, Vfloat MuonBPark_matched_dr) 
+                Vfloat MuonBPark_phi, Vfloat MuonBPark_fired_TRIG, int nTrigObjMu, Vfloat TrigObjMu_eta, Vfloat TrigObjMu_phi, Vfloat TrigObjMu_l1pt, Vfloat MuonBPark_matched_dr,
+                Vfloat MuonBPark_fired_PROBE)
             {
+                // MuonBPark_fired_TRIG selects the tag, MuonBPark_fired_PROBE decides whether the probe passes
+                // (same column for Mu10; Mu10 tag / DoubleMu leg for --trigger-case DoubleMu)
                 //std::cout << "call probe_values function" << std::endl;
                 ROOT::RVec<float> probe_dxy_pt_HLT(6);
 
@@ -311,7 +366,7 @@ class TriggerSFtnp2024(TriggerSF2024):
                     float muon2_muonBPark_matched_dR = muonBPark_matched_dR(muon2_eta, muon2_phi, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, MuonBPark_matched_dr);
 
                     if(abs(muon1_muonBPark_matched_dR) > abs(muon2_muonBPark_matched_dR)){
-                        bool HLT = muon_pass_probe(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
+                        bool HLT = muon_pass_probe(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_PROBE, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
                         probe_dxy_pt_HLT.at(0) = muon1_dxy;
                         probe_dxy_pt_HLT.at(1) = muon1_pt;
                         probe_dxy_pt_HLT.at(2) = HLT;
@@ -321,7 +376,7 @@ class TriggerSFtnp2024(TriggerSF2024):
                     }
 
                     else{
-                        bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
+                        bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_PROBE, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
                         probe_dxy_pt_HLT.at(0) = muon2_dxy;
                         probe_dxy_pt_HLT.at(1) = muon2_pt;
                         probe_dxy_pt_HLT.at(2) = HLT;
@@ -336,7 +391,7 @@ class TriggerSFtnp2024(TriggerSF2024):
 
                 else if (muon_pass(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr)){
                     //std::cout<<"block 2"<<std::endl;
-                    bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
+                    bool HLT = muon_pass_probe(muon2_pt, muon2_dxy, muon2_dxyErr, muon2_eta, muon2_phi, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_PROBE, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
                     probe_dxy_pt_HLT.at(0) = muon2_dxy;
                     probe_dxy_pt_HLT.at(1) = muon2_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
@@ -346,7 +401,7 @@ class TriggerSFtnp2024(TriggerSF2024):
                 }
                 else{ 
                     //std::cout<<"block 3"<<std::endl;
-                    bool HLT = muon_pass_probe(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
+                    bool HLT = muon_pass_probe(muon1_pt, muon1_dxy, muon1_dxyErr, muon1_eta, muon1_phi, muon1_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_PROBE, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi);
                     probe_dxy_pt_HLT.at(0) = muon1_dxy;
                     probe_dxy_pt_HLT.at(1) = muon1_pt;
                     probe_dxy_pt_HLT.at(2) = HLT;
@@ -383,9 +438,10 @@ class TriggerSFtnp2024(TriggerSF2024):
         df = df.Define("nTrigObjMu", "(int) Sum(TrigObjMu_sel)")
         for var in ["eta", "phi", "l1pt"]:
             df = df.Define(f"TrigObjMu_{var}", f"ROOT::RVec<float>(TrigObj_{var}[TrigObjMu_sel])")
-        # per-muon "fired" flag of the measured path (2018: MuonBPark_fired_HLT_Mu9_IP6)
-        df = df.Define("MuonBPark_fired_TRIG", f"ROOT::RVec<float>({FIRED_2024[self.trigger_case]})")
-        
+        # per-muon "fired" flags (2018: MuonBPark_fired_HLT_Mu9_IP6 for both): TRIG selects the tag
+        # (always Mu10), PROBE decides whether the probe passes (the measured path)
+        df = self.define_trigger_flags(df)
+
         df = df.Filter("nmuonSV > 0")
 
         #df = df.Filter("nmuonSV == 1")
@@ -420,7 +476,7 @@ class TriggerSFtnp2024(TriggerSF2024):
         #for tag using HLT_Mu12_IP6
         
         #loose ID fpr tag, pre-selection for probe
-        df = df.Filter("(tnp24trig::muon_pass(muon1_pt, muon1_dxybs, muon1_dxyErr, muon1_eta, muon1_phi, muon1_looseId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr) && muon2_looseId == 1) || (tnp24trig::muon_pass(muon2_pt, muon2_dxybs, muon2_dxyErr, muon2_eta, muon2_phi, muon2_looseId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr) && muon1_looseId == 1)")
+        df = self.apply_tag_filter(df)
         
         #tight ID for tag
         #df = df.Filter("tnp24trig::muon_pass(muon1_pt, muon1_dxybs, muon1_dxyErr, muon1_eta, muon1_phi, muon1_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr) || tnp24trig::muon_pass(muon2_pt, muon2_dxybs, muon2_dxyErr, muon2_eta, muon2_phi, muon2_tightId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr)")
@@ -431,11 +487,12 @@ class TriggerSFtnp2024(TriggerSF2024):
         #df = df.Define("probe_quantities", "tnp24trig::probe_values(muon1_eta, muon1_phi, muon1_dxybs, muon1_dxyErr, muon1_pt, muon1_sip3d, muon1_tightId, muon1_mediumId, muon2_eta, muon2_phi, muon2_dxybs, muon2_dxyErr, muon2_pt, muon2_sip3d, muon2_tightId, muon2_mediumId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr)")
         
         #loose ID for tag, loose ID for probe
-        df = df.Define("probe_quantities", "tnp24trig::probe_values(muon1_eta, muon1_phi, muon1_dxybs, muon1_dxyErr, muon1_pt, muon1_sip3d, muon1_looseId, muon1_looseId, muon2_eta, muon2_phi, muon2_dxybs, muon2_dxyErr, muon2_pt, muon2_sip3d, muon2_looseId, muon2_looseId, nMuonBPark, MuonBPark_eta, MuonBPark_phi, MuonBPark_fired_TRIG, nTrigObjMu, TrigObjMu_eta, TrigObjMu_phi, TrigObjMu_l1pt, MuonBPark_matched_dr)")
+        df = self.define_probe(df)
 
         df = df.Define("probe_dxy", "probe_quantities.at(0)").Define("probe_pt", "probe_quantities.at(1)").Define("probe_HLT", "probe_quantities.at(2)").Define("probe_sip3d", "probe_quantities.at(3)").Define("probe_dxysig", "probe_quantities.at(4)").Define("probe_eta", "probe_quantities.at(5)")
 
-        df_pass = df.Filter("probe_HLT == 1")
+        # DoubleMu: the per-muon flag needs the event to have fired the dimuon path too
+        df_pass = self.select_pass(df)
 
         #df_pass.Snapshot("Events", "test_pass_0p01_new.root")
         '''
@@ -493,8 +550,8 @@ class TriggerSFtnp2024(TriggerSF2024):
              "muonSV_lxy_minchi2 > 20.0 && muonSV_lxy_minchi2 < 55.0",
              "muonSV_lxy_minchi2 > 55.0 && muonSV_lxy_minchi2 < 100.0"
         ]
-        
-        eta_bins_bparking = "abs(probe_eta) < 1.5"
+
+        eta_bins_bparking = self.probe_eta_cut()
 
         '''
         pt_bins = [
@@ -509,7 +566,7 @@ class TriggerSFtnp2024(TriggerSF2024):
 
         
 
-        for dxy_index, i in enumerate(dxy_bins):
+        for dxy_index, i in enumerate(dxy_bins if "dxy" in self.family_set() else []):
             for pt_index, j in enumerate(pt_bins):
                 h_dxy_pT_total = df.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 h_dxy_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -520,7 +577,7 @@ class TriggerSFtnp2024(TriggerSF2024):
                 histos["h_dxy_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_dxy_pT_pass
                 histos["h_dxy_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_dxy_pT_fail
         
-        for lxy_index, i in enumerate(lxy_bins):
+        for lxy_index, i in enumerate(lxy_bins if "lxy" in self.family_set() else []):
             for pt_index, j in enumerate(pt_bins):
                 h_lxy_pT_total = df.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_lxy_%s_pT_%s_total" % (lxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 h_lxy_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_lxy_%s_pT_%s_Pass" % (lxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -562,7 +619,7 @@ class TriggerSFtnp2024(TriggerSF2024):
         histos["tag_and_probe_dR"] = df.Filter(eta_bins3).Histo1D(("h_tag_and_probe_dR", "; dR; Events", 100, 0.0, 7.0), "tag_probe_dR")
 
 
-        for dxy_index, i in enumerate(dxysig_bins3):
+        for dxy_index, i in enumerate(dxysig_bins3 if "dxysig" in self.family_set() else []):
             for pt_index, j in enumerate(pt_bins3):
                 h_dxysig_pT_total = df.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysig_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 h_dxysig_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysig_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -572,6 +629,45 @@ class TriggerSFtnp2024(TriggerSF2024):
 
                 histos["h_dxysig_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_dxysig_pT_pass
                 histos["h_dxysig_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_dxysig_pT_fail
+
+        # 2018 "all triggers" SF binning (data/trigger_sf_alltriggers.json): |dxy|/sigma 0-3-3.5-4-5-6-8-10-20-500,
+        # probe pT 6-7-8-8.5-9-10-10.5-11-12-20-100; same |eta| < 0.4 as the fine dxysig family above.
+        # Read by _tools/fitTnPScaleFactors.py --legacy-binning --variable dxysig
+        dxysig_bins_legacy = [
+            "probe_dxysig > 0.0 && probe_dxysig < 3.0",
+            "probe_dxysig > 3.0 && probe_dxysig < 3.5",
+            "probe_dxysig > 3.5 && probe_dxysig < 4.0",
+            "probe_dxysig > 4.0 && probe_dxysig < 5.0",
+            "probe_dxysig > 5.0 && probe_dxysig < 6.0",
+            "probe_dxysig > 6.0 && probe_dxysig < 8.0",
+            "probe_dxysig > 8.0 && probe_dxysig < 10.0",
+            "probe_dxysig > 10.0 && probe_dxysig < 20.0",
+            "probe_dxysig > 20.0 && probe_dxysig < 500.0"
+        ]
+
+        pt_bins_legacy = [
+            "probe_pt > 6.0 && probe_pt < 7.0",
+            "probe_pt > 7.0 && probe_pt < 8.0",
+            "probe_pt > 8.0 && probe_pt < 8.5",
+            "probe_pt > 8.5 && probe_pt < 9.0",
+            "probe_pt > 9.0 && probe_pt < 10.0",
+            "probe_pt > 10.0 && probe_pt < 10.5",
+            "probe_pt > 10.5 && probe_pt < 11.0",
+            "probe_pt > 11.0 && probe_pt < 12.0",
+            "probe_pt > 12.0 && probe_pt < 20.0",
+            "probe_pt > 20.0 && probe_pt < 100.0"
+        ]
+
+        for dxy_index, i in enumerate(dxysig_bins_legacy if "dxysiglegacy" in self.family_set() else []):
+            for pt_index, j in enumerate(pt_bins_legacy):
+                h_leg_total = df.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysiglegacy_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                h_leg_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysiglegacy_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+
+                h_leg_fail = h_leg_total.GetPtr() - h_leg_pass.GetPtr()
+                h_leg_fail.SetName("h_dxysiglegacy_%s_pT_%s_Fail" % (dxy_index, pt_index))
+
+                histos["h_dxysiglegacy_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_leg_pass
+                histos["h_dxysiglegacy_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_leg_fail
         
         
         #for 1D efficiency
@@ -664,7 +760,7 @@ class TriggerSFtnp2024(TriggerSF2024):
             "probe_sip3d > 15.0 && probe_sip3d < 30.0"
         ]       
 
-        for dxy_index, i in enumerate(dxy_bins2):
+        for dxy_index, i in enumerate(dxy_bins2 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_dxy_%s_pT_100_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_dxy_%s_pT_100_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -674,7 +770,7 @@ class TriggerSFtnp2024(TriggerSF2024):
             histos["h_dxy_%s_pt_100_Pass" % (dxy_index)] = h_dxy_pT_pass
             histos["h_dxy_%s_pt_100_Fail" % (dxy_index)] = h_dxy_pT_fail
 
-        for lxy_index, i in enumerate(lxy_bins2):
+        for lxy_index, i in enumerate(lxy_bins2 if "bins1d" in self.family_set() else []):
             h_lxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_lxy_%s_pT_100_total" % (lxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_lxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_lxy_%s_pT_100_Pass" % (lxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -684,7 +780,7 @@ class TriggerSFtnp2024(TriggerSF2024):
             histos["h_lxy_%s_pt_100_Pass" % (lxy_index)] = h_lxy_pT_pass
             histos["h_lxy_%s_pt_100_Fail" % (lxy_index)] = h_lxy_pT_fail
 
-        for pt_index, i in enumerate(pt_bins2):
+        for pt_index, i in enumerate(pt_bins2 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter("probe_dxysig > 8.0").Filter(eta_bins_bparking).Histo1D(("h_dxy_100_pT_%s_total" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter("probe_dxysig > 8.0").Filter(eta_bins_bparking).Histo1D(("h_dxy_100_pT_%s_Pass" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -694,7 +790,7 @@ class TriggerSFtnp2024(TriggerSF2024):
             histos["h_dxy_100_pt_%s_Pass" % (pt_index)] = h_dxy_pT_pass
             histos["h_dxy_100_pt_%s_Fail" % (pt_index)] = h_dxy_pT_fail
 
-        for dxy_index, i in enumerate(IPsig_bins2):
+        for dxy_index, i in enumerate(IPsig_bins2 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_1000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_1000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -704,7 +800,7 @@ class TriggerSFtnp2024(TriggerSF2024):
             histos["h_dxy_%s_pt_1000_Pass" % (dxy_index)] = h_dxy_pT_pass
             histos["h_dxy_%s_pt_1000_Fail" % (dxy_index)] = h_dxy_pT_fail
 
-        for dxy_index, i in enumerate(dxysig_bins3):
+        for dxy_index, i in enumerate(dxysig_bins3 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter("probe_pt > 10.0").Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_2000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter("probe_pt > 10.0").Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_2000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -1130,7 +1226,7 @@ class IDSFtnp2024(TriggerSF2024):
 
         
 
-        for dxy_index, i in enumerate(dxy_bins):
+        for dxy_index, i in enumerate(dxy_bins if "dxy" in self.family_set() else []):
             for pt_index, j in enumerate(pt_bins):
                 h_dxy_pT_total = df.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 h_dxy_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -1141,7 +1237,7 @@ class IDSFtnp2024(TriggerSF2024):
                 histos["h_dxy_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_dxy_pT_pass
                 histos["h_dxy_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_dxy_pT_fail
         
-        for lxy_index, i in enumerate(lxy_bins):
+        for lxy_index, i in enumerate(lxy_bins if "lxy" in self.family_set() else []):
             for pt_index, j in enumerate(pt_bins):
                 h_lxy_pT_total = df.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_lxy_%s_pT_%s_total" % (lxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 h_lxy_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins_bparking).Histo1D(("h_lxy_%s_pT_%s_Pass" % (lxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -1183,7 +1279,7 @@ class IDSFtnp2024(TriggerSF2024):
         histos["tag_and_probe_dR"] = df.Filter(eta_bins3).Histo1D(("h_tag_and_probe_dR", "; dR; Events", 100, 0.0, 7.0), "tag_probe_dR")
 
 
-        for dxy_index, i in enumerate(dxysig_bins3):
+        for dxy_index, i in enumerate(dxysig_bins3 if "dxysig" in self.family_set() else []):
             for pt_index, j in enumerate(pt_bins3):
                 h_dxysig_pT_total = df.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysig_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 h_dxysig_pT_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysig_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
@@ -1193,6 +1289,45 @@ class IDSFtnp2024(TriggerSF2024):
 
                 histos["h_dxysig_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_dxysig_pT_pass
                 histos["h_dxysig_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_dxysig_pT_fail
+
+        # 2018 "all triggers" SF binning (data/trigger_sf_alltriggers.json): |dxy|/sigma 0-3-3.5-4-5-6-8-10-20-500,
+        # probe pT 6-7-8-8.5-9-10-10.5-11-12-20-100; same |eta| < 0.4 as the fine dxysig family above.
+        # Read by _tools/fitTnPScaleFactors.py --legacy-binning --variable dxysig
+        dxysig_bins_legacy = [
+            "probe_dxysig > 0.0 && probe_dxysig < 3.0",
+            "probe_dxysig > 3.0 && probe_dxysig < 3.5",
+            "probe_dxysig > 3.5 && probe_dxysig < 4.0",
+            "probe_dxysig > 4.0 && probe_dxysig < 5.0",
+            "probe_dxysig > 5.0 && probe_dxysig < 6.0",
+            "probe_dxysig > 6.0 && probe_dxysig < 8.0",
+            "probe_dxysig > 8.0 && probe_dxysig < 10.0",
+            "probe_dxysig > 10.0 && probe_dxysig < 20.0",
+            "probe_dxysig > 20.0 && probe_dxysig < 500.0"
+        ]
+
+        pt_bins_legacy = [
+            "probe_pt > 6.0 && probe_pt < 7.0",
+            "probe_pt > 7.0 && probe_pt < 8.0",
+            "probe_pt > 8.0 && probe_pt < 8.5",
+            "probe_pt > 8.5 && probe_pt < 9.0",
+            "probe_pt > 9.0 && probe_pt < 10.0",
+            "probe_pt > 10.0 && probe_pt < 10.5",
+            "probe_pt > 10.5 && probe_pt < 11.0",
+            "probe_pt > 11.0 && probe_pt < 12.0",
+            "probe_pt > 12.0 && probe_pt < 20.0",
+            "probe_pt > 20.0 && probe_pt < 100.0"
+        ]
+
+        for dxy_index, i in enumerate(dxysig_bins_legacy if "dxysiglegacy" in self.family_set() else []):
+            for pt_index, j in enumerate(pt_bins_legacy):
+                h_leg_total = df.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysiglegacy_%s_pT_%s_total" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+                h_leg_pass = df_pass.Filter(i).Filter(j).Filter(eta_bins3).Histo1D(("h_dxysiglegacy_%s_pT_%s_Pass" % (dxy_index, pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
+
+                h_leg_fail = h_leg_total.GetPtr() - h_leg_pass.GetPtr()
+                h_leg_fail.SetName("h_dxysiglegacy_%s_pT_%s_Fail" % (dxy_index, pt_index))
+
+                histos["h_dxysiglegacy_%s_pt_%s_Pass" % (dxy_index, pt_index)] = h_leg_pass
+                histos["h_dxysiglegacy_%s_pt_%s_Fail" % (dxy_index, pt_index)] = h_leg_fail
         
         
         #for 1D efficiency
@@ -1292,7 +1427,7 @@ class IDSFtnp2024(TriggerSF2024):
             "probe_sip3d > 15.0 && probe_sip3d < 30.0"
         ]       
 
-        for dxy_index, i in enumerate(dxy_bins2):
+        for dxy_index, i in enumerate(dxy_bins2 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_dxy_%s_pT_100_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_dxy_%s_pT_100_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -1302,7 +1437,7 @@ class IDSFtnp2024(TriggerSF2024):
             histos["h_dxy_%s_pt_100_Pass" % (dxy_index)] = h_dxy_pT_pass
             histos["h_dxy_%s_pt_100_Fail" % (dxy_index)] = h_dxy_pT_fail
 
-        for lxy_index, i in enumerate(lxy_bins2):
+        for lxy_index, i in enumerate(lxy_bins2 if "bins1d" in self.family_set() else []):
             h_lxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_lxy_%s_pT_100_total" % (lxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_lxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Filter("probe_pt > 10.0").Histo1D(("h_lxy_%s_pT_100_Pass" % (lxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -1312,7 +1447,7 @@ class IDSFtnp2024(TriggerSF2024):
             histos["h_lxy_%s_pt_100_Pass" % (lxy_index)] = h_lxy_pT_pass
             histos["h_lxy_%s_pt_100_Fail" % (lxy_index)] = h_lxy_pT_fail
 
-        for pt_index, i in enumerate(pt_bins2):
+        for pt_index, i in enumerate(pt_bins2 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_100_pT_%s_total" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_100_pT_%s_Pass" % (pt_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 
@@ -1322,7 +1457,7 @@ class IDSFtnp2024(TriggerSF2024):
             histos["h_dxy_100_pt_%s_Pass" % (pt_index)] = h_dxy_pT_pass
             histos["h_dxy_100_pt_%s_Fail" % (pt_index)] = h_dxy_pT_fail
 
-        for dxy_index, i in enumerate(IPsig_bins2):
+        for dxy_index, i in enumerate(IPsig_bins2 if "bins1d" in self.family_set() else []):
             h_dxy_pT_total = df.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_1000_total" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
             h_dxy_pT_pass = df_pass.Filter(i).Filter(eta_bins_bparking).Histo1D(("h_dxy_%s_pT_1000_Pass" % (dxy_index), "; Dimuon mass (GeV); Events/0.04 GeV", 15, 2.8, 3.4), "muonSV_mass_minchi2")
                 

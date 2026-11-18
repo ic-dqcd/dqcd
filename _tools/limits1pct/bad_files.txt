@@ -1,0 +1,20 @@
+# data_2024_singlemu_1percent files found corrupt/unreadable in the 2026-11 T&P production (hang or segfault)
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon10/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/251119_164306/0000/nano_15.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon2/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/251119_164437/0000/nano_15.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon2/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15_v2-v2/251119_164613/0000/nano_12.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon3/nanotron-v15_2024__from_Run2024E-MINIv6NANOv15-v1/251119_164727/0000/nano_3.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon3/nanotron-v15_2024__from_Run2024F-MINIv6NANOv15-v4/251119_164759/0000/nano_11.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon4/nanotron-v15_2024__from_Run2024H-MINIv6NANOv15-v3/251119_165004/0000/nano_3.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon8/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/260303_211342/0000/nano_6.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon9/nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v4/251119_165834/0000/nano_13.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon9/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v1/260303_211517/0000/nano_4.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon2/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/251119_164437/0000/nano_8.root
+# found by the limits1pct Mu10 selection (segfault in TBranch::GetBasket), 2026-11-05
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon10/nanotron-v15_2024__from_Run2024G-MINIv6NANOv15-v3/251119_164235/0000/nano_3.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingSingleMuon10/nanotron-v15_2024__from_Run2024I-MINIv6NANOv15-v3/251119_164306/0000/nano_13.root
+# found by the limits1pct DoubleMu selection v2 (segfault in TBranch::GetBasket), 2026-11-05; the 251119_171017 copy of this era may be intact
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_3.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_4.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_5.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_6.root
+/pnfs/hep.ph.ic.ac.uk/data/cms/store/user/tafoyava/samples/bParking/2024/ParkingDoubleMuonLowMass6/nanotron-v15_2024__from_Run2024C-MINIv6NANOv15-v1/260405_004433/0000/nano_15.root

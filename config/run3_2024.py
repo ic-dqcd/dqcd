@@ -904,9 +904,9 @@ class Config(legacy_config):
             # ------
             # DATA datasets to use in  initial studies, processes a single file per epoch branch
 
-            Dataset("data_2024_singlemu_HalfPerMil_epoch0",
+            Dataset("data_2024_singlemu_HalfPerMil_epoch3",
                 folder=[
-                    sample_path_2024 + "ParkingSingleMuon0",
+                    sample_path_2024 + "ParkingSingleMuon3",
                 ],
                 process=self.processes.get("data"),
                 check_empty=False,
@@ -918,9 +918,9 @@ class Config(legacy_config):
                 },
             ),
 
-            Dataset("data_2024_doublemu_HalfPerMil_epoch0",
+            Dataset("data_2024_doublemu_HalfPerMil_epoch3",
                 folder=[
-                    sample_path_2024 + "ParkingDoubleMuonLowMass0",
+                    sample_path_2024 + "ParkingDoubleMuonLowMass3",
                 ],
                 process=self.processes.get("data"),
                 check_empty=False,
